@@ -1,10 +1,24 @@
 {
-  "entry": "src/index.js",
+  "entry": "src/*.js",
+  "disableCSSModules": true,
   "env": {
     "development": {
+      "proxy": {
+         "/ws/chat": {
+            "target": "ws://localhost:3000/",
+            "changeOrigin": true,
+            "pathRewrite": { "^/ws/chat" : "/ws/chat" }
+         },
+         "/api/*": {
+            "target": "http://localhost:3000/",
+             "changeOrigin": true,
+             "pathRewrite": { "^/api" : "/api" }
+         }
+      },
       "extraBabelPlugins": [
         "dva-hmr",
-        "transform-runtime"
+        "transform-runtime",
+         ["import", { "libraryName": "antd", "style": "css" }]
       ]
     },
     "production": {

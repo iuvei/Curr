@@ -1,0 +1,19 @@
+.r_aside .receipts .top{width:100%;height:41px;border-bottom:1px solid #CBCBCB;line-height:40px;padding-left:66px;position:relative;font-size:16px;color:#333;}
+.r_aside .receipts .top a{line-height:40px;font-size:16px;color:#333;}
+.r_aside .receipts .top:before{position:absolute;content:"";width:25px;height:20px;background:url(../images/icon-15.png)no-repeat;top:10px;left:30px;}
+.r_aside .receipts .bottom .b_content{width:95%;margin:auto;border-bottom:1px dashed #ccc;padding:15px 0;}
+.r_aside .receipts .bottom .b_content .left{width:14%;text-align:right;font-size:14px;color:#333;margin-right:30px;}
+.r_aside .receipts .bottom .b_content .left span{display:block;font-size:14px;color:#333;margin-top:15px;height:32px;line-height:32px;}
+
+.r_aside .receipts .bottom .b_content .right .ip1{width:68px;height:21px;border:1px solid #A5A5A5;background:url(../images/bg-color.png)repeat-x;
+  font-size:12px;color:#010101;text-align:center;line-height:18px;}
+.r_aside .receipts .bottom .b_content .right span{width:12px;color:#337AB7;vertical-align:middle;margin:0 5px; }
+.r_aside .receipts .bottom .b_content .right .ip2{width:60px;height:25px;font-size:14px;color:#fff;background:#1AB394;border-radius:5px;margin-right:10px;
+  text-align:center;line-height:25px;}
+.r_aside .receipts .bottom .b_content .right img{width:130px;height:130px;display:block;margin-top:18px;}
+.r_aside .receipts .bottom .b_content .right .ip3{width:302px;height:32px;border:1px solid #ccc;display:block;margin-top:15px;padding-left:10px;
+  font-size:14px;}
+.r_aside .receipts .bottom .btn{margin-left:18%;margin-top:48px;}
+.r_aside .receipts .bottom .btn input{width:100px;height:35px;border-radius:5px;margin-right:40px;text-align:center;line-height:35px;font-size:16px;color:#fff;}
+.r_aside .receipts .bottom .btn .ip1{background:#1AB394;}
+.r_aside .receipts .bottom .btn .ip2{background:#ED5565;}

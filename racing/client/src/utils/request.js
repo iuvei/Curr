@@ -23,8 +23,13 @@ function checkStatus(response) {
  */
 export default function request(url, options) {
   return fetch(url, options)
-    .then(checkStatus)
+    //.then(checkStatus)
     .then(parseJSON)
-    .then(data => ({ data }))
+    .then((data) => {
+      if (data.error !== undefined) {
+        return { success: false, error: data.error };
+      }
+      return { success: true, result: data };
+    })
     .catch(err => ({ err }));
 }

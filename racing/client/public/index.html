@@ -10,7 +10,42 @@
 
 <div id="root"></div>
 
+
+
 <script src="index.js"></script>
+<script src="js/jquery.min.js"></script>
+<script>
+  $(function () {
+    //侧边栏展开效果
+    $(".level1>a.tit").click(function () {
+      $(this).addClass('current')   //给当前元素添加"current"样式
+        .find('i').addClass('down')   //小箭头向下样式
+        .parent().next().slideDown(200)  //下一个元素显示
+        .parent().siblings().children('a').removeClass('current')//父元素的兄弟元素的子元素去除"current"样式
+        .find('i').removeClass('down').parent().next().slideUp(200);//隐藏
+      return false; //阻止默认时间
+    });
+
+
+    // 弹窗函数
+    function popupFunc(openBtn, closeBtn, switObj) {
+      $(openBtn).on("click",  function () { $(switObj).css('display', 'block'); });
+      $(closeBtn).on("click", function () { $(switObj).css('display', 'none'); });
+    }
+
+    // 上分弹窗
+    popupFunc('.member input.ip1', '.popup .closeBtn', '#shangfen');
+    // 下分弹窗
+    popupFunc('.member input.ip2', '.popup .closeBtn', '#xiafen');
+    // 禁用弹窗
+    popupFunc('.member input.ip3', '.popup .closeBtn', '#DisablePopup');
+    // 编辑弹窗
+    popupFunc('.member input.ip4', '.popup .closeBtn', '#editPopup');
+    // 编辑弹窗
+    popupFunc('.member input.ip5', '.popup .closeBtn', '#startPopup');
+  });
+
+</script>
 
 </body>
 </html>
