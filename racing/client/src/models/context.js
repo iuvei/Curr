@@ -6,12 +6,11 @@ export default {
   namespace: 'app',
 
   state: {
-    current: 'index',
+    current: '/index',
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
-      console.log('=======================================================')
       return history.listen(({ pathname, query }) => {
         dispatch({ type: 'updateState', payload: { current: pathname } });
       });

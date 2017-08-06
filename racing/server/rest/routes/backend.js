@@ -1,13 +1,43 @@
 const BackendSettings = require('../controllers/backend/settings');
+const BackendUsers = require('../controllers/backend/user');
+
+const BackendQuiz = require('../controllers/backend/quiz');
+const BackendUpDowns = require('../controllers/backend/updowns');
 //import { BackendMain,BackendArticle,BackendUser, BackendSettings } from '../controllers/backend.export';
 const router = require('koa-router')();
 router.prefix('/api')
 router
   //.get('/', BackendMain.Index)
 
-  // 管理后台
-    .get('/settings', BackendSettings.getSettings)
-    .post('/settings', BackendSettings.setSettings)
+  // 平台设置
+    .get('/settings/platfrom', BackendSettings.getConfing)
+    .post('/settings/platfrom', BackendSettings.setConfig)
+
+    // 全局设置
+    .get('/settings/race', BackendSettings.getRaceConfig)
+    .post('/settings/race', BackendSettings.setRaceConfig)
+
+    // 收款账户
+    .get('/settings/payment', BackendSettings.getPayMentConfig)
+    .post('/settings/payment', BackendSettings.setPayMentConfig)
+
+    // 下注设置
+    .get('/settings/betting', BackendSettings.getBettingConfig)
+    .post('/settings/betting', BackendSettings.setBettingConfig)
+
+    // 会员
+    .get('/users', BackendUsers.getALlUsers)
+    .post('/users', BackendUsers.createUser)
+
+    // 竞猜
+    .get('/quizs', BackendQuiz.getALlQuizs)
+    .post('/quizs', BackendQuiz.createQuiz)
+
+    // 竞猜
+    .get('/updowns', BackendUpDowns.getALlUpDowns)
+    .post('/updowns', BackendUpDowns.createUpDown)
+
+    .get('/updowns/review', BackendUpDowns.getALlReviewUpDowns)
   
   // // 用户相关
   // .post('/server/login', BackendUser.signIn)                                   // 用户登录验证接口

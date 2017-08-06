@@ -1,63 +1,59 @@
-/*
-* @ author sessionboy 
-* @ github https://github.com/sessionboy
-* @ website http://sinn.boyagirl.com
-* @ use 管理后台文章相关接口逻辑层
-*/ 
-
-import mongoose from 'mongoose';
-import md5 from 'md5';
-import Adminconfig from '../../../config/admin';
-const AdminUserModel = mongoose.model('AdminUser');
-const CategoryModel = mongoose.model('Category');
-const TopCategoryModel = mongoose.model('TopCategory');
+const md5 = require('md5');
+const UserModel = require('../../models/user/user.model');
 
 class BackendUser {
-  
-  // 添加管理员
-  static async create_user(ctx){
-   const { name, nickname, password } = ctx.request.body;
-   console.log(ctx.request.body);
-   if(!name||!password) return ctx.render('error',{
-      message: '用户或密码不能为空!',
-      error: { status:400 }
-    })
-   const isexit = await AdminUserModel.findOne({name,password: md5(password)});
-   if(isexit) return ctx.render('error',{
-      message: '该用户已存在!',
-      error: { status:400 }
-   })
-   const result = await AdminUserModel.create({name,nickname,password: md5(password)});
-   ctx.redirect('/');
-  }
 
-  // 后台用户登录
-  static async signIn(ctx) {
-    const { name, password } = ctx.request.body;
-    console.log(ctx.request.body);
-    if(!name||!password) return ctx.render('error',{
-      message: '信息填写错误!',
-      error: { status:404 }
-    })
-    if(name == Adminconfig.name && md5(password)==Adminconfig.password){
-      ctx.session.user = { name, password };
-      ctx.redirect('/server/home');
+    // 成员
+    static async createUser(ctx) {
+        const {username, nickname, password} = ctx.request.body;
+        console.log(ctx.request.body);
+        if (!username || !password) return ctx.body = {message: '用户名密码为空', code: 400}
+        const isexit = await UserModel.findOne({username});
+        if (isexit) return ctx.body = {message: '用户名已存在', code: 400}
+        const result = await UserModel.create({username, nickname, password: md5(password)});
+        if (result) return ctx.body = {code: 200, data: result}
+        else ctx.body = {data: result, code: 400}
     }
-    const result = await AdminUserModel.findOne({name,password: md5(password)});
-    if(!result) return ctx.render('error',{
-      message: '用户或密码错误!',
-      error: { status:400 }
-    })
-    ctx.session.user = result;
-    ctx.redirect('/server/home');
-  }
 
-  // 后台用户退出
-  static async signOut(ctx) {
-    ctx.session.user = null;
-    return ctx.render('login', { title: 'SInn管理平台'});
-  }
+    // 成员
+    static async getALlUsers(ctx) {
+        var {pageSize, currPage, username} = ctx.request.query;
+        pageSize = (pageSize === undefined || Number(pageSize) < 0) ? 10 : Number(pageSize);
+        currPage = (currPage === undefined || Number(currPage) < 0) ? 1 : Number(currPage);
+        const query = {};
+        if (username !== undefined && username !== '') {
+            query.username = {'$regex': eval(`/${username}.*/i`)}
+        }
+
+        const users = await UserModel.find(query).sort({"_id": 1}).skip((currPage - 1) * pageSize).limit(pageSize);
+        if (!users) {
+            return ctx.body = {message: '获取设置信息失败', code: 404}
+        }
+        const count = await UserModel.find({}).count();
+        return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count/pageSize)}
+    }
+
+    // 后台用户登录
+    static async signIn(ctx) {
+        const {username, password} = ctx.request.body;
+        console.log(ctx.request.body);
+        if (!username || !password) return ctx.body = {message: '用户名密码为空', code: 404}
+        // if (name == Adminconfig.name && md5(password) == Adminconfig.password) {
+        //     ctx.session.user = {name, password};
+        //     ctx.redirect('/server/home');
+        // }
+        const result = await UserModel.findOne({name, password: md5(password)});
+        if (!result) return ctx.body = {message: '登录失败', code: 404}
+        ctx.session.user = result;
+        return ctx.body = {data: result, code: 200};
+    }
+
+    // 后台用户退出
+    static async signOut(ctx) {
+        ctx.session.user = null;
+        return ctx.body = {data: result, code: 200};
+    }
 
 }
 
-export default BackendUser;
+module.exports = BackendUser;

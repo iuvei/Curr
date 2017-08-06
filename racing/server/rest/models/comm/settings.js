@@ -8,7 +8,7 @@ const Schema = mongoose.Schema;
 
 const SettingsSchema = new Schema({
     type: {type: String, required: true },
-    data: { type: Object, default: {} },
+    config: { type: Object, default: {} },
     createdAt: { type: Date, default: Date.now()},
     updatedAt: { type: Date, default: Date.now() }
 });

@@ -7,6 +7,7 @@ const serve = require('koa-static')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
+app.use(bodyparser({jsonLimit: "10mb"}));
 
 const session = require('koa-session')
 require('./rest/models/db')

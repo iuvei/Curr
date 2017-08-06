@@ -5,8 +5,7 @@ import Nav from '../components/Layout/Nav';
 import '../assets/backend/css/common.css';
 
 function IndexPage({children, dispatch, app}) {
-  console.log('==', app)
-  //const {current} = app;
+  const {current} = app;
 
   function handleOk(data) {
     dispatch({
@@ -16,7 +15,7 @@ function IndexPage({children, dispatch, app}) {
   }
 
   const siderProps = {
-   // current,
+   current,
   }
   return (
     <div>
@@ -28,7 +27,6 @@ function IndexPage({children, dispatch, app}) {
 }
 
 function mapStateToProps(state) {
-  console.log('===================', state)
   return {app: state.app, loading: state.loading.models.app};
 }
 

@@ -1,156 +1,127 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/backend/css/upDownApplication.css';
+import moment from 'moment';
+import Paging from '../../components/paging/Paging'
+import {updateUpDown, getAllUpDowns} from '../../services/updowns';
+import {message} from 'antd';
 /**
  * Created by sven on 2017/8/4.
  */
 
 export default class UpDownApplication extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      upDowns: {data: []},
+      type: this.props.location.state.type,
     }
+  }
 
-    render() {
-        return (
-          <div className="r_aside">
-            <form action="">
-              <div className="application">
-                <div className="top">下分申请</div>
-                <div className="bottom">
-                  <form action="">
-                    <div className="search">
-                      <input type="text" placeholder="请输入用户名" className="ip1"/>
-                        <input type="submit" value="搜索" className="ip2"/>
-                    </div>
-                    <div className="tab">
-                      <table style={{border:1}}>
-                        <tr>
-                          <th width="80">头像</th> <th width="160">用户名</th> <th width="150">下分金额</th> <th width="150">当前余额</th>
-                          <th width="200">申请时间</th> <th width="110">提现方式</th> <th width="200">账号</th>
-                          <th width="200">备注</th> <th width="190">操作</th>
-                        </tr>
-                        <tr>
-                          <td width="80"><img src="images/1.jpg" alt=""/></td>
-                          <td width="160">jingjiang1920</td>
-                          <td width="150">2000.00</td>
-                          <td width="150">00.00</td>
-                          <td width="200"><span className="sp1">2017-07-18 </span>   <span className="sp2">17:42:57</span></td>
-                          <td width="110">微信</td>
-                          <td width="200">jingjiang1920</td>
-                          <td width="200"></td>
-                          <td width="190">
-                            <input type="submit" value="通过" className="ip1"/>
-                              <input type="submit" value="忽略" className="ip2"/>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td width="80"><img src="images/1.jpg" alt=""/></td>
-                          <td width="160">jingjiang1920</td>
-                          <td width="150">1500.00</td>
-                          <td width="150">00.00</td>
-                          <td width="200"><span className="sp1">2017-07-18 </span>   <span className="sp2">17:42:57</span></td>
-                          <td width="110">微信</td>
-                          <td width="200">dfjkhdf500</td>
-                          <td width="200"></td>
-                          <td width="190">
-                            <input type="submit" value="通过" className="ip1"/>
-                              <input type="submit" value="忽略" className="ip2"/>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td width="80"><img src="images/1.jpg" alt=""/></td>
-                          <td width="160">jingjiang1920</td>
-                          <td width="150">60000.00</td>
-                          <td width="150">00.00</td>
-                          <td width="200"><span className="sp1">2017-07-18 </span>   <span className="sp2">17:42:57</span></td>
-                          <td width="110">支付宝</td>
-                          <td width="200">562451255@qq.com</td>
-                          <td width="200"></td>
-                          <td width="190">
-                            <input type="submit" value="通过" className="ip1"/>
-                              <input type="submit" value="忽略" className="ip2"/>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td width="80"><img src="images/1.jpg" alt=""/></td>
-                          <td width="160">jingjiang1920</td>
-                          <td width="150">900.00</td>
-                          <td width="150">00.00</td>
-                          <td width="200"><span className="sp1">2017-07-18 </span>   <span className="sp2">17:42:57</span></td>
-                          <td width="110">银行卡</td>
-                          <td width="200">6228453226701589170</td>
-                          <td width="200">农业银行深圳坂田支行 冷运江</td>
-                          <td width="190">
-                            <input type="submit" value="通过" className="ip1"/>
-                              <input type="submit" value="忽略" className="ip2"/>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td width="80"><img src="images/1.jpg" alt=""/></td>
-                          <td width="160">jingjiang1920</td>
-                          <td width="150">750.00</td>
-                          <td width="150">00.00</td>
-                          <td width="200"><span className="sp1">2017-07-18 </span>   <span className="sp2">17:42:57</span></td>
-                          <td width="110">支付宝</td>
-                          <td width="200">12121212@qq.com</td>
-                          <td width="200"></td>
-                          <td width="190">
-                            <input type="submit" value="通过" className="ip1"/>
-                              <input type="submit" value="忽略" className="ip2"/>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td width="80"><img src="images/1.jpg" alt=""/></td>
-                          <td width="160">jingjiang1920</td>
-                          <td width="150">2800.00</td>
-                          <td width="150">00.00</td>
-                          <td width="200"><span className="sp1">2017-07-18 </span>   <span className="sp2">17:42:57</span></td>
-                          <td width="110">微信</td>
-                          <td width="200">dkfsdfkl255</td>
-                          <td width="200"></td>
-                          <td width="190">
-                            <input type="submit" value="通过" className="ip1"/>
-                              <input type="submit" value="忽略" className="ip2"/>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td width="80"><img src="images/1.jpg" alt=""/></td>
-                          <td width="160">jingjiang1920</td>
-                          <td width="150">9457.00</td>
-                          <td width="150">00.00</td>
-                          <td width="200"><span className="sp1">2017-07-18 </span>   <span className="sp2">17:42:57</span></td>
-                          <td width="110">银行卡</td>
-                          <td width="200">6228453226701589170</td>
-                          <td width="200">农业银行深圳坂田支行 冷运江</td>
-                          <td width="190">
-                            <input type="submit" value="通过" className="ip1"/>
-                              <input type="submit" value="忽略" className="ip2"/>
-                          </td>
-                        </tr>
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.state.type!==this.state.type) {
+      this.queryUpdowns(1, 10, nextProps.location.state.type);
+    }
+  }
 
-                      </table>
-                      <div className="page">
-                        <a href="#" className="a1"></a>
-                        <a href="#" className="a2" style={{background:'#19B293', color:'#fff', borderRadius:'5px'}}>1</a>
-                        <a href="#" className="a2">2</a>
-                        <a href="#" className="a2">3</a>
-                        <a href="#" className="a2">4</a>
-                        <a href="#" className="a2">5</a>
-                        <a href="#" className="a2">6</a>
-                        <a href="#" className="a2">7</a>
-                        <a href="#" className="a2">8</a>
-                        <a href="#" className="a2">9</a>
-                        <a href="#" className="a2">10</a>
-                        <a href="#" className="a1"></a>
-                      </div>
-                    </div>
-                  </form>
+
+  componentDidMount() {
+    this.queryUpdowns(1, 10, this.props.location.state.type);
+  }
+
+  queryUpdowns(currPage, pageSize, type) {
+    type =  type===undefined?this.state.type:type
+    getAllUpDowns({pageSize, currPage, type: type===undefined?this.state.type:type,username: this.state.keyWord })
+      .then(data => {
+        if (data.success) {
+          this.setState({
+            upDowns: data.result,
+            type,
+          });
+        } else {
+          this.setState({
+            type,
+          })
+        }
+      })
+  }
+
+  queryUpdownsByName() {
+    this.queryUpdowns(1, 20, this.state.type)
+  }
+
+  onSearchInputChange(e) {
+    this.setState({
+      keyWord: e.target.value.trim(),
+    })
+  }
+
+
+  render() {
+    return (
+      <div className="r_aside">
+        <form action="">
+          <div className="application">
+            <div className="top">{this.state.type ? "上分申请" : "下分申请"}</div>
+            <div className="bottom">
+              <form action="">
+                <div className="search">
+                  <input type="text" placeholder="请输入用户名" className="ip1"
+                         value={this.state.keyWord || ''} onChange={this.onSearchInputChange.bind(this)}/>
+                  <input type="submit" value="搜索" className="ip2" onClick={this.queryUpdownsByName.bind(this)}/>
                 </div>
-              </div>
-            </form>
+                <div className="tab">
+                  <table style={{border: 1}}>
+                    <tr>
+                      <th width="80">头像</th>
+                      <th width="160">用户名</th>
+                      <th width="100">{this.state.type ? "上分金额" : "下分金额"}</th>
+                      <th width="100">当前余额</th>
+                      <th width="150">申请时间</th>
+                      <th width="110">提现方式</th>
+                      <th width="200">账号</th>
+                      <th width="200">备注</th>
+                      <th width="290">操作</th>
+                    </tr>
+
+                    {
+                      this.state.upDowns.data.map((item, i) => {
+                        return (
+                          <tr key={i}>
+                            <td width="80"><img src={item.avatar} alt=""/></td>
+                            <td width="160">{item.username}</td>
+                            <td width="100">{item.amount}</td>
+                            <td width="100">{item.balance}</td>
+                            <td width="200">
+                              <span className="sp1">{moment(item.createdAt).format('YYYY-MM-DD')}</span>
+                              <br/>
+                              <span className="sp2">{moment(item.createdAt).format('HH:mm:ss')}</span></td>
+                            <td width="110">{item.backMethod}</td>
+                            <td width="150">{item.backNo}</td>
+                            <td width="200">{item.profile}</td>
+                            <td width="290">
+                              <input type="submit" value="通过" className="ip1"/>
+                              <input type="submit" value="忽略" className="ip2"/>
+                            </td>
+                          </tr>
+                        );
+                      })
+                    }
+                  </table>
+                  <Paging
+                    currPage={this.state.upDowns.currPage}
+                    pageSize={this.state.upDowns.pageSize}
+                    total={this.state.upDowns.total}
+                    callBack={this.queryUpdowns.bind(this)}
+                  />
+                </div>
+              </form>
+            </div>
           </div>
+        </form>
+      </div>
     );
-    }
+  }
 }
 
 

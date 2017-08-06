@@ -22,14 +22,16 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
+  options.headers = { 'Accept': 'application/json', 'Content-Type': 'application/json' }
   return fetch(url, options)
     //.then(checkStatus)
     .then(parseJSON)
     .then((data) => {
-      if (data.error !== undefined) {
-        return { success: false, error: data.error };
+      if (data.code >= 200 && data.code < 300) {
+        return { success: true, result: data };
       }
-      return { success: true, result: data };
+      return { success: false, error: data.error };
+
     })
     .catch(err => ({ err }));
 }

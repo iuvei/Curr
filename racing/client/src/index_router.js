@@ -34,7 +34,8 @@ function RouterConfig({history}) {
         <Route path="setbetting" component={SetBetting}/>
         <Route path="member" component={Member}/>
         <Route path="quiz" component={Quiz}/>
-        <Route path="updown_App" component={UpDownApplication}/>
+        <Route path="updown_up" component={UpDownApplication}/>
+        <Route path="updown_down" component={UpDownApplication}/>
         <Route path="upddown_recepites" component={UpDownRecepits}/>
         <Route path="updown_review" component={UpDownReview}/>
         <Route path="proxy" component={Proxy}/>
@@ -51,8 +52,6 @@ function RouterConfig({history}) {
       </Route>
     </Router>
   );
-
-
 }
 
 export default RouterConfig;
