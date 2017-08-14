@@ -19,19 +19,18 @@ export default class UpDownApplication extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.location.state.type!==this.state.type) {
+    if (nextProps.location.state.type !== this.state.type) {
       this.queryUpdowns(1, 10, nextProps.location.state.type);
     }
   }
-
 
   componentDidMount() {
     this.queryUpdowns(1, 10, this.props.location.state.type);
   }
 
   queryUpdowns(currPage, pageSize, type) {
-    type =  type===undefined?this.state.type:type
-    getAllUpDowns({pageSize, currPage, type: type===undefined?this.state.type:type,username: this.state.keyWord })
+    type = type === undefined ? this.state.type : type
+    getAllUpDowns({pageSize, currPage, type: type === undefined ? this.state.type : type, username: this.state.keyWord})
       .then(data => {
         if (data.success) {
           this.setState({

@@ -3,6 +3,10 @@ const BackendUsers = require('../controllers/backend/user');
 
 const BackendQuiz = require('../controllers/backend/quiz');
 const BackendUpDowns = require('../controllers/backend/updowns');
+
+const BackendStat = require('../controllers/backend/stat');
+
+const BackendLottery =  require('../controllers/backend/lotterys');
 //import { BackendMain,BackendArticle,BackendUser, BackendSettings } from '../controllers/backend.export';
 const router = require('koa-router')();
 router.prefix('/api')
@@ -26,8 +30,11 @@ router
     .post('/settings/betting', BackendSettings.setBettingConfig)
 
     // 会员
-    .get('/users', BackendUsers.getALlUsers)
+    .get('/users', BackendUsers.getAllUsers)
     .post('/users', BackendUsers.createUser)
+
+    .get('/agents', BackendUsers.getAllAgents)
+    .post('/agents', BackendUsers.addAgent)
 
     // 竞猜
     .get('/quizs', BackendQuiz.getALlQuizs)
@@ -36,8 +43,18 @@ router
     // 竞猜
     .get('/updowns', BackendUpDowns.getALlUpDowns)
     .post('/updowns', BackendUpDowns.createUpDown)
-
     .get('/updowns/review', BackendUpDowns.getALlReviewUpDowns)
+
+    // 统计
+    .get('/stat/brokerages', BackendStat.getAllBrokerageRecords)
+    .post('/stat/brokerages', BackendStat.createBrokerage)
+    //.get('/stat/bonus', BackendStat.getALlReviewUpDowns)
+
+    .get('/stat/lotterys', BackendLottery.getAllLotterysRecords)
+    //.post('/stat/lotterys', BackendCrawler.create)
+
+    .get('/stat/users', BackendStat.getAllUserStats)
+    .post('/stat/users', BackendStat.createUserStat)
   
   // // 用户相关
   // .post('/server/login', BackendUser.signIn)                                   // 用户登录验证接口

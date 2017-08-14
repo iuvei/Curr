@@ -22,14 +22,25 @@ export default class UpDownReview extends Component {
   }
 
   queryReviewUpdowns(currPage, pageSize, startTime, endTime) {
-    console.log('====queryReviewUpdowns=====',currPage, pageSize, startTime, endTime, this.state.username)
-    getALlReviewUpDowns({pageSize, currPage,startTime, endTime, username: this.state.username})
+    getALlReviewUpDowns({
+      pageSize,
+      currPage,
+      startTime: startTime || '',
+      endTime: endTime || '',
+      username: this.state.username
+    })
       .then(data => {
         if (data.success) {
           this.setState({
             reviewUpdowns: data.result,
+            startTime,
+            endTime,
           });
         } else {
+          this.setState({
+            startTime,
+            endTime,
+          });
         }
       })
   }
@@ -45,6 +56,7 @@ export default class UpDownReview extends Component {
       startTime: e.target.value.trim(),
     })
   }
+
   onEndTimeInputChange(e) {
     this.setState({
       endTime: e.target.value.trim(),
@@ -54,16 +66,16 @@ export default class UpDownReview extends Component {
   searchReviewUpdowns = (duration) => {
     switch (duration) {
       case "Today":
-        this.queryReviewUpdowns(1, 10, moment().startOf('day'), moment().endOf('day'));
+        this.queryReviewUpdowns(1, 10, moment().format("YYYY-MM-DD"), moment().add(1, 'day').format("YYYY-MM-DD"));
         break;
       case "Yesterday":
-        this.queryReviewUpdowns(1, 10, moment().add(-1, 'day').startOf('day'), moment().add(-1, 'day').endOf('day'));
+        this.queryReviewUpdowns(1, 10, moment().add(-1, 'day').format("YYYY-MM-DD"), moment().format("YYYY-MM-DD"));
         break;
       case "Week":
-        this.queryReviewUpdowns(1, 10, moment().startOf('week'), moment().endOf('week'));
+        this.queryReviewUpdowns(1, 10, moment().add(-7, 'day').format("YYYY-MM-DD"), moment().format("YYYY-MM-DD"));
         break;
       case "Month":
-        this.queryReviewUpdowns(1, 10, moment().startOf('month'), moment().endOf('month'));
+        this.queryReviewUpdowns(1, 10, moment().add(-30, 'day').format("YYYY-MM-DD"), moment().format("YYYY-MM-DD"));
         break;
       default:
         this.queryReviewUpdowns(1, 10, this.state.startTime, this.state.endTime);
@@ -80,16 +92,17 @@ export default class UpDownReview extends Component {
               <form action="">
                 <div className="search clearfloat">
                   <input type="date" placeholder="起始时间" className="ip1 "
-                         value={this.state.startTime || '1501948800000'} onChange={this.onStartTimeInputChange.bind(this)}/>
+                         value={this.state.startTime} onChange={this.onStartTimeInputChange.bind(this)}/>
                   <input type="date" placeholder="结束时间" className="ip1 "
-                         value={moment(this.state.endTime).format('YYYY-MM-DD')} onChange={this.onEndTimeInputChange.bind(this)}/>
+                         value={this.state.endTime} onChange={this.onEndTimeInputChange.bind(this)}/>
                   <input type="text" placeholder="请输入用户名" className="ip1"
                          value={this.state.username || ''} onChange={this.onSearchInputChange.bind(this)}/>
-                  <input type="submit" value="搜索" className="ip3" onClick={()=>this.searchReviewUpdowns()}/>
-                  <input type="submit" value="今天" className="ip3" onClick={()=>this.searchReviewUpdowns("Today")}/>
-                  <input type="submit" value="昨天" className="ip3" onClick={()=>this.searchReviewUpdowns("Yesterday")}/>
-                  <input type="submit" value="最近一周" className="ip3" onClick={()=>this.searchReviewUpdowns("Week")}/>
-                  <input type="submit" value="最近一月" className="ip3" onClick={()=>this.searchReviewUpdowns("Month")}/>
+                  <input type="submit" value="搜索" className="ip3" onClick={() => this.searchReviewUpdowns()}/>
+                  <input type="submit" value="今天" className="ip3" onClick={() => this.searchReviewUpdowns("Today")}/>
+                  <input type="submit" value="昨天" className="ip3"
+                         onClick={() => this.searchReviewUpdowns("Yesterday")}/>
+                  <input type="submit" value="最近一周" className="ip3" onClick={() => this.searchReviewUpdowns("Week")}/>
+                  <input type="submit" value="最近一月" className="ip3" onClick={() => this.searchReviewUpdowns("Month")}/>
                 </div>
 
                 <div className="tab">

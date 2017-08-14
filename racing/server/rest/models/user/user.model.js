@@ -12,6 +12,9 @@ const UserSchema = new Schema({
     rebatepoint: {type: Number, default: 0},
     password: {type: String, required: true},
     createdAt: {type: Date, default: Date.now},
+
+    //
+    agentname: {type: String}, //被谁推荐的
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -1,117 +1,93 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/backend/css/dataGather.css'
+import {getAllLotterys} from '../../services/stat';
+import Paging from '../../components/paging/Paging'
 /**
  * Created by sven on 2017/8/4.
  */
 
-export default class DataGather  extends Component {
-    constructor(props) {
-        super(props);
+export default class DataGather extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      records: {data: []}
     }
+  }
 
-    render() {
-        return (
-          <div className="r_aside">
-            <div className="position">
-              <span>数据采集</span>
-            </div>
-            <section className="mainBox clearfloat">
-              <div className="search">
-                <input type="text" placeholder="请输入开奖期号"/>
-                  <button type="button">搜索</button>
-              </div>
-              <table cellspacing="0" cellpadding="0">
-                <thead>
-                <tr>
-                  <th width="120">类型</th>
-                  <th width="120">期号</th>
-                  <th width="230">开奖时间</th>
-                  <th width="430">开奖号码</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                <tr>
-                  <td>北京赛车</td>
-                  <td>628809</td>
-                  <td>2017-07-18&emsp;17:42:57</td>
-                  <td>01、08、09、10、06、03、07、05、04、02</td>
-                </tr>
-                </tbody>
-              </table>
-              <div className="paging">
-                <a href="javascript:;" className="prev">&lt;&lt;</a>
-                <a href="javascript:;">1</a>
-                <a href="javascript:;" className="cur">2</a>
-                <a href="javascript:;">3</a>
-                <a href="javascript:;">4</a>
-                <a href="javascript:;">5</a>
-                <a href="javascript:;">6</a>
-                <a href="javascript:;">7</a>
-                <a href="javascript:;">8</a>
-                <a href="javascript:;">9</a>
-                <a href="javascript:;">10</a>
-                <a href="javascript:;" className="next">&gt;&gt;</a>
-              </div>
-            </section>
+  componentDidMount() {
+    this.queryLotteryRecords(1, 10)
+  }
+
+  queryLotteryRecords(currPage, pageSize) {
+    getAllLotterys({pageSize, currPage, no: this.state.no})
+      .then(data => {
+        if (data.success) {
+          this.setState({
+            records: data.result,
+          });
+        } else {
+          this.setState({})
+        }
+      })
+  }
+
+  queryLotteryRecordsByDate() {
+    this.queryLotteryRecords(1, 10)
+  }
+
+  onNoInputChange(e) {
+    this.setState({
+      no: e.target.value.trim(),
+    })
+  }
+
+  render() {
+    return (
+      <div className="r_aside">
+        <div className="position">
+          <span>数据采集</span>
+        </div>
+        <section className="mainBox clearfloat">
+          <div className="search">
+            <input type="text" placeholder="请输入开奖期号"
+                   value={this.state.no} onChange={this.onNoInputChange.bind(this)}/>
+            <button type="button" onClick={this.queryLotteryRecordsByDate.bind(this)}>搜索</button>
           </div>
-
+          <table cellSpacing="0" cellPadding="0">
+            <thead>
+            <tr>
+              <th width="120">类型</th>
+              <th width="120">期号</th>
+              <th width="230">开奖时间</th>
+              <th width="430">开奖号码</th>
+            </tr>
+            </thead>
+            <tbody>
+            {
+              this.state.records.data.map((item, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{item.name}</td>
+                    <td>{item.no}</td>
+                    <td>{item.createdAt}</td>
+                    <td>{item.code}</td>
+                  </tr>
+                );
+              })
+            }
+            </tbody>
+          </table>
+          <Paging
+            currPage={this.state.records.currPage}
+            pageSize={this.state.records.pageSize}
+            total={this.state.records.total}
+            callBack={this.queryLotteryRecords.bind(this)}
+          />
+        </section>
+      </div>
     );
-    }
+  }
 }
 
 

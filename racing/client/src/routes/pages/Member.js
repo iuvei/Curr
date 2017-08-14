@@ -30,7 +30,7 @@ export default class Member extends Component {
   }
 
   queryUsers(currPage, pageSize) {
-    getAllUsers({pageSize, currPage, username: this.state.keyWord})
+    getAllUsers({pageSize, currPage, })
       .then(data => {
         if (data.success) {
           this.setState({
@@ -110,20 +110,6 @@ export default class Member extends Component {
                     }
                     </tbody>
                   </table>
-                  {/*<div className="page">*/}
-                  {/*<a href="#" className="a1"></a>*/}
-                  {/*<a href="#" className="a2" style={{background:'#19B293', color:'#fff', borderRadius:'5px'}}>1</a>*/}
-                  {/*<a href="#" className="a2">2</a>*/}
-                  {/*<a href="#" className="a2">3</a>*/}
-                  {/*<a href="#" className="a2">4</a>*/}
-                  {/*<a href="#" className="a2">5</a>*/}
-                  {/*<a href="#" className="a2">6</a>*/}
-                  {/*<a href="#" className="a2">7</a>*/}
-                  {/*<a href="#" className="a2">8</a>*/}
-                  {/*<a href="#" className="a2">9</a>*/}
-                  {/*<a href="#" className="a2">10</a>*/}
-                  {/*<a href="#" className="a1"></a>*/}
-                  {/*</div>*/}
                   <Paging
                     currPage={this.state.users.currPage}
                     pageSize={this.state.users.pageSize}

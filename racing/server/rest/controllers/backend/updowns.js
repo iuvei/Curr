@@ -2,7 +2,6 @@ const md5 = require('md5');
 const UpDownModel = require('../../models/quiz/upDown.model');
 
 class BackendUpDown {
-
     // 成员
     static async createUpDown(ctx) {
         const {username, avatar, type, amount, balance, backMethod, backNo, byWho, profile, createdAt, updateAt} = ctx.request.body;
@@ -32,7 +31,7 @@ class BackendUpDown {
         return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count / pageSize)}
     }
 
-    // 成员
+    // 上下分审核
     static async getALlReviewUpDowns(ctx) {
         var {pageSize, currPage, username, startTime, endTime} = ctx.request.query;
         pageSize = (pageSize === undefined || Number(pageSize) < 0) ? 10 : Number(pageSize);
@@ -41,7 +40,17 @@ class BackendUpDown {
         if (username !== undefined && username !== '') {
             query.username = {'$regex': eval(`/${username}.*/i`)}
         }
+        const updateAt = {}
+        if (startTime !== undefined && startTime !== '') {
+            query.updatedAt = updateAt
+            updateAt['$gte'] = new Date(startTime)
+        }
+        if (endTime !== undefined && endTime !== '') {
+            query.updatedAt = updateAt
+            updateAt['$lt'] = new Date(endTime)
+        }
 
+        console.log('======getALlReviewUpDowns=======query:', query)
         const users = await UpDownModel.find(query).sort({"_id": 1}).skip((currPage - 1) * pageSize).limit(pageSize);
         if (!users) {
             return ctx.body = {message: '获取设置信息失败', code: 404}
@@ -49,7 +58,6 @@ class BackendUpDown {
         const count = await UpDownModel.find(query).count();
         return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count / pageSize)}
     }
-
 }
 
 module.exports = BackendUpDown;

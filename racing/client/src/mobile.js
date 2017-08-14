@@ -1,14 +1,22 @@
 import dva from 'dva';
-import './index.css';
+import { hashHistory } from 'dva/router';
+import { message } from 'antd';
+import createLoading from 'dva-loading';
+import './mobile.css';
 
 // 1. Initialize
-const app = dva();
+const app = dva({
+  history: hashHistory,
+  onError(e) {
+    message.error(e.message, /* duration */5);
+  },
+});
 
 // 2. Plugins
-// app.use({});
+app.use(createLoading());
 
 // 3. Model
-// app.model(require('./models/app'));
+app.model(require("./models/mobile"));
 
 // 4. Router
 app.router(require('./mobile_router'));

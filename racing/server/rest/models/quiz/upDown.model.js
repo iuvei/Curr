@@ -14,7 +14,7 @@ const UpDownSchema = new Schema({
     byWho: {type: String}, //操作人员
     profile: {type: String}, //备注
     createdAt: {type: Date, default: Date.now}, //申请时间
-    updateAt: {type: Date}, // 审批时间
+    updatedAt: {type: Date}, // 审批时间
 });
 
 module.exports = mongoose.model('UpDown', UpDownSchema);

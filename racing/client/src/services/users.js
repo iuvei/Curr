@@ -19,3 +19,9 @@ export async function getAllUsers(params) {
   });
 }
 
+export async function getAllAgents(params) {
+  return request(`/api/agents?pageSize=${params.pageSize||10}&currPage=${params.currPage||1}&username=${params.username||''}`,{
+    method: 'get',
+  });
+}
+

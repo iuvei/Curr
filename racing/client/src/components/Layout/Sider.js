@@ -38,12 +38,12 @@ export default class Sider extends Component {
         <div className="title">北京赛车后台管理</div>
         <ul className="menu">
           <li className="level1">
-            <Link className={this.isCurrent(PATH_INDEX)} onClick={this.gotoIndex}><em
-              className="ico ico1"></em>系统主页</Link>
+            <Link className={this.isCurrent(PATH_INDEX)} onClick={this.gotoIndex}>
+              <em className="ico ico1"></em>系统主页</Link>
           </li>
           <li className="level1">
-            <Link className={this.isCurrent(PATH_CONGIG)} onClick={this.gotoConfig}><em
-              className="ico ico2"></em>系统配置</Link>
+            <Link className={this.isCurrent(PATH_CONGIG)} onClick={this.gotoConfig}>
+              <em className="ico ico2"></em>系统配置</Link>
           </li>
           <li className="level1">
             <Link className="tit"><em className="ico ico3"></em>赛车飞艇设置<i></i></Link>
@@ -53,12 +53,12 @@ export default class Sider extends Component {
             </ul>
           </li>
           <li className="level1">
-            <Link className={this.isCurrent(PATH_MEMBER)} onClick={this.gotoMember}><em
-              className="ico ico4"></em>会员管理</Link>
+            <Link className={this.isCurrent(PATH_MEMBER)} onClick={this.gotoMember}>
+              <em className="ico ico4"></em>会员管理</Link>
           </li>
           <li className="level1">
-            <Link className={this.isCurrent(PATH_QUIZ)} onClick={this.gotoQuiz}><em
-              className="ico ico5"></em>竞猜记录</Link>
+            <Link className={this.isCurrent(PATH_QUIZ)} onClick={this.gotoQuiz}>
+              <em className="ico ico5"></em>竞猜记录</Link>
           </li>
           <li className="level1">
             <a href="" className="tit"><em className="ico ico6"></em>上下分管理<i></i></a>
@@ -72,15 +72,16 @@ export default class Sider extends Component {
             </ul>
           </li>
           <li className="level1">
-            <Link className={this.isCurrent(PATH_PROXY)} onClick={this.gotoProxy}><em
-              className="ico ico7"></em>代理推广</Link>
+            <Link className={this.isCurrent(PATH_PROXY)} onClick={this.gotoProxy}>
+              <em className="ico ico7"></em>代理推广</Link>
           </li>
           <li className="level1">
-            <Link className={this.isCurrent(PATH_BROKERAGE)} onClick={this.gotoBrokerage}><em className="ico ico8"></em>会员返水</Link>
+            <Link className={this.isCurrent(PATH_BROKERAGE)} onClick={this.gotoBrokerage}>
+              <em className="ico ico8"></em>会员返水</Link>
           </li>
           <li className="level1">
-            <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather}><em
-              className="ico ico9"></em>数据采集</Link>
+            <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather}>
+              <em className="ico ico9"></em>数据采集</Link>
           </li>
           <li className="level1">
             <a href="" className="tit"><em className="ico ico10"></em>输赢统计<i></i></a>
@@ -97,8 +98,8 @@ export default class Sider extends Component {
             </ul>
           </li>
           <li className="level1">
-            <Link className={this.isCurrent(PATH_ANNOUNCEMENT)} onClick={this.gotoAnnouncement}><em
-              className="ico ico12"></em>发布公告</Link>
+            <Link className={this.isCurrent(PATH_ANNOUNCEMENT)} onClick={this.gotoAnnouncement}>
+              <em className="ico ico12"></em>发布公告</Link>
           </li>
         </ul>
       </div>
@@ -157,11 +158,11 @@ export default class Sider extends Component {
   }
 
   gotoStatUsers = () => {
-    hashHistory.push({pathname: PATH_STAT_USERS, state: {from: "index"}});
+    hashHistory.push({pathname: PATH_STAT_USERS, state: {from: "index", type: "user"}});
   }
 
   gotoStatTerrace = () => {
-    hashHistory.push({pathname: PATH_STAT_TERRACE, state: {from: "index"}});
+    hashHistory.push({pathname: PATH_STAT_TERRACE, state: {from: "index", type: "terrace"}});
   }
 
   gotoRobotMgr = () => {

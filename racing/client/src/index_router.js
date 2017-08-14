@@ -12,6 +12,7 @@ import UpDownRecepits from './routes/pages/UpDownRecepits';
 import UpDownReview from './routes/pages/UpDownReview';
 import Proxy from './routes/pages/Proxy';
 import Brokerage from './routes/pages/Brokerage';
+import BrokerageDetail from './routes/pages/BrokerageDetail';
 import DataGather from './routes/pages/DataGather';
 import StatUsers from './routes/pages/StatUsers';
 import StatTerrace from './routes/pages/StatTerrace';
@@ -40,6 +41,7 @@ function RouterConfig({history}) {
         <Route path="updown_review" component={UpDownReview}/>
         <Route path="proxy" component={Proxy}/>
         <Route path="brokerage" component={Brokerage}/>
+        <Route path="brokerage/:id" component={BrokerageDetail}/>
         <Route path="dataGather" component={DataGather}/>
         <Route path="statUsers" component={StatUsers}/>
         <Route path="statTerrace" component={StatTerrace}/>

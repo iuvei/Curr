@@ -21,7 +21,7 @@ export async function getAllUpDowns(params) {
 }
 
 export async function getALlReviewUpDowns(params) {
-  return request(`/api/updowns/review?pageSize=${params.pageSize || 10}&currPage=${params.currPage || 1}&startTime=${params.startTime}&endTime=${params.endTime}&username=${params.username || ''}`, {
+  return request(`/api/updowns/review?pageSize=${params.pageSize || 10}&currPage=${params.currPage || 1}&startTime=${params.startTime || ''}&endTime=${params.endTime || ''}&username=${params.username || ''}`, {
     method: 'get',
   });
 }
