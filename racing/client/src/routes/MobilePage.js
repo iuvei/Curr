@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'dva';
+import io from 'socket.io-client';
 import '../assets/backend/css/common.css';
-
+const socket = io('', {path: '/ws/chat'});
 
 const PATH_AGENCY = "agency"
 const PATH_DETAIL = "detail"
@@ -16,8 +17,9 @@ class MobilePage extends Component {
     super(props);
   }
 
-// function IndexPage({children, dispatch, mobile}) {
-//   const {current} = mobile;
+  componentDidMount() {
+    socket.emit('chat mounted', "--");
+  }
 
    handleOk = (data) => {
     dispatch({
@@ -27,6 +29,7 @@ class MobilePage extends Component {
   }
 
   render () {
+
     return (
       <div>
         {this.props.children}

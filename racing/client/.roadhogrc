@@ -5,9 +5,14 @@
     "development": {
       "proxy": {
          "/ws/chat": {
-            "target": "ws://localhost:3000/",
+            "target": "ws://localhost:3001/",
             "changeOrigin": true,
             "pathRewrite": { "^/ws/chat" : "/ws/chat" }
+         },
+         "/m/api/*": {
+            "target": "http://localhost:3001/",
+            "changeOrigin": true,
+            "pathRewrite": { "^/api" : "/api" }
          },
          "/api/*": {
             "target": "http://localhost:3000/",

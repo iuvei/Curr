@@ -47,5 +47,3 @@ export default class XiaFen extends Component {
         </div>);
     }
 }
-
-

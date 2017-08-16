@@ -51,7 +51,7 @@ export default class ShangFen extends Component {
             <div className="line clearfix">
               <span className="fl">请扫右码</span>
               <div className="fl">
-                <img src="images/wechatPay.jpg" />
+                <img src={require("../../assets/mobile/images/wechatPay.jpg")} />
                   <p className="tip">请使用另外一台手机微信扫码支付</p>
                   <p className="tip">或截屏保存后用微信扫一扫识别支付</p>
               </div>

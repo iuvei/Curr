@@ -23,7 +23,7 @@ export default class  extends Component {
                 <input type="text" title="" placeholder="车道/玩法/金额"/>
                   <button type="submit">发送</button>
               </form>
-              <div className="fl">
+              <div className="text fl">
                 <p>剩余积分：0.00分</p>
                 <p>线上人数：217人</p>
               </div>
