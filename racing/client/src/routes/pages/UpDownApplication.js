@@ -82,7 +82,7 @@ export default class UpDownApplication extends Component {
                       <th width="200">备注</th>
                       <th width="290">操作</th>
                     </tr>
-
+                    <tbody>
                     {
                       this.state.upDowns.data.map((item, i) => {
                         return (
@@ -106,6 +106,7 @@ export default class UpDownApplication extends Component {
                         );
                       })
                     }
+                    </tbody>
                   </table>
                   <Paging
                     currPage={this.state.upDowns.currPage}

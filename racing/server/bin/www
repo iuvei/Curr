@@ -36,7 +36,7 @@ var server = http.createServer(app.callback());
 var frontServer = http.createServer(mobile.callback());
 var io = require('socket.io')(frontServer, {path: '/ws/chat'});
 console.log(io.path);
-var socketEvents = require('../socketEvents')(io);
+var socketEvents = require('../rest/controllers/frontend/socketEvents')(io);
 
 
 /**

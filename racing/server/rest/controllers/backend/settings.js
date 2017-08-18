@@ -21,7 +21,7 @@ class BackendSettings {
         log.debug("setConfig")
         console.log(ctx.request.body);
         const settings = await Settings.update({type : "platfrom"}, {type : "platfrom", config: ctx.request.body}, {upsert: true});
-        return ctx.body = {status: 200, data : settings}
+        return ctx.body = {code: 200, data : settings}
     }
 
     //获取赛车配置
@@ -40,7 +40,7 @@ class BackendSettings {
         log.debug("setSetting")
         console.log(ctx.request.body);
         const settings = await Settings.update({type : "race"}, {type : "race", config: ctx.request.body}, {upsert: true});
-        return ctx.body = {status: 200, data : settings}
+        return ctx.body = {code: 200, data : settings}
     }
 
 
@@ -60,7 +60,7 @@ class BackendSettings {
         log.debug("setSetting")
         console.log(ctx.request.body);
         const settings = await Settings.update({type : "betting"}, {type : "betting", data: ctx.request.body}, {upsert: true});
-        return ctx.body = {status: 200, data : settings}
+        return ctx.body = {code: 200, data : settings}
     }
 
 
@@ -105,7 +105,7 @@ class BackendSettings {
         }
 
         const data = await Payment.update({type}, updateDoc, {upsert: true});
-        return ctx.body = {status: 200, data }
+        return ctx.body = {code: 200, data }
     }
 }
 

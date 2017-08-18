@@ -1,16 +1,49 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/backend/css/robotMgr.css'
+import moment from 'moment';
+import Paging from '../../components/paging/Paging'
+import {message, Input} from 'antd';
+import {addRobot, getAllRobots} from '../../services/robots';
 /**
  * Created by sven on 2017/8/4.
  */
 
 export default class RobotMgr extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
+    this.state = {
+      users: {data: []},
     }
+  }
 
-    render() {
+  componentDidMount() {
+    this.queryRobots(10, 1)
+  }
+
+  queryRobots(pageSize, currPage) {
+    getAllRobots({pageSize, currPage, username: this.state.keyWord})
+      .then(data => {
+        if (data.success) {
+          this.setState({
+            users: data.result,
+          });
+        }
+      })
+  }
+
+  queryRobotByName() {
+    this.queryRobots(10, 1)
+  }
+
+  onSearchInputChange(e) {
+    this.setState({
+      keyWord : e.target.value.trim(),
+    })
+  }
+
+
+  render() {
         return (
         <div className="r_aside">
           <div className="position">
@@ -20,12 +53,12 @@ export default class RobotMgr extends Component {
           </div>
           <section className="mainBox clearfloat">
             <div className="search">
-              <input type="text" placeholder="请输入用户名" title=""/>
-                <button type="submit" className="searchBtn">搜索</button>
+              <input type="text" placeholder="请输入用户名" value={this.state.keyWord||''} onChange={this.onSearchInputChange.bind(this)}/>
+                <button type="submit" className="searchBtn" onClick={this.queryRobotByName.bind(this)}>搜索</button>
                 <button type="button" className="addBtn">增加机器人</button>
                 <button type="button" className="delBtn">删除</button>
             </div>
-            <table cellpadding="0" cellspacing="0">
+            <table cellPadding="0" cellSpacing="0">
               <thead>
               <tr>
                 <th width="80">选择</th>
@@ -35,87 +68,21 @@ export default class RobotMgr extends Component {
               </tr>
               </thead>
               <tbody>
-              <tr>
-                <td><input type="checkbox" title=""/></td>
-                <td><img src="images/userImg.jpg" alt=""/></td>
-                <td>jingjiang1920</td>
-                <td>
-                  <button type="button" className="edit">编辑</button>
-                  <button type="button" className="del">删除</button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" title=""/></td>
-                <td><img src="images/userImg.jpg" alt=""/></td>
-                <td>jingjiang1920</td>
-                <td>
-                  <button type="button" className="edit">编辑</button>
-                  <button type="button" className="del">删除</button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" title=""/></td>
-                <td><img src="images/userImg.jpg" alt=""/></td>
-                <td>jingjiang1920</td>
-                <td>
-                  <button type="button" className="edit">编辑</button>
-                  <button type="button" className="del">删除</button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" title=""/></td>
-                <td><img src="images/userImg.jpg" alt=""/></td>
-                <td>jingjiang1920</td>
-                <td>
-                  <button type="button" className="edit">编辑</button>
-                  <button type="button" className="del">删除</button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" title=""/></td>
-                <td><img src="images/userImg.jpg" alt=""/></td>
-                <td>jingjiang1920</td>
-                <td>
-                  <button type="button" className="edit">编辑</button>
-                  <button type="button" className="del">删除</button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" title=""/></td>
-                <td><img src="images/userImg.jpg" alt=""/></td>
-                <td>jingjiang1920</td>
-                <td>
-                  <button type="button" className="edit">编辑</button>
-                  <button type="button" className="del">删除</button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" title=""/></td>
-                <td><img src="images/userImg.jpg" alt=""/></td>
-                <td>jingjiang1920</td>
-                <td>
-                  <button type="button" className="edit">编辑</button>
-                  <button type="button" className="del">删除</button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" title=""/></td>
-                <td><img src="images/userImg.jpg" alt=""/></td>
-                <td>jingjiang1920</td>
-                <td>
-                  <button type="button" className="edit">编辑</button>
-                  <button type="button" className="del">删除</button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" title=""/></td>
-                <td><img src="images/userImg.jpg" alt=""/></td>
-                <td>jingjiang1920</td>
-                <td>
-                  <button type="button" className="edit">编辑</button>
-                  <button type="button" className="del">删除</button>
-                </td>
-              </tr>
+              {
+                this.state.users.data.map((item, i) => {
+                  return (
+                    <tr key={i}>
+                      <td><input type="checkbox" title=""/></td>
+                      <td><img src={item.avatar || require("../../assets/backend/images/1.jpg")} alt=""/></td>
+                      <td>{item.username}</td>
+                      <td>
+                        <button type="button" className="edit">编辑</button>
+                        <button type="button" className="del">删除</button>
+                      </td>
+                    </tr>
+                  );
+                })
+              }
               <tr>
                 <td><input type="checkbox" title=""/></td>
                 <td><img src="images/userImg.jpg" alt=""/></td>
@@ -127,20 +94,12 @@ export default class RobotMgr extends Component {
               </tr>
               </tbody>
             </table>
-            <div className="paging">
-              <a href="javascript:;" className="prev">&lt;&lt;</a>
-              <a href="javascript:;">1</a>
-              <a href="javascript:;" className="cur">2</a>
-              <a href="javascript:;">3</a>
-              <a href="javascript:;">4</a>
-              <a href="javascript:;">5</a>
-              <a href="javascript:;">6</a>
-              <a href="javascript:;">7</a>
-              <a href="javascript:;">8</a>
-              <a href="javascript:;">9</a>
-              <a href="javascript:;">10</a>
-              <a href="javascript:;" className="next">&gt;&gt;</a>
-            </div>
+            <Paging
+              currPage={this.state.users.currPage}
+              pageSize={this.state.users.pageSize}
+              total={this.state.users.total}
+              callBack={this.queryRobots.bind(this)}
+            />
           </section>
         </div>
           );

@@ -16,6 +16,35 @@
 <div id="root"></div>
 
 <script src="mobile.js"></script>
+<script src="js/jquery.min.js"></script>
+
+<script>
+  $(function () {
+
+
+    //封装弹窗函数
+    function popupFunc(openBtn, closeBtn, switObj) {
+      $(openBtn).on("click", function () { $(switObj).css('display', 'block'); });
+      $(closeBtn).on("click", function () { $(switObj).css('display', 'none'); });
+    }
+
+    //POS收银弹窗
+    popupFunc('#popupBtn', '.layer .closeBtn', '#servicePopup');
+
+    // 明细开关
+    $('#menuDetail').on('click', function () {
+        console.log('================')
+      $('.detail').toggle()
+    });
+
+    // 明细开关
+    $('#menuHowToPlay').on('click', function () {
+      $('.howToPlay').toggle()
+    });
+
+  });
+
+</script>
 
 </body>
 </html>

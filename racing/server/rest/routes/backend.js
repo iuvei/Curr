@@ -1,5 +1,6 @@
 const BackendSettings = require('../controllers/backend/settings');
 const BackendUsers = require('../controllers/backend/user');
+const BackendRobots = require('../controllers/backend/robots');
 
 const BackendQuiz = require('../controllers/backend/quiz');
 const BackendUpDowns = require('../controllers/backend/updowns');
@@ -32,6 +33,10 @@ router
     // 会员
     .get('/users', BackendUsers.getAllUsers)
     .post('/users', BackendUsers.createUser)
+
+    // 会员
+    .get('/robots', BackendRobots.getAllUsers)
+    .post('/robots', BackendRobots.createUser)
 
     .get('/agents', BackendUsers.getAllAgents)
     .post('/agents', BackendUsers.addAgent)

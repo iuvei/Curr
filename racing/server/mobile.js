@@ -51,13 +51,7 @@ mobile.use(async (ctx, next) => {
   log.debug(`${ctx.method} ${ctx.url} - ${ms}ms`)
 })
 
-// routes
-
-//app.use(index.routes(), index.allowedMethods())
-// app.use(users.routes(), users.allowedMethods())
-
-const backendRouter = require('./rest/routes/backend');
-mobile.use(backendRouter.routes(), backendRouter.allowedMethods())
-//backend.jsapp.use(frontendRouter.routes(), frontendRouter.allowedMethods())
+const frontendRouter = require('./rest/routes/frontend');
+mobile.use(frontendRouter.routes(), frontendRouter.allowedMethods())
 
 module.exports = mobile
