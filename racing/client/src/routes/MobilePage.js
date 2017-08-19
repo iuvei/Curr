@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { parse, stringify } from 'qs';
 import { connect } from 'dva';
 import io from 'socket.io-client';
 import KeyBoard from '../components/mobile/KeyBoard/KeyBoard'
