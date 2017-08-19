@@ -26,6 +26,19 @@ export async function getRaceConfing(params) {
   });
 }
 
+export async function setBetConfing(params) {
+  return request('/api/settings/betting',{
+    method: 'post',
+    body: JSON.stringify(params),
+  });
+}
+
+export async function getBetConfing(params) {
+  return request('/api/settings/betting',{
+    method: 'get',
+  });
+}
+
 export async function setPayment(params) {
   return request('/api/settings/payment',{
     method: 'post',

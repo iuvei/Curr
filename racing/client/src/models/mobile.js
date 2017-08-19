@@ -1,15 +1,14 @@
-import { parse } from 'qs';
-import {getAllMessages, getCurrent} from '../services/mobile';
+import {parse} from 'qs';
+import {getAllMessages, getUserInfo} from '../services/mobile';
 export default {
   namespace: 'mobile',
   state: {
     no: '20170810',
-    users: [],
+    userinfo: {openid: ''},
     messages: [],
   },
   reducers: {
     updateState(state, action) {
-      console.log(action)
       return {
         ...state,
         ...action.payload,
@@ -17,15 +16,14 @@ export default {
     },
   },
   effects: {
-    *getCurrent({
+    *getUserInfo({
       payload,
     }, {call, put}) {
-      const data = yield call(getCurrent, parse(payload));
-      console.log('=====================', data)
+      const data = yield call(getUserInfo, parse(payload));
       if (data.success) {
         yield put({
           type: 'updateState',
-          payload: {...data.data},
+          payload: {userinfo: data.result.userinfo},
         });
       }
     },
@@ -45,7 +43,7 @@ export default {
   },
   subscriptions: {
     setup({dispatch}) {
-      //dispatch({type: 'getCurrent'});
+      //dispatch({type: 'getUserInfo'});
       //dispatch({type: 'getMessages'});
     },
   },

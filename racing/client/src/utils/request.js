@@ -23,6 +23,7 @@ function checkStatus(response) {
  */
 export default function request(url, options) {
   options.headers = { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+  options.credentials='include';
   return fetch(url, options)
     //.then(checkStatus)
     .then(parseJSON)

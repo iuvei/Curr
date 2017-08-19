@@ -52,14 +52,14 @@ class BackendSettings {
         if (!data) {
             return ctx.body = { message: '获取设置信息失败', code : 404 }
         }
-        return ctx.body = {code: 200, data : data}
+        return ctx.body = {code: 200, config : data.config}
     }
 
     // 设置下注配置
     static async setBettingConfig(ctx) {
         log.debug("setSetting")
         console.log(ctx.request.body);
-        const settings = await Settings.update({type : "betting"}, {type : "betting", data: ctx.request.body}, {upsert: true});
+        const settings = await Settings.update({type : "betting"}, {type : "betting", config: ctx.request.body}, {upsert: true});
         return ctx.body = {code: 200, data : settings}
     }
 

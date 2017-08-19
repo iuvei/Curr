@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import {message} from 'antd'
 import '../../../assets/backend/css/common.css';
+import {RuleFactory} from '../../../utils/rules'
 /**
  * Created by sven on 2017/8/16.
  */
@@ -64,21 +65,37 @@ export default class KeyBoard extends Component {
   }
 
   onSend = () => {
-    const reg = /^[0-9]\/[大小单双组和特庄闲龙虎ABC]\/[1-9][0-9]{0,5}$/
 
-    console.log(reg.test(this.state.choice))
-    if (!reg.test(this.state.choice)) {
-      message.warn("格式错误！ 规则：车道/玩法/金额")
-      return;
-    }
-
+    console.log('=============', this.state.choice)
     const msg = {
-      user: {username: 'test1'},
+      user: this.props.userinfo,
       no: "20170810",
       choice: this.state.choice,
     }
     this.props.socket.emit('BET', msg);
-    this.setState({inputShow: false});
+    // if (RuleFactory.isMatch(this.state.choice)) {
+    //   console.log("匹配")
+    //   this.props.socket.emit('BET', msg);
+    //   this.setState({inputShow: false});
+    // }else{
+    //   console.log("不")
+    //}
+
+    // const reg = /^[0-9]\/[大小单双组和特庄闲龙虎ABC]\/[1-9][0-9]{0,5}$/
+    //
+    // console.log(reg.test(this.state.choice))
+    // if (!reg.test(this.state.choice)) {
+    //   message.warn("格式错误！ 规则：车道/玩法/金额")
+    //   return;
+    // }
+    //
+    // const msg = {
+    //   user: {username: 'test1'},
+    //   no: "20170810",
+    //   choice: this.state.choice,
+    // }
+    // this.props.socket.emit('BET', msg);
+    // this.setState({inputShow: false});
   }
 
   onUp = () => {
@@ -110,9 +127,11 @@ export default class KeyBoard extends Component {
   }
 
   render() {
+    const {userinfo} = this.props;
+
     return (
       <div className="userInfo clearfix">
-        <img src="images/man.png" className="fl"/>
+        <img src={userinfo.avatar}  className="fl"/>
         <form action="" className="fl">
           <input type="text" title="" value={this.state.choice} placeholder="车道/玩法/金额" className="fl"/>
           <a className="fl" onClick={this.trigger}></a>

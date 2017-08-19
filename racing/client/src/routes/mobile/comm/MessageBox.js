@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
-import {getAllMessages, getCurrent} from '../../../services/mobile';
+import {getAllMessages, getCustomerImg} from '../../../services/mobile';
 /**
  * Created by sven on 2017/8/17.
  */
@@ -17,6 +17,7 @@ export default class  extends Component {
     super(props);
     this.state = {
       messages: [],
+      config: {},
     }
   }
 
@@ -41,13 +42,27 @@ export default class  extends Component {
   }
 
 
+  getCustomerService = () => {
+    getCustomerImg()
+      .then(data => {
+        if (data.success) {
+          this.setState({
+            config: data.result.data.config,
+          });
+        } else {
+          this.setState({})
+        }
+      })
+  }
+
+
   render() {
     return (
       <div className="clearfix">
         <div className="leftMenu fl">
           <a href="javascript:;" onClick={this.gotoShangfen}><span>上分</span></a>
           <a href="javascript:;" onClick={this.gotoIndex}><span>首页</span></a>
-          <a href="javascript:;" id="popupBtn"><span>客服</span></a>
+          <a href="javascript:;" id="popupBtn" onClick={this.getCustomerService}><span>客服</span></a>
           <a href="javascript:;" onClick={this.gotoQianBao}><span>钱包</span></a>
           <a href="javascript:;"><span>走势</span></a>
           <a href="javascript:;" onClick={this.gotoDetail}><span>明细</span></a>
@@ -64,8 +79,8 @@ export default class  extends Component {
                      className={item.from === 2 ? "messageItem manageMessage clearfix" : "messageItem userMessage clearfix"}>
                   <img src={item.avatar} className="fl"/>
                   <div className="fl">
-                    <p className="userAndTime">{item.username}
-                      <span> {moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}</span></p>
+                    <p className="userAndTime">{item.nickname}
+                      <span> {moment(item.createdAt).format('HH:mm:ss')}</span></p>
                     <div className="message fl">{item.choice}</div>
                   </div>
                 </div>
@@ -73,12 +88,18 @@ export default class  extends Component {
             })
           }
         </div>
+        <div className="layer" id="servicePopup">
+          <div className="servicePopup">
+            <img src={this.state.config.service}/>
+            <a href="javascript:;" className="closeBtn"></a>
+          </div>
+        </div>
       </div>
     );
   }
 
   gotoIndex = () => {
-    hashHistory.push({pathname: PATH_INDEX, state: {from: "index"}});
+    hashHistory.push({pathname: PATH_INDEX, state: {from: "index", userinfo: this.props.userinfo}});
   }
 
   gotoShangfen = () => {
@@ -89,7 +110,7 @@ export default class  extends Component {
   }
 
   gotoQianBao = () => {
-    hashHistory.push({pathname: PATH_QIANBAO, state: {from: "index"}});
+    hashHistory.push({pathname: PATH_QIANBAO, state: {from: "index", userinfo: this.props.userinfo}});
   }
 
   gotoAgency = () => {

@@ -2,6 +2,7 @@ const log4js = require('log4js')
 const log = log4js.getLogger("socketEvent")
 var cachemgr = require('./../../tools/cachemgr');
 const BetModel = require('../../models/quiz/bet.model');
+const {RuleFactory} = require("../../tools/rules")
 exports = module.exports = function (io) {
 
     const counts = cachemgr.countUsers()
@@ -32,11 +33,12 @@ exports = module.exports = function (io) {
         socket.on('BET', function (msg) {
             console.log('===========BET=====', msg)
             const {user, no, choice} = msg;
-            const inputs = choice.split("/")
-            var reg = /^[0-9]\/[大小单双组和特庄闲龙虎ABC]\/[1-9][0-9]{0,5}$/
-            if (!reg.test(choice) || inputs.length != 3) {
-                log.error("格式错误:", choice, " by ", user);
-                socket.emit('info', {type: "error", msg: "格式错误"});
+            //var reg = /^[0-9]\/[大小单双组和特庄闲龙虎ABC]\/[1-9][0-9]{0,5}$/
+            if (!RuleFactory.isMatch(choice)) {
+                log.warn("格式错误:", choice, " by ", user);
+                //socket.emit('info', {type: "error", msg: "格式错误"});
+                const record =  {from: 2, no, nickname: "客服", choice: `@${user.nickname}\n格式错误: ${choice}`, avatar: user.avatar}
+                socket.emit('bet-msg', record);
                 return;
             }
             BetModel.findOne({no, username: user.username, choice}, function (err, user) {
@@ -46,15 +48,15 @@ exports = module.exports = function (io) {
                 }
                 if (user) {
                     //已经存在
-                    socket.emit('info', {type: "error", msg: "该期已经存在"});
+                    //socket.emit('info', {type: "error", msg: "该期已经存在"});
                     return;
                 }
             });
-            const record =  {from: 1, no, username: user.username, choice, avatar: user.avatar,  amount: inputs[2]}
+            const record =  {from: 1, no, username: user.username, choice, avatar: user.avatar}
             BetModel.create(record, function (err) {
                 if (err) {
                     log.error("保存失败：", err);
-                    socket.emit('info', {type: "error", msg: "失败"});
+                    //socket.emit('info', {type: "error", msg: "失败"});
                     return;
                 } else {
                     socket.emit('bet-msg', record);

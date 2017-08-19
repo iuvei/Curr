@@ -1,15 +1,15 @@
 const Index = require('../controllers/frontend/index');
-
+const Settings = require('../controllers/backend/settings');
 const router = require('koa-router')();
 router.prefix('/api')
 router
-  //.get('/', BackendMain.Index)
 
   // 平台设置
-    .get('/users/id', Index.getUserInfo)
+    .get('/userinfo', Index.getUserInfo)
+    .get('/getCustomerImg', Settings.getRaceConfig)
+    //微信网页授权
     .get('/auth', Index.auth)
 
-    .get('/current', Index.getCurrent)
 
     .get('/messages', Index.getMessages)
 
