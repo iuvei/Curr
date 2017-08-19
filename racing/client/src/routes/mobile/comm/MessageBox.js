@@ -33,8 +33,6 @@ export default class  extends Component {
       })
 
     this.props.socket.on('bet-msg', msg => {
-        //dispatch(actions.receiveRawMessage(msg))
-        console.log('=======bet-msg========', msg);
         this.setState({
           messages: [msg].concat(this.state.messages),
         });
@@ -44,7 +42,6 @@ export default class  extends Component {
 
 
   render() {
-    console.log(this.props)
     return (
       <div className="clearfix">
         <div className="leftMenu fl">

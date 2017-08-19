@@ -5,6 +5,18 @@ const BetModel = require('../../models/quiz/bet.model');
 
 class IndexController {
 
+    static getUserInfo(ctx) {
+        //011bzcS61S00XQ1W8SP613cjS61bzcSh
+        console.log(ctx.request.body, ctx.request.query)
+        ctx.body = {code: 400, data : ctx.body}
+    }
+
+    static async auth(ctx) {
+        //011bzcS61S00XQ1W8SP613cjS61bzcSh
+        console.log(ctx.request.body, ctx.request.query)
+        ctx.body = {code: 200, data : ctx.body}
+    }
+
     static async getCurrent(ctx) {
         ctx.body = {code: 200, data : {no: "20170810"}}
     }

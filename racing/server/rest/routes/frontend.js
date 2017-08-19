@@ -6,6 +6,9 @@ router
   //.get('/', BackendMain.Index)
 
   // 平台设置
+    .get('/users/id', Index.getUserInfo)
+    .get('/auth', Index.auth)
+
     .get('/current', Index.getCurrent)
 
     .get('/messages', Index.getMessages)
