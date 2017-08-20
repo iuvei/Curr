@@ -9,8 +9,9 @@ const UserSchema = new Schema({
     gender: {type: String, default: '0'},
     avatar: {type: String, default: ''},    // 头像
     profile: {type: String, default: ''},   // 个人简介
-    playpoint: {type: Number, default: 0},
-    rebatepoint: {type: Number, default: 0},
+    balance:  {type: Number, default: 0}, //余额
+    lossToday: {type: Number, default: 0}, //当日盈亏
+    rebate: {type: Number, default: 0}, //反水
     password: {type: String, required: true},
     createdAt: {type: Date, default: Date.now},
 

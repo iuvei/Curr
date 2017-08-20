@@ -3,7 +3,7 @@ import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/backend/css/upDownApplication.css';
 import moment from 'moment';
 import Paging from '../../components/paging/Paging'
-import {updateUpDown, getAllUpDowns} from '../../services/updowns';
+import {updateUpDown, getAllUpDowns, getUserAccount} from '../../services/updowns';
 import {message} from 'antd';
 /**
  * Created by sven on 2017/8/4.
@@ -30,7 +30,7 @@ export default class UpDownApplication extends Component {
 
   queryUpdowns(currPage, pageSize, type) {
     type = type === undefined ? this.state.type : type
-    getAllUpDowns({pageSize, currPage, type: type === undefined ? this.state.type : type, username: this.state.keyWord})
+    getAllUpDowns({pageSize, currPage, type: type === undefined ? this.state.type : type, nickname: this.state.keyWord})
       .then(data => {
         if (data.success) {
           this.setState({
@@ -55,7 +55,6 @@ export default class UpDownApplication extends Component {
     })
   }
 
-
   render() {
     return (
       <div className="r_aside">
@@ -71,32 +70,34 @@ export default class UpDownApplication extends Component {
                 </div>
                 <div className="tab">
                   <table style={{border: 1}}>
+                    <tbody>
                     <tr>
                       <th width="80">头像</th>
                       <th width="160">用户名</th>
                       <th width="100">{this.state.type ? "上分金额" : "下分金额"}</th>
                       <th width="100">当前余额</th>
                       <th width="150">申请时间</th>
-                      <th width="110">提现方式</th>
+                      <th width="110">支付方式</th>
                       <th width="200">账号</th>
                       <th width="200">备注</th>
                       <th width="290">操作</th>
                     </tr>
-                    <tbody>
+
                     {
                       this.state.upDowns.data.map((item, i) => {
                         return (
                           <tr key={i}>
                             <td width="80"><img src={item.avatar} alt=""/></td>
-                            <td width="160">{item.username}</td>
+                            <td width="160">{item.nickname}</td>
                             <td width="100">{item.amount}</td>
                             <td width="100">{item.balance}</td>
                             <td width="200">
                               <span className="sp1">{moment(item.createdAt).format('YYYY-MM-DD')}</span>
                               <br/>
                               <span className="sp2">{moment(item.createdAt).format('HH:mm:ss')}</span></td>
-                            <td width="110">{item.backMethod}</td>
-                            <td width="150">{item.backNo}</td>
+                            <td
+                              width="110">{item.payMethod === "WXPAY" ? "微信支付" : item.payMethod === "ALIPAY" ? "支付宝支付" : "未知"}</td>
+                            <td width="150">{item.payNo}</td>
                             <td width="200">{item.profile}</td>
                             <td width="290">
                               <input type="submit" value="通过" className="ip1"/>

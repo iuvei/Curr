@@ -1,44 +1,62 @@
 const md5 = require('md5');
 const UpDownModel = require('../../models/quiz/upDown.model');
-
+const UserModel = require('../../models/user/user.model');
 class BackendUpDown {
-    // 成员
+    //上线分，仅后端测试
     static async createUpDown(ctx) {
-        const {username, avatar, type, amount, balance, backMethod, backNo, byWho, profile, createdAt, updateAt} = ctx.request.body;
+        const {nickname, avatar, type, amount, balance, backMethod, backNo, byWho, profile, createdAt, updateAt} = ctx.request.body;
         console.log(ctx.request.body);
-        if (!username || !amount || amount < 0) return ctx.body = {message: '用户名和上/下分不能为空,且金额大于0', code: 400}
-        const result = await UpDownModel.create({username, avatar, type, amount, balance, backMethod, backNo, byWho, profile});
+        if (!nickname || !amount || amount < 0) return ctx.body = {message: '用户名和上/下分不能为空,且金额大于0', code: 400}
+        const result = await UpDownModel.create({
+            nickname,
+            avatar,
+            type,
+            amount,
+            balance,
+            backMethod,
+            backNo,
+            byWho,
+            profile
+        });
         if (result) return ctx.body = {code: 200, data: result}
         else ctx.body = {data: result, code: 400}
     }
 
     // 成员
     static async getALlUpDowns(ctx) {
-        var {pageSize, currPage, username, type} = ctx.request.query;
-        if (type === undefined || (type!== 'true' && type!=='false')) return ctx.body = {message: 'type is required', code: 400}
+        var {pageSize, currPage, nickname, type} = ctx.request.query;
+        if (type === undefined || (type !== 'true' && type !== 'false')) return ctx.body = {
+            message: 'type is required',
+            code: 400
+        }
         pageSize = (pageSize === undefined || Number(pageSize) < 0) ? 10 : Number(pageSize);
         currPage = (currPage === undefined || Number(currPage) < 0) ? 1 : Number(currPage);
-        const query = {type:type==="true"};
-        if (username !== undefined && username !== '') {
-            query.username = {'$regex': eval(`/${username}.*/i`)}
+        const query = {type: type === "true"};
+        if (nickname !== undefined && nickname !== '') {
+            query.nickname = {'$regex': eval(`/${nickname}.*/i`)}
         }
 
-        const users = await UpDownModel.find(query).sort({"_id": 1}).skip((currPage - 1) * pageSize).limit(pageSize);
-        if (!users) {
+        const upDowns = await UpDownModel.find(query).sort({"_id": 1}).skip((currPage - 1) * pageSize).limit(pageSize);
+        if (!upDowns) {
             return ctx.body = {message: '获取设置信息失败', code: 404}
         }
         const count = await UpDownModel.find(query).count();
-        return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count / pageSize)}
+
+        for (var i = 0; i < upDowns.length; i++) { //获取账户余额
+            const user = await UserModel.findOne({openid: upDowns[i].openid})
+            upDowns[i].balance = user.balance;
+        }
+        return ctx.body = {code: 200, data: upDowns, pageSize, currPage, total: Math.ceil(count / pageSize)}
     }
 
     // 上下分审核
     static async getALlReviewUpDowns(ctx) {
-        var {pageSize, currPage, username, startTime, endTime} = ctx.request.query;
+        var {pageSize, currPage, nickname, startTime, endTime} = ctx.request.query;
         pageSize = (pageSize === undefined || Number(pageSize) < 0) ? 10 : Number(pageSize);
         currPage = (currPage === undefined || Number(currPage) < 0) ? 1 : Number(currPage);
         const query = {};
-        if (username !== undefined && username !== '') {
-            query.username = {'$regex': eval(`/${username}.*/i`)}
+        if (nickname !== undefined && nickname !== '') {
+            query.nickname = {'$regex': eval(`/${nickname}.*/i`)}
         }
         const updateAt = {}
         if (startTime !== undefined && startTime !== '') {

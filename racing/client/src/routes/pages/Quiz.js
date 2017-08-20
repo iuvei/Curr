@@ -91,7 +91,7 @@ export default class Quiz extends Component {
                       <th width="120">进项</th>
                       <th width="120">出项</th>
                       <th width="120">输赢</th>
-                      <th width="130">余额</th>
+                      {/*<th width="130">余额</th>*/}
                     </tr>
                     <tbody className="">
                     {
@@ -107,7 +107,7 @@ export default class Quiz extends Component {
                             <td>{item.income}</td>
                             <td>{item.outlay}</td>
                             <td className={item.worth > 0 ? "win" : "lose"}>{item.worth}</td>
-                            <td>{item.balance}</td>
+                            {/*<td>{item.balance}</td>*/}
                           </tr>
                         );
                       })

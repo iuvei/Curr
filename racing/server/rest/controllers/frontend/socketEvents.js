@@ -41,7 +41,7 @@ exports = module.exports = function (io) {
                 socket.emit('bet-msg', record);
                 return;
             }
-            BetModel.findOne({no, username: user.username, choice}, function (err, user) {
+            BetModel.findOne({no, nickname: user.nickname, choice}, function (err, user) {
                 if (err) {
                     log.error("内部错误:", err);
                     return;
@@ -52,7 +52,7 @@ exports = module.exports = function (io) {
                     return;
                 }
             });
-            const record =  {from: 1, no, username: user.username, choice, avatar: user.avatar}
+            const record =  {from: 1, no, nickname: user.nickname, choice, avatar: user.avatar}
             BetModel.create(record, function (err) {
                 if (err) {
                     log.error("保存失败：", err);

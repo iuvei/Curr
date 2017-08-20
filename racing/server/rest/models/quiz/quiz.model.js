@@ -10,7 +10,7 @@ const QuizSchema = new Schema({
     income: {type: Number, default: 0},  //进项
     outlay: {type: Number, default: 0}, //出项
     worth: {type: Number, default: 0}, //输赢
-    balance:  {type: Number, default: 0}, //余额
+    balance: {type: Number, default: 0}, //余额
     createdAt: {type: Date, default: Date.now},
 });
 

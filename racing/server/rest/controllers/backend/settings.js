@@ -68,12 +68,12 @@ class BackendSettings {
     static async getPayMentConfig(ctx) {
         log.debug("getPayMentConfig")
         var {type} = ctx.request.query;
-        const data = await Payment.findOne({type});
-        console.log(data)
-        if (!data) {
+        const config = await Payment.findOne({type});
+        console.log(config)
+        if (!config) {
             return ctx.body = { message: '获取支付方式失败', code : 404 }
         }
-        return ctx.body = {code: 200, data : data}
+        return ctx.body = {code: 200, config : config}
     }
 
     // 设置支付方式

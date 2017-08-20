@@ -17,9 +17,9 @@ export default class KeyBoard extends Component {
   }
 
   componentDidMount() {
-    this.props.socket.on('info', info =>{
+    this.props.socket.on('info', info => {
       const {type, msg} = info
-      if(type==="error") {
+      if (type === "error") {
         message.error(msg)
       }
     });
@@ -65,14 +65,13 @@ export default class KeyBoard extends Component {
   }
 
   onSend = () => {
-
-    console.log('=============', this.state.choice)
     const msg = {
       user: this.props.userinfo,
       no: "20170810",
       choice: this.state.choice,
     }
     this.props.socket.emit('BET', msg);
+    this.setState({inputShow: false});
     // if (RuleFactory.isMatch(this.state.choice)) {
     //   console.log("匹配")
     //   this.props.socket.emit('BET', msg);
@@ -98,40 +97,12 @@ export default class KeyBoard extends Component {
     // this.setState({inputShow: false});
   }
 
-  onUp = () => {
-    var reg = /^[1-9][0-9]{0,10}$/
-    if (!reg.test(this.state.choice)) {
-      message.warn("请输入数字")
-      return;
-    }
-    const msg = {
-      user: {user: 'test1'},
-      choice: this.state.choice,
-    }
-    this.props.socket.emit('UP', msg);
-    this.setState({inputShow: false});
-  }
-
-  onDown = () => {
-    var reg = /^[1-9][0-9]{0,10}$/
-    if (!reg.test(this.state.choice)) {
-      message.warn("请输入数字")
-      return;
-    }
-    const msg = {
-      user: {user: 'test1'},
-      choice: this.state.choice,
-    }
-    this.props.socket.emit('DOWN', msg);
-    this.setState({inputShow: false});
-  }
-
   render() {
     const {userinfo} = this.props;
 
     return (
       <div className="userInfo clearfix">
-        <img src={userinfo.avatar}  className="fl"/>
+        <img src={userinfo.avatar} className="fl"/>
         <form action="" className="fl">
           <input type="text" title="" value={this.state.choice} placeholder="车道/玩法/金额" className="fl"/>
           <a className="fl" onClick={this.trigger}></a>
@@ -174,9 +145,7 @@ export default class KeyBoard extends Component {
 
           <div className="btn clearfix">
             <a href="javascript:void(0)" onClick={() => this.setState({choice: ''})} className="a1">清除</a>
-            <a href="javascript:void(0)" onClick={() => this.onUp()} className="a2">上分</a>
             <a href="javascript:void(0)" onClick={() => this.onSend()} className="a3">发送</a>
-            <a href="javascript:void(0)" onClick={() => this.onDown()} className="a4">下分</a>
             <a href="javascript:void(0)" onClick={() => this.setState({inputShow: false})} className="a5">关闭</a>
           </div>
         </div>

@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import KeyBoard from '../components/mobile/KeyBoard/KeyBoard'
 import MessageBox from './mobile/comm/MessageBox'
 import '../assets/backend/css/common.css';
-import {getWxInfo, getUserInfo} from '../services/mobile';
+import {getConfig, getUserInfo} from '../services/mobile';
 const socket = io('', {path: '/ws/chat'});
 
 
@@ -23,16 +23,21 @@ class MobilePage extends Component {
             payload: {userinfo: data.result.userinfo},
           })
         } else {
-          const HOME_PAGE = `http://${document.domain}/mobile.html`
-          const params = {
-            appid: 'wx8bba1ed01651ed81',
-            redirect_uri: `http://${document.domain}/m/api/auth?callback=${HOME_PAGE}`,
-            //redirect_uri: `http://${document.domain}/mobile.html`,
-            response_type: 'code',
-            scope: 'snsapi_userinfo',
-            state: '1',
-          }
-          window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?${stringify(params)}#wechat_redirect`;
+          getConfig()
+            .then(data => {
+              if (data.success) {
+                const HOME_PAGE = `http://${document.domain}/mobile.html`
+                const params = {
+                  appid: data.result.appid,
+                  redirect_uri: `http://${document.domain}/m/api/auth?callback=${HOME_PAGE}`,
+                  //redirect_uri: `http://${document.domain}/mobile.html`,
+                  response_type: 'code',
+                  scope: 'snsapi_userinfo',
+                  state: '1',
+                }
+                window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?${stringify(params)}#wechat_redirect`;
+              }
+            });
         }
       });
 

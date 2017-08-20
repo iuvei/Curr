@@ -15,6 +15,19 @@ class BackendUser {
         else ctx.body = {data: result, code: 400}
     }
 
+    // 获取账户余额等
+    static async getAccount(ctx) {
+        const {openid} =  ctx.request.query;
+        const user = await UserModel.findOne({openid});
+        if (user) {
+            return ctx.body = {
+                account: {balance: user.balance, lossToday: user.lossToday, rebate: user.rebate},
+                code: 200
+            }
+        }
+        return ctx.body = {message: '获取账户失败', code: 404}
+    }
+
     // 成员
     static async getAllUsers(ctx) {
         var {pageSize, currPage, username} = ctx.request.query;
@@ -30,7 +43,7 @@ class BackendUser {
             return ctx.body = {message: '获取设置信息失败', code: 404}
         }
         const count = await UserModel.find(query).count();
-        return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count/pageSize)}
+        return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count / pageSize)}
     }
 
     // 后台用户登录
@@ -81,7 +94,7 @@ class BackendUser {
             return ctx.body = {message: '获取代理推广失败', code: 404}
         }
         const count = await AgentModel.find(query).count();
-        return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count/pageSize)}
+        return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count / pageSize)}
     }
 
 }

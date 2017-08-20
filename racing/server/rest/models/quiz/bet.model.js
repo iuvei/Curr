@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const BetsSchema = new Schema({
     from: {type: Number, required: true}, //类型 1：用户 2：管理员 3：机器人
     no: {type: String, required: true}, //期号
-    username: {type: String, required: true}, // 用户名
+    nickname: {type: String, required: true}, // 用户名
     avatar: {type: String, default: ''},    // 头像
     choice: {type: String, required: true}, // 昵称
     amount: {type: Number, default: 0},  //金额

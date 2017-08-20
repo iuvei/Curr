@@ -27,7 +27,7 @@ export default class UpDownReview extends Component {
       currPage,
       startTime: startTime || '',
       endTime: endTime || '',
-      username: this.state.username
+      nickname: this.state.nickname
     })
       .then(data => {
         if (data.success) {
@@ -47,7 +47,7 @@ export default class UpDownReview extends Component {
 
   onSearchInputChange(e) {
     this.setState({
-      username: e.target.value.trim(),
+      nickname: e.target.value.trim(),
     })
   }
 
@@ -96,7 +96,7 @@ export default class UpDownReview extends Component {
                   <input type="date" placeholder="结束时间" className="ip1 "
                          value={this.state.endTime} onChange={this.onEndTimeInputChange.bind(this)}/>
                   <input type="text" placeholder="请输入用户名" className="ip1"
-                         value={this.state.username || ''} onChange={this.onSearchInputChange.bind(this)}/>
+                         value={this.state.nickname || ''} onChange={this.onSearchInputChange.bind(this)}/>
                   <input type="submit" value="搜索" className="ip3" onClick={() => this.searchReviewUpdowns()}/>
                   <input type="submit" value="今天" className="ip3" onClick={() => this.searchReviewUpdowns("Today")}/>
                   <input type="submit" value="昨天" className="ip3"
@@ -122,7 +122,7 @@ export default class UpDownReview extends Component {
                         return (
                           <tr key={i}>
                             <td><img src={item.avatar} alt=""/></td>
-                            <td>{item.username}</td>
+                            <td>{item.nickname}</td>
                             <td className={item.type ? "up" : ""}>{item.type ? item.amount : "00.00"}</td>
                             <td className={!item.type ? "down" : ""}>{!item.type ? item.amount : "00.00"}</td>
                             <td>{item.balance}</td>

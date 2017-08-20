@@ -64,8 +64,8 @@ export default class  extends Component {
           <a href="javascript:;" onClick={this.gotoIndex}><span>首页</span></a>
           <a href="javascript:;" id="popupBtn" onClick={this.getCustomerService}><span>客服</span></a>
           <a href="javascript:;" onClick={this.gotoQianBao}><span>钱包</span></a>
-          <a href="javascript:;"><span>走势</span></a>
-          <a href="javascript:;" onClick={this.gotoDetail}><span>明细</span></a>
+          <a href="javascript:;"><span>开奖</span></a>
+          {/*<a href="javascript:;" onClick={this.gotoDetail}><span>明细</span></a>*/}
           <a href="javascript:;" onClick={this.gotoHowToPaly}><span>玩法</span></a>
           <a href="javascript:;" onClick={this.gotoAgency}><span>代理</span></a>
           <a href="javascript:;" onClick={this.gotoXiafen}><span>下分</span></a>
@@ -103,10 +103,10 @@ export default class  extends Component {
   }
 
   gotoShangfen = () => {
-    hashHistory.push({pathname: PATH_SHANGFEN, state: {from: "index"}});
+    hashHistory.push({pathname: PATH_SHANGFEN, state: {from: "index", userinfo: this.props.userinfo}});
   }
   gotoXiafen = () => {
-    hashHistory.push({pathname: PATH_XIAFEN, state: {from: "index"}});
+    hashHistory.push({pathname: PATH_XIAFEN, state: {from: "index", userinfo: this.props.userinfo}});
   }
 
   gotoQianBao = () => {

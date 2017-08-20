@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
+import moment from 'moment';
 /**
  * Created by qiniu on 2017/8/2.
  */
@@ -18,7 +19,7 @@ export default class Nav extends Component {
                 <a href="#" className="fl">退出</a>
             </div>
             <div className="time fl">
-              <span className="sp1">2017-07-15 </span><span className="sp2">11:03:54</span>
+              <span className="sp1">{moment().format('YYYY-MM-DD')}</span><span className="sp2">{moment().format('HH:mm:ss')}</span>
             </div>
             <div className="submit fr">
               <form action="" className="clearfloat">

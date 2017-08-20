@@ -22,7 +22,7 @@ export default class UpDownRecepits extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            wxPay: data.result.data,
+            wxPay: data.result.config,
           });
         }
       })
@@ -31,7 +31,7 @@ export default class UpDownRecepits extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            aliPay: data.result.data,
+            aliPay: data.result.config,
           });
         }
       })
@@ -39,7 +39,7 @@ export default class UpDownRecepits extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            upPAY: data.result.data,
+            upPAY: data.result.config,
           });
         }
       })
