@@ -70,7 +70,7 @@ export default class Member extends Component {
                   <input type="submit" onClick={this.queryUsersByName.bind(this)} value="搜索" className="ip2"/>
                 </div>
                 <div className="tab">
-                  <table style={{border: "1"}}>
+                  <table style={{border: "1"},{width: "100%"}}>
                     <tr>
                       <th width="58">ID</th>
                       <th width="84">头像</th>
@@ -110,6 +110,88 @@ export default class Member extends Component {
                     }
                     </tbody>
                   </table>
+				  
+				  
+<div className="t-1" id="t-1" style={{display: "none"}}>
+    <div className="title"><span>编辑会员</span> <a href="#">关闭</a></div>
+    <div className="content">
+        <div className="dv1 clearfloat">
+            <div className="left fl"><span>昵称：</span></div>
+            <div className="right fl"><input type="text" placeholder="你是牛逼哥" /></div>
+        </div>
+        <div className="dv2 clearfloat">
+            <div className="left fl"><span>用户名：</span></div>
+            <div className="right fl"><input type="text" placeholder="fsafsdfsd" /></div>
+        </div>
+        <div className="dv3 clearfloat">
+            <div className="left fl"><span>密码：</span></div>
+            <div className="right fl"><input type="password" /> <p>留空则不修改</p></div>
+        </div>
+        <div className="dv4 clearfloat">
+            <div className="left fl"><span>备注：</span></div>
+            <div className="right fl"><input type="text" /></div>
+        </div>
+        <div className="dv5">
+            <input type="button" value="确认" />
+        </div>
+    </div>
+</div>
+
+<div className="t-2" style={{display: "none"}}>
+    <div className="title"><span>禁用会员</span> <a href="#">关闭</a></div>
+    <div className="content">
+        <p>确定要禁用吗？禁用后用户将不能登录</p>
+        <div className="btn">
+            <input type="button" value="确认" className="ip1" />
+            <input type="button" value="取消" className="ip2" />
+        </div>
+    </div>
+</div>
+
+<div className="t-2 t-3" style={{display: "none"}}>
+    <div className="title"><span>启用会员</span> <a href="#">关闭</a></div>
+    <div className="content">
+        <p>确定启用该用户吗？</p>
+        <div className="btn">
+            <input type="button" value="确认" className="ip1" />
+            <input type="button" value="取消" className="ip2" />
+        </div>
+    </div>
+</div>
+
+<div className="t-4 t-5" style={{display: "none"}}>
+    <div className="title"><span>会员下分</span> <a href="#">关闭</a></div>
+    <div className="content">
+        <div className="name">
+            <span className="sp1">会员名：</span><span className="sp2">slkdjskld</span>
+        </div>
+        <div className="inp">
+            <span className="sp1">下分点数：</span><input type="text" />
+            <p>当前最高下分点数为：65470.00</p>
+        </div>
+        <div className="btn">
+            <input type="button" value="确认" className="ip1" />
+        </div>
+    </div>
+</div>
+
+<div className="t-4" style={{display: "none"}}>
+    <div className="title"><span>会员上分</span> <a href="#">关闭</a></div>
+    <div className="content">
+        <div className="name">
+            <span className="sp1">会员名：</span><span className="sp2">slkdjskld</span>
+        </div>
+        <div className="inp">
+            <span className="sp1">上分点数：</span><input type="text" />
+            <p>积分点数充值为整数</p>
+        </div>
+        <div className="btn">
+            <input type="button" value="确认" className="ip1" />
+        </div>
+    </div>
+</div>
+				  
+				  
                   <Paging
                     currPage={this.state.users.currPage}
                     pageSize={this.state.users.pageSize}

@@ -54,7 +54,7 @@ export default class DataGather extends Component {
                    value={this.state.no} onChange={this.onNoInputChange.bind(this)}/>
             <button type="button" onClick={this.queryLotteryRecordsByDate.bind(this)}>搜索</button>
           </div>
-          <table cellSpacing="0" cellPadding="0">
+          <table cellSpacing="0" cellPadding="0" style={{ width:"100%"}}>
             <thead>
             <tr>
               <th width="120">类型</th>

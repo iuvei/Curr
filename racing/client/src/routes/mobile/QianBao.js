@@ -58,7 +58,7 @@ export default class QianBao extends Component {
         <div className="part">
           <a href="javascript:;" className="clearfix a1">
             <span className="fl sp1">佣金转入钱包</span>
-            <span className="fr">共<span>0.00</span>元</span>
+            <button>转入钱包</button>
           </a>
         </div>
         <div className="part">

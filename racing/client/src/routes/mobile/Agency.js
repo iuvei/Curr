@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import "../../assets/mobile/css/agency.css";
-import Footer from './comm/footer'
+import Footer from './comm/footer';
+import qrcode from '../../assets/mobile/images/qrcode.png';
 /**
  * Created by sven on 2017/8/12.
  */
@@ -13,11 +14,11 @@ export default class  extends Component {
 
   render() {
     return (<div className="agency">
-      <img src="images/qrcode.png" className="qrcode"/>
+      <div className="qrcodepic"><img src=''/></div>
       <div className="item">
         <div>
           <p className="title">复制链接：</p>
-          <div className="cont">http://2500.pc4321.com/login.php?parent_openid=oZOdDvz27PTUd-vpkSVV0XcYepNE</div>
+          <div className="cont">http://2500.pc4321.com/login.php?parent_openid=oZOdDvz27PTUd-vpkSVV0XcYepNE </div>
         </div>
       </div>
       <div className="item">

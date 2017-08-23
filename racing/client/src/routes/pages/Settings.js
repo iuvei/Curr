@@ -105,7 +105,7 @@ export default class Settings extends Component {
             <div className="bottom">
               <div className="dv1 clearfloat">
                 <p className="p1 fl">是否开启机器人</p>
-                <select className="p2 fl" value={isOpen || true} onChange={this.onIsOpenChange}>
+                <select className="p2 fl p2sele" value={isOpen || true} onChange={this.onIsOpenChange}>
                   <option value="true">是</option>
                   <option value="false">否</option>
                 </select>

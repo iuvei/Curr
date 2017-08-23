@@ -100,8 +100,57 @@ export default class RobotMgr extends Component {
               total={this.state.users.total}
               callBack={this.queryRobots.bind(this)}
             />
+			
+			
+			
+<div className="zj" style={{display: "none"}}>
+    <div className="title"><span>增加机器人</span><a href="#">关闭</a></div>
+    <div className="content">
+        <div className="img">
+            <form action="">
+                <input type="file" name="pic" className="ip1"/>
+                <input type="text" placeholder="请输入用户名" className="ip2"/>
+                <input type="submit" value="确认" className="ip3"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div className="bj" style={{display: "none"}}>
+	<div className="title"><span>编辑</span> <a href="#">关闭</a></div>
+	<div className="content">
+		<div className="img">
+			<form action="">
+				<input type="file" name="pic" className="ip1"/>
+				<input type="text" placeholder="请输入用户名" className="ip2"/>
+				<input type="submit" value="确认" className="ip3"/>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div className="gb" style={{display: "none"}}>
+	<div className="title"><span>删除用户</span> <a href="#">关闭</a></div>
+	<div className="content">
+		<div className="text">确定删除该用户?</div>
+		<div className="btn">
+			<input type="button" value="删除" className="ip1"/>
+			<input type="button" value="取消" className="ip2"/>
+		</div>
+	</div>
+</div>				
+			
+			
+			
+			
+			
+			
           </section>
         </div>
+		
+		
           );
     }
 }

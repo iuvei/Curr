@@ -98,8 +98,10 @@ class Configuration extends Component {
               <p><span className="sp1">授权码</span>
                 <input className="sp2" ref="wxCode" value={wxCode} onChange={this.onWxCodeChange}></input>
               </p>
+			  <p><span className="sp1"></span>
               <input type="submit" value="保存信息" onClick={this.onSubmit} className="ip1"/>
               <input type="reset" value="取消" onClick={this.gotoIndex} className="ip2"/>
+			  </p>
             </form>
           </div>
         </div>

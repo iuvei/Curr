@@ -81,7 +81,7 @@ export default class Quiz extends Component {
                   <input type="submit" value="搜索" className="ip3" onClick={this.queryQuizsByNoAndUsername.bind(this)}/>
                 </div>
                 <div className="tab">
-                  <table style={{border: 1}}>
+                  <table style={{border: "1"},{width: "100%"}}>
                     <tr>
                       <th width="110">期号</th>
                       <th width="180">时间</th>

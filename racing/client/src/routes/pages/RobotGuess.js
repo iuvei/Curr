@@ -127,6 +127,46 @@ export default class RobotGuess extends Component {
                 <a href="javascript:;">10</a>
                 <a href="javascript:;" className="next">&gt;&gt;</a>
               </div>
+			  
+			  
+<div className="zj" style={{display: "none"}}>
+    <div className="title"><span>增加竞猜</span><a href="#">关闭</a></div>
+    <div className="content">
+        <div className="img">
+            <form action="">
+                <input type="text" placeholder="请输入下注竞猜" className="ip2"/>
+                <input type="submit" value="确认" className="ip3"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div className="bj" style={{display: "none"}}>
+	<div className="title"><span>编辑竞猜</span> <a href="#">关闭</a></div>
+	<div className="content">
+		<div className="img">
+			<form action="">
+                <input type="text" placeholder="请输入下注竞猜" className="ip2"/>
+				<input type="submit" value="确认" className="ip3"/>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<div className="gb" style={{display: "none"}}>
+	<div className="title"><span>删除竞猜</span> <a href="#">关闭</a></div>
+	<div className="content">
+		<div className="text">确定删除此竞猜记录?</div>
+		<div className="btn">
+			<input type="button" value="删除" className="ip1"/>
+			<input type="button" value="取消" className="ip2"/>
+		</div>
+	</div>
+</div>				  
+			  
+			  
             </section>
           </div>
 
