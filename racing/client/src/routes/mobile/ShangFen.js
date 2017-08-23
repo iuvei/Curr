@@ -16,20 +16,10 @@ export default class ShangFen extends Component {
       money: 10,
       config: {type: 'WXPAY', img: ''},
       backup: '',
-      account: {balance: 0.00, lossToday: 0.00, rebate: 0.00}
     }
   }
 
   componentDidMount() {
-    const {userinfo} = this.props.location.state;
-    getAccount({openid: userinfo.openid})
-      .then(data => {
-        if (data.success) {
-          this.setState({
-            account: data.result.account,
-          });
-        }
-      });
     getPayment({type: "WXPAY"})
       .then(data => {
         console.log(data)
@@ -103,29 +93,6 @@ export default class ShangFen extends Component {
   render() {
     const {userinfo} = this.props.location.state;
     return (<div>
-      <header>
-        <div className="user clearfix">
-          <img src={userinfo.avatar}/>
-          <div className="text fl">
-            <p>{userinfo.nickname}</p>
-            <p>距离致富之路还差1秒</p>
-          </div>
-        </div>
-        <div className="wallet clearfix">
-          <div className="fl">
-            <p>{this.state.account.balance}</p>
-            <span>我的钱包</span>
-          </div>
-          <div className="fl">
-            <p>{this.state.account.lossToday}</p>
-            <span>今日盈亏</span>
-          </div>
-          <div className="fl">
-            <p>{this.state.account.rebate}</p>
-            <span>推广盈利</span>
-          </div>
-        </div>
-      </header>
       <section className="main">
         <div className="line clearfix">
           <span className="fl">充值渠道</span>
@@ -167,7 +134,6 @@ export default class ShangFen extends Component {
           </div>
         </div>
       </section>
-      <Footer/>
     </div>);
   }
 }

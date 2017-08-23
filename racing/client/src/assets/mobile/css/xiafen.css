@@ -1,11 +1,3 @@
-body{background-color: #fff;}
-header{background-color: #2ea2f4;padding-top: .5rem;}
-header>.user>img{width: 3rem;height: 3rem;border-radius: 50%;background-color: #fff;margin:auto;display: block;}
-header>.user>div.fl{font: .8rem/1.2rem 'Microsoft YaHei';padding: .8rem 0;color: #fff;}
-header>.wallet{padding: .8rem .5rem;color: #fff;font: .7rem/1.2rem 'Microsoft YaHei';position: relative;}
-header>.wallet>div{width: 33.33%;text-align: center;}
-header>.wallet p{font-size: .8rem;color: #fff/*#C5A968*/;}
-
 .info .line{margin-top: 1rem;font-size: .9rem;line-height: 1.5rem;color: #333;}
 .info .line>span.fl{width: 35%;text-align: right;padding-right: 1rem;}
 .info .line>div.fl{width: 65%;}
@@ -14,10 +6,6 @@ header>.wallet p{font-size: .8rem;color: #fff/*#C5A968*/;}
 
 .btns{margin-top: 2rem;}
 .btns button{width: 90%;font-size: .9rem;line-height: 2.5rem;display: block;margin: auto;background-color: #2ea2f4;color: #fff;}
-
-footer{position: fixed;bottom: 0;left: 0;width: 100%;height: 2.5rem;}
-footer a{float: left;width: calc(50% - .5px);height: 100%;font: .9rem/2.5rem 'Microsoft YaHei';background-color: #2ea2f4;text-align: center;color: #fff;}
-footer a:last-child{float: right;}
 
 
 

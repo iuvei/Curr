@@ -23,7 +23,7 @@ class BackendUpDown {
     }
 
     // 成员
-    static async getALlUpDowns(ctx) {
+    static async getAllUpDowns(ctx) {
         var {pageSize, currPage, nickname, type} = ctx.request.query;
         if (type === undefined || (type !== 'true' && type !== 'false')) return ctx.body = {
             message: 'type is required',
@@ -48,6 +48,32 @@ class BackendUpDown {
         }
         return ctx.body = {code: 200, data: upDowns, pageSize, currPage, total: Math.ceil(count / pageSize)}
     }
+
+    // 统计上/下分请求
+    static async getUpdownsCounts(ctx) {
+        const queryUps = {
+            type: true,
+            byWho: null,
+        }
+        const ups = await UpDownModel.find(queryUps).count();
+        if (!ups) {
+            return ctx.body = {message: '获取上分请求数失败', code: 404}
+        }
+
+        const queryDowns = {
+            type: false,
+            byWho: null,
+        }
+        const downs = await UpDownModel.find(queryDowns).count();
+
+        if (!downs) {
+            return ctx.body = {message: '获取下分分请求数失败', code: 404}
+        }
+
+        return ctx.body = {code: 200, ups, downs}
+    }
+
+
 
     // 上下分审核
     static async getALlReviewUpDowns(ctx) {

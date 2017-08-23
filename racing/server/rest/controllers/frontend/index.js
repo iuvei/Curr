@@ -5,6 +5,7 @@ const UserModel = require('../../models/user/user.model');
 const BetModel = require('../../models/quiz/bet.model');
 const SettingsModel = require('../../models/comm/settings');
 const UpDownModel = require('../../models/quiz/upDown.model');
+const LotteryModel = require('../../models/quiz/lottery.model.js');
 class IndexController {
 
     static async getConfig(ctx) {
@@ -108,6 +109,16 @@ class IndexController {
             openid, nickname, avatar, type:false, payMethod,payNo,profile, amount});
         if (result) return ctx.body = {code: 200, data: result}
         else ctx.body = {data: result, code: 400}
+    }
+
+
+    // 获取下注消息
+    static async getLotterys(ctx) {
+        const lotterys = await LotteryModel.find().sort({"no": -1}).limit(20);
+        if (!lotterys) {
+            return ctx.body = {message: '获取开奖记录失败', code: 404}
+        }
+        ctx.body = {code: 200, lotterys}
     }
 
 }

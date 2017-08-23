@@ -25,6 +25,8 @@ router
     .post('/up', Index.createUp)
     .post('/down', Index.createDown)
 
+    .get('/lotterys', Index.getLotterys)
+
 
 module.exports = router;
 

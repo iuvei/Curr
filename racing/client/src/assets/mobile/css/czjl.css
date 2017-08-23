@@ -1,0 +1,6 @@
+.content{position:fixed;top:11.4rem;right:0;bottom:2.5rem;left:0;max-width:640px;overflow-y:scroll;background:#fff;margin:auto;}
+.content table{border-collapse:collapse;width:100%;}
+.content table tr th{width:calc(100%/4);height:2.5rem;background:#e0e0e0;border-bottom:0.01rem solid #ccc;font-size:0.5rem;color:#333;}
+.content table tr td{text-align:center;border-bottom:0.01rem solid #ccc;height:3rem;font-size:0.5rem;color:#666;}
+.content table tr td.tg{color:#50cb87;}
+.content table tr td.wtg{color:#ea3a3a;}

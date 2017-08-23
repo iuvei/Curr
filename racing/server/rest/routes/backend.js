@@ -48,7 +48,8 @@ router
     .post('/quizs', BackendQuiz.createQuiz)
 
     // 竞猜
-    .get('/updowns', BackendUpDowns.getALlUpDowns)
+    .get('/updowns', BackendUpDowns.getAllUpDowns)
+    .get('/updowns/counts', BackendUpDowns.getUpdownsCounts)
     .post('/updowns', BackendUpDowns.createUpDown)
     .get('/updowns/review', BackendUpDowns.getALlReviewUpDowns)
 

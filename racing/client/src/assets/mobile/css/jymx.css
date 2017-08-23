@@ -1,0 +1,13 @@
+header{background-color: #2ea2f4;padding-top: .5rem;}
+header>.user>img{width: 3rem;height: 3rem;border-radius: 50%;background-color: #fff;margin:auto;display: block;}
+header>.user>div.fl{font: .8rem/1.2rem 'Microsoft YaHei';padding: .8rem 0;color: #fff;}
+header>.wallet{padding: .8rem .5rem;color: #fff;font: .7rem/1.2rem 'Microsoft YaHei';position: relative;}
+header>.wallet>div{width: 33.33%;text-align: center;}
+header>.wallet p{font-size: .8rem;color: #fff;}
+
+.content{position:fixed;top:11.4rem;right:0;bottom:2.5rem;left:0;max-width:640px;overflow-y:scroll;background:#fff;margin:auto;}
+.content table{border-collapse:collapse;width:100%;}
+.content table tr th{width:calc(100%/4);height:2.5rem;background:#e0e0e0;border-bottom:0.01rem solid #ccc;font-size:0.5rem;color:#333;}
+.content table tr td{text-align:center;border-bottom:0.01rem solid #ccc;height:3rem;font-size:0.5rem;color:#666;}
+.content table tr td.sf{color:#50cb87;}
+.content table tr td.xf{color:#ea3a3a;}

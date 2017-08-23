@@ -64,6 +64,14 @@ export async function addDownReq(params) {
   });
 }
 
+//开奖记录
+export async function getLotterys(params) {
+  return request('/m/api/lotterys', {
+    method: 'get',
+  });
+}
+
+
 export async function getAllQuizs(params) {
   return request(`/api/quizs?pageSize=${params.pageSize || 10}&currPage=${params.currPage || 1}&no=${params.no || ''}&username=${params.username || ''}`, {
     method: 'get',

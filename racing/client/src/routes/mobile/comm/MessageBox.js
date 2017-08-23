@@ -6,11 +6,11 @@ import {getAllMessages, getCustomerImg} from '../../../services/mobile';
  * Created by sven on 2017/8/17.
  */
 const PATH_AGENCY = "agency"
-const PATH_DETAIL = "detail"
+const PATH_ZOUSHI = "zoushi"
 const PATH_HOWTOPLAY = "howtoplay"
-const PATH_QIANBAO = "qianbao"
-const PATH_SHANGFEN = "shangfen"
-const PATH_XIAFEN = "xiafen"
+const PATH_QIANBAO = "/my/qianbao"
+const PATH_SHANGFEN = "/my/shangfen"
+const PATH_XIAFEN = "/my/xiafen"
 const PATH_INDEX = "index"
 export default class  extends Component {
   constructor(props) {
@@ -64,7 +64,7 @@ export default class  extends Component {
           <a href="javascript:;" onClick={this.gotoIndex}><span>首页</span></a>
           <a href="javascript:;" id="popupBtn" onClick={this.getCustomerService}><span>客服</span></a>
           <a href="javascript:;" onClick={this.gotoQianBao}><span>钱包</span></a>
-          <a href="javascript:;"><span>开奖</span></a>
+          <a href="javascript:;" onClick={this.gotoZoushi}><span>开奖</span></a>
           {/*<a href="javascript:;" onClick={this.gotoDetail}><span>明细</span></a>*/}
           <a href="javascript:;" onClick={this.gotoHowToPaly}><span>玩法</span></a>
           <a href="javascript:;" onClick={this.gotoAgency}><span>代理</span></a>
@@ -114,11 +114,11 @@ export default class  extends Component {
   }
 
   gotoAgency = () => {
-    hashHistory.push({pathname: PATH_AGENCY, state: {from: "index"}});
+    hashHistory.push({pathname: PATH_AGENCY, state: {from: "index", userinfo: this.props.userinfo}});
   }
 
-  gotoDetail = () => {
-    hashHistory.push({pathname: PATH_DETAIL, state: {from: "index"}});
+  gotoZoushi = () => {
+    hashHistory.push({pathname: PATH_ZOUSHI, state: {from: "index"}});
   }
 
   gotoHowToPaly = () => {
