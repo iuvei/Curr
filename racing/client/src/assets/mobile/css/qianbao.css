@@ -1,4 +1,3 @@
-
 .main{padding: .5rem 0 3rem !important; position:relative; width:100%;}
 .main>.part{width: 100%;}
 .main>.part>a{display: block;width: 100%;height: 2.5rem;line-height:2.5rem;background-color: #fff;}
@@ -15,15 +14,3 @@
 .main>.part .a2{width:100%;border-bottom:0.01rem solid #ccc;}
 .main>.part .a3{margin-top:1rem;}
 .main>.part .a1 button{width:60px;height:30px;background:#2ea2f4;font-size:0.5rem;color:#fff;text-align:center;line-height:30px;border-radius:2px;float:right;margin:0.3rem 0.5rem 0 0;}
-
-
-
-
-
-
-
-
-
-
-
-
