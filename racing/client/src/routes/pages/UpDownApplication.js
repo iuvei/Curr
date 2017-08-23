@@ -69,7 +69,7 @@ export default class UpDownApplication extends Component {
                   <input type="submit" value="搜索" className="ip2" onClick={this.queryUpdownsByName.bind(this)}/>
                 </div>
                 <div className="tab">
-                  <table style={{border: 1}}>
+                  <table style={{border: "1"},{width: "100%"}}>
                     <tbody>
                     <tr>
                       <th width="80">头像</th>

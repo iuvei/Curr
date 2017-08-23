@@ -133,70 +133,55 @@ export default class SetBetting extends Component {
                   <input type="number" ref="maxInput" className="sp2" value={max || ''} onChange={this.onMaxChange}/>
                 </p>
               </div>
-              <table>
+              <table width="100%">
                 <tbody>
                 <tr>
-                  <td width="35%">1-10名猜大小单双</td>
-                  <td width="55%"><input type="number" ref="rule01Input" value={rule01 || ''}
-                                         onChange={this.onRule01Change}/></td>
-                  <td width="10%"><input type="radio" name="dio1" checked="checked"/>开启
-                    <input type="radio" name="dio1"/>关闭
-                  </td>
+                  <td width="400">1-10名猜大小单双</td>
+                  <td width="530"><input type="number" ref="rule01Input" value={rule01 || ''} onChange={this.onRule01Change}/></td>
                 </tr>
                 <tr>
                   <td>1-10名猜车号</td>
                   <td><input type="number" ref="rule02Input" value={rule02 || ''} onChange={this.onRule02Change}/></td>
-                  <td><input type="radio" name="dio2" checked="checked"/>开启 <input type="radio" name="dio2"/>关闭</td>
                 </tr>
                 <tr>
                   <td>1-10名组合（大单、小双）</td>
                   <td><input type="number" ref="rule03Input" value={rule03 || ''} onChange={this.onRule03Change}/></td>
-                  <td><input type="radio" name="dio3" checked="checked"/>开启 <input type="radio" name="dio3"/>关闭</td>
                 </tr>
                 <tr>
                   <td>1-10名组合（小单、大双）</td>
                   <td><input type="number" ref="rule04Input" value={rule04 || ''} onChange={this.onRule04Change}/></td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td>1-5名猜龙虎</td>
                   <td><input type="number" ref="rule05Input" value={rule05 || ''} onChange={this.onRule05Change}/></td>
-                  <td><input type="radio" name="dio4" checked="checked"/>开启 <input type="radio" name="dio4"/>关闭</td>
                 </tr>
                 <tr>
                   <td>冠亚猜庄闲</td>
                   <td><input type="number" ref="rule06Input" value={rule06 || ''} onChange={this.onRule06Change}/></td>
-                  <td><input type="radio" name="dio5" checked="checked"/>开启 <input type="radio" name="dio5"/>关闭</td>
                 </tr>
                 <tr>
                   <td>冠亚猜号码</td>
                   <td><input type="number" ref="rule07Input" value={rule07 || ''} onChange={this.onRule07Change}/></td>
-                  <td><input type="radio" name="dio6" checked="checked"/>开启 <input type="radio" name="dio6"/>关闭</td>
                 </tr>
                 <tr>
                   <td>冠亚和值（特码）（大、小、单、双、11为和）</td>
                   <td><input type="number" ref="rule08Input" value={rule08 || ''} onChange={this.onRule08Change}/></td>
-                  <td><input type="radio" name="dio7" checked="checked"/>开启 <input type="radio" name="dio7"/>关闭</td>
                 </tr>
                 <tr>
                   <td>冠亚和值（特码）猜数字（3、4、18、19）</td>
                   <td><input type="number" ref="rule09Input" value={rule09 || ''} onChange={this.onRule09Change}/></td>
-                  <td><input type="radio" name="dio8" checked="checked"/>开启 <input type="radio" name="dio8"/>关闭</td>
                 </tr>
                 <tr>
                   <td>冠亚和值（特码）猜数字（5、6、16、17）</td>
                   <td><input type="number" ref="rule10Input" value={rule10 || ''} onChange={this.onRule10Change}/></td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td>冠亚和值（特码）猜数字（7、8、14、15）</td>
                   <td><input type="number" ref="rule11Input" value={rule11 || ''} onChange={this.onRule11Change}/></td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td>冠亚和值（特码）猜数字（9、10、12、13）</td>
                   <td><input type="number" ref="rule12Input" value={rule12 || ''} onChange={this.onRule12Change}/></td>
-                  <td></td>
                 </tr>
                 <tr>
                   <td></td>

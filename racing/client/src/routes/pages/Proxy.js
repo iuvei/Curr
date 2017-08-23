@@ -57,7 +57,7 @@ export default class Proxy extends Component {
                          onClick={this.queryAgentsByName.bind(this)}/>
                 </div>
                 <div className="tab">
-                  <table style={{border: 1}}>
+                  <table style={{border: "1"},{width: "100%"}}>
                     <tr>
                       <th width="80">头像</th>
                       <th width="160">用户名</th>

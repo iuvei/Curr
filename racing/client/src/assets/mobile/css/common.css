@@ -2,8 +2,7 @@
 /* 深圳市静江网络科技有限公司 */
 *,*:before,*:after {-webkit-box-sizing:border-box; box-sizing:border-box;margin:0; padding:0;}
 html{-ms-text-size-adjust:100%;-webkit-text-size-adjust: 100%;}
-body{position:relative; font:14px/1 "Microsoft YaHei", Helvetica, sans-serif !important;color:#969696;background-color: #efefef;max-width:960px;
-margin:auto;}
+body{position:relative; font:14px/1 "Microsoft YaHei", Helvetica, sans-serif !important;color:#969696;background-color: #efefef;max-width:640px;margin:auto;}
 input{outline: none;}
 button{cursor: pointer;border: none;outline: none;}
 ul,li,h1,h2,h3,h4,h5,h6,p{list-style-type:none;}
