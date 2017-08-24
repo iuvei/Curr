@@ -14,10 +14,21 @@ export default class XiaFen extends Component {
       money: 0,
       payMothed: 'WXPAY',
       payNo: '',
+      account: {balance: '-', lossToday: '-', rebate: '-'}
     }
   }
 
   componentDidMount() {
+    const {userinfo} = this.props.location.state;
+    getAccount({openid: userinfo.openid})
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+          this.setState({
+            account: data.result.account,
+          });
+        }
+      })
   }
 
   onSubmit = (e) => {

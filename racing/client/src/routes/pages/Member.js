@@ -92,7 +92,7 @@ export default class Member extends Component {
                             <td><img src={item.avatar || require("../../assets/backend/images/1.jpg")} alt=""/></td>
                             <td>{item.nickname || "无"}</td>
                             <td>{item.username}</td>
-                            <td>{item.gender ? "女" : "男"}</td>
+                            <td>{item.gender==="2" ? "女" : "男"}</td>
                             <td>{item.profile}</td>
                             <td>{moment(item.createdAt).format('YYYY-MM-DD')}</td>
                             <td>{item.playpoint}</td>

@@ -31,7 +31,7 @@ export default function request(url, options) {
       if (data.code >= 200 && data.code < 300) {
         return { success: true, result: data };
       }
-      return { success: false, error: data.error };
+      return { success: false, error: data.error, message: data.message };
 
     })
     .catch(err => ({ err }));

@@ -110,10 +110,11 @@ export default class UpDownReview extends Component {
                     <tr>
                       <th width="80">头像</th>
                       <th width="160">用户名</th>
-                      <th width="150">上分金额</th>
-                      <th width="150">下分金额</th>
-                      <th width="150">操作后余额</th>
-                      <th width="200">审核通过时间</th>
+                      <th width="100">上分金额</th>
+                      <th width="100">下分金额</th>
+                      <th width="100">操作后余额</th>
+                      <th width="200">审核时间</th>
+                      <th width="150">审核结果</th>
                       <th width="150">审核管理员</th>
                     </tr>
                     <tbody className="">
@@ -127,6 +128,7 @@ export default class UpDownReview extends Component {
                             <td className={!item.type ? "down" : ""}>{!item.type ? item.amount : "00.00"}</td>
                             <td>{item.balance}</td>
                             <td>{moment(item.updateAt).format('YYYY-MM-DD HH:mm:ss')}</td>
+                            <td>{item.ignore ? <span className="up">忽略</span> : <span className="down">成功</span>}</td>
                             <td>{item.byWho}</td>
                           </tr>
                         );

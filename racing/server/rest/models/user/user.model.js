@@ -19,4 +19,4 @@ const UserSchema = new Schema({
     agentname: {type: String}, //被谁推荐的
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Users', UserSchema);

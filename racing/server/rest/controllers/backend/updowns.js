@@ -22,6 +22,58 @@ class BackendUpDown {
         else ctx.body = {data: result, code: 400}
     }
 
+    //更新上下分记录
+    static async updateUpDown(ctx) {
+        const id = ctx.params.id;
+        const {ignore, type, byWho} = ctx.request.body;
+        if (!ignore) {
+            console.log(ctx.request.body);
+            const upDowns = await UpDownModel.findById(id);
+            if (!upDowns) {
+                return ctx.body = {message: '该记录不存在', code: 404}
+            }
+            const openid = upDowns.openid;
+            const user = await UserModel.findOne({openid})
+            if (!user) {
+                return ctx.body = {message: '该用户不存在', code: 404}
+            }
+            var newBalance = user.balance;
+            if (type === false) {
+                if (upDowns.amount > user.balance) {
+                    return ctx.body = {message: '请求金额大于用户余额', code: 404}
+                } else {
+                    newBalance = user.balance - upDowns.amount
+                }
+            } else {
+                newBalance = user.balance + upDowns.amount
+            }
+
+            const query = {openid};
+            if (user.balance === 0) {
+                query.balance = 0
+            }
+            console.log(user, query, {'$set': {balance: newBalance}});
+            const userRet = await UserModel.update(query, {'$set': {balance: newBalance}})
+            console.log('===', userRet)
+            if (userRet.nModified !== 1) {
+                return ctx.body = {message: '更新用户余额失败', code: 404}
+            }
+        }
+
+        const ret = await UpDownModel.update({_id: id}, {
+            type,
+            balance: newBalance || -1,
+            ignore,
+            byWho,
+            updateAt: new Date()
+        }, {upsert: false});
+        console.log(ret)
+
+        if (ret.nModified !== 1) return ctx.body = {message: '更新上下分请求失败', code: 404}
+        return ctx.body = {code: 200}
+    }
+
+
     // 成员
     static async getAllUpDowns(ctx) {
         var {pageSize, currPage, nickname, type} = ctx.request.query;
@@ -35,6 +87,7 @@ class BackendUpDown {
         if (nickname !== undefined && nickname !== '') {
             query.nickname = {'$regex': eval(`/${nickname}.*/i`)}
         }
+        query.byWho = {$exists: false} //查询未被审核的
 
         const upDowns = await UpDownModel.find(query).sort({"_id": 1}).skip((currPage - 1) * pageSize).limit(pageSize);
         if (!upDowns) {
@@ -56,9 +109,6 @@ class BackendUpDown {
             byWho: null,
         }
         const ups = await UpDownModel.find(queryUps).count();
-        if (!ups) {
-            return ctx.body = {message: '获取上分请求数失败', code: 404}
-        }
 
         const queryDowns = {
             type: false,
@@ -66,14 +116,8 @@ class BackendUpDown {
         }
         const downs = await UpDownModel.find(queryDowns).count();
 
-        if (!downs) {
-            return ctx.body = {message: '获取下分分请求数失败', code: 404}
-        }
-
         return ctx.body = {code: 200, ups, downs}
     }
-
-
 
     // 上下分审核
     static async getALlReviewUpDowns(ctx) {
@@ -84,6 +128,7 @@ class BackendUpDown {
         if (nickname !== undefined && nickname !== '') {
             query.nickname = {'$regex': eval(`/${nickname}.*/i`)}
         }
+        query.byWho = {$exists: true} //查询被审核的
         const updateAt = {}
         if (startTime !== undefined && startTime !== '') {
             query.updatedAt = updateAt
@@ -94,10 +139,9 @@ class BackendUpDown {
             updateAt['$lt'] = new Date(endTime)
         }
 
-        console.log('======getALlReviewUpDowns=======query:', query)
         const users = await UpDownModel.find(query).sort({"_id": 1}).skip((currPage - 1) * pageSize).limit(pageSize);
         if (!users) {
-            return ctx.body = {message: '获取设置信息失败', code: 404}
+            return ctx.body = {message: '获取上下分审核列表失败', code: 404}
         }
         const count = await UpDownModel.find(query).count();
         return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count / pageSize)}

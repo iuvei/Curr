@@ -6,7 +6,7 @@ import urllib2
 from pymongo import MongoClient
 #logger = logging.getLogger(__name__)
 
-url = "http://f.apiplus.net/bjpk10.json"
+url = "http://d.apiplus.net/newly.do?token=t31ca37cd375be4b4k&code=bjpk10&rows=1&format=json"
 conn = MongoClient('localhost', 27017)
 db = conn.racing_dev
 table = db.lotterys

@@ -50,6 +50,7 @@ router
     // 竞猜
     .get('/updowns', BackendUpDowns.getAllUpDowns)
     .get('/updowns/counts', BackendUpDowns.getUpdownsCounts)
+    .put('/updowns/:id', BackendUpDowns.updateUpDown)
     .post('/updowns', BackendUpDowns.createUpDown)
     .get('/updowns/review', BackendUpDowns.getALlReviewUpDowns)
 

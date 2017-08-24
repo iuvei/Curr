@@ -4,7 +4,7 @@ import '../../assets/backend/css/upDownApplication.css';
 import moment from 'moment';
 import Paging from '../../components/paging/Paging'
 import {updateUpDown, getAllUpDowns, getUserAccount} from '../../services/updowns';
-import {message} from 'antd';
+import {message, Popconfirm, notification} from 'antd';
 /**
  * Created by sven on 2017/8/4.
  */
@@ -55,6 +55,22 @@ export default class UpDownApplication extends Component {
     })
   }
 
+  onConfirm = (ignore, id) => {
+    updateUpDown({id, type: this.state.type, byWho: "管理员", ignore})
+      .then(data => {
+        if (data.success) {
+          message.success('操作成功');
+          this.queryUpdowns(1, 10, this.props.location.state.type);
+        } else {
+          console.log(data)
+          notification.error({
+            message: '操作失败',
+            description: data.message,
+          });
+        }
+      })
+  }
+
   render() {
     return (
       <div className="r_aside">
@@ -100,8 +116,14 @@ export default class UpDownApplication extends Component {
                             <td width="150">{item.payNo}</td>
                             <td width="200">{item.profile}</td>
                             <td width="290">
-                              <input type="submit" value="通过" className="ip1"/>
-                              <input type="submit" value="忽略" className="ip2"/>
+                              <Popconfirm title="确定通过吗?" onConfirm={() => this.onConfirm(false, item._id)} okText="确定"
+                                          cancelText="取消">
+                                <input type="submit" value="通过" className="ip1"/>
+                              </Popconfirm>
+                              <Popconfirm title="确定忽略吗?" onConfirm={() => this.onConfirm(true, item._id)} okText="确定"
+                                          cancelText="取消">
+                                <input type="submit" value="忽略" className="ip2"/>
+                              </Popconfirm>
                             </td>
                           </tr>
                         );

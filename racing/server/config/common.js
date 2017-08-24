@@ -4,7 +4,7 @@ module.exports={
     // 开发环境配置
     development: {
         mongo: {
-            uri: 'mongodb://localhost:27017/racing_dev'
+            uri: 'mongodb://localhost:27017/racing_dev2'
         },
         port: '8080',
         qiniu: {  // 七牛云sdk配置 (仅供参考)

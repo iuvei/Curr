@@ -12,6 +12,7 @@ const UpDownSchema = new Schema({
     payMethod: {type: String}, //提现方式
     payNo: {type: String}, //提现账号
     byWho: {type: String}, //操作人员
+    ignore: {type: Boolean, default: false}, //操作结果, true为忽略
     profile: {type: String}, //备注
     createdAt: {type: Date, default: Date.now}, //申请时间
     updatedAt: {type: Date}, // 审批时间

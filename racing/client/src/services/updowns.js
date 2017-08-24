@@ -1,8 +1,8 @@
 import request from '../utils/request';
 
 export async function updateUpDown(params) {
-  return request('/api/updowns', {
-    method: 'post',
+  return request(`/api/updowns/${params.id}`, {
+    method: 'put',
     body: JSON.stringify(params),
   });
 }
