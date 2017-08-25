@@ -21,6 +21,15 @@ export default class  extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    const {message} = nextProps;
+    if (message) {
+      this.setState({
+        messages: [message].concat(this.state.messages)
+      })
+    }
+  }
+
   componentDidMount() {
     getAllMessages({no: this.props.no})
       .then(data => {

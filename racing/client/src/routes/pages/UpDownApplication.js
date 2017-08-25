@@ -116,11 +116,11 @@ export default class UpDownApplication extends Component {
                             <td width="150">{item.payNo}</td>
                             <td width="200">{item.profile}</td>
                             <td width="290">
-                              <Popconfirm title="确定通过吗?" onConfirm={() => this.onConfirm(false, item._id)} okText="确定"
+                              <Popconfirm title="确定通过吗?" onConfirm={() => this.onConfirm(1, item._id)} okText="确定"
                                           cancelText="取消">
                                 <input type="submit" value="通过" className="ip1"/>
                               </Popconfirm>
-                              <Popconfirm title="确定忽略吗?" onConfirm={() => this.onConfirm(true, item._id)} okText="确定"
+                              <Popconfirm title="确定忽略吗?" onConfirm={() => this.onConfirm(2, item._id)} okText="确定"
                                           cancelText="取消">
                                 <input type="submit" value="忽略" className="ip2"/>
                               </Popconfirm>

@@ -5,7 +5,7 @@ export default {
   state: {
     no: '20170810',
     userinfo: {openid: ''},
-    messages: [],
+    message: [],
   },
   reducers: {
     updateState(state, action) {
@@ -16,30 +16,30 @@ export default {
     },
   },
   effects: {
-    *getUserInfo({
-      payload,
-    }, {call, put}) {
-      const data = yield call(getUserInfo, parse(payload));
-      if (data.success) {
-        yield put({
-          type: 'updateState',
-          payload: {userinfo: data.result.userinfo},
-        });
-      }
-    },
-    *getMessages({
-      payload,
-    }, {call, put}) {
-      const data = yield call(getAllMessages, parse(payload));
-      if (data.success) {
-        yield put({
-          type: 'updateState',
-          payload: {
-            messages: data.result,
-          },
-        });
-      }
-    },
+    // *getUserInfo({
+    //   payload,
+    // }, {call, put}) {
+    //   const data = yield call(getUserInfo, parse(payload));
+    //   if (data.success) {
+    //     yield put({
+    //       type: 'updateState',
+    //       payload: {userinfo: data.result.userinfo},
+    //     });
+    //   }
+    // },
+    // *getMessages({
+    //   payload,
+    // }, {call, put}) {
+    //   const data = yield call(getAllMessages, parse(payload));
+    //   if (data.success) {
+    //     yield put({
+    //       type: 'updateState',
+    //       payload: {
+    //         messages: data.result,
+    //       },
+    //     });
+    //   }
+    // },
   },
   subscriptions: {
     setup({dispatch}) {

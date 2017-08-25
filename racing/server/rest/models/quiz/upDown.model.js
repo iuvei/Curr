@@ -12,10 +12,10 @@ const UpDownSchema = new Schema({
     payMethod: {type: String}, //提现方式
     payNo: {type: String}, //提现账号
     byWho: {type: String}, //操作人员
-    ignore: {type: Boolean, default: false}, //操作结果, true为忽略
+    ignore: {type: Number, default: 0}, //操作结果,0 审核中，1 通过，2未通过
     profile: {type: String}, //备注
     createdAt: {type: Date, default: Date.now}, //申请时间
-    updatedAt: {type: Date}, // 审批时间
+    updateAt: {type: Date}, // 审批时间
 });
 
 module.exports = mongoose.model('UpDown', UpDownSchema);

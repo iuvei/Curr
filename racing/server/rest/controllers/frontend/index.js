@@ -111,6 +111,15 @@ class IndexController {
         else ctx.body = {data: result, code: 400}
     }
 
+    // 充值记录，即上下分记录
+    static async getRechargeRecords(ctx) {
+        const openid = ctx.params.openid;
+        const upDowns = await UpDownModel.find({openid}).sort({"_id": 1}).limit(20);
+        if (!upDowns) {
+            return ctx.body = {message: '获取充值记录失败', code: 404}
+        }
+        return ctx.body = {upDowns, code: 200}
+    }
 
     // 获取下注消息
     static async getLotterys(ctx) {

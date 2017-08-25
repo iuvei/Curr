@@ -51,6 +51,13 @@ class MobilePage extends Component {
     })
   }
 
+  alterMessage = (message) => {
+    this.props.dispatch({
+      type: "mobile/updateState",
+      payload: {message}
+    })
+  }
+
   render() {
     const {no, userinfo} = this.props.mobile
     return (
@@ -60,8 +67,8 @@ class MobilePage extends Component {
           <span>剩余积分：0.00分</span>
           <span>在线人数：217人</span>
         </div>
-        <KeyBoard socket={socket} userinfo={userinfo}/>
-        <MessageBox socket={socket} no={no} userinfo={userinfo}/>
+        <KeyBoard socket={socket} userinfo={userinfo} alterMessage={this.alterMessage}/>
+        <MessageBox socket={socket} no={no} userinfo={userinfo} message={this.props.mobile.message}/>
       </div>
     );
   }

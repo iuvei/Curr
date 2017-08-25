@@ -24,6 +24,8 @@ router
     //上线分
     .post('/up', Index.createUp)
     .post('/down', Index.createDown)
+    //充值记录，即上下分记录
+    .get('/updowns/:openid', Index.getRechargeRecords)
 
     .get('/lotterys', Index.getLotterys)
 

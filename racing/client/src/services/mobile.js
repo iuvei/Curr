@@ -64,6 +64,13 @@ export async function addDownReq(params) {
   });
 }
 
+//上下分记录，即充值记录
+export async function getRechargeRecords(params) {
+  return request(`/m/api/updowns/${params.openid}`, {
+    method: 'get',
+  });
+}
+
 //开奖记录
 export async function getLotterys(params) {
   return request('/m/api/lotterys', {

@@ -17,12 +17,12 @@ export default class KeyBoard extends Component {
   }
 
   componentDidMount() {
-    this.props.socket.on('info', info => {
-      const {type, msg} = info
-      if (type === "error") {
-        message.error(msg)
-      }
-    });
+    // this.props.socket.on('info', info => {
+    //   const {type, msg} = info
+    //   if (type === "error") {
+    //     message.error(msg)
+    //   }
+    // });
   }
 
   trigger = () => {
@@ -35,66 +35,29 @@ export default class KeyBoard extends Component {
     this.setState({
       choice: this.state.choice + key
     });
-    // console.log(key)
-    // switch (key) {
-    //   case  key>=0 && key <=9 :
-    //     console.log('=====2====',key)
-    //         break;
-    //
-    //   case '大','小','单','双','组','和','特','庄','闲','龙','虎','A','B','C':
-    //
-    //   case '/':
-    //     this.setState({
-    //       input: this.state.input + key
-    //     });
-    //     break;
-    //   case '清除':
-    //     this.setState({input: ''});
-    //     break;
-    //   case '上分':
-    //   case '下分':
-    //   case '发送':
-    //     this.onSend();
-    //     break;
-    //   case '关闭':
-    //     this.setState({inputShow: false});
-    //     break;
-    //   default:
-    //     message.warn('无效输入')
-    // }
   }
 
   onSend = () => {
+    const {userinfo} = this.props;
+    const choice = this.state.choice;
+    if (!RuleFactory.isMatch(choice)) {
+      const message = {
+        from: 2, nickname: "客服", choice: `@${userinfo.nickname}\n格式错误: ${choice}`,
+        avatar: require("../../../assets/mobile/images/manageIcon.png")
+      }
+      this.props.alterMessage(message);
+      this.setState({inputShow: false});
+      return;
+    }
+
     const msg = {
       user: this.props.userinfo,
       no: "20170810",
       choice: this.state.choice,
     }
-    this.props.socket.emit('BET', msg);
-    this.setState({inputShow: false});
-    // if (RuleFactory.isMatch(this.state.choice)) {
-    //   console.log("匹配")
-    //   this.props.socket.emit('BET', msg);
-    //   this.setState({inputShow: false});
-    // }else{
-    //   console.log("不")
-    //}
 
-    // const reg = /^[0-9]\/[大小单双组和特庄闲龙虎ABC]\/[1-9][0-9]{0,5}$/
-    //
-    // console.log(reg.test(this.state.choice))
-    // if (!reg.test(this.state.choice)) {
-    //   message.warn("格式错误！ 规则：车道/玩法/金额")
-    //   return;
-    // }
-    //
-    // const msg = {
-    //   user: {username: 'test1'},
-    //   no: "20170810",
-    //   choice: this.state.choice,
-    // }
-    // this.props.socket.emit('BET', msg);
-    // this.setState({inputShow: false});
+    this.props.socket.emit('BET', msg);
+    this.setState({inputShow: false, choice: ""});
   }
 
   render() {
@@ -104,7 +67,7 @@ export default class KeyBoard extends Component {
       <div className="userInfo clearfix">
         <img src={userinfo.avatar} className="fl"/>
         <form action="" className="fl">
-          <input type="text" title="" value={this.state.choice} placeholder="车道/玩法/金额" className="fl"/>
+          <input type="text" title="" value={this.state.choice} placeholder="名次/号码/金额" className="fl"/>
           <a className="fl" onClick={this.trigger}></a>
           <button type="submit" className="fl" onClick={() => this.onSend()}>发送</button>
         </form>

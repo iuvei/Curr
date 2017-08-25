@@ -150,6 +150,7 @@ class Rule01 extends Rule {
     }
 
     amount(input) {
+        console.log('=============input=========', input)
         if (!this.test(input)) {
             return 0
         } else {

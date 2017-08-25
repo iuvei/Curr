@@ -20,7 +20,6 @@ export default class MyHeader extends Component {
     const {userinfo} = this.props.location.state;
     getAccount({openid: userinfo.openid})
       .then(data => {
-        console.log(data)
         if (data.success) {
           this.setState({
             account: data.result.account,

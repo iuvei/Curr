@@ -56,7 +56,8 @@ app.use(async (ctx, next) => {
 // routes
 
 //app.use(index.routes(), index.allowedMethods())
-// app.use(users.routes(), users.allowedMethods())
+const users = require("./routes/users")
+app.use(users.routes(), users.allowedMethods())
 
 const backendRouter = require('./rest/routes/backend');
 app.use(backendRouter.routes(), backendRouter.allowedMethods())

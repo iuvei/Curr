@@ -2,6 +2,7 @@ const log4js = require('log4js')
 const log = log4js.getLogger("socketEvent")
 var cachemgr = require('./../../tools/cachemgr');
 const BetModel = require('../../models/quiz/bet.model');
+const UserModel = require('../../models/user/user.model');
 const {RuleFactory} = require("../../tools/rules")
 exports = module.exports = function (io) {
 
@@ -33,36 +34,58 @@ exports = module.exports = function (io) {
         socket.on('BET', function (msg) {
             console.log('===========BET=====', msg)
             const {user, no, choice} = msg;
-            //var reg = /^[0-9]\/[大小单双组和特庄闲龙虎ABC]\/[1-9][0-9]{0,5}$/
-            if (!RuleFactory.isMatch(choice)) {
-                log.warn("格式错误:", choice, " by ", user);
-                //socket.emit('info', {type: "error", msg: "格式错误"});
-                const record =  {from: 2, no, nickname: "客服", choice: `@${user.nickname}\n格式错误: ${choice}`, avatar: user.avatar}
-                socket.emit('bet-msg', record);
-                return;
+            const {openid, nickname, avatar} = user;
+            const rule = RuleFactory.match(choice);
+            console.log('==========', rule)
+            if (rule) {
+                const amount = rule.amount(choice);
+                console.log(amount)
+                UserModel.findOne({openid}, function (err, userinfo) {
+                    if (err) {
+                        log.error("内部错误:", err);
+                        return;
+                    }
+                    if (userinfo) {
+                        log.info("User: ", openid, " Balance: ", userinfo.balance, " Amount: ", amount)
+                        if (userinfo.balance < amount) {
+                            log.error("User: ", openid, "余额不足")
+                            socket.emit('bet-msg', {from: 2, nickname: "客服", choice: `@${nickname} 余额不足`});
+                            return;
+                        }
+
+                        const query = {openid};
+                        if (userinfo.balance !== 0) {
+                            query.balance = userinfo.balance
+                        }
+                        UserModel.update(query, {'$set': {balance: userinfo.balance - amount}}, {upsert: false}, function (err, ret) {
+                            if (err) {
+                                log.error("内部错误:", err);
+                                return;
+                            }
+                            if (ret.nModified !== 1) {
+                                log.error("更新余额失败:", query, {'$set': {balance: userinfo.balance - amount}}, err);
+                                socket.emit('bet-msg', {from: 2, nickname: "客服", choice: `@${nickname} 更新余额失败`});
+                                return
+                            }
+                        });
+
+                        const record = {from: 1, no, nickname, choice, avatar, amount}
+                        BetModel.create(record, function (err) {
+                            if (err) {
+                                log.error("下注保存失败：", err);
+                                socket.emit('bet-msg', {from: 2, nickname: "客服", choice: `@${nickname} 下注失败`});
+                                return;
+                            } else {
+                                socket.emit('bet-msg', record);
+                                socket.broadcast.emit('bet-msg', record);
+                            }
+                        });
+                    }
+                });
+
+            } else {
+                log.error("choice没有匹配:", choice, rule);
             }
-            BetModel.findOne({no, nickname: user.nickname, choice}, function (err, user) {
-                if (err) {
-                    log.error("内部错误:", err);
-                    return;
-                }
-                if (user) {
-                    //已经存在
-                    //socket.emit('info', {type: "error", msg: "该期已经存在"});
-                    return;
-                }
-            });
-            const record =  {from: 1, no, nickname: user.nickname, choice, avatar: user.avatar}
-            BetModel.create(record, function (err) {
-                if (err) {
-                    log.error("保存失败：", err);
-                    //socket.emit('info', {type: "error", msg: "失败"});
-                    return;
-                } else {
-                    socket.emit('bet-msg', record);
-                    socket.broadcast.emit('bet-msg', record);
-                }
-            });
 
         });
         socket.on('UP', function (msg) {

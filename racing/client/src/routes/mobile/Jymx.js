@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import '../../assets/mobile/css/jymx.css';
-import {addDownReq, getAccount} from '../../services/mobile';
+import {addDownReq, getRechargeRecords} from '../../services/mobile';
+import moment from 'moment';
+import {message} from 'antd'
 /**
  * Created by sven on 2017/8/23.
  */
@@ -8,8 +10,25 @@ import {addDownReq, getAccount} from '../../services/mobile';
 export default class Jymx extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      updowns: []
+    }
   }
 
+  componentDidMount() {
+    const {userinfo} = this.props.location.state;
+    getRechargeRecords({openid: userinfo.openid})
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+          this.setState({
+            quits: data.result.upDowns,
+          });
+        }else{
+          message.error(data.message)
+        }
+      })
+  }
   render() {
     return (
       <div className="content">

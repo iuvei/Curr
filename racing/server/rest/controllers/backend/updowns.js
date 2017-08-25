@@ -26,7 +26,7 @@ class BackendUpDown {
     static async updateUpDown(ctx) {
         const id = ctx.params.id;
         const {ignore, type, byWho} = ctx.request.body;
-        if (!ignore) {
+        if (ignore === 1) {
             console.log(ctx.request.body);
             const upDowns = await UpDownModel.findById(id);
             if (!upDowns) {
@@ -49,8 +49,8 @@ class BackendUpDown {
             }
 
             const query = {openid};
-            if (user.balance === 0) {
-                query.balance = 0
+            if (user.balance !== 0) {
+                query.balance = user.balance
             }
             console.log(user, query, {'$set': {balance: newBalance}});
             const userRet = await UserModel.update(query, {'$set': {balance: newBalance}})
@@ -74,7 +74,7 @@ class BackendUpDown {
     }
 
 
-    // 成员
+    // 获取上下分记录
     static async getAllUpDowns(ctx) {
         var {pageSize, currPage, nickname, type} = ctx.request.query;
         if (type === undefined || (type !== 'true' && type !== 'false')) return ctx.body = {
@@ -131,11 +131,11 @@ class BackendUpDown {
         query.byWho = {$exists: true} //查询被审核的
         const updateAt = {}
         if (startTime !== undefined && startTime !== '') {
-            query.updatedAt = updateAt
+            query.updateAt = updateAt
             updateAt['$gte'] = new Date(startTime)
         }
         if (endTime !== undefined && endTime !== '') {
-            query.updatedAt = updateAt
+            query.updateAt = updateAt
             updateAt['$lt'] = new Date(endTime)
         }
 
