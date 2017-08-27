@@ -69,7 +69,7 @@ exports = module.exports = function (io) {
                             }
                         });
 
-                        const record = {from: 1, no, nickname, choice, avatar, amount}
+                        const record = {from: 1, no, openid, nickname, choice, avatar, amount}
                         BetModel.create(record, function (err) {
                             if (err) {
                                 log.error("下注保存失败：", err);

@@ -7,6 +7,13 @@ export async function getAuth() {
   });
 }
 
+//获取开奖信息
+export async function getCurrLottery() {
+  return request(`/m/api/lotterys/current`, {
+    method: 'get',
+  });
+}
+
 //获取微信公众号信息（这里仅appID）
 export async function getConfig() {
   return request(`/m/api/config`, {
@@ -29,7 +36,8 @@ export async function getCustomerImg(params) {
 }
 
 export async function getAllMessages(params) {
-  return request(`/m/api/messages?no=${params.no}`, {
+  //return request(`/m/api/messages?no=${params.no}`, {
+  return request(`/m/api/messages`, {
     method: 'get',
   });
 }

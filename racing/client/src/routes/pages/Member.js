@@ -95,8 +95,8 @@ export default class Member extends Component {
                             <td>{item.gender==="2" ? "女" : "男"}</td>
                             <td>{item.profile}</td>
                             <td>{moment(item.createdAt).format('YYYY-MM-DD')}</td>
-                            <td>{item.playpoint}</td>
-                            <td>{item.rebatepoint}</td>
+                            <td>{item.balance}</td>
+                            <td>{item.rebate}</td>
                             <td>
                               <input type="submit" value="上分" className="ip1"/>
                               <input type="submit" value="下分" className="ip2"/>
@@ -110,8 +110,8 @@ export default class Member extends Component {
                     }
                     </tbody>
                   </table>
-				  
-				  
+
+
 <div className="t-1" id="t-1" style={{display: "none"}}>
     <div className="title"><span>编辑会员</span> <a href="#">关闭</a></div>
     <div className="content">
@@ -190,8 +190,8 @@ export default class Member extends Component {
         </div>
     </div>
 </div>
-				  
-				  
+
+
                   <Paging
                     currPage={this.state.users.currPage}
                     pageSize={this.state.users.pageSize}

@@ -19,11 +19,23 @@ class IndexController {
             const data = await SettingsModel.findOne({type: "platfrom"});
             return ctx.body = {appid: data.config.wxAppID, code: 300}
         } else {
-            const userinfo = await UserModel.findOne({openid});
+            const userinfo = await UserModel.findOne({openid}, {'_id':0, '__v': 0, 'createdAt':0});
             if (!userinfo) {
                 return ctx.body = {message: '获取消息失败', code: 400}
             }
             return ctx.body = {userinfo, code: 200}
+        }
+    }
+
+    static async getCurrLottery(ctx) {
+        // const Lottery_url = "http://d.apiplus.net/newly.do?token=t31ca37cd375be4b4k&code=bjpk10&rows=1&format=json"
+        // const res = await request(Lottery_url);
+        const lottery = await LotteryModel.find({}, {'_id':0}).sort({"_id": -1}).limit(1)
+        console.log(lottery)
+        if (lottery) { //判断存在
+            return ctx.body = {lottery: lottery[0], code: 200}
+        }else{
+            return ctx.body = {message:"获取失败", code: 404}
         }
     }
 
@@ -61,7 +73,7 @@ class IndexController {
             nickname,
             gender: sex,
             avatar: headimgurl,
-            profile: `${country} ${province},${city}`
+            profile: `${province}-${city}`
         };
 
         const result = await UserModel.update({openid}, {'$set': updateDoc}, {upsert: true});
@@ -73,7 +85,7 @@ class IndexController {
     // 获取账户余额等
     static async getAccount(ctx) {
         const {openid} =  ctx.request.query;
-        const user = await UserModel.findOne({openid});
+        const user = await UserModel.findOne({openid}, {'_id':0, '__v': 0});
         if (user) {
             return ctx.body = {account:{balance: user.balance,lossToday: user.lossToday,rebate: user.rebate}, code: 200}
         }
@@ -82,8 +94,8 @@ class IndexController {
 
     // 获取下注消息
     static async getMessages(ctx) {
-        const {no} =  ctx.request.query;
-        const messages = await BetModel.find({no}).sort({"createdAt": -1});
+        //const {no} =  ctx.request.query;
+        const messages = await BetModel.find({}, {'_id':0, '__v': 0}).sort({"createdAt": -1}).limit(50);
         if (!messages) {
             return ctx.body = {message: '获取消息失败', code: 404}
         }

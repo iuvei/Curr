@@ -45,6 +45,7 @@ export default class KeyBoard extends Component {
         from: 2, nickname: "客服", choice: `@${userinfo.nickname}\n格式错误: ${choice}`,
         avatar: require("../../../assets/mobile/images/manageIcon.png")
       }
+
       this.props.alterMessage(message);
       this.setState({inputShow: false});
       return;
@@ -52,7 +53,7 @@ export default class KeyBoard extends Component {
 
     const msg = {
       user: this.props.userinfo,
-      no: "20170810",
+      no: this.props.no,
       choice: this.state.choice,
     }
 

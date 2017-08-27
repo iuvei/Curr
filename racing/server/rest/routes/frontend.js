@@ -13,6 +13,8 @@ router
     //微信网页授权
     .get('/auth', Index.auth)
 
+    //获取开奖信息
+    .get('/lotterys/current', Index.getCurrLottery)
     //获取账户
     .get('/account', Index.getAccount)
 

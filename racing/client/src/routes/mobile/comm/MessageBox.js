@@ -23,7 +23,7 @@ export default class  extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {message} = nextProps;
-    if (message) {
+    if (Object.keys(message).length !== 0) {
       this.setState({
         messages: [message].concat(this.state.messages)
       })
@@ -31,7 +31,8 @@ export default class  extends Component {
   }
 
   componentDidMount() {
-    getAllMessages({no: this.props.no})
+    //getAllMessages({no: this.props.no})
+    getAllMessages()
       .then(data => {
         if (data.success) {
           this.setState({

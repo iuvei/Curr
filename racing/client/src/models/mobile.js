@@ -3,9 +3,9 @@ import {getAllMessages, getUserInfo} from '../services/mobile';
 export default {
   namespace: 'mobile',
   state: {
-    no: '20170810',
+    no: 20170810,
     userinfo: {openid: ''},
-    message: [],
+    message: {},
   },
   reducers: {
     updateState(state, action) {
