@@ -10,10 +10,12 @@ import (
 	"os/signal"
 	"runtime"
 	"strconv"
+	"strings"
 
 	"syscall"
 	"time"
 
+	"gopkg.in/mgo.v2/bson"
 	"gopkg.in/robfig/cron.v2"
 
 	"github.com/qiniu/db/mgoutil.v3"
@@ -76,6 +78,7 @@ func run() {
 		}
 	}
 	NowNo = lt.No
+	mgr.currLottery = lt
 
 	if err = mgr.store(lt); err != nil {
 		log.Error(err)
@@ -87,9 +90,10 @@ func run() {
 }
 
 type LotteryMgr struct {
-	cfg   Config
-	colls Collections
-	trys  int
+	cfg         Config
+	colls       Collections
+	trys        int
+	currLottery Lottery
 }
 
 func NewLotteryMgr(cfg Config) *LotteryMgr {
@@ -100,26 +104,77 @@ func NewLotteryMgr(cfg Config) *LotteryMgr {
 		_, err = mgoutil.Open(&colls, &cfg.Mgo)
 		time.Sleep(time.Second * 1)
 	}
-	return &LotteryMgr{cfg, colls, 0}
+	return &LotteryMgr{cfg, colls, 0, Lottery{}}
 }
 
 type Bet struct {
-	No       int64  `json:"no" bson:"no"`
-	Nickname string `json:"nickname" bson:"nickname"`
-	Openid   string `json:"openid" bson:"openid"`
-	Choice   string `json:"choice" bson:"choice"`
-	Amount   int    `json:"amount" bson:"amount"`
-	Avatar   string `json:"avatar" bson:"avatar"`
+	Id       bson.ObjectId `json:"id" bson:"_id"`
+	No       int64         `json:"no" bson:"no"`
+	Nickname string        `json:"nickname" bson:"nickname"`
+	Openid   string        `json:"openid" bson:"openid"`
+	Choice   string        `json:"choice" bson:"choice"`
+	Amount   int64         `json:"amount" bson:"amount"`
+	Avatar   string        `json:"avatar" bson:"avatar"`
+	Dealed   bool          `json:"dealed" bson:"dealed"`
 }
 
-func (m *LotteryMgr) stat() {
+func (m *LotteryMgr) stat(NowNo int) {
 	var bets []Bet
-	err := m.colls.BetColl.Find(M{"no": NowNo, "from": 1}).All(&bets)
+	err := m.colls.BetColl.Find(M{"no": NowNo, "from": 1, "dealed": false}).All(&bets)
 	if err != nil {
 		log.Errorf("failed to get bets, error: %v", err)
 	}
+	opencode := strings.Split(m.currLottery.Opencode, ",")
 	for _, v := range bets {
+		var win int64
 		fmt.Printf("%#v\n", v)
+		if v.No != m.currLottery.No {
+			var lt Lottery
+			err = m.colls.LotteryColl.Find(M{"no": v.No}).One(&lt)
+			if err != nil {
+				log.Errorf("failed tp get Lottery[%d] from mongo, error: %v", v.No, err)
+				continue
+			}
+			log.Info(lt, v.No)
+			win, err = calculate(v.Choice, 1, strings.Split(lt.Opencode, ","))
+			if err != nil {
+				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, NowNo, err)
+				continue
+			}
+
+		} else {
+			win, err = calculate(v.Choice, 1, opencode)
+			if err != nil {
+				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, NowNo, err)
+				continue
+			}
+		}
+
+		if win != 0 {
+			if err = m.colls.UserColl.Update(M{"openid": v.Openid}, M{"$inc": M{"balance": win}}); err != nil {
+				log.Errorf("failed to update user's balance, error: %v", err)
+				continue
+			}
+		}
+
+		if err = m.colls.BetColl.Update(M{"_id": v.Id}, M{"$set": M{"dealed": true}}); err != nil {
+			log.Errorf("failed to change bets's state[dealed:true], error: %v", err)
+		}
+		update := M{
+			"openid":   v.Openid,
+			"no":       v.No,
+			"nickname": v.Nickname,
+			"avatar":   v.Avatar,
+			"choice":   v.Choice,
+			"income":   v.Amount,
+			"outlay":   win,
+			"worth":    win - v.Amount,
+		}
+
+		if _, err = m.colls.QuizColl.UpsertId(v.Id, M{"$set": update}); err != nil {
+			log.Errorf("failed to change bets's state[dealed:true], error: %v", err)
+		}
+
 	}
 }
 
@@ -176,10 +231,10 @@ func (m *LotteryMgr) fetcher() (lt Lottery, err error) {
 }
 
 type Lottery struct {
-	No            int64  `json:"no"`
+	No            int64  `json:"no" bson:"no"`
 	Expect        string `json:"expect"`
-	Opencode      string `json:"opencode"`
-	Opentime      string `json:"opentime"`
+	Opencode      string `json:"opencode" bson:"code"`
+	Opentime      string `json:"opentime" bson:"opentime"`
 	Opentimestamp int64  `json:"opentimestamp"`
 }
 type Lotterys struct {
@@ -191,4 +246,5 @@ type Collections struct {
 	UserColl    mgoutil.Collection `coll:"users"`
 	LotteryColl mgoutil.Collection `coll:"lotterys"`
 	BetColl     mgoutil.Collection `coll:"bets"`
+	QuizColl    mgoutil.Collection `coll:"quizs"`
 }

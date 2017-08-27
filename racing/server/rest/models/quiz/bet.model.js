@@ -10,6 +10,7 @@ const BetsSchema = new Schema({
     avatar: {type: String, default: ''},    // 头像
     choice: {type: String, required: true}, // 昵称
     amount: {type: Number, default: 0},  //金额
+    dealed: {type: Boolean, default: false},
     createdAt: {type: Date, default: Date.now},
 });
 

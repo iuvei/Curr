@@ -53,7 +53,7 @@ export default class KeyBoard extends Component {
 
     const msg = {
       user: this.props.userinfo,
-      no: this.props.no,
+      no: 636659, //this.props.no,
       choice: this.state.choice,
     }
 
