@@ -17,7 +17,7 @@ export default class Index extends Component {
   render() {
     return (
       <div className="iframeDiv">
-        <iframe src="http://www.pk101.com/build/flash/pk10/pk10.html" frameBorder="0" className="iframe"></iframe>
+        <iframe src="video.html" frameBorder="0" className="iframe"></iframe>
       </div>
     );
   }

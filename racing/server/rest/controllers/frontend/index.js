@@ -20,8 +20,56 @@ class IndexController {
     }
 
     static async getConfig(ctx) {
-        const data = await SettingsModel.findOne({type: "platfrom"});
+        const data = await SettingsModel.findOne({type: "platfrom"}, {"_id": 0, "updatedAt": 0, "createdAt": 0});
         return ctx.body = {appid: data.config.wxAppID, code: 200}
+    }
+
+    static async getLive(ctx) {
+        const lottery = await LotteryModel.find({}, {'_id': 0}).sort({"_id": -1}).limit(1)
+        console.log(lottery)
+        if (lottery) { //判断存在
+        /*
+         "time": 1503934094,
+         "current": {
+         "periodNumber": "636841",
+         "period": "636841",
+         "periodDate": "636841",
+         "awardTime": "2017-08-28 23:22:00",
+         "awardNumbers": "1,3,6,4,5,9,2,7,8,10"
+         },
+         "next": {
+         "periodNumber": "636843",
+         "period": "636843",
+         "periodDate": "636843",
+         "awardTime": "2017-08-28 23:32:00",
+         "awardTimeInterval": -226000,
+         "delayTimeInterval": 10
+         }
+         */
+            const live = {
+                time: parseInt(Date.now() / 1000),
+                current: {
+                    periodNumber: lottery.no + '',
+                    period: lottery.no + '',
+                    periodDate: lottery.no + '',
+                    awardTime: lottery.opentime,
+                    awardNumbers: lottery.code,
+                },
+                next: {
+                    periodNumber: lottery.no + 2 + '',
+                    period: lottery.no + 2 + '',
+                    periodDate: lottery.no + 2 + '',
+                    awardTime: lottery.opentime,
+                    delayTimeInterval: moment(lottery.opentime).add(5, "m").valueOf() - moment().valueOf(),
+                    delayTimeInterval: 10,
+
+                }
+
+            }
+            return ctx.body = live
+        } else {
+            return ctx.body = {message: "获取失败", code: 404}
+        }
     }
 
     static async getUserInfo(ctx) {
@@ -135,8 +183,8 @@ class IndexController {
             profile,
             amount
         });
-        if (result) return ctx.body = {code: 200, data: result}
-        else ctx.body = {data: result, code: 400}
+        if (result) return ctx.body = {code: 200}
+        else ctx.body = {message: "上分请求失败", code: 400}
     }
 
     // 下分
@@ -147,8 +195,8 @@ class IndexController {
         const result = await UpDownModel.create({
             openid, nickname, avatar, type: false, payMethod, payNo, profile, amount
         });
-        if (result) return ctx.body = {code: 200, data: result}
-        else ctx.body = {data: result, code: 400}
+        if (result) return ctx.body = {code: 200}
+        else ctx.body = {message: "下分请求失败", code: 400}
     }
 
     // 充值记录，即上下分记录

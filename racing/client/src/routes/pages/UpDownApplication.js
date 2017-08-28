@@ -77,7 +77,7 @@ export default class UpDownApplication extends Component {
           from: 2,
           nickname: "管理员",
           status: ignore === 1,
-          choice: `@${nickname} ${type ? "上分" : "下分"}${data.success ? "成功!" : "失败！<br/>信息：${data.message}}"}`,
+          choice: `@${nickname} ${type ? "上分" : "下分"}${ignore===1 ? "成功!" : "未通过！"}`,
         }
         socket.emit('admin', action); //转向后端，然后后端广播到微信端
       })
