@@ -70,23 +70,32 @@ func run() {
 	if err != nil {
 		log.Error(err)
 	}
-	for time.Unix(lt.Opentimestamp, 0).Minute() != time.Now().Minute() {
+	nowMin := time.Now().Minute()
+	for time.Unix(lt.Opentimestamp, 0).Minute() != nowMin {
 		log.Infof("get old lottery record [no:%d], try again", lt.No)
 		lt, err = mgr.reTry()
 		if err != nil {
 			log.Error(err)
 		}
 	}
-	NowNo = lt.No
-	mgr.currLottery = lt
 
 	if err = mgr.store(lt); err != nil {
 		log.Error(err)
 		return
 	}
+	mgr.trys = 0
+	NowNo = lt.No
+	mgr.currLottery = lt
 
 	log.Infof("Cost: %v", time.Since(start))
 	log.Infof(">>>>>>>>finish fetching lottery<<<<<<<<<")
+
+	log.Infof(">>>>>>>>start to stat lottery<<<<<<<<<")
+	start2 := time.Now()
+	mgr.stat()
+	log.Infof("Cost: %v", time.Since(start2))
+	log.Infof(">>>>>>>>>finish stat lottery<<<<<<<<<<")
+
 }
 
 type LotteryMgr struct {
@@ -118,9 +127,9 @@ type Bet struct {
 	Dealed   bool          `json:"dealed" bson:"dealed"`
 }
 
-func (m *LotteryMgr) stat(NowNo int) {
+func (m *LotteryMgr) stat() {
 	var bets []Bet
-	err := m.colls.BetColl.Find(M{"no": NowNo, "from": 1, "dealed": false}).All(&bets)
+	err := m.colls.BetColl.Find(M{"from": 1, "dealed": false}).All(&bets)
 	if err != nil {
 		log.Errorf("failed to get bets, error: %v", err)
 	}
@@ -169,6 +178,7 @@ func (m *LotteryMgr) stat(NowNo int) {
 			"income":   v.Amount,
 			"outlay":   win,
 			"worth":    win - v.Amount,
+			"opentime": m.currLottery.Opentime,
 		}
 
 		if _, err = m.colls.QuizColl.UpsertId(v.Id, M{"$set": update}); err != nil {
@@ -201,7 +211,8 @@ func (m *LotteryMgr) fetcher() (lt Lottery, err error) {
 	resp, err2 := http.Get(m.cfg.Urls[0])
 	if err2 != nil {
 		log.Warnf("try to get lottery failed, error: %v", err2)
-		m.reTry()
+		//m.reTry()
+		return
 	}
 	if resp != nil {
 		defer func() {
@@ -212,12 +223,14 @@ func (m *LotteryMgr) fetcher() (lt Lottery, err error) {
 	var b []byte
 	if b, err = ioutil.ReadAll(resp.Body); err != nil {
 		log.Errorf("read resp body error: %v", err)
-		m.reTry()
+		//m.reTry()
+		return
 	}
 	var lts Lotterys
 	if err = json.Unmarshal(b, &lts); err != nil {
 		log.Errorf("parse resp body error: %v", err)
-		m.reTry()
+		//m.reTry()
+		return
 	}
 	lt = lts.Data[0]
 	no, err := strconv.ParseInt(lt.Expect, 10, 64)
@@ -226,7 +239,6 @@ func (m *LotteryMgr) fetcher() (lt Lottery, err error) {
 		return
 	}
 	lt.No = no
-	m.trys = 0
 	return
 }
 

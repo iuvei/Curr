@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     lossToday: {type: Number, default: 0}, //当日盈亏
     rebate: {type: Number, default: 0}, //反水
     password: {type: String, required: true},
-    createdAt: {type: Date, default: Date.now},
+    createdAt: {type: Date, default: Date.now()},
 
     //
     agentname: {type: String}, //被谁推荐的

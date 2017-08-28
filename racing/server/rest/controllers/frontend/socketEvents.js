@@ -28,7 +28,7 @@ exports = module.exports = function (io) {
         socket.join('Lobby');
         socket.on('chat mounted', function (user) {
             // TODO: Does the server need to know the user?
-            console.log('==========..=======')
+            console.log('======微信======', user)
             socket.emit('receive socket', socket.id);
         });
         socket.on('BET', function (msg) {
@@ -57,13 +57,13 @@ exports = module.exports = function (io) {
                         if (userinfo.balance !== 0) {
                             query.balance = userinfo.balance
                         }
-                        UserModel.update(query, {'$set': {balance: userinfo.balance - amount}}, {upsert: false}, function (err, ret) {
+                        UserModel.update(query, {'$inc': {balance: -amount}}, {upsert: false}, function (err, ret) {
                             if (err) {
                                 log.error("内部错误:", err);
                                 return;
                             }
                             if (ret.nModified !== 1) {
-                                log.error("更新余额失败:", query, {'$set': {balance: userinfo.balance - amount}}, err);
+                                log.error("更新余额失败:", query, {'$inc': {balance: -amount}}, err);
                                 socket.emit('bet-msg', {from: 2, nickname: "客服", choice: `@${nickname} 更新余额失败`});
                                 return
                             }
@@ -104,18 +104,6 @@ exports = module.exports = function (io) {
             }
             cachemgr.setUser(msg.user);
             socket.broadcast.emit('new bc message', msg);
-        });
-        socket.on('new channel', function (channel) {
-            socket.broadcast.emit('new channel', channel);
-        });
-        socket.on('typing', function (data) {
-            socket.broadcast.to(data.channel).emit('typing bc', data.user);
-        });
-        socket.on('stop typing', function (data) {
-            socket.broadcast.to(data.channel).emit('stop typing bc', data.user);
-        });
-        socket.on('setUser', function (msg) {
-            socket.broadcast.emit('noticeUser', msg);
         });
     });
 };

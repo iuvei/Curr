@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import {setRaceConfing, getRaceConfing} from '../../services/settings';
 import {message} from 'antd';
 import '../../assets/backend/css/settings.css';

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import moment from 'moment';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
-import {getAllMessages, getCustomerImg} from '../../../services/mobile';
+import {getAllMessages, getCustomerImg, getAnnouncement} from '../../../services/mobile';
 /**
  * Created by sven on 2017/8/17.
  */
@@ -36,10 +36,8 @@ export default class  extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            messages: data.result.data,
+            messages: data.result.data.concat(this.state.messages),
           });
-        } else {
-          this.setState({})
         }
       })
 
@@ -49,22 +47,34 @@ export default class  extends Component {
         });
       }
     );
-  }
 
+    this.props.adminSocket.on('admin message', msg => {
+        this.setState({
+          messages: [msg].concat(this.state.messages),
+        });
+      }
+    );
 
-  getCustomerService = () => {
-    getCustomerImg()
+    getAnnouncement()
       .then(data => {
-        if (data.success) {
+        if (data.success && data.result.config != undefined
+          && data.result.config.announcement !== undefined && data.result.config.announcement !== '') {
+          const msg = {from: 2, nickname: "平台", choice: `公告: ${data.result.config.announcement}`}
           this.setState({
-            config: data.result.data.config,
+            messages: [msg].concat(this.state.messages),
           });
-        } else {
-          this.setState({})
         }
       })
   }
 
+  getCustomerService = () => {
+    getCustomerImg()
+      .then(data => {
+        this.setState({
+          config: data.result.data.config,
+        });
+      })
+  }
 
   render() {
     return (
@@ -82,12 +92,11 @@ export default class  extends Component {
         </div>
         <div className="rightMessage fr">
           {
-
             this.state.messages.map((item, i) => {
               return (
                 <div key={i}
                      className={item.from === 2 ? "messageItem manageMessage clearfix" : "messageItem userMessage clearfix"}>
-                  <img src={item.avatar} className="fl"/>
+                  <img src={item.avatar || require("../../../assets/mobile/images/manageIcon.png")} className="fl"/>
                   <div className="fl">
                     <p className="userAndTime">{item.nickname}
                       <span> {moment(item.createdAt).format('HH:mm:ss')}</span></p>

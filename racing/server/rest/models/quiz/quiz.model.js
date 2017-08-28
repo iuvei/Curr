@@ -11,7 +11,8 @@ const QuizSchema = new Schema({
     income: {type: Number, default: 0},  //进项
     outlay: {type: Number, default: 0}, //出项
     worth: {type: Number, default: 0}, //输赢
+    opentime: {type: String, default: ""},
     createdAt: {type: Date, default: Date.now},
 });
 
-module.exports = mongoose.model('Quiz', QuizSchema);
+module.exports = mongoose.model('Quizs', QuizSchema);

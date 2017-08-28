@@ -7,6 +7,7 @@ import MessageBox from './mobile/comm/MessageBox'
 import '../assets/backend/css/common.css';
 import {getConfig, getUserInfo, getCurrLottery} from '../services/mobile';
 const socket = io('', {path: '/ws/chat'});
+const adminSocket = io('', {path: '/ws/admin'});
 
 
 class MobilePage extends Component {
@@ -53,19 +54,19 @@ class MobilePage extends Component {
     getCurrLottery()
       .then(data => {
         console.log(data, '==================no=========', data.result.lottery.no)
-        if (data.success && data.result.lottery!==undefined) {
+        if (data.success && data.result.lottery !== undefined) {
           const no = this.state.no;
           const currNo = parseInt(data.result.lottery.no);
-          if (currNo===this.state.no){
+          if (currNo === this.state.no) {
             //开奖，处理开奖逻辑
           }
-          if (currNo > no){
+          if (currNo > no) {
             //新登录用户，处理新登录逻辑
             this.setState({
               no: currNo + 1,
             })
           }
-          if (currNo < no){
+          if (currNo < no) {
             // 未开奖， 再次查询，去开奖
           }
         }
@@ -97,8 +98,17 @@ class MobilePage extends Component {
           <span>剩余积分：0.00分</span>
           <span>在线人数：217人</span>
         </div>
-        <KeyBoard socket={socket} no={this.state.no} userinfo={userinfo} alterMessage={this.alterMessage}/>
-        <MessageBox socket={socket} no={this.state.no} userinfo={userinfo} message={this.props.mobile.message}/>
+        <KeyBoard
+          socket={socket}
+          no={this.state.no}
+          userinfo={userinfo}
+          alterMessage={this.alterMessage}/>
+        <MessageBox
+          adminSocket={adminSocket}
+          socket={socket}
+          no={this.state.no}
+          userinfo={userinfo}
+          message={this.props.mobile.message}/>
       </div>
     );
   }

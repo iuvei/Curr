@@ -34,7 +34,7 @@ class BackendCrawler {
         }
         console.log(query,'===================')
 
-        const users = await CrawlerModel.find(query)//.sort({"no": -1}).skip((currPage - 1) * pageSize).limit(pageSize);
+        const users = await CrawlerModel.find(query).sort({"no": -1}).skip((currPage - 1) * pageSize).limit(pageSize);
         if (!users) {
             console.log(users)
             return ctx.body = {message: '获取彩票列表失败', code: 404}

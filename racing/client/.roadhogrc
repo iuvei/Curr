@@ -9,6 +9,11 @@
             "changeOrigin": true,
             "pathRewrite": { "^/ws/chat" : "/ws/chat" }
          },
+         "/ws/admin": {
+             "target": "ws://localhost:3000/",
+             "changeOrigin": true,
+             "pathRewrite": { "^/ws/chat" : "/ws/chat" }
+         },
          "/m/api/*": {
             "target": "http://localhost:3001/",
             "changeOrigin": true,

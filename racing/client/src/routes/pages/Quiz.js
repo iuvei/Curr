@@ -95,12 +95,12 @@ export default class Quiz extends Component {
                     </tr>
                     <tbody className="">
                     {
-                      //no, username, choice, avatar, income, outlay, worth, balance
                       this.state.quizs.data.map((item, i) => {
                         return (
                           <tr key={i}>
                             <td>{item.no}</td>
-                            <td>{moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>
+                            {/*<td>{moment(item.createdAt).format('YYYY-MM-DD HH:mm:ss')}</td>*/}
+                            <td>{item.opentime}</td>
                             <td><img src={item.avatar || require("../../assets/backend/images/1.jpg")} alt=""/></td>
                             <td>{item.username}</td>
                             <td>{item.choice}</td>

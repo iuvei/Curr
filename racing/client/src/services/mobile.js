@@ -1,8 +1,8 @@
 import {parse, stringify} from 'qs';
 import request from '../utils/request';
 
-export async function getAuth() {
-  return request(`/m/api/auth`, {
+export async function getAnnouncement() {
+  return request(`/m/api/announcement`, {
     method: 'get',
   });
 }
@@ -75,6 +75,13 @@ export async function addDownReq(params) {
 //上下分记录，即充值记录
 export async function getRechargeRecords(params) {
   return request(`/m/api/updowns/${params.openid}`, {
+    method: 'get',
+  });
+}
+
+//下注记录，即交易记录
+export async function getQuizRecords(params) {
+  return request(`/m/api/quizs/${params.openid}`, {
     method: 'get',
   });
 }

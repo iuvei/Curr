@@ -6,6 +6,9 @@ router
 
 //获取appid
     .get('/config', Index.getConfig)
+
+    //获取公告
+    .get('/announcement', Index.getAnnouncement)
     //获取用户信息
     .get('/userinfo', Index.getUserInfo)
     //获取客服微信图片
@@ -28,6 +31,9 @@ router
     .post('/down', Index.createDown)
     //充值记录，即上下分记录
     .get('/updowns/:openid', Index.getRechargeRecords)
+
+    //交易记录，即下注记录
+    .get('/quizs/:openid', Index.getQuizRecords)
 
     .get('/lotterys', Index.getLotterys)
 

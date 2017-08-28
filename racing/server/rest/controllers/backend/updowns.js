@@ -27,7 +27,6 @@ class BackendUpDown {
         const id = ctx.params.id;
         const {ignore, type, byWho} = ctx.request.body;
         if (ignore === 1) {
-            console.log(ctx.request.body);
             const upDowns = await UpDownModel.findById(id);
             if (!upDowns) {
                 return ctx.body = {message: '该记录不存在', code: 404}
@@ -52,9 +51,9 @@ class BackendUpDown {
             if (user.balance !== 0) {
                 query.balance = user.balance
             }
-            console.log(user, query, {'$set': {balance: newBalance}});
+
             const userRet = await UserModel.update(query, {'$set': {balance: newBalance}})
-            console.log('===', userRet)
+
             if (userRet.nModified !== 1) {
                 return ctx.body = {message: '更新用户余额失败', code: 404}
             }
@@ -67,7 +66,6 @@ class BackendUpDown {
             byWho,
             updateAt: new Date()
         }, {upsert: false});
-        console.log(ret)
 
         if (ret.nModified !== 1) return ctx.body = {message: '更新上下分请求失败', code: 404}
         return ctx.body = {code: 200}
@@ -131,11 +129,11 @@ class BackendUpDown {
         query.byWho = {$exists: true} //查询被审核的
         const updateAt = {}
         if (startTime !== undefined && startTime !== '') {
-            query.updateAt = updateAt
+            query.updatedAt = updateAt
             updateAt['$gte'] = new Date(startTime)
         }
         if (endTime !== undefined && endTime !== '') {
-            query.updateAt = updateAt
+            query.updatedAt = updateAt
             updateAt['$lt'] = new Date(endTime)
         }
 

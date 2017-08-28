@@ -107,6 +107,25 @@ class BackendSettings {
         const data = await Payment.update({type}, updateDoc, {upsert: true});
         return ctx.body = {code: 200, data }
     }
+
+    //获取公告配置
+    static async getAnnouncement(ctx) {
+        log.debug("getnnouncement")
+        const data = await Settings.findOne({type: "announcement"});
+        console.log(data)
+        if (!data) {
+            return ctx.body = { message: '获取设置信息失败', code : 404 }
+        }
+        return ctx.body = {code: 200, config : data.config}
+    }
+
+    // 设置公告配置
+    static async setAnnouncement(ctx) {
+        log.debug("setAnnouncement")
+        console.log(ctx.request.body);
+        await Settings.update({type : "announcement"}, {type : "announcement", config: ctx.request.body}, {upsert: true});
+        return ctx.body = {code: 200}
+    }
 }
 
 module.exports = BackendSettings;

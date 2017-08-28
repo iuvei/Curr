@@ -26,8 +26,7 @@ function RouterConfig({history}) {
       <Route path="/" onEnter={routerChange} component={MobilePage}>
         <IndexRedirect to="index"/>
         <Route path="index" component={Index}/>
-        <Route path="detail" component={Detail}/>
-        <Route path="howtoplay" component={HowToPlay}/>
+        {/*<Route path="detail" component={Detail}/>*/}
       </Route>
       <Route path="/my" onEnter={routerChange} component={My}>
         <Route path="shangfen" component={ShangFen}/>
@@ -39,6 +38,7 @@ function RouterConfig({history}) {
       </Route>
       <Route path="/agency" component={Agency}/>
       <Route path="/zoushi" component={ZouShi}/>
+      <Route path="/howtoplay" component={HowToPlay}/>
     </Router>
   );
 }

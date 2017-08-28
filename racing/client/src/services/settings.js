@@ -52,6 +52,19 @@ export async function getPayment(params) {
   });
 }
 
+export async function setAnnouncement(params) {
+  return request('/api/settings/announcement',{
+    method: 'post',
+    body: JSON.stringify(params),
+  });
+}
+
+export async function getAnnouncement(params) {
+  return request('/api/settings/announcement',{
+    method: 'get',
+  });
+}
+
 export async function sign_up(params) {
   return request('/api/sign_up', {
     method: 'post',

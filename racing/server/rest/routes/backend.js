@@ -30,6 +30,10 @@ router
     .get('/settings/betting', BackendSettings.getBettingConfig)
     .post('/settings/betting', BackendSettings.setBettingConfig)
 
+    // 公告设置
+    .get('/settings/announcement', BackendSettings.getAnnouncement)
+    .post('/settings/announcement', BackendSettings.setAnnouncement)
+
     //用户
     .get('/users', BackendUsers.getAllUsers)
     .post('/users', BackendUsers.createUser)

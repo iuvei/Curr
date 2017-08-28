@@ -68,10 +68,10 @@ export default class DataGather extends Component {
               this.state.records.data.map((item, i) => {
                 return (
                   <tr key={i}>
-                    <td>{item.name}</td>
+                    <td>北京赛车</td>
                     <td>{item.no}</td>
-                    <td>{item.createdAt}</td>
                     <td>{item.code}</td>
+                    <td>{item.opentime}</td>
                   </tr>
                 );
               })

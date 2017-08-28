@@ -6,6 +6,7 @@ const LotterySchema = new Schema({
     no: {type: String, required: true }, //期号
     name: {type: String}, // 类型，名称
     code: {type: String}, // 昵称
+    opentime: {type: String}, // 昵称
     createdAt: {type: String},
 });
 
