@@ -9,9 +9,14 @@
     <link type="text/css" href="build/css/page.css" rel="stylesheet">
     <title>北京pk10-开奖直播</title></head>
 <body>
+
 <div class="drawing-video pk10">
-    <audio id="sound" autoplay="autoplay" loop="false" src=""></audio>
-    <div class="head clearfix"><h1 class="fl"><img src="build/images/video/pk10.png" height="42"></h1>
+    <audio id="sound" autoplay="autoplay" loop src=""></audio>
+    <div class="head clearfix">
+        <h1 class="fl">
+            <!--<img src="build/images/video/pk10.png" height="42">-->
+            <em>当前期号：</em><span class="current">634364</span>
+        </h1>
         <div class="cai-num fl pk10-num">等待开奖</div>
         <div class="fr clearfix"><p>下期：<span class="next">634365</span></p><a href="javascript:;" class="voice-btn"></a>
         </div>
@@ -28,6 +33,19 @@
     <div class="runing">
         <div class="scenary pore">
             <div class="box poas"><img src="build/images/video/scenery.jpg" width="3588" height="80"></div>
+            <div class="results">
+                <span class="r_num07">7</span>
+                <span class="r_num01">1</span>
+                <span class="r_num03">3</span>
+                <span class="r_num04">4</span>
+                <span class="r_num10">10</span>
+                <span class="r_num02">2</span>
+                <span class="r_num08">8</span>
+                <span class="r_num05">5</span>
+                <span class="r_num06">6</span>
+                <span class="r_num09">9</span>
+                
+            </div>
         </div>
         <div class="road pore">
             <div class="ready"><p class="count">02:40</p>
@@ -94,7 +112,7 @@
         </div>
     </div>
     <div class="foot clearfix">
-        <div class="fl box qihao"><em>期号：</em><span class="current">634364</span></div>
+        <!--<div class="fl box qihao"><em>期号：</em><span class="current">634364</span></div>-->
         <div class="fl box num-type"><em>冠亚和：</em>
             <p class="gyh">
                 <span>11</span>
@@ -111,6 +129,9 @@
             </p></div>
     </div>
 </div>
+
+
+
 <script type="text/javascript" src="build/js/plugin/require.js" data-main="build/js/page/common.js"></script>
 <script type="text/javascript">require(["pk10"])</script>
 </body>
