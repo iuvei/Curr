@@ -103,6 +103,7 @@ export default class Member extends Component {
                               {/*<input type="submit" value={!item.enable ? "启用" : "禁用"}*/}
                                 {/*className={!item.enable ? "ip5" : "ip3"}/>*/}
                               {/*<input type="submit" value="编辑" className="ip4"/>*/}
+							  {/*<input type="submit" value="设为推广" className="ip3"/>*/}
                             </td>
                           </tr>
                         );
