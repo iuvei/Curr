@@ -25,8 +25,8 @@ class IndexController {
     }
 
     static async getLive(ctx) {
-        const lottery = await LotteryModel.find({}, {'_id': 0}).sort({"_id": -1}).limit(1)
-        console.log(lottery)
+        const lottery = await LotteryModel.findOne({}, {'_id': 0}).sort({"_id": -1}).limit(1)
+
         if (lottery) { //判断存在
         /*
          "time": 1503934094,
@@ -56,16 +56,16 @@ class IndexController {
                     awardNumbers: lottery.code,
                 },
                 next: {
-                    periodNumber: lottery.no + 2 + '',
-                    period: lottery.no + 2 + '',
-                    periodDate: lottery.no + 2 + '',
-                    awardTime: lottery.opentime,
-                    delayTimeInterval: moment(lottery.opentime).add(5, "m").valueOf() - moment().valueOf(),
+                    periodNumber: lottery.no + 1 + '',
+                    period: lottery.no + 1 + '',
+                    periodDate: lottery.no + 1 + '',
+                    awardTime: moment(lottery.opentime).add(5, "m"),
+                    awardTimeInterval: moment(lottery.opentime).add(4, "m").valueOf() - moment().valueOf(),
                     delayTimeInterval: 10,
-
                 }
 
             }
+            console.log(live)
             return ctx.body = live
         } else {
             return ctx.body = {message: "获取失败", code: 404}

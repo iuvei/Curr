@@ -593,8 +593,11 @@ input, select, textarea{box-shadow: none;border-radius: 0;background: 0 0;border
 .drawing-video .head{height: 1.2rem;padding: .2rem;line-height: 1.2rem;background: url(/build/images/video/top_header.jpg) center center no-repeat; position:relative;}
 .drawing-video .head h1{margin-right: 15px;height: 100%;color: #fff;}
 .drawing-video .head h1 img{height: 100%;}
-.drawing-video .head .cai-num{color: #fff;font-size: .8rem;}
-.drawing-video .head .cai-num span{margin-right: 10px}
+.drawing-video .head .cai-num{color: #fff;font-size: .8rem; position:absolute; width:100%; height:2rem; background:none; left:0; top:1.6rem; z-index:1; line-height:2rem; padding-left:0.5rem;}
+.drawing-video .head .cai-num span{display:block; width:1.4rem; height:1.4rem; border-radius:0.8rem; color:#FFF; text-align:center; line-height:1.4rem; float:left; font-size:1rem; margin-left:0.2rem; margin-top:0.3rem;}
+
+
+
 .drawing-video .head .fr{color: #fff;font-size: .8rem;}
 .drawing-video .head .fr .voice-btn{float: right;width: 30px;height: 30px;margin-top: 1px;background: url(/build/images/icon/voice.png) center top no-repeat; position:absolute; top:1.6rem; right:0.5rem; z-index:2; background-size:100%;}
 .drawing-video .head .fr .voice-btn.close{background-position: center bottom}
@@ -623,18 +626,6 @@ input, select, textarea{box-shadow: none;border-radius: 0;background: 0 0;border
 .drawing-video .scenary{height: 2rem; position:relative;}
 .drawing-video .scenary .box{right: 0;height: 100%;}
 .drawing-video .scenary .box img{display: block;height: 100%;width: auto;}
-.drawing-video .scenary .results{ position:absolute; width:100%; height:2rem; background:none; left:0; top:0; z-index:1;}
-.drawing-video .scenary .results span{ display:block; width:1.4rem; height:1.4rem; background:#000; border-radius:0.8rem; color:#FFF; text-align:center; line-height:1.4rem; float:left; font-size:1rem; margin-left:0.2rem; margin-top:0.3rem;}
-.drawing-video .scenary .results span.r_num01{ background:#FCFC12; color:#999;}
-.drawing-video .scenary .results span.r_num02{ background:#0398FC;}
-.drawing-video .scenary .results span.r_num03{ background:#63695B;}
-.drawing-video .scenary .results span.r_num04{ background:#FA9A08;}
-.drawing-video .scenary .results span.r_num05{ background:#69CBCC;}
-.drawing-video .scenary .results span.r_num06{ background:#3500FF;}
-.drawing-video .scenary .results span.r_num07{ background:#CECECE;}
-.drawing-video .scenary .results span.r_num08{ background:#FA0200;}
-.drawing-video .scenary .results span.r_num09{ background:#CF0209;}
-.drawing-video .scenary .results span.r_num10{ background:#039900;}
 
 .drawing-video .road{height: 8rem;}
 .drawing-video .road .ready{position: absolute;width: 398px;top: 50%;left: 50%;transform: translate(-50%,-80%);z-index: 10;}
@@ -654,16 +645,16 @@ input, select, textarea{box-shadow: none;border-radius: 0;background: 0 0;border
 .drawing-video .road .cars .car-box img{height: 100%;}
 .drawing-video .road .cars .car-box .flame, .drawing-video .road .cars .car-box .h-wheel, .drawing-video .road .cars .car-box .q-wheel, .drawing-video .road .cars .car-box .wind{position: absolute;z-index: 3;line-height: 1;display: none}
 .drawing-video .road .cars .car-box .flame img, .drawing-video .road .cars .car-box .h-wheel img, .drawing-video .road .cars .car-box .q-wheel img, .drawing-video .road .cars .car-box .wind img{width: 100%;vertical-align: top}
-.drawing-video .road .cars .car-box .q-wheel{bottom: 2px;left: 23px;width: 14px}
-.drawing-video .road .cars .car-box .h-wheel{bottom: 3px;right: 12px;width: 14px}
+.drawing-video .road .cars .car-box .q-wheel{bottom: 2px;left: 23px;width: 14px; display:none !important;}
+.drawing-video .road .cars .car-box .h-wheel{bottom: 3px;right: 12px;width: 14px; display:none !important;}
 .drawing-video .road .cars .car-box .wind{left: -11px;bottom: -7px}
 .drawing-video .road .cars .car-box .flame{right: -45px;bottom: 2px}
 .drawing-video .road .cars .car-box.car1{ right:1%; top:.5rem;}
 .drawing-video .road .cars .car-box.car2{ right:2%; top: 1.3rem;}
 .drawing-video .road .cars .car-box.car2 .wheel{width: 14px}
 .drawing-video .road .cars .car-box.car3 .wheel, .drawing-video .road .cars .car-box.car4 .wheel{width: 15px}
-.drawing-video .road .cars .car-box.car2 .wheel.q-wheel{bottom: 2px;left: 23px}
-.drawing-video .road .cars .car-box.car2 .wheel.h-wheel{bottom: 3px;right: 12px}
+.drawing-video .road .cars .car-box.car2 .wheel.q-wheel{bottom: 2px;left: 23px;}
+.drawing-video .road .cars .car-box.car2 .wheel.h-wheel{bottom: 3px;right: 12px;}
 .drawing-video .road .cars .car-box.car2 .wind{bottom: -5px}
 .drawing-video .road .cars .car-box.car3{ right:3%; top: 2.1rem;}
 .drawing-video .road .cars .car-box.car3 .wheel.q-wheel{bottom: 3px;left: 25px}

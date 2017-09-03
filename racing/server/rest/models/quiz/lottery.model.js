@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 //Crawler
 const LotterySchema = new Schema({
-    no: {type: String, required: true }, //期号
+    no: {type: Number, required: true }, //期号
     name: {type: String}, // 类型，名称
     code: {type: String}, // 昵称
     opentime: {type: String}, // 昵称

@@ -98,12 +98,12 @@ export default class Member extends Component {
                             <td>{item.balance}</td>
                             <td>{item.rebate}</td>
                             <td>
-                              {/*<input type="submit" value="上分" className="ip1"/>*/}
-                              {/*<input type="submit" value="下分" className="ip2"/>*/}
+                              <input type="submit" value="上分" className="ip1"/>
+                              <input type="submit" value="下分" className="ip2"/>
                               {/*<input type="submit" value={!item.enable ? "启用" : "禁用"}*/}
                                 {/*className={!item.enable ? "ip5" : "ip3"}/>*/}
                               {/*<input type="submit" value="编辑" className="ip4"/>*/}
-							  {/*<input type="submit" value="设为推广" className="ip3"/>*/}
+							                <input type="submit" value="设为推广" className="ip3"/>
                             </td>
                           </tr>
                         );
@@ -176,7 +176,7 @@ export default class Member extends Component {
     </div>
 </div>
 
-<div className="t-4" style={{display: "none"}}>
+<div className="t-4" style={{display: "block"}}>
     <div className="title"><span>会员上分</span> <a href="#">关闭</a></div>
     <div className="content">
         <div className="name">

@@ -70,7 +70,7 @@ class MobilePage extends Component {
             // 未开奖， 再次查询，去开奖
           }
         }
-        setTimeout(this.getOpenNo, 5000)
+        //setTimeout(this.getOpenNo, 5000)
       });
   }
 
