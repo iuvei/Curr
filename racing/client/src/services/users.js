@@ -7,6 +7,22 @@ export async function addUser(params) {
   });
 }
 
+export async function updateUserBalanceByAdmin(params) {
+  console.log(params)
+  return request(`/api/users/${params.openid}/balance`, {
+    method: 'put',
+    body: JSON.stringify(params),
+  });
+}
+
+export async function setProxy(params) {
+  console.log(params)
+  return request(`/api/users/${params.openid}/proxy`, {
+    method: 'put',
+    body: JSON.stringify(params),
+  });
+}
+
 export async function getUser(params) {
   return request('/api/users/{userid}', {
     method: 'get',

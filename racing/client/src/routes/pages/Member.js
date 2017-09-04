@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import moment from 'moment';
 import Paging from '../../components/paging/Paging'
-import {message, Input} from 'antd';
-import {addUser, getAllUsers} from '../../services/users';
+import {message, notification} from 'antd';
+import {updateUserBalanceByAdmin, setProxy, getAllUsers} from '../../services/users';
 
 import '../../assets/backend/css/member.css'
 /**
@@ -14,6 +14,9 @@ export default class Member extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showUpDownModel: false,
+      type: true, // true:上分  false:下分
+      currItem : {},
       users: {data: []},
     }
   }
@@ -57,10 +60,56 @@ export default class Member extends Component {
     })
   }
 
+  onHideUpDownModel = () => {
+    this.setState({
+      showUpDownModel: false,
+    })
+  }
+
+  onUpDownModalShow = (item, type)=>{
+    this.setState({
+      currItem: item,
+      type,
+      showUpDownModel: true,
+    })
+  }
+
+  onUpDonwConfirm = () => {
+    const type = this.state.type;
+    const amount = this.refs.numberInput.value;
+    updateUserBalanceByAdmin({openid: this.state.currItem.openid, type, byWho: "管理员", amount: parseInt(amount)})
+      .then(data => {
+        if (data.success) {
+          message.success('操作成功');
+          this.onHideUpDownModel();
+          this.queryUsersByName();
+        } else {
+          notification.error({
+            message: '操作失败',
+            description: data.message,
+          });
+        }
+      })
+  }
+
+  onProxySet =(item, proxy)=> {
+    setProxy({openid: item.openid, proxy})
+      .then(data => {
+        if (data.success) {
+          message.success('设置成功');
+          this.queryUsersByName();
+        } else {
+          notification.error({
+            message: '设置失败',
+            description: data.message,
+          });
+        }
+      })
+  }
+
   render() {
     return (
       <div className="r_aside">
-        <form action="">
           <div className="member">
             <div className="top">会员管理</div>
             <div className="bottom">
@@ -70,7 +119,8 @@ export default class Member extends Component {
                   <input type="submit" onClick={this.queryUsersByName.bind(this)} value="搜索" className="ip2"/>
                 </div>
                 <div className="tab">
-                  <table style={{border: "1"},{width: "100%"}}>
+                  <table style={{border: 1, width: "100%"}}>
+                    <tbody className="">
                     <tr>
                       <th width="58">ID</th>
                       <th width="84">头像</th>
@@ -83,7 +133,6 @@ export default class Member extends Component {
                       <th width="90">返水点数</th>
                       <th width="312">操作</th>
                     </tr>
-                    <tbody className="">
                     {
                       this.state.users.data.map((item, i) => {
                         return (
@@ -98,12 +147,17 @@ export default class Member extends Component {
                             <td>{item.balance}</td>
                             <td>{item.rebate}</td>
                             <td>
-                              <input type="submit" value="上分" className="ip1"/>
-                              <input type="submit" value="下分" className="ip2"/>
+                              <input type="submit" value="上分" className="ip1" onClick={()=>this.onUpDownModalShow(item, true)}/>
+                              <input type="submit" value="下分" className="ip2" onClick={()=>this.onUpDownModalShow(item, false)}/>
                               {/*<input type="submit" value={!item.enable ? "启用" : "禁用"}*/}
                                 {/*className={!item.enable ? "ip5" : "ip3"}/>*/}
                               {/*<input type="submit" value="编辑" className="ip4"/>*/}
-							                <input type="submit" value="设为推广" className="ip3"/>
+                              {
+                                !item.proxy? <input type="submit" value="设为推广" className="ip1" onClick={()=>this.onProxySet(item, true)}/>
+                                  :
+                                  <input type="submit" value="取消推广" className="ip3" onClick={()=>this.onProxySet(item, false)}/>
+                              }
+
                             </td>
                           </tr>
                         );
@@ -160,37 +214,21 @@ export default class Member extends Component {
     </div>
 </div>
 
-<div className="t-4 t-5" style={{display: "none"}}>
-    <div className="title"><span>会员下分</span> <a href="#">关闭</a></div>
-    <div className="content">
-        <div className="name">
-            <span className="sp1">会员名：</span><span className="sp2">slkdjskld</span>
-        </div>
-        <div className="inp">
-            <span className="sp1">下分点数：</span><input type="text" />
-            <p>当前最高下分点数为：65470.00</p>
-        </div>
-        <div className="btn">
-            <input type="button" value="确认" className="ip1" />
-        </div>
-    </div>
-</div>
-
-<div className="t-4" style={{display: "block"}}>
-    <div className="title"><span>会员上分</span> <a href="#">关闭</a></div>
-    <div className="content">
-        <div className="name">
-            <span className="sp1">会员名：</span><span className="sp2">slkdjskld</span>
-        </div>
-        <div className="inp">
-            <span className="sp1">上分点数：</span><input type="text" />
-            <p>积分点数充值为整数</p>
-        </div>
-        <div className="btn">
-            <input type="button" value="确认" className="ip1" />
-        </div>
-    </div>
-</div>
+                  <div className="t-4 t-5" style={this.state.showUpDownModel?{display: "block"}:{display: "none"}}>
+                      <div className="title"><span>会员{this.state.type?"上分":"下分"}</span> <a href="javascript:void(0)" onClick={this.onHideUpDownModel}>关闭</a></div>
+                      <div className="content">
+                          <div className="name">
+                              <span className="sp1">会员名：</span><span className="sp2">{this.state.currItem.nickname||''}</span>
+                          </div>
+                          <div className="inp">
+                              <span className="sp1">{this.state.type?"上分":"下分"}点数：</span><input type="number" ref="numberInput"/>
+                            {this.state.type?<p>积分点数充值为整数</p>:<p>当前最高下分点数为：{this.state.currItem.balance}.00</p>}
+                          </div>
+                          <div className="btn">
+                              <input type="button" value="确认" className="ip1" onClick={this.onUpDonwConfirm} />
+                          </div>
+                      </div>
+                  </div>
 
 
                   <Paging
@@ -203,7 +241,6 @@ export default class Member extends Component {
               </form>
             </div>
           </div>
-        </form>
       </div>
     );
   }

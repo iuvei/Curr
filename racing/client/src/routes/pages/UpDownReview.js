@@ -127,8 +127,8 @@ export default class UpDownReview extends Component {
                           <td className={!item.type ? "down" : ""}>{!item.type ? item.amount : "00.00"}</td>
                           <td>{item.balance}</td>
                           <td>{moment(item.updateAt).format('YYYY-MM-DD HH:mm:ss')}</td>
-                          <td>{item.ignore === 1 ? <span className="up">成功</span> :
-                            <span className="down">未通过</span>}</td>
+                          <td>{item.ignore === 1 ? <span className="up">成功</span> : item.ignore === 3 ? <span className="up">成功(管理员后台操作)</span>
+                           : <span className="down">未通过</span>}</td>
                           <td>{item.byWho}</td>
                         </tr>
                       );

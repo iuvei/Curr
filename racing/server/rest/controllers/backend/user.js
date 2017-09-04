@@ -1,5 +1,6 @@
 const md5 = require('md5');
 const UserModel = require('../../models/user/user.model');
+const UpDownModel = require('../../models/quiz/upDown.model');
 const AgentModel = require('../../models/user/agent.model');
 class BackendUser {
 
@@ -96,6 +97,68 @@ class BackendUser {
         const count = await AgentModel.find(query).count();
         return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count / pageSize)}
     }
+
+
+    //管理员上下分记录
+    static async updateUpDownByAdmin(ctx) {
+        const openid = ctx.params.openid;
+        const {type, byWho, amount} = ctx.request.body;
+
+        if (amount<=0) {
+            return ctx.body = {message: '输入错误，点数需大于0', code: 404}
+        }
+
+        const user = await UserModel.findOne({openid})
+        if (!user) {
+            return ctx.body = {message: '该用户不存在', code: 404}
+        }
+        var newBalance = user.balance;
+        if (type === false) {
+            if (amount > user.balance) {
+                return ctx.body = {message: '请求金额大于用户余额', code: 404}
+            } else {
+                newBalance = user.balance - amount
+            }
+        } else {
+            newBalance = user.balance + amount
+        }
+
+        const userRet = await UserModel.update({openid, balance: user.balance }, {'$set': {balance: newBalance}})
+
+        if (userRet.nModified !== 1) {
+            return ctx.body = {message: '更新用户余额失败', code: 404}
+        }
+
+        const ret = await UpDownModel.create({
+            openid,
+            nickname: user.nickname,
+            avatar: user.avatar,
+            type,
+            amount: amount,
+            balance: newBalance || -1,
+            ignore: 3,
+            byWho,
+            profile: "管理员后台操作上下分",
+            updateAt: new Date()
+        });
+
+        if (!ret) return ctx.body = {message: '更新上下分请求失败', code: 404}
+        return ctx.body = {code: 200}
+    }
+
+
+
+    //管理员setProxy
+    static async setProxy(ctx) {
+        const openid = ctx.params.openid;
+        const {proxy} = ctx.request.body;
+        const userRet = await UserModel.update({openid}, {'$set': {proxy}})
+        if (userRet.nModified !== 1) {
+            return ctx.body = {message: '设置用户为代理失败', code: 404}
+        }
+        return ctx.body = {code: 200}
+    }
+
 
 }
 

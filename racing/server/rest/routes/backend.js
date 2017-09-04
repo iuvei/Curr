@@ -37,6 +37,8 @@ router
     //用户
     .get('/users', BackendUsers.getAllUsers)
     .post('/users', BackendUsers.createUser)
+    .put('/users/:openid/balance', BackendUsers.updateUpDownByAdmin)
+    .put('/users/:openid/proxy', BackendUsers.setProxy)
     //获取账户
     .get('/users/account', BackendUsers.getAccount)
 

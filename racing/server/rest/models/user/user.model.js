@@ -15,6 +15,8 @@ const UserSchema = new Schema({
     password: {type: String, required: true},
     createdAt: {type: Date, default: Date.now()},
 
+    proxy: {type: Boolean, default: false},// 是否为代理
+
     //
     agentname: {type: String}, //被谁推荐的
 });
