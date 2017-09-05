@@ -18,7 +18,7 @@ const UserSchema = new Schema({
     proxy: {type: Boolean, default: false},// 是否为代理
 
     //
-    agentname: {type: String}, //被谁推荐的
+    agentId: {type: String, default: ''}, //被谁推荐的
 });
 
 module.exports = mongoose.model('Users', UserSchema);

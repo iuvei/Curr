@@ -2,6 +2,7 @@ const md5 = require('md5');
 const UserModel = require('../../models/user/user.model');
 const UpDownModel = require('../../models/quiz/upDown.model');
 const AgentModel = require('../../models/user/agent.model');
+const SettingsModel = require('../../models/comm/settings');
 class BackendUser {
 
     // 成员
@@ -68,7 +69,7 @@ class BackendUser {
         return ctx.body = {data: result, code: 200};
     }
 
-    // 成员
+    // 代理 测试用
     static async addAgent(ctx) {
         const {username, avatar, numUsers, brokerage, proxyImg, status} = ctx.request.body;
         console.log(ctx.request.body);
@@ -80,7 +81,7 @@ class BackendUser {
         else ctx.body = {data: result, code: 400}
     }
 
-    // 成员
+    // 代理
     static async getAllAgents(ctx) {
         var {pageSize, currPage, username} = ctx.request.query;
         pageSize = (pageSize === undefined || Number(pageSize) < 0) ? 10 : Number(pageSize);
@@ -94,6 +95,12 @@ class BackendUser {
         if (!users) {
             return ctx.body = {message: '获取代理推广失败', code: 404}
         }
+
+        for (let i=0 ; i< users.length; i++) {  //获取推广人数
+            const numUsers = await UserModel.find({agentId: users[i].openid}).count();
+            users[i].numUsers = numUsers;
+        }
+
         const count = await AgentModel.find(query).count();
         return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count / pageSize)}
     }
@@ -152,11 +159,36 @@ class BackendUser {
     static async setProxy(ctx) {
         const openid = ctx.params.openid;
         const {proxy} = ctx.request.body;
+
+        const user = await UserModel.findOne({openid})
+        if (!user) {
+            return ctx.body = {message: '该用户不存在', code: 404}
+        }
+
         const userRet = await UserModel.update({openid}, {'$set': {proxy}})
         if (userRet.nModified !== 1) {
             return ctx.body = {message: '设置用户为代理失败', code: 404}
         }
-        return ctx.body = {code: 200}
+
+        const data = await SettingsModel.findOne({type: "platfrom"});
+        if (!data) return ctx.body = {message: '设置用户为代理失败, 无法获取系统域名配置', code: 400}
+        const params = {
+            appid: data.config.wxAppID,
+            secret: data.config.wxSecret,
+            code: code,
+        }
+
+
+        const updateAgent = {
+            nickname: user.nickname,
+            avatar: user.avatar,
+            proxyImg: '', //暂时没有
+            status: proxy,
+        }
+
+        const result = await AgentModel.update({openid}, {"$set": updateAgent}, {upsert: true});
+        if (result) return ctx.body = {code: 200}
+        else ctx.body = {message: '设置用户为代理失败', code: 400}
     }
 
 

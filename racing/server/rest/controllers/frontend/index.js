@@ -100,7 +100,7 @@ class IndexController {
 
     static async auth(ctx) {
         console.log(ctx.request.body, ctx.request.query)
-        const {code, callback} = ctx.request.query
+        const {parent_openid, code, callback} = ctx.request.query
         const data = await SettingsModel.findOne({type: "platfrom"});
         const params = {
             appid: data.config.wxAppID,
@@ -132,7 +132,8 @@ class IndexController {
             nickname,
             gender: sex,
             avatar: headimgurl,
-            profile: `${province}-${city}`
+            profile: `${province}-${city}`,
+            agentId: parent_openid===undefined?'': parent_openid,
         };
 
         const result = await UserModel.update({openid}, {'$set': updateDoc}, {upsert: true});

@@ -48,7 +48,7 @@ func main() {
 	log.SetOutputLevel(cfg.DebugLevel)
 	c := cron.New()
 	//c.AddFunc("", func() { fetcher(cfg) })
-	//c.AddFunc("0 * * * * ?", testCron)
+	c.AddFunc("0 0 2 * * ?", runStat)
 	c.AddFunc("20 2-59/5 9-23 * * ?", run)
 	c.Start()
 	//	r, err := fetcher(cfg)
@@ -57,6 +57,16 @@ func main() {
 	signal.Notify(sigs, os.Interrupt, os.Kill, syscall.SIGTERM)
 	<-sigs
 	os.Exit(0)
+}
+
+func runStat() {
+	start := time.Now()
+	mgr := NewStatMgr(cfg)
+	log.Infof("=========================== start to stat lottery ===========================")
+	mgr.statByDay()
+	log.Infof("Cost: %v", time.Since(start))
+	log.Infof("=========================== finish stat lottery =========================== ")
+
 }
 
 func testCron2() {
@@ -90,11 +100,11 @@ func run() {
 	log.Infof("Cost: %v", time.Since(start))
 	log.Infof(">>>>>>>>finish fetching lottery<<<<<<<<<")
 
-	log.Infof(">>>>>>>>start to stat lottery<<<<<<<<<")
+	log.Infof(">>>>>>>>start to calculate lottery<<<<<<<<<")
 	start2 := time.Now()
-	mgr.stat()
+	mgr.calculate()
 	log.Infof("Cost: %v", time.Since(start2))
-	log.Infof(">>>>>>>>>finish stat lottery<<<<<<<<<<")
+	log.Infof(">>>>>>>>>finish calculate lottery<<<<<<<<<<")
 
 }
 
@@ -127,7 +137,7 @@ type Bet struct {
 	Dealed   bool          `json:"dealed" bson:"dealed"`
 }
 
-func (m *LotteryMgr) stat() {
+func (m *LotteryMgr) calculate() {
 	var bets []Bet
 	err := m.colls.BetColl.Find(M{"from": 1, "dealed": false}).All(&bets)
 	if err != nil {
@@ -255,8 +265,10 @@ type Lotterys struct {
 	Data []Lottery `json:"data"`
 }
 type Collections struct {
-	UserColl    mgoutil.Collection `coll:"users"`
-	LotteryColl mgoutil.Collection `coll:"lotterys"`
-	BetColl     mgoutil.Collection `coll:"bets"`
-	QuizColl    mgoutil.Collection `coll:"quizs"`
+	UserColl        mgoutil.Collection `coll:"users"`
+	LotteryColl     mgoutil.Collection `coll:"lotterys"`
+	BetColl         mgoutil.Collection `coll:"bets"`
+	QuizColl        mgoutil.Collection `coll:"quizs"`
+	TerraceStatColl mgoutil.Collection `coll:"terrace_stats"`
+	UserStatColl    mgoutil.Collection `coll:"users_stats"`
 }

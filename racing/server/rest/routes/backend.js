@@ -50,10 +50,10 @@ router
     .post('/agents', BackendUsers.addAgent)
 
     // 竞猜
-    .get('/quizs', BackendQuiz.getALlQuizs)
+    .get('/quizs', BackendQuiz.getAllQuizs)
     .post('/quizs', BackendQuiz.createQuiz)
 
-    // 竞猜
+    // 上下分
     .get('/updowns', BackendUpDowns.getAllUpDowns)
     .get('/updowns/counts', BackendUpDowns.getUpdownsCounts)
     .put('/updowns/:id', BackendUpDowns.updateUpDown)
@@ -69,7 +69,10 @@ router
     //.post('/stat/lotterys', BackendCrawler.create)
 
     .get('/stat/users', BackendStat.getAllUserStats)
-    .post('/stat/users', BackendStat.createUserStat)
+    //.post('/stat/users', BackendStat.createUserStat)
+
+    .get('/stat/terrace', BackendStat.getAllTerraceStats)
+    //.post('/stat/terrace', BackendStat.createUserStat)
 
 
 module.exports = router;

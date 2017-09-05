@@ -57,13 +57,13 @@ export default class Proxy extends Component {
                          onClick={this.queryAgentsByName.bind(this)}/>
                 </div>
                 <div className="tab">
-                  <table style={{border: "1"},{width: "100%"}}>
+                  <table style={{border: 1, width: "100%"}}>
                     <tr>
                       <th width="80">头像</th>
                       <th width="160">用户名</th>
                       <th width="90">推广人数</th>
                       <th width="130">所得总佣金</th>
-                      <th width="120">推广二维码</th>
+                      {/*<th width="120">推广二维码</th>*/}
                       <th width="110">状态</th>
                       <th width="260">操作</th>
                     </tr>
@@ -73,10 +73,10 @@ export default class Proxy extends Component {
                         return (
                           <tr key={i}>
                             <td><img src={item.avatar || require("../../assets/backend/images/1.jpg")}/></td>
-                            <td>{item.username}</td>
+                            <td>{item.nickname}</td>
                             <td>{item.numUsers}</td>
                             <td>{item.brokerage}</td>
-                            <td><img src={item.proxyImg}/></td>
+                            {/*<td><img src={item.proxyImg}/></td>*/}
                             <td>{item.status ? "正常" : "取消"}</td>
                             <td><input type="submit" value="看下下线"/><span>无上限</span></td>
                           </tr>

@@ -16,18 +16,11 @@ export default class StatUsers extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.location.state.type !== this.state.type) {
-      this.queryUpdowns(1, 10, '', '', nextProps.location.state.type);
-    }
-  }
-
   componentDidMount() {
-    this.queryStatsRecords(1, 10, '', '', this.props.location.state.type);
+    this.queryStatsRecords(1, 10, '', '');
   }
 
-  queryStatsRecords(currPage, pageSize, startTime, endTime, type) {
-    type = type === undefined ? this.state.type : type
+  queryStatsRecords(currPage, pageSize, startTime, endTime) {
     getAllUserStats({
       pageSize,
       currPage,
@@ -40,13 +33,11 @@ export default class StatUsers extends Component {
             stats: data.result,
             startTime,
             endTime,
-            type,
           });
         } else {
           this.setState({
             startTime,
             endTime,
-            type,
           });
         }
       })
@@ -64,7 +55,7 @@ export default class StatUsers extends Component {
     })
   }
 
-  searchReviewUpdowns = (duration) => {
+  searchUserStatRecords = (duration) => {
     switch (duration) {
       case "Today":
         this.queryStatsRecords(1, 10, moment().format("YYYY-MM-DD"), moment().add(1, 'day').format("YYYY-MM-DD"));
@@ -83,9 +74,7 @@ export default class StatUsers extends Component {
     }
   }
 
-
   render() {
-    console.log('===', this.state.type)
     return (
       <div className="r_aside">
         <div className="position">
@@ -99,11 +88,11 @@ export default class StatUsers extends Component {
               <input type="date" value={this.state.startTime} onChange={this.onStartTimeInputChange.bind(this)}/></div>
             <div className="date fl">
               <input type="date" value={this.state.endTime} onChange={this.onEndTimeInputChange.bind(this)}/></div>
-            <button type="button" onClick={() => this.searchReviewUpdowns()}>搜索</button>
-            <button type="button" onClick={() => this.searchReviewUpdowns("Today")}>今天</button>
-            <button type="button" onClick={() => this.searchReviewUpdowns("Yesterday")}>昨天</button>
-            <button type="button" onClick={() => this.searchReviewUpdowns("Week")}>最近一周</button>
-            <button type="button" onClick={() => this.searchReviewUpdowns("Month")}>最近一月</button>
+            <button type="button" onClick={() => this.searchUserStatRecords()}>搜索</button>
+            <button type="button" onClick={() => this.searchUserStatRecords("Today")}>今天</button>
+            <button type="button" onClick={() => this.searchUserStatRecords("Yesterday")}>昨天</button>
+            <button type="button" onClick={() => this.searchUserStatRecords("Week")}>最近一周</button>
+            <button type="button" onClick={() => this.searchUserStatRecords("Month")}>最近一月</button>
           </div>
           <table>
             <thead>
@@ -122,7 +111,7 @@ export default class StatUsers extends Component {
                 return (
                   <tr key={i}>
                     <td><img src={item.avatar} alt=""/></td>
-                    <td>{item.username}</td>
+                    <td>{item.nickname}</td>
                     <td>{item.income}</td>
                     <td>{item.outlay}</td>
                     <td>{item.worth}</td>

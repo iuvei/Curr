@@ -72,9 +72,14 @@ func TestReg2(t *testing.T) {
 	//	r, err = calculate("BAB/10", 1, codes)
 	//	t.Log("Rule9结果：", r, err)
 	// codes := strings.Split("02,09,10,06,07,03,05,08,01,04", ",")
-	var d int64
-	fmt.Println("01" < "02", d)
-	mgr := NewLotteryMgr(cfg)
-	mgr.stat(636659)
+	//	var d int64
+	//	fmt.Println("01" < "02", d)
+	//	mgr := NewLotteryMgr(cfg)
+	//	mgr.calculate()
 
+}
+
+func TestStat(t *testing.T) {
+	runStat()
+	fmt.Println("=")
 }

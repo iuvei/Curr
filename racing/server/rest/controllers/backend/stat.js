@@ -1,7 +1,8 @@
 const md5 = require('md5');
 const BrokerageModel = require('../../models/stat/brokerage.model');
 const UserStatsModel = require('../../models/stat/userStats.model');
-
+const QuizModel = require('../../models/quiz/quiz.model');
+const TerraceStatsModel = require('../../models/stat/terraceStats.model');
 class BackendStat {
 
     // 创建反水
@@ -65,7 +66,6 @@ class BackendStat {
             createdAt['$lt'] = endTime
         }
 
-        console.log('=====getAllUserStats=======query:', query)
         const users = await UserStatsModel.find(query).sort({"_id": 1}).skip((currPage - 1) * pageSize).limit(pageSize);
         if (!users) {
             return ctx.body = {message: '获取用户统计失败', code: 404}
@@ -75,29 +75,27 @@ class BackendStat {
     }
 
     //获取平台统计记录
-    static async getAllUserStats(ctx) {
+    static async getAllTerraceStats(ctx) {
         var {pageSize, currPage, startTime, endTime} = ctx.request.query;
         pageSize = (pageSize === undefined || Number(pageSize) < 0) ? 10 : Number(pageSize);
         currPage = (currPage === undefined || Number(currPage) < 0) ? 1 : Number(currPage);
         const query = {};
-
-        const createdAt = {}
+        const dateNo = {}
         if (startTime !== undefined && startTime !== '') {
-            query.createdAt = createdAt
-            createdAt['$gte'] = startTime
+            query.dateNo = dateNo
+            dateNo['$gte'] = startTime
         }
         if (endTime !== undefined && endTime !== '') {
-            query.createdAt = createdAt
-            createdAt['$lt'] = endTime
+            query.dateNo = dateNo
+            dateNo['$lt'] = endTime
         }
 
-        console.log('=====getAllUserStats=======query:', query)
-        const users = await UserStatsModel.find(query).sort({"_id": 1}).skip((currPage - 1) * pageSize).limit(pageSize);
-        if (!users) {
-            return ctx.body = {message: '获取用户统计失败', code: 404}
+        const stats = await TerraceStatsModel.find(query).sort({"dateNo": 1}).skip((currPage - 1) * pageSize).limit(pageSize);
+        if (!stats) {
+            return ctx.body = {message: '获取平台统计失败', code: 404}
         }
-        const count = await UserStatsModel.find(query).count();
-        return ctx.body = {code: 200, data: users, pageSize, currPage, total: Math.ceil(count / pageSize)}
+        const count = await TerraceStatsModel.find(query).count();
+        return ctx.body = {code: 200, data: stats, pageSize, currPage, total: Math.ceil(count / pageSize)}
     }
 }
 

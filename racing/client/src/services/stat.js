@@ -25,4 +25,9 @@ export async function getAllUserStats(params) {
   });
 }
 
+export async function getAllTerraceStats(params) {
+  return request(`/api/stat/terrace?pageSize=${params.pageSize || 10}&currPage=${params.currPage || 1}&startTime=${params.startTime || ''}&endTime=${params.endTime || ''}`, {
+    method: 'get',
+  });
+}
 

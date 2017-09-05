@@ -76,10 +76,6 @@ export default class Sider extends Component {
               <em className="ico ico7"></em>代理推广</Link>
           </li>
           <li className="level1">
-            <Link className={this.isCurrent(PATH_BROKERAGE)} onClick={this.gotoBrokerage}>
-              <em className="ico ico8"></em>会员返水</Link>
-          </li>
-          <li className="level1">
             <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather}>
               <em className="ico ico9"></em>数据采集</Link>
           </li>
@@ -89,6 +85,10 @@ export default class Sider extends Component {
               <li><Link className={this.isCurrent(PATH_STAT_TERRACE)} onClick={this.gotoStatTerrace}>平台输赢</Link></li>
               <li><Link className={this.isCurrent(PATH_STAT_USERS)} onClick={this.gotoStatUsers}>客户输赢</Link></li>
             </ul>
+          </li>
+          <li className="level1">
+            <Link className={this.isCurrent(PATH_BROKERAGE)} onClick={this.gotoBrokerage}>
+              <em className="ico ico8"></em>会员返水</Link>
           </li>
           <li className="level1">
             <a href="" className="tit"><em className="ico ico11"></em>机器人管理<i></i></a>

@@ -34,7 +34,7 @@ class MobilePage extends Component {
                 const HOME_PAGE = `http://${document.domain}/mobile.html`
                 const params = {
                   appid: data.result.appid,
-                  redirect_uri: `http://${document.domain}/m/api/auth?callback=${HOME_PAGE}`,
+                  redirect_uri: `http://${document.domain}/m/api/auth${location.search===""?"?hash=123":location.search}&callback=${HOME_PAGE}`,
                   //redirect_uri: `http://${document.domain}/mobile.html`,
                   response_type: 'code',
                   scope: 'snsapi_userinfo',

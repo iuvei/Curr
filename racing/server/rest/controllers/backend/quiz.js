@@ -15,8 +15,8 @@ class BackendQuiz {
         else ctx.body = {data: result, code: 400}
     }
 
-    // 成员
-    static async getALlQuizs(ctx) {
+    // 竞猜记录
+    static async getAllQuizs(ctx) {
         var {pageSize, currPage, no, username} = ctx.request.query;
         pageSize = (pageSize === undefined || Number(pageSize) < 0) ? 10 : Number(pageSize);
         currPage = (currPage === undefined || Number(currPage) < 0) ? 1 : Number(currPage);

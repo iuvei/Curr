@@ -58,7 +58,7 @@ export default class Brokerage extends Component {
                    value={this.state.createdAt} onChange={this.onTimeInputChange.bind(this)}/>
             <button type="button" onClick={this.queryBrokerageRecordsByDate.bind(this)}>搜索</button>
           </div>
-          <table cellSpacing="0" cellPadding="0" style={{ width:"100%"}}>
+          <table cellSpacing="0" cellPadding="0" style={{width: "100%"}}>
             <thead>
             <tr>
               <th width="150">返水日期</th>
