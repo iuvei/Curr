@@ -170,15 +170,6 @@ class BackendUser {
             return ctx.body = {message: '设置用户为代理失败', code: 404}
         }
 
-        const data = await SettingsModel.findOne({type: "platfrom"});
-        if (!data) return ctx.body = {message: '设置用户为代理失败, 无法获取系统域名配置', code: 400}
-        const params = {
-            appid: data.config.wxAppID,
-            secret: data.config.wxSecret,
-            code: code,
-        }
-
-
         const updateAgent = {
             nickname: user.nickname,
             avatar: user.avatar,

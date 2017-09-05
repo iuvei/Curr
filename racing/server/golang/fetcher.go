@@ -137,7 +137,32 @@ type Bet struct {
 	Dealed   bool          `json:"dealed" bson:"dealed"`
 }
 
+type RuleConfig struct {
+	Rule01 int `json:"rule01" bson:"rule01"`
+	Rule02 int `json:"rule02" bson:"rule02"`
+	Rule03 int `json:"rule03" bson:"rule03"`
+	Rule04 int `json:"rule04" bson:"rule04"`
+	Rule05 int `json:"rule05" bson:"rule05"`
+	Rule06 int `json:"rule06" bson:"rule06"`
+	Rule07 int `json:"rule07" bson:"rule07"`
+	Rule08 int `json:"rule08" bson:"rule08"`
+	Rule09 int `json:"rule09" bson:"rule09"`
+}
+
+type Settings struct {
+	Type  string     `json:"type" bson:"type"`
+	Rules RuleConfig `json:"config" bson:"config"`
+}
+
 func (m *LotteryMgr) calculate() {
+
+	var settings Settings
+	if err := m.colls.SettingsColl.Find(M{"type": "betting"}).One(&settings); err != nil {
+		log.Errorf("failed to get rules settings, error: %v", err)
+	}
+
+	log.Infof("rules %#v", settings.Rules)
+
 	var bets []Bet
 	err := m.colls.BetColl.Find(M{"from": 1, "dealed": false}).All(&bets)
 	if err != nil {
@@ -155,14 +180,14 @@ func (m *LotteryMgr) calculate() {
 				continue
 			}
 			log.Info(lt, v.No)
-			win, err = calculate(v.Choice, 1, strings.Split(lt.Opencode, ","))
+			win, err = calculate(v.Choice, settings.Rules, strings.Split(lt.Opencode, ","))
 			if err != nil {
 				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, NowNo, err)
 				continue
 			}
 
 		} else {
-			win, err = calculate(v.Choice, 1, opencode)
+			win, err = calculate(v.Choice, settings.Rules, opencode)
 			if err != nil {
 				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, NowNo, err)
 				continue
@@ -265,6 +290,7 @@ type Lotterys struct {
 	Data []Lottery `json:"data"`
 }
 type Collections struct {
+	SettingsColl    mgoutil.Collection `coll:"settings"`
 	UserColl        mgoutil.Collection `coll:"users"`
 	LotteryColl     mgoutil.Collection `coll:"lotterys"`
 	BetColl         mgoutil.Collection `coll:"bets"`

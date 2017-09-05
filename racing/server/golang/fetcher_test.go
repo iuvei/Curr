@@ -74,8 +74,15 @@ func TestReg2(t *testing.T) {
 	// codes := strings.Split("02,09,10,06,07,03,05,08,01,04", ",")
 	//	var d int64
 	//	fmt.Println("01" < "02", d)
-	//	mgr := NewLotteryMgr(cfg)
+	mgr := NewLotteryMgr(cfg)
 	//	mgr.calculate()
+
+	var config Settings
+	if err := mgr.colls.SettingsColl.Find(M{"type": "betting"}).One(&config); err != nil {
+		fmt.Printf("failed to get rules settings, error: %v\n", err)
+	}
+	rules := config.Rules
+	fmt.Printf("%#v \n %d \n %d", config.Rules, rules.Rule01, rules.Rule09)
 
 }
 

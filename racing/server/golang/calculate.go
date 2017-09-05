@@ -41,14 +41,11 @@ var (
 // OpenCode = "02,09,10,06,07,03,05,08,01,04"
 //  数组下标为名词
 
-func calculate(input string, odds int, opencode []string) (int64, error) {
+func calculate(input string, rules RuleConfig, opencode []string) (int64, error) {
 	if len(opencode) != 10 {
 		return 0, fmt.Errorf("param opencode invalid")
 	}
-	var d = int64(odds)
-	if odds < 1 {
-		d = 1
-	}
+
 	if Rule1.MatchString(input) {
 		log.Infof("choice{%s} match %v", input, Rule1.String())
 		inputs := strings.Split(input, "/")
@@ -65,6 +62,10 @@ func calculate(input string, odds int, opencode []string) (int64, error) {
 					count += 1
 				}
 			}
+		}
+		var d = int64(rules.Rule01)
+		if rules.Rule01 < 1 {
+			d = 10
 		}
 		fmt.Printf("count=>%d  unit=>%f odds=>%f\n", count, unit, d)
 		return unit * count * d, nil
@@ -87,6 +88,10 @@ func calculate(input string, odds int, opencode []string) (int64, error) {
 			if bigOrSmall(no) == road || oddOrEven(no) == road {
 				count += 1
 			}
+		}
+		var d = int64(rules.Rule02)
+		if rules.Rule02 < 1 {
+			d = 1
 		}
 		fmt.Printf("count=>%d  unit=>%f odds=>%f\n", count, unit, d)
 		return unit * count * d, nil
@@ -111,6 +116,10 @@ func calculate(input string, odds int, opencode []string) (int64, error) {
 					count += 1
 				}
 			}
+		}
+		var d = int64(rules.Rule03)
+		if rules.Rule03 < 1 {
+			d = 4
 		}
 		fmt.Printf("count=>%d  unit=>%f odds=>%f\n", count, unit, d)
 		return unit * count * d, nil
@@ -141,6 +150,10 @@ func calculate(input string, odds int, opencode []string) (int64, error) {
 				count += 1
 			}
 		}
+		var d = int64(rules.Rule04)
+		if rules.Rule04 < 1 {
+			d = 2
+		}
 		fmt.Printf("count=>%d  unit=>%f odds=>%f\n", count, unit, d)
 		return unit * count * d, nil
 	}
@@ -162,6 +175,10 @@ func calculate(input string, odds int, opencode []string) (int64, error) {
 		}
 		if first < second && rank == "闲" {
 			count += 1
+		}
+		var d = int64(rules.Rule05)
+		if rules.Rule05 < 1 {
+			d = 2
 		}
 		fmt.Printf("count=>%d  unit=>%f odds=>%f\n", count, unit, d)
 		return unit * count * d, nil
@@ -187,6 +204,10 @@ func calculate(input string, odds int, opencode []string) (int64, error) {
 			if (first == a || first == b) && (second == a || second == b) {
 				count += 1
 			}
+		}
+		var d = int64(rules.Rule06)
+		if rules.Rule06 < 1 {
+			d = 40
 		}
 
 		fmt.Printf("count=>%d  unit=>%f odds=>%f\n", count, unit, d)
@@ -220,6 +241,10 @@ func calculate(input string, odds int, opencode []string) (int64, error) {
 		if sum%2 == 0 && road == "双" {
 			count += 1
 		}
+		var d = int64(rules.Rule07)
+		if rules.Rule07 < 1 {
+			d = 2
+		}
 
 		fmt.Printf("count=>%d  unit=>%f odds=>%f\n", count, unit, d)
 		return unit * count * d, nil
@@ -247,6 +272,11 @@ func calculate(input string, odds int, opencode []string) (int64, error) {
 				break
 			}
 		}
+		var d = int64(rules.Rule08)
+		if rules.Rule08 < 1 {
+			d = 6
+		}
+
 		if count == 1 {
 			switch sum {
 			case 3, 4, 18, 19:
@@ -294,6 +324,11 @@ func calculate(input string, odds int, opencode []string) (int64, error) {
 				count += 1 * 3
 			}
 		}
+		var d = int64(rules.Rule09)
+		if rules.Rule09 < 1 {
+			d = 4
+		}
+
 		fmt.Printf("count=>%d  unit=>%f odds=>%f\n", count, unit, d)
 		return unit * count * d, nil
 	}
