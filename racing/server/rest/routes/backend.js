@@ -43,8 +43,10 @@ router
     .get('/users/account', BackendUsers.getAccount)
 
     // 机器人
-    .get('/robots', BackendRobots.getAllUsers)
-    .post('/robots', BackendRobots.createUser)
+    .get('/robots', BackendRobots.getAllRobots)
+    .post('/robots', BackendRobots.createRobot)
+    .put('/robots/:id', BackendRobots.editRobot)
+    .delete('/robots/:id', BackendRobots.deleteRobot)
 
     .get('/agents', BackendUsers.getAllAgents)
     .post('/agents', BackendUsers.addAgent)

@@ -13,7 +13,7 @@ function upload(data) {
     const fileName = `public/upload/photo/${Date.now()}${uuid.v4()}.png`
 
     fs.writeFile(fileName, imageBin, {encoding: 'base64'}, function (err) {
-        throw err
+        console.log("上传文件：", err)
     });
     return fileName;
 }
