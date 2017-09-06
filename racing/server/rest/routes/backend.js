@@ -73,6 +73,12 @@ router
 
     .get('/stat/terrace', BackendStat.getAllTerraceStats)
     //.post('/stat/terrace', BackendStat.createUserStat)
+    .get('/stat/terrace/today', BackendStat.getTerraceWorthByDay)
+    .get('/stat/terrace/month', BackendStat.getTerraceWorthByMonth)
+
+    .get('/stat/users/today', BackendStat.getTodayNewUsers)
+    .get('/stat/users/month', BackendStat.getMonthNewUsers)
+
 
 
 module.exports = router;

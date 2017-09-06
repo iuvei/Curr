@@ -28,24 +28,24 @@ class IndexController {
         const lottery = await LotteryModel.findOne({}, {'_id': 0}).sort({"_id": -1}).limit(1)
 
         if (lottery) { //判断存在
-        /*
-         "time": 1503934094,
-         "current": {
-         "periodNumber": "636841",
-         "period": "636841",
-         "periodDate": "636841",
-         "awardTime": "2017-08-28 23:22:00",
-         "awardNumbers": "1,3,6,4,5,9,2,7,8,10"
-         },
-         "next": {
-         "periodNumber": "636843",
-         "period": "636843",
-         "periodDate": "636843",
-         "awardTime": "2017-08-28 23:32:00",
-         "awardTimeInterval": -226000,
-         "delayTimeInterval": 10
-         }
-         */
+            /*
+             "time": 1503934094,
+             "current": {
+             "periodNumber": "636841",
+             "period": "636841",
+             "periodDate": "636841",
+             "awardTime": "2017-08-28 23:22:00",
+             "awardNumbers": "1,3,6,4,5,9,2,7,8,10"
+             },
+             "next": {
+             "periodNumber": "636843",
+             "period": "636843",
+             "periodDate": "636843",
+             "awardTime": "2017-08-28 23:32:00",
+             "awardTimeInterval": -226000,
+             "delayTimeInterval": 10
+             }
+             */
             const live = {
                 time: parseInt(Date.now() / 1000),
                 current: {
@@ -60,7 +60,7 @@ class IndexController {
                     period: lottery.no + 1 + '',
                     periodDate: lottery.no + 1 + '',
                     awardTime: moment(lottery.opentime).add(5, "m"),
-                    awardTimeInterval: moment(lottery.opentime).add(4, "m").valueOf() + 40*1000 - moment().valueOf(),
+                    awardTimeInterval: moment(lottery.opentime).add(4, "m").valueOf() + 40 * 1000 - moment().valueOf(),
                     delayTimeInterval: 10,
                 }
 
@@ -133,8 +133,12 @@ class IndexController {
             gender: sex,
             avatar: headimgurl,
             profile: `${province}-${city}`,
-            agentId: parent_openid===undefined?'': parent_openid,
         };
+
+        if (parent_openid !== undefined) {
+            updateDoc.createdAt = Date.now(),
+                updateDoc.agentId = parent_openid
+        }
 
         const result = await UserModel.update({openid}, {'$set': updateDoc}, {upsert: true});
 
