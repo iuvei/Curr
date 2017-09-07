@@ -120,6 +120,9 @@ class BackendStat {
         if (!stats) {
             return ctx.body = {message: '获取当前平台输赢失败', code: 404}
         }
+        if (stats.length===0){
+            return ctx.body = {code: 200, worth: 0}
+        }
         return ctx.body = {code: 200, worth: stats[0].worth}
     }
 
@@ -150,9 +153,6 @@ class BackendStat {
     static async getTodayNewUsers(ctx) {
         const today = moment().startOf("day")
         const count = await UserModel.find({createdAt: {$gte: today}}).count()
-        if (!count) {
-            return ctx.body = {message: '获取当前新增用户数失败', code: 404}
-        }
         return ctx.body = {code: 200, addUsers: count}
     }
 

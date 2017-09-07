@@ -48,6 +48,11 @@ router
     .put('/robots/:id', BackendRobots.editRobot)
     .delete('/robots/:id', BackendRobots.deleteRobot)
 
+    .get('/robots/guesses', BackendRobots.getAllRobotGuesses)
+    .post('/robots/guesses', BackendRobots.createRobotGuess)
+    .put('/robots/guesses/:id', BackendRobots.editRobotGuess)
+    .delete('/robots/guesses/:id', BackendRobots.deleteRobotGuess)
+
     .get('/agents', BackendUsers.getAllAgents)
     .post('/agents', BackendUsers.addAgent)
 

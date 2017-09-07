@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import {message} from 'antd'
 import '../../../assets/backend/css/common.css';
-import {RuleFactory} from '../../../utils/rules'
+import {RuleFactory} from '../../../utils/rules';
 /**
  * Created by sven on 2017/8/16.
  */

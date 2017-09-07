@@ -118,18 +118,6 @@ class Rule {
     toString() {
         return '(' + this.input + ')';
     }
-
-    // match(input) {
-    //   if (new Rule01().test(input)) {
-    //     return new Rule01()
-    //   }
-    // }
-    //
-    // isMatch(input) {
-    //   if (new Rule01().test(input)) {
-    //     return true;
-    //   }
-    // }
 }
 
 class Rule01 extends Rule {
@@ -156,15 +144,6 @@ class Rule01 extends Rule {
             return inputs[0].length * inputs[1].length * inputs[2];
         }
     }
-
-    // gain(input, lottery) {
-    //     if (!this.test(input)) {
-    //         return 0
-    //     } else{
-    //         const inputs = input.split("/");
-    //         return inputs[0].length * inputs[1].length * inputs[2];
-    //     }
-    // }
 }
 
 class Rule02 extends Rule {
