@@ -1,0 +1,369 @@
+@import 'reset';
+
+@font-face {
+  font-family: times;
+  src: url(http://static.host19.com/static/font/font.woff2)
+}
+
+.pk10 {
+  position: relative;
+  width: 100vw;
+  height: 100vw / 960 * 628;
+  overflow: hidden;
+}
+
+/* 游戏面板 */
+.panel {
+  width: 960px;
+  border: 1px solid #202020;
+  background-color: #202020;
+  transform-origin: 0 0;
+  /* 活动主页面 */
+  .trackes {
+    position: relative;
+    overflow: hidden;
+    .track {
+      height: 42px;
+      text-align: left;
+      transition: padding 1s;
+      z-index: 100;
+      /* car */
+      .car-box {
+        position: relative;
+        display: inline-block;
+        vertical-align: top;
+        width: 147.8px;
+        height: 42px;
+        font-size: 0;
+        & > img {
+          height: 42px;
+          width: 147.8px;
+        }
+        .wheel {
+          position: absolute;
+          display: block;
+          bottom: 2.5px;
+        }
+        .q-wheel {
+          left: 25px;
+        }
+        .h-wheel {
+          right: 13px;
+        }
+        .wind {
+          position: absolute;
+          display: none;
+          top: 0px;
+          left: -14px;
+          img {
+            height: 42px;
+          }
+        }
+        .flame {
+          position: absolute;
+          display: none;
+          right: -45px;
+          top: 25px
+        }
+      }
+      .car-speed {
+        .wind {
+          display: block;
+          animation: windAnimation 0.3s infinite;
+          animation-duration: 0.3s;
+        }
+        .flame {
+          display: block;
+        }
+      }
+    }
+    .road {
+      position: absolute;
+      top: 80px;
+      right: 0;
+    }
+    .finisher {
+      position: absolute;
+      top: 80px;
+      bottom: 0;
+      right: 138px;
+    }
+    .scenery-box {
+      position: relative;
+      overflow: hidden;
+      font-size: 0;
+      width: 100%;
+      height: 80px;
+      .scenery {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+  }
+  /* 头部 */
+  .head {
+    width: 100%;
+    height: 62px;
+    background-image: url("../images/video/top_header.jpg");
+    background-size: cover;
+    color: #fff;
+    vertical-align: middle;
+    td{
+      vertical-align: middle;
+    }
+    td:first-child {
+      padding-left: 20px;
+    }
+    td:last-child {
+      width: 60px;
+      color: #fff;
+      font-size: 20px;
+    }
+    .voice {
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      background: url('../images/icon/voice.png') center top no-repeat;
+    }
+    .voice-none{
+      width: 40px;
+      height: 40px;
+      overflow: hidden;
+      background: url('../images/icon/voice.png') center bottom no-repeat;
+    }
+  }
+
+  /* 尾部 */
+  .footer {
+    width: 100%;
+    td {
+      padding: 0 20px;
+      vertical-align: middle;
+    }
+  }
+  em {
+    font-style: normal;
+  }
+  .mp3_box {
+    display: none;
+  }
+}
+
+/* 加速动画 */
+@keyframes windAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*  头部数字 */
+.num-panel {
+  &.pk10-num {
+    .num-box {
+      display: inline-block;
+      width: 38px;
+      height: 38px;
+      line-height: 38px;
+      margin-right: 5px;
+      text-align: center;
+      border-radius: 6px;
+      font-size: 22px;
+      color: #fff;
+      font-weight: 700;
+    }
+    .n01, .n1 {
+      background: #e6de00
+    }
+
+    .n02, .n2 {
+      background: #0092dd
+    }
+
+    .n03, .n3 {
+      background: #4b4b4b
+    }
+
+    .n04, .n4 {
+      background: #ff7600
+    }
+
+    .n05, .n5 {
+      background: #17e2e5
+    }
+
+    .n06, .n6 {
+      background: #5234ff
+    }
+
+    .n07, .n7 {
+      background: #bfbfbf
+    }
+
+    .n08, .n8 {
+      background: #ff2600
+    }
+
+    .n09, .n9 {
+      background: #780b00
+    }
+    .n10 {
+      background: #780b00;
+    }
+  }
+
+}
+
+/* 准备面板 */
+.ready-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  padding-top: 80px;
+  .count {
+    text-align: center;
+    padding-bottom: 5px;
+    font-family: times;
+    font-size: 75px;
+    color: #fff;
+    line-height: 1;
+    width: 100%;
+  }
+  .light {
+    position: relative;
+    text-align: center;
+    & > img {
+      vertical-align: top;
+    }
+    p {
+      position: absolute;
+      top: -19px;
+    }
+    .red {
+      left: 516.5px;
+    }
+    .yellow {
+      left: 393px;
+    }
+    .green {
+      left: 266px;
+    }
+  }
+}
+
+/* 结果页面 */
+.result-panel {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  background-image: url("../images/video/resultbg.jpg");
+  background-size: cover;
+  table {
+    width: 100%;
+    height: 100%;
+    tr {
+      height: 100%;
+      td {
+        width: 33%;
+        vertical-align: middle;
+        text-align: center;
+        .winner {
+          opacity: 0;
+        }
+      }
+      td:nth-child(2){
+        vertical-align: top;
+        padding-top: 80px;
+      }
+    }
+  }
+  &.result-animation {
+    animation-delay: 0s;
+    animation-name: result-animation;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    .winner {
+      opacity: 0;
+      animation-delay: 0.5s;
+      animation-name: winner-animation;
+      animation-duration: 1.3s;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+    }
+    .winner-one {
+      animation-delay: 0.5s;
+    }
+    .winner-two {
+      animation-delay: 0.8s;
+    }
+    .winner-three {
+      animation-delay: 1.1s;
+    }
+  }
+}
+
+@keyframes winner-animation {
+  0% {
+    transform: translate3d(300%, -100%, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes result-animation {
+  0% {
+    opacity: 0;
+  }
+  90% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* 底部的结果展示 */
+.circles-panel {
+  border: 2px solid #333;
+  padding: 10px 25px;
+  display: inline-block;
+  height: 64px;
+  .circles-type {
+    display: inline-block;
+    color: #fff;
+    font-size: 19px;
+    vertical-align: top;
+    padding-top: 5px;
+  }
+  .circles-box {
+    display: inline-block;
+    span {
+      display: inline-block;
+      width: 36px;
+      height: 36px;
+      line-height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      text-align: center;
+      background: #3771de;
+      font-size: 18px;
+      color: #fff;
+      margin-left: 10px;
+    }
+
+  }
+}
