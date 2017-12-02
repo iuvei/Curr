@@ -59,9 +59,10 @@ class IndexController {
                     periodNumber: lottery.no + 1 + '',
                     period: lottery.no + 1 + '',
                     periodDate: lottery.no + 1 + '',
-                    awardTime: moment(lottery.opentime).add(5, "m"),
-                    awardTimeInterval: moment(lottery.opentime).add(4, "m").valueOf() + 40 * 1000 - moment().valueOf(),
-                    delayTimeInterval: 10,
+                    awardTime: moment(lottery.opentime).add(5, "m").format('YYYY-MM-DD hh:mm:ss'),
+                    //awardTimeInterval: moment(lottery.opentime).add(4, "m").valueOf() + 10 * 1000 - moment().valueOf(),
+                    awardTimeInterval: Math.floor((moment(lottery.opentime).add(4, "m").valueOf() + 30 * 1000 - moment().valueOf())/1000) * 1000,
+                    delayTimeInterval: 1000,
                 }
 
             }

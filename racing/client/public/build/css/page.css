@@ -702,3 +702,15 @@ input, select, textarea{box-shadow: none;border-radius: 0;background: 0 0;border
 a.custom, a.custom:hover{background: #e73f3f !important;border-color: #e73f3f !important;color: #fff !important}
 .ad{width: 1000px;margin: 2px auto 0;overflow: hidden}
 .ad img{width: 100%;vertical-align: top}
+
+
+
+/*开奖结果样式调整*/
+.drawing-video .result{ width:100%; height:8rem; box-sizing:border-box; top:3.6rem; padding:0;}
+.drawing-video .result .car{padding-top: 0;}
+.drawing-video .result .car.three, .drawing-video .result .car.two{padding-top: 40px;}
+.drawing-video .result .car.two { right:68%; top:-30px;}
+.drawing-video .result .car img {max-width: 80%;}
+.drawing-video .result .car.one {right: 30%;}
+.drawing-video .result .car.three {right: 0%;}
+

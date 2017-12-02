@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
+import Frame from 'react-frame-component';
+import GamePk10 from '../../pk10/Index';
 import "../../assets/mobile/css/common.css";
 
 /**
@@ -17,7 +18,8 @@ export default class Index extends Component {
   render() {
     return (
       <div className="iframeDiv">
-        <iframe src="video.html" frameBorder="0" className="iframe"></iframe>
+       <GamePk10 requestUrl="/m/api/live" sceneryType="scenery"/>
+        {/*<iframe src="video.html" frameBorder="0" className="iframe"></iframe>*/}
       </div>
     );
   }
