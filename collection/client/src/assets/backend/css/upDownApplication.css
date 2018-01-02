@@ -1,0 +1,18 @@
+.r_aside .application .top{width:100%;height:41px;border-bottom:1px solid #CBCBCB;line-height:40px;padding-left:66px;position:relative;}
+.r_aside .application .top:before{position:absolute;content:"";width:25px;height:20px;background:url(../images/icon-15.png)no-repeat;top:10px;left:30px;}
+.r_aside .application .bottom{margin:20px;}
+.r_aside .application .bottom .search{margin-bottom:15px;}
+.r_aside .application .bottom .search .ip1{width:300px;height:30px;font-size:14px;padding-left:10px;border:1px solid #ccc;}
+.r_aside .application .bottom .search .ip2{width:60px;height:32px;background:#19B293;font-size:16px;color:#fff;text-align:center;
+  line-height:32px;border-radius:5px; margin-left:10px;}
+
+.r_aside .application .bottom .tab table{border-collapse:collapse;border-color:#ccc;}
+.r_aside .application .bottom .tab table tr th{height:34px;background:#F4F4F5;font-size:14px;color:#333;font-weight:600;text-align:left;padding-left:10px;}
+
+.r_aside .application .bottom .tab table tr td{height:60px;padding-left:10px;font-size:14px;color:#666;}
+.r_aside .application .bottom .tab table tr td img{width:40px;height:40px;margin-top:4px;}
+.r_aside .application .bottom .tab table tr td input{width:60px;height:34px;border-radius:2px;font-size:14px;color:#fff;text-align:center;line-height:34px;
+  float:left;}
+.r_aside .application .bottom .tab table tr td .ip1{background-color:#1AB394;margin-right:10px;}
+.r_aside .application .bottom .tab table tr td .ip2{background-color:#F8AC59;}
+.r_aside .application .bottom .tab table tr td:nth-child(8){padding-right:40px;}

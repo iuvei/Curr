@@ -1,0 +1,8 @@
+.main{padding: .8rem 0 3rem;}
+.main>.line{padding: .5rem 0;}
+.main>.line>span.fl{width: 25%;text-align: right;padding-right: 1rem;font: .7rem/1.5rem 'Microsoft YaHei';}
+.main>.line>div.fl{width: 75%;}
+.main>.line>div.fl select,.main>.line>div.fl input{-webkit-appearance: none;-moz-appearance: none;appearance: none;width: 90%;height: 1.5rem;border: 1px solid #ccc;font: .7rem/calc(1.5rem - 2px) 'Microsoft YaHei';padding: 0 .5rem;}
+.main>.line>div.fl img{width: 70%;}
+.main>.line>div.fl p.tip{font: .7rem/1.2rem 'Microsoft YaHei';color: #f00;}
+.main>.line>div.fl button{height: 1.7rem;font: .8rem/calc(1.5rem - 2px) 'Microsoft YaHei';background-color: #2ea2f4;border: none;color: #fff;padding: 0 .7rem;}

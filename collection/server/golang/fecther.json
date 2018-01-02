@@ -1,0 +1,10 @@
+{
+	"max_procs": 1,
+	"debug_level": 0,
+	"mgo": {
+        "host": "127.0.0.1:27017",
+        "db": "report"
+    },
+	urls: ["http://d.apiplus.net/newly.do?token=t31ca37cd375be4b4k&code=bjpk10&rows=1&format=json"]
+	
+}

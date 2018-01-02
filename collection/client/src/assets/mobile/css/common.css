@@ -1,0 +1,112 @@
+@charset "utf-8";
+/* 深圳市静江网络科技有限公司 */
+*,*:before,*:after {-webkit-box-sizing:border-box; box-sizing:border-box;margin:0; padding:0;}
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust: 100%;}
+body{position:relative; font:14px/1 "Microsoft YaHei", Helvetica, sans-serif !important;color:#969696;background-color: #efefef;max-width:640px;margin:auto;}
+input{outline: none;}
+button{cursor: pointer;border: none;outline: none;}
+ul,li,h1,h2,h3,h4,h5,h6,p{list-style-type:none;}
+img{border:none;}
+a{text-decoration:none; color:#666;}
+a:hover{text-decoration:none;}
+.clearfix{zoom:1}
+.clearfix:after{content:"";display:block;height:0;clear:both;visibility:hidden;}
+.fl{float: left;}
+.fr{float: right;}
+/* 初始化样式结束 */
+
+webkit-scrollbar-thumb {background-color: #ccc;border-radius:1px;}
+webkit-scrollbar {width: 2px;}
+
+
+/* 首页顶部模块 */
+.iframeDiv{height:13rem;}
+.iframe{width: 100%; height:13rem;}
+
+/*!* 明细模块 *!*/
+/*.detail{background-color: #2ea2f4;padding: .3rem 0;color: #fff;height: 10rem;position: absolute;top: 0;width: 100%;display: none;overflow-y: scroll;}*/
+/*.detail>table{width: 95%;margin: auto;border: 1px solid #fff;}*/
+/*.detail>table td{text-align: center;height: 1.5rem;border-bottom: 1px solid #fff;}*/
+/*.detail>table td:not(:last-child){border-right: 1px solid #fff;}*/
+/*.detail>table tr:last-child td{border-bottom: none;}*/
+
+/*!* 玩法模块 *!*/
+/*.howToPlay{height: 10rem;overflow-y: scroll;background-color: #2ea2f4;color: #fff;padding: .5rem 0;position: absolute;top: 0;width: 100%;display: none;}*/
+/*.howToPlay p{font: .8rem/1.5 'Microsoft YaHei';text-align: center;}*/
+
+
+.text{width:100%;font: 0.3rem/0.9rem 'Microsoft YaHei';padding:0.4rem 0;overflow:hidden;background:#2ea2f4;text-align:center;color: #fff;}
+.text span{font-size:0.3rem;}
+.text span:first-child{padding-right:1rem;}
+
+.userInfo{height: 3.5rem;border-bottom: 1px solid #dfdfdf;position:relative;background:#fff; }
+.userInfo>img{width:2.5rem;height:2.5rem;margin:0.5rem 0.7rem 0.3rem 0.8rem;background-color: #fff;border-radius:50%;}
+.userInfo>form{height: 100%;width: 75%;}
+.userInfo>form input{width: 50%;height: 2rem;margin: 0.7rem 0.5rem 0.5rem 0;font-size: 0.3rem;padding-left:0.2rem;border:0.01rem solid #8ed64e;;}
+
+.userInfo>form button{width: 3rem;height: 2rem;margin: 0.7rem 0.5rem 0.5rem 0;background-color: #8ed64e;border-radius: 0.2rem;    color: #fff;}
+.userInfo>form a{display:inline-block;width:3rem;height:2rem;background:url(../images/icon-jp.png)no-repeat center;background-size:3.3rem;margin: 0.7rem 0.5rem 0.5rem 0;}
+
+
+
+.userInfo .key{width:85%; height:15rem;border-radius:0.5rem;background:#6A6E71;position:absolute;z-index:3;right:0.5rem;top:2.8rem;padding:0.5rem 0.5rem 0;text-align:center;}
+.userInfo .key .board a{display:block;width:12%;height:2rem;background:#2A2E3A;border-radius:0.2rem;float:left;margin:0.5rem 2.2% 0 0;text-align:center;line-height:2rem;font-size:0.5rem;color:#fff;}
+.userInfo .key .btn{width:90%;margin:auto;margin-top:1rem;}
+.userInfo .key .btn a{display:inline-block;width:31%;height:2rem;margin-right:1.8%;float:left;text-align:center;line-height:2rem;border-radius:0.2rem;font-size:0.8rem;color:#fff;}
+.userInfo .key .btn a:last-child{margin-right:0;}
+.userInfo .key .btn .a1{background:#FC0000;}
+.userInfo .key .btn .a2{background:#5DC370;}
+.userInfo .key .btn .a3{background:#028BFD;}
+.userInfo .key .btn .a4{background:#6F5ABF;}
+.userInfo .key .btn .a5{background:#C15F18;}
+.leftMenu{width:auto;}
+.leftMenu a{display: block;width: 3rem;height: 3rem;padding: .1rem;margin:.5rem 0.5rem;border-radius: 50%;border: 1px solid;text-align:center;}
+.leftMenu a span{display: block;width: 100%;height: 100%;border-radius: 50%;color: #fff;text-align: center;font: .6rem/calc(2rem - 2px) 'Microsoft YaHei';line-height:2.8rem;}
+.leftMenu a:nth-child(1){border-color: #ce3d42;}
+.leftMenu a:nth-child(1) span{background-color: #ce3d42;}
+.leftMenu a:nth-child(2){border-color: #f0f;}
+.leftMenu a:nth-child(2) span{background-color: #f0f;}
+.leftMenu a:nth-child(3){border-color: #0080ff;}
+.leftMenu a:nth-child(3) span{background-color: #0080ff;}
+.leftMenu a:nth-child(4){border-color: #ce3d42;}
+.leftMenu a:nth-child(4) span{background-color: #ce3d42;}
+.leftMenu a:nth-child(5){border-color: #ff8000;}
+.leftMenu a:nth-child(5) span{background-color: #ff8000;}
+.leftMenu a:nth-child(6){border-color: #f0f;}
+.leftMenu a:nth-child(6) span{background-color: #f0f;}
+.leftMenu a:nth-child(7){border-color: #87ce64;}
+.leftMenu a:nth-child(7) span{background-color: #87ce64;}
+.leftMenu a:nth-child(8){border-color: #ff8080;}
+.leftMenu a:nth-child(8) span{background-color: #ff8080;}
+.leftMenu a:nth-child(9){border-color: #808000;}
+.leftMenu a:nth-child(9) span{background-color: #808000;}
+.leftMenu a:nth-child(10){border-color: #00f;}
+.leftMenu a:nth-child(10) span{background-color: #00f;}
+.leftMenu a:nth-child(11){border-color: #37b6af;}
+.leftMenu a:nth-child(11) span{background-color: #37b6af;}
+
+
+.rightMessage{width: calc(100% - 4rem);background: #fff;}
+
+.messageItem{padding: 0.5rem 0;    margin-right: 0.5rem;}
+.messageItem>img.fl{width: 2.5rem;height: 2.5rem; margin:0.2rem 0.2rem 0.2rem 0.5rem;background-color: #fff;border-radius:50%;border:0.01rem solid #ccc;}
+.messageItem>div.fl{width: calc(100% - 3.5rem);padding: 0 .5rem;}
+.messageItem .userAndTime{font: .7rem/1rem 'Microsoft YaHei';color: #4a4a4a;margin-bottom: 0.3rem;}
+.messageItem .userAndTime span{font-size: .6rem;}
+.messageItem .message{background-color: #eee;box-shadow: 1px 1px 2px 1px #c3c5c6;padding: .4rem;font: .7rem/1rem 'Microsoft YaHei';border-radius: 3px;position: relative;color: #333;}
+.messageItem .message:before{content: "";position: absolute;width: .5rem;height: .5rem;background-color: #eee;top: .4rem;left: -.2rem;-webkit-transform: rotate(45deg);-moz-transform: rotate(45deg);-ms-transform: rotate(45deg);-o-transform: rotate(45deg);transform: rotate(45deg);}
+
+.manageMessage>img.fl{float: right;}
+.manageMessage>div.fl{float: right;}
+.manageMessage .userAndTime{text-align: right;}
+.manageMessage .message{float: right;background-color: #eee;color: #f00;}
+.manageMessage .message:before{left: auto;right: -.2rem;background-color: #eee;}
+
+
+.layer{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0,0,0,.4);display: none;}
+.servicePopup{position: fixed;top: 50%;left: 50%;-webkit-transform: translate(-50%, -50%);-moz-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);-o-transform: translate(-50%, -50%);transform: translate(-50%, -50%);width: 70%;}
+.servicePopup>img{display: block;width: 100%;}
+.servicePopup>a.closeBtn{position: absolute;right: 0;top: 0;width: 2rem;height: 2rem;background: url("../images/closeBtn.png") no-repeat center/50%;}
+
+
+

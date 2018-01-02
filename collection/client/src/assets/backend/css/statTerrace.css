@@ -1,0 +1,30 @@
+
+.position{height: 41px;border-bottom: 1px solid #ccc;font: 16px/40px 'Microsoft YaHei';color: #333;padding-left: 30px;}
+.position span:first-child{padding-left: 35px;background: url("../images/icon-15.png") no-repeat left;}
+
+
+.mainBox{padding: 0 30px;}
+.mainBox .search{padding: 17px 0 16px;}
+.mainBox .search input{width: 202px;height: 32px;border: 1px solid #ccc;margin-right: 8px;font: 14px/30px 'Microsoft YaHei';color: #999;padding-left: 12px;background: url("../images/icon-19.png") no-repeat 95%;}
+.mainBox .search button{height: 32px;border-radius: 5px;color: #fff;border: none;cursor: pointer;outline: none;font: 16px/30px 'Microsoft YaHei';padding: 0 12px;background-color: #1AB394;}
+
+
+.mainBox>table {border-top: 1px solid #ccc;border-left: 1px solid #ccc;}
+.mainBox>table th,.mainBox>table td {border-right: 1px solid #ccc;border-bottom: 1px solid #ccc;font-size: 14px;}
+.mainBox>table th{height: 34px;color: #333;background-color: #f5f5f5;font-weight: normal;text-align: left;padding-left: 10px;}
+.mainBox>table td{height: 60px;color: #666;padding-left: 10px;}
+.mainBox>table td img{display: block;width: 40px;height: 40px;}
+
+.mainBox>table td:nth-child(2),.mainBox>table td:nth-child(4){color: #1AB394;font-weight: bold;}
+.mainBox>table td:nth-child(3){color: #f00;font-weight: bold;}
+
+.mainBox>table td:last-child{padding-left: 10px;}
+.mainBox>table td:last-child button.edit{background-color: #1AB394;}
+.mainBox>table td:last-child button.del{background-color: #ED5565;}
+.mainBox>table input[type="checkbox"]{width: 24px;height: 24px;-webkit-appearance: none;-moz-appearance: none;appearance: none;background: url("../images/notCheckIcon.png") no-repeat center;}
+.mainBox>table input[type="checkbox"]:checked{background: url("../images/checkIcon.png") no-repeat center;}
+
+.mainBox .paging{width: 900px;text-align: center;padding: 24px 0;}
+.mainBox .paging a{display: inline-block;width: 32px;height: 28px;border: 1px solid #1AB394;border-radius: 3px;font: 16px/26px 'Microsoft YaHei';text-align: center;color: #666;margin: 0;}
+.mainBox .paging a:hover,.mainBox .paging a.cur{background-color: #1AB394;color: #fff;}
+.mainBox .paging a.prev,.mainBox .paging a.next{width: 42px;font-family: 宋体;font-weight: bold;}

@@ -1,0 +1,8 @@
+.detail{background-color: #2ea2f4;padding: .3rem 0;color: #fff;min-height: 10.8rem;}
+.detail>div{border-bottom: 1px solid #a4a4a4;}
+.detail>div.thead{border-top: 1px solid #a4a4a4;}
+.detail>div.thead>span{float: left;font: .9rem/2 'Microsoft YaHei';width: 20%;padding: 0 .2rem;}
+.detail>div.thead>span:not(:last-child){border-right: 1px solid #a4a4a4;}
+.detail>div p{font: .9rem/2 'Microsoft YaHei';text-align: center;}
+
+

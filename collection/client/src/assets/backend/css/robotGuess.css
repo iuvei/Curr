@@ -1,0 +1,74 @@
+
+.position{height: 41px;border-bottom: 1px solid #ccc;font: 16px/40px 'Microsoft YaHei';color: #333;padding-left: 30px;}
+.position span:first-child{padding-left: 35px;background: url("../images/icon-15.png") no-repeat left;}
+
+
+.mainBox{padding: 0 30px; position:relative;}
+.mainBox .btns{padding: 18px 0 14px;}
+.mainBox .btns button{width: 60px;height: 32px;border-radius: 5px;color: #fff;border: none;cursor: pointer;outline: none;font-size: 16px;font-family: "Microsoft YaHei";}
+.mainBox .btns button.addBtn{background-color: #1AB394;}
+
+
+.mainBox>table {border-top: 1px solid #ccc;border-left: 1px solid #ccc;}
+.mainBox>table th,.mainBox>table td {border-right: 1px solid #ccc;border-bottom: 1px solid #ccc;font-size: 14px;}
+.mainBox>table th{height: 34px;color: #333;background-color: #f5f5f5;font-weight: normal;}
+.mainBox>table td{height: 60px;color: #666;}
+.mainBox>table td:not(:last-child){text-align: center;}
+.mainBox>table th:last-child{text-align: left;padding-left: 10px;}
+.mainBox>table td img{display: block;width: 40px;height: 40px;margin: auto;}
+.mainBox>table td:last-child button{width: 60px;height: 34px;text-align: center;color: #fff;border: none;border-radius: 3px;cursor: pointer;margin-left: 10px;font-family: "Microsoft YaHei";}
+.mainBox>table td:last-child button.edit{background-color: #1AB394;}
+.mainBox>table td:last-child button.del{background-color: #ED5565;}
+.mainBox>table input[type="checkbox"]{width: 24px;height: 24px;-webkit-appearance: none;-moz-appearance: none;appearance: none;background: url("../images/notCheckIcon.png") no-repeat center;}
+.mainBox>table input[type="checkbox"]:checked{background: url("../images/checkIcon.png") no-repeat center;}
+
+.mainBox .paging{width: 900px;text-align: center;padding: 24px 0;}
+.mainBox .paging a{display: inline-block;width: 32px;height: 28px;border: 1px solid #1AB394;border-radius: 3px;font: 16px/26px 'Microsoft YaHei';text-align: center;color: #666;margin: 0;}
+.mainBox .paging a:hover,.mainBox .paging a.cur{background-color: #1AB394;color: #fff;}
+.mainBox .paging a.prev,.mainBox .paging a.next{width: 42px;font-family: 宋体;font-weight: bold;}
+
+
+/*弹窗--增加机器人*/
+.zj{width:520px;height:300px;border-radius:5px;background:#F8F8F8;box-shadow: 0px 0px 10px #888888;position:absolute;z-index:1;left:50%; margin-left:-260px;top:150px;}
+.zj .title{width:100%;height:40px;background:#1AB394;border-top-left-radius:5px;border-top-right-radius:5px;}
+.zj .title span{font-size:20px;color:#fff;line-height:40px;padding-left:18px;}
+.zj .title a{font-size:16px;color:#fff;float:right;margin-right:28px;line-height:40px;}
+.zj .content{padding:30px 30px 0;}
+.zj .content .img input{display:block;}
+.zj .content .img .ip2{width:240px;height:38px;border:1px solid #ccc;margin:20px 0;padding-left:10px;font-size:16px;}
+.zj .content .img .ip3{width:120px;height:40px;border-radius:5px;text-align:center;line-height:40px;background:#1AB394;font-size:16px;color:#fff;}
+
+
+/*弹窗--编辑*/
+.bj,.gb{width:520px;height:300px;border-radius:5px;background:#F8F8F8;box-shadow: 0px 0px 10px #888888;position:absolute;z-index:1;left:50%; margin-left:-260px;top:150px;}
+.bj .title,.gb .title{width:100%;height:40px;background:#1AB394;border-top-left-radius:5px;border-top-right-radius:5px;}
+.bj .title span,.gb .title span{font-size:20px;color:#fff;line-height:40px;padding-left:18px;}
+.bj .title a,.gb .title a{font-size:16px;color:#fff;float:right;margin-right:28px;line-height:40px;}
+.bj .content,.gb .content{padding:30px 30px 0;}
+.bj .content .img input{display:block;}
+.bj .content .img .ip2{width:240px;height:38px;border:1px solid #ccc;margin:20px 0;padding-left:10px;font-size:16px;}
+.bj .content .img .ip3{width:120px;height:40px;border-radius:5px;text-align:center;line-height:40px;background:#1AB394;font-size:16px;color:#fff;}
+
+/*弹窗--删除*/
+.gb .content .text{font-size:20px;color:#333;text-align:center;height:100px;line-height:100px;}
+.gb .content .btn{margin-top:30px;text-align:center;}
+.gb .content .btn input{width:80px;height:34px;border-radius:5px;font-size:16px;color:#fff;margin:20px;}
+.gb .content .btn .ip1{background:#1AB394;}
+.gb .content .btn .ip2{background:#8E333D;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
