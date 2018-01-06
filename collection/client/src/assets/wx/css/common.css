@@ -1,0 +1,38 @@
+@charset "utf-8";
+/* 深圳市静江网络科技有限公司 */
+*,*:before,*:after {-webkit-box-sizing:border-box; box-sizing:border-box;margin:0; padding:0;}
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust: 100%; width:100%; max-width:640px;}
+body{position:relative; font:14px/1 "Microsoft YaHei", Helvetica, sans-serif;color:#333;}
+input{outline: none;}
+input[type="button"],button,select{cursor: pointer;border: none;outline: none;}
+textarea{outline: none;}
+ul,li,h1,h2,h3,h4,h5,h6{list-style-type:none;}
+img{border:none;}
+a{text-decoration:none; color:#666;}
+a:hover{text-decoration:none;}
+.clf{zoom:1}
+.clf:before,.clf:after{content:"";display:block;height:0;clear:both;visibility:hidden;}
+.fl{float: left;}
+.fr{float: right;}
+.w{width: 95%;margin: auto;}
+body{background-color: #f2f2f2; width:100%; max-width: 640px;margin: auto;}
+/* 初始化样式结束 */
+
+/* 通用顶部 */
+.comTopDiv{border-top: 10px solid #920000;background-color: #fff;box-shadow: 0 0 .5rem #d2d2d2;padding: .5rem .5rem; position:fixed;top:0;left:0;right:0;}
+.comTopDiv a{float: left;padding: 0 .3rem;font: .7rem/2.5 'Microsoft YaHei';color: #fff;background-color: #920000;border-radius: 5px;}
+.comTopDiv a:not(:last-of-type){margin-right: .3rem;}
+.comTopDiv a.membercolor{background-color: #c98112;}
+.comTopDiv a.message{background-color: #d9544f;}
+
+/* 通用底部 */
+.comBotDiv{font: .7rem/3.5 'Microsoft YaHei';background-color: #920000;border-top: 5px solid #000;color: #fff;text-align: center;position:fixed;bottom:0;left:0;right:0;}
+
+
+.content{position:fixed;top:4rem;bottom:3.5rem;left:0;right:0;overflow-y:auto;}
+
+
+
+
+
+

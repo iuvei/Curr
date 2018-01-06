@@ -1,0 +1,21 @@
+.red{color: #f00;}
+.green{color: #1cbb44;}
+
+/* 存款 */
+.receipts{border: 1px solid #ccc;border-radius: 5px;box-shadow: 0 .1rem .3rem #d3d3d3;}
+.receipts:not(:last-of-type){margin-bottom: .8rem;}
+.receipts>h1{font: .9rem/2.5 'Microsoft YaHei';padding: 0 2.5%;border-bottom: 1px solid #ccc;}
+.receipts>.mainDiv{background-color: #fff;padding: 0 2.5% 1rem;}
+.receipts>.mainDiv h2{font: .9rem/2.5 'Microsoft YaHei';}
+.receipts>.mainDiv h3{font: .7rem/1.5 'Microsoft YaHei';}
+.receipts>.mainDiv a.payButton{display: block;background-color: #8c2c2d;color: #fff;font: .8rem/3 'Microsoft YaHei';text-align: center;margin-top: .6rem;}
+.receipts>.mainDiv p.tip{font: .8rem/2.5 'Microsoft YaHei';color: #aa4442;}
+.receipts>.mainDiv div.tip{background-color: #f2dedf;padding: 1rem 2.5%;font: .7rem/1.2 'Microsoft YaHei';}
+
+
+
+
+
+
+
+

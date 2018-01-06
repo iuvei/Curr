@@ -33,7 +33,7 @@ export default class UpDownApplication extends Component {
 
   queryUpdowns(currPage, pageSize, type) {
     type = type === undefined ? this.state.type : type
-    getAllUpDowns({pageSize, currPage, type: type === undefined ? this.state.type : type, nickname: this.state.keyWord})
+    getAllUpDowns({pageSize, currPage, type, nickname: this.state.keyWord})
       .then(data => {
         if (data.success) {
           this.setState({
@@ -96,7 +96,7 @@ export default class UpDownApplication extends Component {
                 <input type="submit" value="搜索" className="ip2" onClick={this.queryUpdownsByName.bind(this)}/>
               </div>
               <div className="tab">
-                <table style={{border: "1"},{width: "100%"}}>
+                <table style={{border: "1", width: "100%"}}>
                   <tbody>
                   <tr>
                     <th width="80">头像</th>

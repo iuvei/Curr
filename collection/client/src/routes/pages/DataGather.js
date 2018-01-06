@@ -11,23 +11,34 @@ export default class DataGather extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      records: {data: []}
+      records: {data: []},
+      type: this.props.location.state.type,
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.location.state.type !== this.state.type) {
+      this.queryLotteryRecords(1, 10, nextProps.location.state.type);
     }
   }
 
   componentDidMount() {
-    this.queryLotteryRecords(1, 10)
+    this.queryLotteryRecords(1, 10,  this.props.location.state.type)
   }
 
-  queryLotteryRecords(currPage, pageSize) {
-    getAllLotterys({pageSize, currPage, no: this.state.no})
+  queryLotteryRecords(currPage, pageSize, type) {
+    type = type === undefined ? this.state.type : type
+    getAllLotterys({pageSize, currPage, type, no: this.state.no})
       .then(data => {
         if (data.success) {
           this.setState({
             records: data.result,
+            type
           });
         } else {
-          this.setState({})
+          this.setState({
+            type
+          })
         }
       })
   }
@@ -59,8 +70,8 @@ export default class DataGather extends Component {
             <tr>
               <th width="120">类型</th>
               <th width="120">期号</th>
-              <th width="230">开奖时间</th>
-              <th width="430">开奖号码</th>
+              <th width="230">开奖号码</th>
+              <th width="430">开奖时间</th>
             </tr>
             </thead>
             <tbody>
@@ -68,7 +79,7 @@ export default class DataGather extends Component {
               this.state.records.data.map((item, i) => {
                 return (
                   <tr key={i}>
-                    <td>北京赛车</td>
+                    <td>{item.type}</td>
                     <td>{item.no}</td>
                     <td>{item.code}</td>
                     <td>{item.opentime}</td>

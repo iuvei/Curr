@@ -1,0 +1,101 @@
+.box{width:100%;height:auto;padding:.5rem .8rem .5rem;}
+.result{width:100%;height:auto;background:#f5f5f5;border-radius:.5rem;border:.05rem solid #b0b0b0;
+    box-shadow: 0 0 1rem #ccc;}
+.result .periods{padding:1rem .8rem;}
+.result .periods .name{font-size:.8rem;}
+.result .periods .number{font-size:.8rem;padding-left:10%;}
+.result .periods .number span{font-weight:500;color:#fa4242;}
+.result .periods .time{font-size:.8rem;}
+
+.result .lottery{width:100%;height:auto;padding:.5rem;background:#fff;border-top:.05rem solid #b0b0b0;border-bottom:.05rem solid #b0b0b0;}
+.result .lottery .top .qishu{font-size:.8rem;color:#fa4242;vertical-align: middle;padding-top:0.4rem;}
+.result .lottery .top .haoma{padding-left:1%;}
+.result .lottery .top .haoma img{float:left;width:1.5rem;height:1.5rem;margin-left:.1rem;}
+.result .lottery .top .btn{padding-top:0.4rem;}
+.result .lottery .top .btn a{font-size:.8rem;color:#4887bc;}
+
+.result .lottery .center{padding:.3rem 0 0;}
+.result .lottery .center span{font-size:.8rem;color:#f75956;display: block;padding:.2rem 0;}
+.result .lottery .center span i{font-size:.8rem;color:#1ec7ff;font-style:inherit;padding-left:.2rem;}
+
+.result .lottery .bottom span{font-size:.8rem;color:#f75956;width: 50%;float: left;padding: .2rem 0;}
+.result .lottery .bottom span i{font-size:.8rem;color:#1ec7ff;font-style:inherit;padding-left:.2rem;}
+
+.result .button{padding: .5rem;}
+.result .button input{font-size:.8rem;color:#fff;padding: .4rem .6rem;float:left;border-radius:.4rem;background:#720808;cursor:pointer;border:1px solid transparent;}
+.result .button input:nth-child(2){margin:0 .3rem;}
+.result .button input:hover{background:#b85d5c;border:1px solid #720808;}
+
+#betting{margin-top:1rem;}
+#betting .top span{display:inline-block;padding:.4rem .6rem;margin: 0 .2rem .5rem 0;background:#f94141;font-size:.8rem;color:#fff;cursor:pointer;}
+
+#betting .bottom{width:100%;height:auto;margin-top:.1rem;border-top:.05rem solid #b0b0b0;border-left:.05rem solid #b0b0b0;}
+#betting .hidden{display:none;}
+#betting .bottom .title span{display:block;float:left;padding-left:.8rem;font-size:.7rem;border-bottom:.05rem solid #b0b0b0;border-right:.05rem solid #b0b0b0;height:3rem;line-height:2.98rem;}
+#betting .bottom .title .sp1{width:15%;}
+#betting .bottom .title .sp2{width:15%;}
+#betting .bottom .title .sp3{width:20%;}
+
+#betting .bottom .types ul li{float:left;padding-left:.2rem;font-size:.7rem;border-bottom:.05rem solid #b0b0b0;border-right:.05rem solid #b0b0b0;height:3rem;line-height:2.98rem;}
+#betting .bottom .li1{width:15%;}
+#betting .bottom .li2{width:15%;font-weight:600;color:#c33736;}
+#betting .bottom .li3{width:20%;}
+#betting .bottom .li3 input{width:90%;height:2rem;border-radius:.2rem;border:.05rem solid #ddd;padding-left:.5rem;}
+
+#betting .amount{margin-top:.8rem;}
+#betting .amount span{font-size:.8rem;}
+#betting .amount input{width:35%;height:1.5rem;border-radius:.3rem;border:.05rem solid #ddd;font-size:.7rem;padding-left:.5rem;}
+
+#betting .btns{margin:3rem auto 5rem;width:96%;}
+#betting .btns input{width:48%;height:2rem;float:left;border-radius:4px;border:0;font-size:.8rem;cursor: pointer;}
+#betting .btns .ip1{margin-right:4%;background:#efad4d;color:#fff;font-weight:500;}
+#betting .btns .ip2{background:#fff;color:#333;font-weight:500;border:.05rem solid #b0b0b0;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

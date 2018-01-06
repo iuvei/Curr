@@ -1,0 +1,27 @@
+
+/* 财务记录 */
+.financeRecord{margin: 1rem 0 2rem;border: 1px solid #ddd;box-shadow: 0 0 .5rem #d3d3d3;border-radius: 3px;background-color: #fff;padding: .5rem;}
+.financeRecord .tabOption{border-bottom: 1px solid #b1b1b1;}
+.financeRecord .tabOption span{float: left;padding: 0 .4rem;font: .7rem/2.5 'Microsoft YaHei';color: #357cb8;border: 1px solid transparent;border-bottom: none;}
+.financeRecord .tabOption span.curTab{background-color: #fff;color: #b1b1b1;border-color: #b1b1b1;border-radius: 5px 5px 0 0;}
+.financeRecord .tabDiv>.tabCont:not(:first-of-type){display: none;}
+.financeRecord .tabDiv>.tabCont table{border-top: 1px solid #b0b0b0;border-left: 1px solid #b0b0b0;width: 100%;margin: .5rem 0 1rem;}
+.financeRecord .tabDiv>.tabCont table td{border-right: 1px solid #b0b0b0;border-bottom: 1px solid #b0b0b0;padding: .5rem .2rem;}
+.financeRecord .tabDiv>.tabCont table tr:first-of-type{background-color: #dff0d8;}
+.financeRecord .tabDiv>.tabCont table tr:last-of-type{background-color: #f5f5f5;}
+.financeRecord .tabDiv>.tabCont table .paging{background-color: #fff;float: left;height: 1.5rem;line-height: 1.5rem;margin: 0 2.5%;border-radius: 3px;overflow: hidden;border: 1px solid #b0b0b0;}
+.financeRecord .tabDiv>.tabCont table .paging a{float: left;width: 1.5rem;height: 100%;font: .9rem/calc(1.5rem - 2px) 'Microsoft YaHei';text-align: center;}
+.financeRecord .tabDiv>.tabCont table .paging a.cur{background-color: #337ab7;color: #fff;}
+.financeRecord .tabDiv>.tabCont table .paging span{float: left;padding: 0 1rem;font: .9rem/calc(1.5rem - 2px) 'Microsoft YaHei';}
+
+
+
+
+
+
+
+
+
+
+
+

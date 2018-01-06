@@ -1,0 +1,33 @@
+
+/* 未读信息 */
+.unread{margin: 1rem 0 2rem;border: 1px solid #ddd;box-shadow: 0 0 .5rem #d3d3d3;border-radius: 3px;}
+.unread>h1{font: bold .8rem/3 'Microsoft YaHei';padding: 0 2.5%;border-bottom: 1px solid #ddd;}
+.unread>.mainDiv{background-color: #fff;padding: .5rem;}
+.unread>.mainDiv div.tip{background-color: #f2dede;font: .8rem/1.2 'Microsoft YaHei';padding: .5rem;}
+.unread>.mainDiv table{width: 100%;margin-top: .5rem;border-top: 1px solid #b0b0b0;border-left: 1px solid #b0b0b0;}
+.unread>.mainDiv table tr td{border-bottom: 1px solid #b0b0b0;height: 2.5rem;font-size: .7rem;padding: 0 .5rem;}
+.unread>.mainDiv table tr td:last-of-type{border-right: 1px solid #b0b0b0;}
+.unread>.mainDiv table a.link{padding-left: 1.2rem;background: url("../images/icon_2.png") no-repeat left/1rem;display: block;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+.unread>.mainDiv table a.delAll{float: left;padding: 0 .5rem;background-color: #d9534f;color: #fff;border-radius: 3px;line-height: 1.5rem;}
+
+.unread>.mainDiv table .paging{background-color: #fff;float: left;height: 1.5rem;line-height: 1.5rem;margin: 0 2.5%;border-radius: 3px;overflow: hidden;border: 1px solid #b0b0b0;}
+.unread>.mainDiv table .paging a{float: left;width: 1.5rem;height: 100%;font: .9rem/calc(1.5rem - 2px) 'Microsoft YaHei';text-align: center;}
+.unread>.mainDiv table .paging a.cur{background-color: #337ab7;color: #fff;}
+.unread>.mainDiv table .paging span{float: left;padding: 0 1rem;font: .9rem/calc(1.5rem - 2px) 'Microsoft YaHei';}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

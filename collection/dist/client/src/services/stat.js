@@ -27,7 +27,7 @@ async function addUQuiz(params) {
 }
 
 async function getAllLotterys(params) {
-  return (0, _request2.default)('/api/stat/lotterys?pageSize=' + (params.pageSize || 10) + '&currPage=' + (params.currPage || 1) + '&no=' + (params.no || ''), {
+  return (0, _request2.default)('/api/stat/lotterys?pageSize=' + (params.pageSize || 10) + '&currPage=' + (params.currPage || 1) + '&type=' + (params.type || '') + '&no=' + (params.no || ''), {
     method: 'get'
   });
 }

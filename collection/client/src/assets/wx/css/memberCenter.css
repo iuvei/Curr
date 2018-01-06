@@ -1,0 +1,26 @@
+.red{color: #f00;}
+.green{color: #1cbb44;}
+
+/* 会员中心 */
+.memberCenter{background-color: #fff;border: 1px solid #ccc;border-radius: 5px;box-shadow: 0 0 .5rem #d3d3d3;margin-bottom:5px;}
+.memberCenter a.link{display: block;padding: .5rem;line-height: 2rem;background: url("../images/icon_arrows2.png") no-repeat 95% 1.1rem/auto .8rem;}
+.memberCenter a.link:not(:last-of-type){border-bottom: 1px solid #ccc;}
+.memberCenter a.link>img{float: left;height: 2rem;margin-right: .5rem;}
+.memberCenter a.link>div.fl{font: .8rem/1.5rem 'Microsoft YaHei';}
+
+.w>button{width:100%;height: 2.5rem;font: .9rem/2.5rem 'Microsoft YaHei';background-color: #d9544f;color: #fff;border-radius: 5px;margin-top: 2.5rem;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

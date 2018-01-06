@@ -8,7 +8,7 @@ export async function addUQuiz(params) {
 }
 
 export async function getAllLotterys(params) {
-  return request(`/api/stat/lotterys?pageSize=${params.pageSize || 10}&currPage=${params.currPage || 1}&no=${params.no || ''}`, {
+  return request(`/api/stat/lotterys?pageSize=${params.pageSize || 10}&currPage=${params.currPage || 1}&type=${params.type || ''}&no=${params.no || ''}`, {
     method: 'get',
   });
 }

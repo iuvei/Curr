@@ -1,0 +1,29 @@
+
+/* banner */
+.banner img{display: block;width: 100%;}
+
+/* notice */
+.notice{font: .7rem/2.5 'Microsoft YaHei';padding: 0 .5rem;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;background-color: #fff;margin: .5rem 0;}
+.notice a{color: #555;}
+
+/* function */
+.function{padding-top: .5rem;}
+.function li{float: left;width: calc(100% / 3);text-align: center;font: .8rem/2 'Microsoft YaHei';margin-bottom: .5rem;color: #920000;}
+.function li img{display: block;width: 50%;margin: auto;}
+
+/* other */
+.other li{float: left;width: 50%;background-color: #fff;padding: .5rem;}
+.other li:nth-of-type(2n){border-left: 1px solid #7d7d7d;}
+.other li:nth-of-type(1),
+.other li:nth-of-type(2){border-bottom: 1px solid #7d7d7d;}
+.other li img{width: 2.5rem;height: 2.5rem;margin-right: .5rem;}
+.other li h2{font:bold .9rem/1.4 'Microsoft YaHei';}
+.other li p{font: .7rem/1.6 'Microsoft YaHei';text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
+
+
+
+
+
+
+
+

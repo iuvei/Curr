@@ -35,7 +35,7 @@ export default class Sider extends Component {
   render() {
     return (
       <div className="l_aside fl">
-        <div className="title">北京赛车后台管理</div>
+        <div className="title">捷胜娱乐城后台管理</div>
         <ul className="menu">
           <li className="level1">
             <Link className={this.isCurrent(PATH_INDEX)} onClick={this.gotoIndex}>
@@ -46,7 +46,7 @@ export default class Sider extends Component {
               <em className="ico ico2"></em>系统配置</Link>
           </li>
           <li className="level1">
-            <Link className="tit"><em className="ico ico3"></em>赛车飞艇设置<i></i></Link>
+            <Link className="tit"><em className="ico ico3"></em>捷胜娱乐城设置<i></i></Link>
             <ul className="level2">
               <li><Link className={this.isCurrent(PATH_SETTINGS)} onClick={this.gotoSettings}>全局设置</Link></li>
               <li><Link className={this.isCurrent(PATH_SET_BETTING)} onClick={this.gotoSetbetting}>下注设置</Link></li>
@@ -76,8 +76,12 @@ export default class Sider extends Component {
               <em className="ico ico7"></em>代理推广</Link>
           </li>
           <li className="level1">
-            <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather}>
-              <em className="ico ico9"></em>数据采集</Link>
+            <a href="" className="tit"><em className="ico ico6"></em>数据采集<i></i></a>
+            <ul className="level2">
+              <li> <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather_jsk3}>福彩3</Link></li>
+              <li> <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather_bjpk10}>北京赛车</Link></li>
+              <li> <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather_cqssc}>重庆时时彩</Link></li>
+            </ul>
           </li>
           <li className="level1">
             <a href="" className="tit"><em className="ico ico10"></em>输赢统计<i></i></a>
@@ -153,9 +157,18 @@ export default class Sider extends Component {
     hashHistory.push({pathname: PATH_BROKERAGE, state: {from: "index"}});
   }
 
-  gotoDataGather = () => {
-    hashHistory.push({pathname: PATH_DATE_GATHER, state: {from: "index"}});
+  gotoDataGather_cqssc = () => {
+    hashHistory.push({pathname: PATH_DATE_GATHER, state: {from: "index", type: "CQSSC"}});
   }
+
+  gotoDataGather_bjpk10 = () => {
+    hashHistory.push({pathname: PATH_DATE_GATHER, state: {from: "index", type: "BJPK10"}});
+  }
+
+  gotoDataGather_jsk3 = () => {
+    hashHistory.push({pathname: PATH_DATE_GATHER, state: {from: "index", type: "JSK3"}});
+  }
+
 
   gotoStatUsers = () => {
     hashHistory.push({pathname: PATH_STAT_USERS, state: {from: "index", type: "user"}});

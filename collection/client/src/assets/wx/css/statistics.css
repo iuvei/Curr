@@ -1,0 +1,29 @@
+
+/* 下级统计 */
+.statistics{margin: 0 0 2rem;border: 1px solid #ddd;box-shadow: 0 0 .3rem #d3d3d3;border-radius: 3px;background-color: #fff;}
+.tabDiv>.tabCont:not(:first-of-type){display: none;}
+.statistics>p{font: .8rem/1.5 'Microsoft YaHei';}
+.statistics .tabOption{width: 60%;margin: 1rem auto .3rem;border-radius: 5px;}
+.statistics .tabOption span{float: left;width: 33.33%;font: .8rem/2.5 'Microsoft YaHei';text-align: center;color: #337ab7;border: 1px solid #ddd;}
+.statistics .tabOption span:not(:last-of-type){border-right: none;}
+.statistics .tabOption span:first-of-type{border-radius: 5px 0 0 5px;}
+.statistics .tabOption span:last-of-type{border-radius: 0 5px 5px 0;}
+.statistics .tabOption span.curTab{background-color: #337ab7;color: #fff;border-color: #337ab7;}
+.statistics .brief{width: 100%;border-top: 1px solid #ddd;border-left: 1px solid #ddd;margin-bottom: .8rem;}
+.statistics .brief td{border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;text-align: center;padding: .6rem 0;font-size: .8rem;}
+.statistics .details{width: 100%;border-left: 1px solid #222;border-top: 1px solid #222;}
+.statistics .details tr:first-of-type{background-color: #dff0d8;}
+.statistics .details td{border-right: 1px solid #222;border-bottom: 1px solid #222;text-align: center;font-size: .8rem;height: 2.5rem;}
+.statistics .details td img{width: 2rem;height: 2rem;border-radius: 50%;}
+
+
+
+
+
+
+
+
+
+
+
+
