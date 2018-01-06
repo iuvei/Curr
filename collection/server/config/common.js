@@ -4,7 +4,7 @@ module.exports={
     // 开发环境配置
     development: {
         mongo: {
-            uri: 'mongodb://localhost:27017/racing_dev2'
+            uri: 'mongodb://localhost:27017/youxi_collection'
         },
         port: '8080',
         qiniu: {  // 七牛云sdk配置 (仅供参考)
@@ -25,7 +25,7 @@ module.exports={
     // 生产环境配置
     production: {
         mongo: {
-            uri: 'mongodb://localhost:27017/sinn'
+            uri: 'mongodb://localhost:27017/youxi_collection'
         },
         port: '8080',
         qiniu: { // 七牛云sdk配置 (仅供参考)

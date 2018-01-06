@@ -25,13 +25,18 @@ class BackendCrawler {
 
     // 成员
     static async getAllLotterysRecords(ctx) {
-        var {pageSize, currPage, no} = ctx.request.query;
+        var {pageSize, currPage, type, no} = ctx.request.query;
         pageSize = (pageSize === undefined || Number(pageSize) < 0) ? 10 : Number(pageSize);
         currPage = (currPage === undefined || Number(currPage) < 0) ? 1 : Number(currPage);
         const query = {};
         if (no !== undefined && no !== '') {
             query.no = no
         }
+
+        if (type !== undefined && type !== '') {
+            query.type = type
+        }
+
         console.log(query,'===================')
 
         const users = await CrawlerModel.find(query).sort({"no": -1}).skip((currPage - 1) * pageSize).limit(pageSize);
