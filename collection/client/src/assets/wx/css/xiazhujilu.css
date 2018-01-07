@@ -25,7 +25,9 @@
 
 
 
-
+@media screen and (min-width: 1024px) {
+    .dbox .types ul li span:nth-child(1){background-size: 3%;}
+}
 
 
 

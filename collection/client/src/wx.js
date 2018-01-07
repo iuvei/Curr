@@ -1,6 +1,6 @@
 import dva from 'dva';
-import { hashHistory } from 'dva/router';
-import { message } from 'antd';
+import {hashHistory} from 'dva/router';
+import {message} from 'antd';
 import createLoading from 'dva-loading';
 import './mobile.css';
 

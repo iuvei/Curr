@@ -51,10 +51,17 @@
 #betting .btns .ip1{margin-right:4%;background:#efad4d;color:#fff;font-weight:500;}
 #betting .btns .ip2{background:#fff;color:#333;font-weight:500;border:.05rem solid #b0b0b0;}
 
+/*北京赛车*/
+#betting .beijing .title .sp0{width:6%; padding-left:.8rem;}
+#betting .beijing .title .sp1{width:13%;}
+#betting .beijing .title .sp2{width:14%;}
+#betting .beijing .title .sp3{width:20%;}
 
-
-
-
+#betting .beijing li.li0{width:6%;}
+#betting .beijing li.li1{width:13%;}
+#betting .beijing li.li2{width:14%;}
+#betting .beijing li.li3{width:20%;}
+#betting .beijing .types ul li{padding-left:.8rem;}
 
 
 

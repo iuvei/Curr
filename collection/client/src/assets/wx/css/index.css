@@ -21,9 +21,10 @@
 .other li p{font: .7rem/1.6 'Microsoft YaHei';text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
 
 
+@media screen and (min-width: 1024px) {
 
+    .function li img{width:20%;}
 
-
-
+}
 
 

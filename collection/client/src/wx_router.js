@@ -2,20 +2,21 @@ import React from 'react';
 import {Router, Route, IndexRedirect} from 'dva/router';
 import WxPage from './routes/WxPage';
 import Index from './routes/wx/Index'
-import Agency from './routes/mobile/Agency'
-import Detail from './routes/mobile/Detail'
-import ZouShi from './routes/mobile/ZouShi'
-import HowToPlay from './routes/mobile/HowToPlay'
+import MemberCenter from './routes/wx/MemberCenter';
+import Deposit from './routes/wx/Deposit';
+import SetDrawMoney from './routes/wx/SetDrawMoney';
+import XiaZhuJiLu from './routes/wx/XiaZhuJiLu';
+import FinanceRecords from './routes/wx/FinanceRecords';
+import Statistics from './routes/wx/Statistics';
+import GameGuide from './routes/wx/GameGuide';
+import UnRead from './routes/wx/UnRead';
+import Account from './routes/wx/Account';
 
-import My from './routes/mobile/My'
+import OpenRecord from './routes/wx/OpenRecord';
 
-import QianBao from './routes/mobile/QianBao'
-import ShangFen from './routes/mobile/ShangFen'
-import XiaFen from './routes/mobile/XiaFen'
-import Czjl from './routes/mobile/Czjl'
-import Wodexiaxian from './routes/mobile/Wodexiaxian'
-import Jymx from './routes/mobile/Jymx'
-
+import CQSSC from './routes/wx/youxi/CQSSC';
+import BJPK10 from './routes/wx/youxi/BJPK10';
+import JSK3 from './routes/wx/youxi/JSK3';
 
 function routerChange() {
   //document.getElementById("createOrderUserList").style.display = "none";
@@ -26,19 +27,31 @@ function RouterConfig({history}) {
       <Route path="/" onEnter={routerChange} component={WxPage}>
         <IndexRedirect to="index"/>
         <Route path="index" component={Index}/>
+        <Route path="memberCenter" component={MemberCenter}/>
+        <Route path="account" component={Account}/>
+        <Route path="deposit" component={Deposit}/>
+        <Route path="drawMoney" component={SetDrawMoney}/>
+        <Route path="xiazhujilu" component={XiaZhuJiLu}/>
+        <Route path="finance" component={FinanceRecords}/>
+        <Route path="statistics" component={Statistics}/>
+        <Route path="gameGuide" component={GameGuide}/>
+        <Route path="unread" component={UnRead}/>
+
+        <Route path="openRecord" component={OpenRecord}/>
+        <Route path="youxi/cqssc" component={CQSSC}/>
+        <Route path="youxi/bjpk10" component={BJPK10}/>
+        <Route path="youxi/jsk3" component={JSK3}/>
         {/*<Route path="detail" component={Detail}/>*/}
       </Route>
       {/*<Route path="/my" onEnter={routerChange} component={My}>*/}
-        {/*<Route path="shangfen" component={ShangFen}/>*/}
-        {/*<Route path="xiafen" component={XiaFen}/>*/}
-        {/*<Route path="qianbao" component={QianBao}/>*/}
-        {/*<Route path="czjl" component={Czjl}/>*/}
-        {/*<Route path="wdxx" component={Wodexiaxian}/>*/}
-        {/*<Route path="jymx" component={Jymx}/>*/}
+      {/*<Route path="shangfen" component={ShangFen}/>*/}
+      {/*<Route path="xiafen" component={XiaFen}/>*/}
+      {/*<Route path="qianbao" component={QianBao}/>*/}
+      {/*<Route path="czjl" component={Czjl}/>*/}
+      {/*<Route path="wdxx" component={Wodexiaxian}/>*/}
+      {/*<Route path="jymx" component={Jymx}/>*/}
       {/*</Route>*/}
-      <Route path="/agency" component={Agency}/>
-      <Route path="/zoushi" component={ZouShi}/>
-      <Route path="/howtoplay" component={HowToPlay}/>
+
     </Router>
   );
 }
