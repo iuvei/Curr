@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'dva';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/wx/css/memberCenter.css';
 /**
@@ -12,7 +13,7 @@ const PATH_XiaZhuJiLu = "/xiazhujilu";
 const PATH_FinanceRecords = "/finance";
 const PATH_Statistics = "/statistics";
 const PATH_UnRead = "/unread";
-export default class MemberCenter extends Component {
+class MemberCenter extends Component {
   constructor(props) {
     super(props);
   }
@@ -46,15 +47,17 @@ export default class MemberCenter extends Component {
   }
 
   render() {
+   const {userinfo} = this.props.wx;
+   console.log(userinfo)
     return (
       <div className="w">
         <div className="memberCenter">
           <a href="javascript:;" className="link clf" onClick={this.gotoBindingAccout}>
             <img src={require("../../assets/wx/images/icon_user.png")} className="fl"/>
             <div className="fl">
-              <p>ID：45944</p>
-              <p>昵称：Lee</p>
-              <p>余额：<span className="red">0.00</span></p>
+              <p>ID：VIP{userinfo.openid}</p>
+              <p>昵称：{userinfo.nickname}</p>
+              <p>余额：<span className="red">{userinfo.balance||0.00}</span></p>
               <p>下注待收返水：<span className="green">0</span></p>
               <p>拉人待收返水：<span className="green">0</span></p>
             </div>
@@ -79,5 +82,13 @@ export default class MemberCenter extends Component {
     );
   }
 }
+
+
+function mapStateToProps(state) {
+  return {wx: state.wx};
+}
+
+
+export default connect(mapStateToProps)(MemberCenter);
 
 

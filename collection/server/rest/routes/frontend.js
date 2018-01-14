@@ -14,7 +14,7 @@ router
     //获取用户信息
     .get('/userinfo', Index.getUserInfo)
     //获取客服微信图片
-    .get('/getCustomerImg', Settings.getRaceConfig)
+    .get('/getCustomerImg', Settings.getGrameConfig)
     //微信网页授权
     .get('/auth', Index.auth)
 

@@ -25,7 +25,7 @@ export default class Deposit extends Component {
                 <div className="tip">请每次入款前登录会员核对银行账号是否变更 ！</div>
               </div>
             </div>
-            <div className="receipts">
+            {/*<div className="receipts">
               <h1>充值金额：<input type="text" title="sum"/></h1>
               <div className="mainDiv">
                 <h3>用网银，微信，支付宝在线支付；免手续费；及时到账 ！</h3>
@@ -34,6 +34,7 @@ export default class Deposit extends Component {
                 <a href="javascript:;" className="payButton">银行转账充值</a>
               </div>
             </div>
+             */}
           </div>
         );
     }

@@ -19,8 +19,8 @@ router
     .post('/settings/platfrom', BackendSettings.setConfig)
 
     // 全局设置
-    .get('/settings/race', BackendSettings.getRaceConfig)
-    .post('/settings/race', BackendSettings.setRaceConfig)
+    .get('/settings/race', BackendSettings.getGrameConfig)
+    .post('/settings/race', BackendSettings.setGameConfig)
 
     // 收款账户
     .get('/settings/payment', BackendSettings.getPayMentConfig)

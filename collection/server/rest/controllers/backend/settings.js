@@ -24,10 +24,10 @@ class BackendSettings {
         return ctx.body = {code: 200, data : settings}
     }
 
-    //获取赛车配置
-    static async getRaceConfig(ctx) {
-        log.debug("getSetting")
-        const data = await Settings.findOne({type: "race"});
+    //获取游戏配置（客服）
+    static async getGrameConfig(ctx) {
+        log.debug("getGrameConfig")
+        const data = await Settings.findOne({type: "game"});
         console.log(data)
         if (!data) {
             return ctx.body = { message: '获取设置信息失败', code : 404 }
@@ -36,10 +36,10 @@ class BackendSettings {
     }
 
     // 设置赛车配置
-    static async setRaceConfig(ctx) {
-        log.debug("setSetting")
+    static async setGameConfig(ctx) {
+        log.debug("setGameConfig")
         console.log(ctx.request.body);
-        const settings = await Settings.update({type : "race"}, {type : "race", config: ctx.request.body}, {upsert: true});
+        const settings = await Settings.update({type : "game"}, {type : "game", config: ctx.request.body}, {upsert: true});
         return ctx.body = {code: 200, data : settings}
     }
 
