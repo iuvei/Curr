@@ -12,10 +12,17 @@
 .receipts>.mainDiv p.tip{font: .8rem/2.5 'Microsoft YaHei';color: #aa4442;}
 .receipts>.mainDiv div.tip{background-color: #f2dedf;padding: 1rem 2.5%;font: .7rem/1.2 'Microsoft YaHei';}
 
+.receipts .mainDiv{padding-top:1.5rem;}
+.receipts .mainDiv h1{width:100%;margin:0 auto 20px;font-size:20px;color:#333;font-weight:500;}
+.receipts .mainDiv h1 input{height:30px;width:60%;padding-left:10px;}
+.ewm{width:60%;margin:auto;box-shadow:0 0 12px #ccc; }
+.ewm img{width:100%;height:100%;}
 
 
-
-
-
-
-
+@media screen and (min-width:1024px){
+    .receipts .mainDiv{padding:20px 0;}
+    .receipts .mainDiv h1{width:50%;margin:0 auto 20px;font-size:20px;color:#333;font-weight:500;}
+    .receipts .mainDiv h1 input{height:30px;width:60%;padding-left:10px;}
+    .receipts>.mainDiv a.payButton{width:50%;margin:20px auto;}
+    .ewm{width:20%;margin:auto;box-shadow:0 0 12px #ccc; }
+}

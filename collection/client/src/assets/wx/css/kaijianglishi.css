@@ -1,0 +1,17 @@
+#ctb .hidden{display:none;}
+#ctb .bottom{margin-top:.5rem;}
+#ctb .bottom .title{width:100%;height:auto;padding:.8rem 1rem;background:#7a1c1c;}
+#ctb .bottom .title span{display:block;color:#fff;float:left;font-weight:bold;}
+#ctb .bottom .title .sp1{width:30%;}
+#ctb .bottom .title .sp2{width:35%;}
+#ctb .bottom .title .sp3{width:35%;}
+#ctb .bottom .types{width:100%;height:auto;padding:1rem 0 3rem;background:#fff;}
+#ctb .bottom .types ul li{width:100%;height:auto;border-bottom:1px solid #ccc;padding:.5rem 1rem;}
+#ctb .bottom .types ul li div{float:left;}
+#ctb .bottom .types ul li .dv1{width:30%;}
+#ctb .bottom .types ul li .dv2{width:35%;}
+#ctb .bottom .types ul li .dv3{width:35%;}
+#ctb .bottom .types ul li .dv1{font-size:1rem;color:#7a1c1c;}
+#ctb .bottom .types ul li .dv2{font-size:1rem;color:#7a1c1c;font-weight:600;}
+#ctb .bottom .types ul li .dv2 img{width:1.5rem;height:1.5rem;}
+#ctb .bottom .types ul li .dv3{font-size:1rem;color:#2c6c28;}

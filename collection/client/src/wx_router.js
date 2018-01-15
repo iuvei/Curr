@@ -14,6 +14,8 @@ import Account from './routes/wx/Account';
 
 import OpenRecord from './routes/wx/OpenRecord';
 
+import KaiJiangLiShi from './routes/wx/KaiJiangLiShi';
+
 import CQSSC from './routes/wx/youxi/CQSSC';
 import BJPK10 from './routes/wx/youxi/BJPK10';
 import JSK3 from './routes/wx/youxi/JSK3';
@@ -41,6 +43,9 @@ function RouterConfig({history}) {
         <Route path="youxi/cqssc" component={CQSSC}/>
         <Route path="youxi/bjpk10" component={BJPK10}/>
         <Route path="youxi/jsk3" component={JSK3}/>
+        <Route path="kaijianglishi" component={KaiJiangLiShi}/>
+
+
         {/*<Route path="detail" component={Detail}/>*/}
       </Route>
       {/*<Route path="/my" onEnter={routerChange} component={My}>*/}

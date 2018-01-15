@@ -14,12 +14,12 @@ a:hover{text-decoration:none;}
 .clf:before,.clf:after{content:"";display:block;height:0;clear:both;visibility:hidden;}
 .fl{float: left;}
 .fr{float: right;}
-.w{width: 95%;margin: auto;}
+.w{width: 1200px;margin: auto;}
 body{background-color: #f2f2f2;max-width: 640px;margin: auto;}
 /* 初始化样式结束 */
 
 /* 通用顶部 */
-.comTopDiv{border-top: 10px solid #920000;background-color: #fff;box-shadow: 0 0 .5rem #d2d2d2;padding: .5rem .5rem; position:fixed;top:0;left:0;right:0; z-index: 10}
+.comTopDiv{border-top: 10px solid #920000;background-color: #fff;box-shadow: 0 0 .5rem #d2d2d2;padding: .5rem .5rem; position:fixed;top:0;left:0;right:0;}
 .comTopDiv a{float: left;padding: 0 .3rem;font: .7rem/2.5 'Microsoft YaHei';color: #fff;background-color: #920000;border-radius: 5px;}
 .comTopDiv a:not(:last-of-type){margin-right: .3rem;}
 .comTopDiv a.membercolor{background-color: #c98112;}
@@ -28,11 +28,20 @@ body{background-color: #f2f2f2;max-width: 640px;margin: auto;}
 /* 通用底部 */
 .comBotDiv{font: .7rem/3.5 'Microsoft YaHei';background-color: #920000;border-top: 5px solid #000;color: #fff;text-align: center;position:fixed;bottom:0;left:0;right:0;}
 
-
 .content{position:fixed;top:4rem;bottom:3.5rem;left:0;right:0;overflow-y:auto;}
+.content::-webkit-scrollbar{width: .5rem;}
+.content::-webkit-scrollbar-thumb{background-color: #999;}
+.content::-webkit-scrollbar-track{background-color: #ccc;}
 
+@media only screen and (max-width: 1024px) {
+  .w{width: 90%;}
+  .content::-webkit-scrollbar{width: .3rem;}
+}
 
+@media only screen and (max-width: 750px) {
+  .w{width: 95%;}
+}
 
+@media only screen and (max-width: 320px) {
 
-
-
+}

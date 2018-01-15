@@ -1,27 +1,4 @@
-
 /* 彩票选项 */
 .lotteryOptions{background-color: #fff;border: 1px solid #ddd;border-radius: 4px;box-shadow: 0 0 0.5rem #d3d3d3;}
 .lotteryOptions a.link{display: block;height: 2.5rem;font: .9rem/2.5rem 'Microsoft YaHei';padding: 0 2.5%;background: url("../images/icon_arrows.png") no-repeat 95%/auto .8rem;}
 .lotteryOptions a.link:not(:last-of-type){border-bottom: 1px solid #ddd;}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

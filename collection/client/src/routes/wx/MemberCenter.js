@@ -47,8 +47,8 @@ class MemberCenter extends Component {
   }
 
   render() {
-   const {userinfo} = this.props.wx;
-   console.log(userinfo)
+    const {userinfo} = this.props.wx;
+    console.log(userinfo)
     return (
       <div className="w">
         <div className="memberCenter">
@@ -57,7 +57,7 @@ class MemberCenter extends Component {
             <div className="fl">
               <p>ID：VIP{userinfo.openid}</p>
               <p>昵称：{userinfo.nickname}</p>
-              <p>余额：<span className="red">{userinfo.balance||0.00}</span></p>
+              <p>余额：<span className="red">{userinfo.balance || 0.00}</span></p>
               <p>下注待收返水：<span className="green">0</span></p>
               <p>拉人待收返水：<span className="green">0</span></p>
             </div>

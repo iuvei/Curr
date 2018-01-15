@@ -1,21 +1,29 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../../assets/wx/css/chongqingshishicai.css';
+import '../../../assets/wx/css/kaijianglishi.css';
 /**
  * Created by sven on 2018/1/7.
  */
+
+const PATH_HISTORY = "/kaijianglishi"
 
 export default class CQSSC extends Component {
   constructor(props) {
     super(props);
   }
 
+  gotoKaijiangHISTORY = () => {
+    hashHistory.push({pathname: PATH_HISTORY});
+  }
+
+
   render() {
     return (
-      <div className="box">
+      <div className="w">
         <div className="result">
           <div className="clf periods">
-            <div className="fl name">重庆时时彩</div>
+            <div className="fl name">北京赛车</div>
             <div className="fl number">第 <span>20171027265</span> 期</div>
             <div className="fr time" id="time"></div>
           </div>
@@ -30,7 +38,7 @@ export default class CQSSC extends Component {
                 <img src={require("../../../assets/wx/images/q-6.png")}/>
                 <img src={require("../../../assets/wx/images/q-8.png")}/>
               </div>
-              <div className="fr btn"><a href="javascript:;">开奖历史</a></div>
+              <div className="fr btn"><a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
 
             </div>
             <div className="center">
@@ -85,31 +93,87 @@ export default class CQSSC extends Component {
                 <ul className="clf">
                   <li className="li1">大</li>
                   <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
+                  <li className="li3">
+                    <select>
+                      <option value="volvo">0</option>
+                      <option value="saab">2</option>
+                      <option value="opel">3</option>
+                      <option value="audi">4</option>
+                      <option value="audi">5</option>
+                    </select>
+                  </li>
 
                   <li className="li1">小</li>
                   <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
+                  <li className="li3">
+                    <select>
+                      <option value="volvo">0</option>
+                      <option value="saab">2</option>
+                      <option value="opel">3</option>
+                      <option value="audi">4</option>
+                      <option value="audi">5</option>
+                    </select>
+                  </li>
 
                   <li className="li1">单</li>
                   <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
+                  <li className="li3">
+                    <select>
+                      <option value="volvo">0</option>
+                      <option value="saab">2</option>
+                      <option value="opel">3</option>
+                      <option value="audi">4</option>
+                      <option value="audi">5</option>
+                    </select>
+                  </li>
 
                   <li className="li1">双</li>
                   <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
+                  <li className="li3">
+                    <select>
+                      <option value="volvo">0</option>
+                      <option value="saab">2</option>
+                      <option value="opel">3</option>
+                      <option value="audi">4</option>
+                      <option value="audi">5</option>
+                    </select>
+                  </li>
 
                   <li className="li1">龙</li>
                   <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
+                  <li className="li3">
+                    <select>
+                      <option value="volvo">0</option>
+                      <option value="saab">2</option>
+                      <option value="opel">3</option>
+                      <option value="audi">4</option>
+                      <option value="audi">5</option>
+                    </select>
+                  </li>
 
                   <li className="li1">虎</li>
                   <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
+                  <li className="li3">
+                    <select>
+                      <option value="volvo">0</option>
+                      <option value="saab">2</option>
+                      <option value="opel">3</option>
+                      <option value="audi">4</option>
+                      <option value="audi">5</option>
+                    </select>
+                  </li>
 
                   <li className="li1">和</li>
                   <li className="li2">9.000</li>
-                  <li className="li3"><input type="text"/></li>
+                  <li className="li3">
+                    <select>
+                      <option value="volvo">0</option>
+                      <option value="saab">2</option>
+                      <option value="opel">3</option>
+                      <option value="audi">4</option>
+                      <option value="audi">5</option>
+                    </select>
+                  </li>
                 </ul>
               </div>
 
@@ -650,11 +714,6 @@ export default class CQSSC extends Component {
             </div>
           </div>
 
-
-          <div className="amount">
-            <span>快捷金额：</span>
-            <input type="text" placeholder="请输入快捷金额"/>
-          </div>
           <div className="clf btns">
             <form action="">
               <input type="submit" className="ip1" value="投注"/>
