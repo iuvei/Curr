@@ -88,9 +88,8 @@ class IndexController {
     }
 
     static async getCurrLottery(ctx) {
-        // const Lottery_url = "http://d.apiplus.net/newly.do?token=t31ca37cd375be4b4k&code=bjpk10&rows=1&format=json"
-        // const res = await request(Lottery_url);
-        const lottery = await LotteryModel.find({}, {'_id': 0}).sort({"_id": -1}).limit(1)
+        const {type} =  ctx.request.query;
+        const lottery = await LotteryModel.find({type: type.toUpperCase()}, {'_id': 0}).sort({"no": -1}).limit(1)
         console.log(lottery)
         if (lottery) { //判断存在
             return ctx.body = {lottery: lottery[0], code: 200}
@@ -234,7 +233,8 @@ class IndexController {
 
     // 获取开奖消息
     static async getLotterys(ctx) {
-        const lotterys = await LotteryModel.find({}, {"_id": 0}).sort({"no": -1}).limit(20);
+        const {type} =  ctx.request.query;
+        const lotterys = await LotteryModel.find({type: type.toUpperCase()}, {"_id": 0}).sort({"no": -1}).limit(20);
         if (!lotterys) {
             return ctx.body = {message: '获取开奖记录失败', code: 404}
         }

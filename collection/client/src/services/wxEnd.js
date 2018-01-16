@@ -8,8 +8,8 @@ export async function getAnnouncement() {
 }
 
 //获取开奖信息
-export async function getCurrLottery() {
-  return request(`/m/api/lotterys/current`, {
+export async function getCurrLottery(params) {
+  return request(`/m/api/lotterys/current?type=${params.type}`, {
     method: 'get',
   });
 }
@@ -88,7 +88,7 @@ export async function getQuizRecords(params) {
 
 //开奖记录
 export async function getLotterys(params) {
-  return request('/m/api/lotterys', {
+  return request(`/m/api/lotterys?type=${params.type}`, {
     method: 'get',
   });
 }

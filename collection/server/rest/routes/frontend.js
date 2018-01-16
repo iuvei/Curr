@@ -9,6 +9,7 @@ router
 
     //live
     .get('/live', Index.getLive)
+
     //获取公告
     .get('/announcement', Index.getAnnouncement)
     //获取用户信息

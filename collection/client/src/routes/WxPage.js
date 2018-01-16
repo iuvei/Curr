@@ -2,11 +2,8 @@ import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import {parse, stringify} from 'qs';
 import {connect} from 'dva';
-import io from 'socket.io-client';
 import '../assets/backend/css/common.css';
-import {getConfig, getUserInfo, getCurrLottery} from '../services/mobile';
-const socket = io('', {path: '/ws/chat'});
-const adminSocket = io('', {path: '/ws/admin'});
+import {getConfig, getUserInfo} from '../services/mobile';
 import '../assets/wx/css/common.css';
 
 const PATH_INDEX = "/index";
@@ -51,9 +48,6 @@ class WxPage extends Component {
             });
         }
       });
-    //this.getOpenNo();
-
-    //socket.emit('chat mounted', "--");
   }
 
   alterMessage = (message) => {

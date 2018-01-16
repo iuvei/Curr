@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
+import moment from 'moment';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
-import '../../assets/wx/css/common.css';
+
 import '../../assets/wx/css/kaijianglishi.css';
+
+import {getLotterys} from '../../services/wxEnd';
 /**
  * Created by sven on 2018/1/14.
  */
@@ -9,9 +12,32 @@ import '../../assets/wx/css/kaijianglishi.css';
 export default class KaiJiangLiShi extends Component {
   constructor(props) {
     super(props);
+    const days = [...Array(30).keys()].map(i => {
+      return moment().add('days', -i).format('YYYY-MM-DD');
+    });
+    this.state = {
+      days,
+      type: "CQSSC",
+      lotterys: [],
+    }
   }
 
+  componentDidMount() {
+    getLotterys({type: "CQSSC"})
+      .then(data => {
+        console.log('==', data.result.lotterys)
+        if (data.success) {
+          this.setState({
+            lotterys: data.result.lotterys,
+          });
+        }
+      });
+  }
+
+
   render() {
+    const {days} = this.state;
+    console.log(this.state.days)
     return (
       <div className="w">
         <div id="betting">
@@ -25,12 +51,11 @@ export default class KaiJiangLiShi extends Component {
           <div className="time">
             <span>开奖历史：</span>
             <select>
-              <option value="a">2018-01-01</option>
-              <option value="b">2018-01-02</option>
-              <option value="c">2018-01-03</option>
-              <option value="d">2018-01-04</option>
-              <option value="e">2018-01-05</option>
-              <option value="f">2018-01-06</option>
+              {
+                days.map(item => {
+                  return <option key={item} value={item}>{item}</option>;
+                })
+              }
             </select>
           </div>
           <div id="ctb">

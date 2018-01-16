@@ -8,22 +8,32 @@ import '../../assets/wx/css/youxiguize.css';
 export default class GameGuide extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      type: "BJPK10",
+    }
+  }
+
+  switchType = (e) => {
+    this.setState({
+      type: e.target.value,
+    })
   }
 
   render() {
+    const {type} = this.state;
     return (
       <div className="rule">
         <div className="article">
           <div className="title">游戏规则</div>
           <div className="tab">
-            <select>
-              <option>北京赛车</option>
-              <option>重庆时时彩</option>
-              <option>江苏快3</option>
+            <select onChange={this.switchType}>
+              <option value="BJPK10">北京赛车</option>
+              <option value="CQSSC">重庆时时彩</option>
+              <option value="JSK3">江苏快3</option>
             </select>
           </div>
-          <div className="text">
-            <p>简介</p>
+          <div className="text" style={type === "BJPK10" ? {display: "block"} : {display: "none"}}>
+            <p>北京赛车简介</p>
             <p className="prompt">温馨提示：该彩票定位每位数最多只能下注6个号码</p>
             <p>该游戏的投注时间、开奖时间和开奖号码与“北京PK拾”完
               全同步，北京时间（GMT+8）每天白天从上午09：02开到
@@ -72,6 +82,37 @@ export default class GameGuide extends Component {
             <p>※冠亚和单双：为单视为投注“单”的注单视为中奖，为双
               视为投注“双”的注单视为中奖，其余视为不中奖。</p>
           </div>
+
+
+          <div className="text" style={type === "CQSSC" ? {display: "block"} : {display: "none"}}>
+            <p>重庆时时彩</p>
+            <p className="prompt">温馨提示：该彩票定位每位数最多只能下注6个号码</p>
+            <p>该游戏的投注时间、开奖时间和开奖号码与“重庆时时彩”完
+              全同步，北京时间（GMT+8）每天白天从上午09：02开到
+              晚上23：:57，每5分钟开一次将，每天开奖179期。
+            </p>
+            <p>游戏玩法</p>
+            <p className="method">1、第一名～第十名</p>
+
+            <p>
+              ※第一名～第十名：车号指定，每一个车号为一投注组合，
+              开奖结果“投注车号”对应所投名次视为中奖，其余情形
+              视为不中奖。
+            </p>
+          </div>
+
+
+          <div className="text" style={type === "JSK3" ? {display: "block"} : {display: "none"}}>
+            <p>江苏快3</p>
+            <p className="prompt">温馨提示：该彩票定位每位数最多只能下注6个号码</p>
+            <p>该游戏的投注时间、开奖时间和开奖号码与“江苏快3”完
+              全同步，北京时间（GMT+8）每天白天从上午09：02开到
+              晚上23：:57，每5分钟开一次将，每天开奖179期。
+            </p>
+            <p>游戏玩法</p>
+            <p className="method">1、第一名～第十名</p>
+          </div>
+
         </div>
       </div>
     );

@@ -16,7 +16,7 @@ export default class Deposit extends Component {
         <div className="receipts">
           <h1>充值</h1>
           <div className="mainDiv">
-            <h1>充值金额：<input type="text" title="sum"/></h1>
+            <h1>充值金额：<input type="text"/></h1>
             <h1>会员账号：<input type="text" title="sum"/></h1>
             <h1>微信账号：<input type="text" title="sum"/></h1>
             <a href="javascript:;" className="payButton">提交</a>

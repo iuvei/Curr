@@ -88,7 +88,7 @@ export default class Index extends Component {
               <li><a href="javascript:;" onClick={this.gotoYouXi_BJPK10}><img
                 src={require("../../assets/wx/images/icon_function_4.png")}/>北京赛车</a></li>
               <li><a href="javascript:;" onClick={this.gotoYouXi_JSK3}><img
-                src={require("../../assets/wx/images/icon_function_3.png")}/>江苏快3</a></li>
+                src={require("../../assets/wx/images/icon_jsk3.png")}/>江苏快3</a></li>
             </ul>
           </div>
 

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
-import '../../../assets/wx/css/common.css';
 import '../../../assets/wx/css/chongqingshishicai.css';
+
+import {getCurrLottery} from '../../../services/wxEnd';
 /**
  * Created by sven on 2018/1/7.
  */
@@ -11,6 +12,29 @@ const PATH_HISTORY = "/kaijianglishi"
 export default class CQSSC extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      ticker: null,
+      lottery: {}
+    }
+  }
+
+  componentDidMount() {
+    const ticker = setInterval(function () {
+      getCurrLottery({type: "CQSSC"})
+        .then(data => {
+          console.log('==', data.result.lottery)
+          if (data.success) {
+            this.setState({
+              lottery: data.result.lottery,
+            });
+          }
+        });
+    }.bind(this), 5000);
+    this.setState({ticker});
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.ticker);
   }
 
   gotoKaijiangHISTORY = () => {
@@ -19,24 +43,27 @@ export default class CQSSC extends Component {
 
 
   render() {
+    const {no, type, code, opentime} = this.state.lottery;
     return (
       <div className="w">
         <div className="result">
           <div className="clf periods">
             <div className="fl name">重庆时时彩</div>
-            <div className="fl number">第 <span>20171027265</span> 期</div>
+            <div className="fl number">第 <span>{no || '--'}</span> 期</div>
             <div className="fr time" id="time"></div>
           </div>
 
           <div className="lottery">
             <div className="clf top">
-              <div className="fl qishu">20171027265</div>
+              <div className="fl qishu">{no || '--'}</div>
               <div className="fl clf haoma">
-                <img src={require("../../../assets/wx/images/q-7.png")}/>
-                <img src={require("../../../assets/wx/images/q-3.png")}/>
-                <img src={require("../../../assets/wx/images/q-6.png")}/>
-                <img src={require("../../../assets/wx/images/q-6.png")}/>
-                <img src={require("../../../assets/wx/images/q-8.png")}/>
+                {
+                  code !== undefined && code !== "" ?
+                    code.split(",").map((item, i) => {
+                      return <img key={i} src={require(`../../../assets/wx/images/h-${item}.png`)}/>;
+                    })
+                    : ""
+                }
               </div>
 
               <div className="fr btn"><a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
