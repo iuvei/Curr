@@ -4,6 +4,7 @@ export default {
   namespace: 'wx',
   state: {
     no: 20170810,
+    logged: false,
     userinfo: {openid: ''},
     message: {},
   },

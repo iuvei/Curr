@@ -62,7 +62,7 @@ export default class BJPK10 extends Component {
                 {
                   code !== undefined && code !== "" ?
                     code.split(",").map((item, i) => {
-                      return <img key={i} src={require(`../../../assets/wx/images/g_${item}.png`)}/>;
+                      return <img key={i} src={require(`../../../assets/wx/images/h-${item}.png`)}/>;
                     })
                     : ""
                 }

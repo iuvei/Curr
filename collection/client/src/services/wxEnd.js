@@ -21,6 +21,24 @@ export async function getConfig() {
   });
 }
 
+export async function registerUser(params) {
+  console.log(params)
+  return request(`/m/api/users/register`, {
+    method: 'post',
+    body: JSON.stringify(params),
+  });
+}
+
+
+export async function loginUser(params) {
+  console.log(params)
+  return request(`/m/api/users/login`, {
+    method: 'post',
+    body: JSON.stringify(params),
+  });
+}
+
+
 //获取用户信息
 export async function getUserInfo() {
   return request(`/m/api/userinfo`, {

@@ -21,13 +21,14 @@ body{background-color: #f2f2f2;max-width: 640px;margin: auto;}
 /* 通用顶部 */
 .comTopDiv{border-top: 10px solid #920000;background-color: #fff;box-shadow: 0 0 .5rem #d2d2d2;padding: .5rem .5rem; position:fixed;top:0;left:0;right:0;}
 .comTopDiv a{float: left;padding: 0 .3rem;font: .7rem/2.5 'Microsoft YaHei';color: #fff;background-color: #920000;border-radius: 5px;}
+.comTopDiv a.logo{background: none;transform: scale(1.5);}
+.comTopDiv a.logo img{display: block;height: 30px;}
 .comTopDiv a:not(:last-of-type){margin-right: .3rem;}
 .comTopDiv a.membercolor{background-color: #c98112;}
 .comTopDiv a.message{background-color: #d9544f;}
 
 /* 通用底部 */
 .comBotDiv{font: .7rem/3.5 'Microsoft YaHei';background-color: #920000;border-top: 5px solid #000;color: #fff;text-align: center;position:fixed;bottom:0;left:0;right:0;}
-
 .content{position:fixed;top:4rem;bottom:3.5rem;left:0;right:0;overflow-y:auto;}
 .content::-webkit-scrollbar{width: .5rem;}
 .content::-webkit-scrollbar-thumb{background-color: #999;}
@@ -40,8 +41,7 @@ body{background-color: #f2f2f2;max-width: 640px;margin: auto;}
 
 @media only screen and (max-width: 750px) {
   .w{width: 95%;}
+  .comTopDiv a.logo{transform: scale(1.3);}
 }
 
-@media only screen and (max-width: 320px) {
-
-}
+@media only screen and (max-width: 320px) {}

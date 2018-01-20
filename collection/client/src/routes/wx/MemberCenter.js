@@ -6,6 +6,9 @@ import '../../assets/wx/css/memberCenter.css';
  * Created by sven on 2018/1/7.
  */
 
+const PATH_Login = "/login";
+const PATH_Sign = "/sign";
+
 const PATH_Account = "/account";
 const PATH_Deposit = "/deposit";
 const PATH_DrawMoney = "/drawMoney";
@@ -46,6 +49,14 @@ class MemberCenter extends Component {
     hashHistory.push({pathname: PATH_UnRead});
   }
 
+  gotoLogin = () => {
+    this.props.dispatch({
+      type: 'wx/updateState',
+      payload: {userinfo: {}, logged: false},
+    })
+    hashHistory.push({pathname: PATH_Login});
+  }
+
   render() {
     const {userinfo} = this.props.wx;
     console.log(userinfo)
@@ -77,7 +88,7 @@ class MemberCenter extends Component {
           <a href="javascript:;" className="link clf" onClick={this.gotoUnRead}><img
             src={require("../../assets/wx/images/icon_unread.png")}/>未读信息</a>
         </div>
-        <button type="submit">退出当前账号</button>
+        <button type="submit" onClick={this.gotoLogin}>退出当前账号</button>
       </div>
     );
   }

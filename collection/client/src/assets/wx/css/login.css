@@ -1,0 +1,44 @@
+form h1{line-height: 1.1;font-weight: normal;color: #920000;margin: 1rem 0;text-align: center;}
+
+form.login .item{margin-bottom: .5rem;}
+form.login .item>p{font: 12px/1rem 'Microsoft YaHei';cursor: default;margin-bottom: 5px;}
+form.login .item>div{width: 100%;height: 34px;border: 1px solid #ccc;border-radius: 4px;overflow: hidden;}
+form.login .item>div .icon{float: left;width: 34px;height: 34px;padding: 8px;}
+form.login .item>div input{float: left;width: calc(100% - 34px);height: 100%;border: none;border-left: 1px solid #ccc;padding: 0 12px;}
+form.login .item>div.w75{width: 75%;}
+form.login .item .authCode{float: left;margin: 0 15px;}
+form.login .item .authCode img{display: block;height: 34px;}
+form.login button{width: 100%;height: 46px;font-size: 1.2rem;background-color: #8c2c2c;color: #fff;border-radius: 6px;}
+
+form.signIn .item{margin-bottom: 15px;}
+form.signIn .item:before,
+form.signIn .item:after{content:"";display:block;height:0;clear:both;visibility:hidden;}
+form.signIn .item>span.fl{width: 15%;font:bold 12px/34px 'Microsoft YaHei';text-align: right;padding-right: 30px;}
+form.signIn .item>input{float: left;width: 35%;height: 34px;border: 1px solid #ccc;border-radius: 4px;padding: 0 12px;}
+form.signIn .item>input.authCodeInput{width: 17.5%;}
+form.signIn .item>.authCode{float: left;margin: 0 15px;width: 170px;height: 34px;font: 1rem/34px 'Microsoft YaHei';text-align: center;background-color: #8c2c2c;color: #fff;border-radius: 5px;}
+form.signIn .item>p{width: 50%;padding-left: 30px;font-size: 12px;line-height: 34px;}
+form.signIn button{width: 35%;height: 46px;font-size: 1.2rem;background-color: #8c2c2c;color: #fff;border-radius: 6px;}
+
+@media only screen and (max-width: 1024px) {}
+
+@media only screen and (max-width: 750px) {
+  form.login .item>div.w75{width: 65%;}
+
+  form h1{font-size: 1.5rem;}
+
+  form.login button{height: 2.5rem;line-height: 2.5rem;margin-top: 1rem;}
+  form.signIn button{width: 100%;height: 2.5rem;line-height: 2.5rem;}
+  form.signIn .item>button+span.fl{display: none;}
+
+  form.signIn .item{margin-bottom: .8rem;}
+  form.signIn .item>span.fl{display: block;padding: 0;width: 100%;text-align: left;line-height: 1.5;}
+  form.signIn .item>input{width: 100%;}
+  form.signIn .item>p{width: 100%;padding: 0;}
+  form.signIn .item>input.authCodeInput{width: 30%;}
+  form.signIn .item>.authCode{font-size: 1rem;}
+}
+
+@media only screen and (max-width: 320px) {
+  form.login .item>div.w75{width: 50%;}
+}

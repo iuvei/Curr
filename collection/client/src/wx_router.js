@@ -1,7 +1,10 @@
 import React from 'react';
 import {Router, Route, IndexRedirect} from 'dva/router';
+
 import WxPage from './routes/WxPage';
-import Index from './routes/wx/Index'
+import Index from './routes/wx/Index';
+import Login from './routes/wx/Login'
+import SignIn from './routes/wx/SignIn'
 import MemberCenter from './routes/wx/MemberCenter';
 import Deposit from './routes/wx/Deposit';
 import SetDrawMoney from './routes/wx/SetDrawMoney';
@@ -29,6 +32,9 @@ function RouterConfig({history}) {
       <Route path="/" onEnter={routerChange} component={WxPage}>
         <IndexRedirect to="index"/>
         <Route path="index" component={Index}/>
+        <Route path="login" component={Login}/>
+        <Route path="sign" component={SignIn}/>
+
         <Route path="memberCenter" component={MemberCenter}/>
         <Route path="account" component={Account}/>
         <Route path="deposit" component={Deposit}/>

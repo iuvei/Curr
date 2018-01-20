@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
+import {connect} from 'dva';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/wx/css/index.css';
 import {getAllMessages, getCustomerImg, getAnnouncement} from '../../services/wxEnd';
 /**
  * Created by sven on 2018/1/7.
  */
+
+const PATH_Login = "/login";
+const PATH_Sign = "/sign";
 
 const PATH_Deposit = "/deposit";
 const PATH_DrawMoney = "/drawMoney";
@@ -15,13 +19,27 @@ const PATH_YOUXI_CQSSC = "/youxi/cqssc";
 const PATH_YOUXI_BJPK10 = "/youxi/bjpk10";
 const PATH_YOUXI_JSK3 = "/youxi/jsk3";
 
-export default class Index extends Component {
+class Index extends Component {
   constructor(props) {
     super(props);
+    const logged = props.wx.logged;
     this.state = {
+      logged: logged,
       kefuDisplay: false,
+      announcement: '',
       config: {},
     }
+  }
+
+  componentDidMount() {
+    getAnnouncement()
+      .then(data => {
+        if (data.success) {
+          this.setState({
+            announcement: data.result.config.announcement,
+          });
+        }
+      })
   }
 
   getCustomerService = () => {
@@ -40,19 +58,43 @@ export default class Index extends Component {
     })
   }
 
+  gotoLogin = () => {
+    hashHistory.push({pathname: PATH_Login});
+  }
+
+  gotoSign = () => {
+    hashHistory.push({pathname: PATH_Sign});
+  }
+
   gotoDeposit = () => {
+    if (!this.state.logged) {
+      this.gotoLogin();
+      return
+    }
     hashHistory.push({pathname: PATH_Deposit});
   }
 
   gotoDrawMoney = () => {
+    if (!this.state.logged) {
+      this.gotoLogin();
+      return
+    }
     hashHistory.push({pathname: PATH_DrawMoney});
   }
 
   gotoXiaZhuJiLu = () => {
+    if (!this.state.logged) {
+      this.gotoLogin();
+      return
+    }
     hashHistory.push({pathname: PATH_XiaZhuJiLu});
   }
 
   gotoStatistics = () => {
+    if (!this.state.logged) {
+      this.gotoLogin();
+      return
+    }
     hashHistory.push({pathname: PATH_Statistics});
   }
 
@@ -70,11 +112,12 @@ export default class Index extends Component {
 
 
   render() {
+    const {announcement} = this.state;
     return (
       <div>
         <div className="banner"><img src={require("../../assets/wx/images/banner_1.jpg")}/></div>
         <div className="w">
-          <div className="notice"><a href="javascript:;">尊敬的各位会员请注意尊敬的各位会员请注意</a></div>
+          <div className="notice"><a href="javascript:;">{announcement || ''}</a></div>
           <div className="function clf">
             <ul>
               <li><a href="javascript:;" onClick={this.getCustomerService}>
@@ -137,5 +180,13 @@ export default class Index extends Component {
     );
   }
 }
+
+
+function mapStateToProps(state) {
+  return {wx: state.wx};
+}
+
+
+export default connect(mapStateToProps)(Index);
 
 
