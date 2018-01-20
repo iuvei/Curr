@@ -70,14 +70,14 @@ export async function getAllMessages(params) {
 
 //获取账户余额等
 export async function getAccount(params) {
-  return request(`/m/api/account?openid=${params.openid}`, {
+  return request(`/m/api/account?userid=${params.userid||''}`, {
     method: 'get',
   });
 }
 
 //获取支付方式图片
 export async function getPayment(params) {
-  return request(`/m/api/settings/payment?type=${params.type}`, {
+  return request(`/m/api/settings/payment?type=${params.type||''}`, {
     method: 'get',
   });
 }

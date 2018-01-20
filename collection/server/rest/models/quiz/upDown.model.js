@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 //竞猜记录
 const UpDownSchema = new Schema({
-    openid: {type: String, required: true}, //用户ID
+    userid: {type: String, required: true}, //用户ID
     nickname: {type: String, required: true}, // 用户名
     avatar: {type: String, default: ''},    // 头像
     balance: {type: Number, default: 0}, //当前余额

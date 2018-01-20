@@ -91,10 +91,11 @@ class IndexController {
         const userid = ctx.params.userid;
         if (userid == undefined || userid === '') {
         } else {
-            const userinfo = await UserModel.findOne({'_id': userid}, {'__v': 0, 'password': 0, 'createdAt': 0});
+            const userinfo = await UserModel.findOne({'_id': userid}, {'__v': 0,  'password': 0, 'createdAt': 0});
             if (!userinfo) {
                 return ctx.body = {message: '获取消息失败', code: 400}
             }
+            userinfo.userid = userid
             return ctx.body = {userinfo, code: 200}
         }
     }
@@ -160,8 +161,11 @@ class IndexController {
 
     // 获取账户余额等
     static async getAccount(ctx) {
-        const {openid} =  ctx.request.query;
-        const user = await UserModel.findOne({openid}, {'_id': 0, '__v': 0});
+        const {userid} =  ctx.request.query;
+        if (userid===undefined||userid==='') {
+            return ctx.body = {message: 'userid 不能为空', code: 400}
+        }
+        const user = await UserModel.findOne({_id: userid}, {'_id': 0, '__v': 0});
         if (user) {
             return ctx.body = {
                 account: {balance: user.balance, lossToday: user.lossToday, rebate: user.rebate},
@@ -184,14 +188,14 @@ class IndexController {
 
     // 上分
     static async createUp(ctx) {
-        const {openid, nickname, avatar, payMethod, payNo, profile, amount} = ctx.request.body;
+        const {userid, nickname, avatar, payMethod, payNo, profile, amount} = ctx.request.body;
         console.log(ctx.request.body);
-        if (!openid || !nickname || !amount || amount < 10) return ctx.body = {
+        if (!userid || !amount || amount < 10) return ctx.body = {
             message: '用户名和上/下分不能为空,且金额大于10',
             code: 400
         }
         const result = await UpDownModel.create({
-            openid,
+            userid,
             nickname,
             avatar,
             type: true,
@@ -206,11 +210,11 @@ class IndexController {
 
     // 下分
     static async createDown(ctx) {
-        const {openid, nickname, avatar, payMethod, payNo, profile, amount} = ctx.request.body;
+        const {userid, nickname, avatar, payMethod, payNo, profile, amount} = ctx.request.body;
         console.log(ctx.request.body);
-        if (!openid || !amount || amount < 0) return ctx.body = {message: '用户名和上/下分不能为空,且金额大于0', code: 400}
+        if (!userid || !amount || amount < 0) return ctx.body = {message: '用户名和上/下分不能为空,且金额大于0', code: 400}
         const result = await UpDownModel.create({
-            openid, nickname, avatar, type: false, payMethod, payNo, profile, amount
+            userid, nickname, avatar, type: false, payMethod, payNo, profile, amount
         });
         if (result) return ctx.body = {code: 200}
         else ctx.body = {message: "下分请求失败", code: 400}

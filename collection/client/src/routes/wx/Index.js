@@ -22,9 +22,7 @@ const PATH_YOUXI_JSK3 = "/youxi/jsk3";
 class Index extends Component {
   constructor(props) {
     super(props);
-    const logged = props.wx.logged;
     this.state = {
-      logged: logged,
       kefuDisplay: false,
       announcement: '',
       config: {},
@@ -67,7 +65,7 @@ class Index extends Component {
   }
 
   gotoDeposit = () => {
-    if (!this.state.logged) {
+    if (!this.props.wx.logged) {
       this.gotoLogin();
       return
     }
@@ -75,7 +73,7 @@ class Index extends Component {
   }
 
   gotoDrawMoney = () => {
-    if (!this.state.logged) {
+    if (!this.props.wx.logged) {
       this.gotoLogin();
       return
     }
@@ -83,7 +81,7 @@ class Index extends Component {
   }
 
   gotoXiaZhuJiLu = () => {
-    if (!this.state.logged) {
+    if (!this.props.wx.logged) {
       this.gotoLogin();
       return
     }
@@ -91,7 +89,7 @@ class Index extends Component {
   }
 
   gotoStatistics = () => {
-    if (!this.state.logged) {
+    if (!this.props.wx.logged) {
       this.gotoLogin();
       return
     }

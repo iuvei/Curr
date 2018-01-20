@@ -31,8 +31,8 @@ class BackendUpDown {
             if (!upDowns) {
                 return ctx.body = {message: '该记录不存在', code: 404}
             }
-            const openid = upDowns.openid;
-            const user = await UserModel.findOne({openid})
+            const userid = upDowns.userid;
+            const user = await UserModel.findOne({"_id": userid})
             if (!user) {
                 return ctx.body = {message: '该用户不存在', code: 404}
             }
@@ -47,7 +47,7 @@ class BackendUpDown {
                 newBalance = user.balance + upDowns.amount
             }
 
-            const query = {openid};
+            const query = {"_id": userid};
             if (user.balance !== 0) {
                 query.balance = user.balance
             }
@@ -94,7 +94,7 @@ class BackendUpDown {
         const count = await UpDownModel.find(query).count();
 
         for (var i = 0; i < upDowns.length; i++) { //获取账户余额
-            const user = await UserModel.findOne({openid: upDowns[i].openid})
+            const user = await UserModel.findOne({_id: upDowns[i].userid})
             upDowns[i].balance = user.balance;
         }
         return ctx.body = {code: 200, data: upDowns, pageSize, currPage, total: Math.ceil(count / pageSize)}

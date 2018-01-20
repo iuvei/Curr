@@ -5,7 +5,7 @@ export default {
   namespace: 'wx',
   state: {
     no: 20170810,
-    logged: getCookie("logged")||false,
+    logged: getCookie("logged") || false,
     userinfo: {},
     message: {},
   },
@@ -18,16 +18,19 @@ export default {
     },
   },
   effects: {
-    // *getUserInfo({
-    //   payload,
-    // }, {call, put}) {
-    //   const data = yield call(getUserDetail, parse(payload));
-    //   if (data.success) {
-    //     yield put({
-    //       type: 'updateState',
-    //       payload: {userinfo: data.result.userinfo},
-    //     });
-    //   }
+    *getUserInfo({
+      payload,
+    }, {call, put}) {
+      const data = yield call(getUserDetail, parse(payload));
+      if (data.success) {
+        const {userinfo} = data.result;
+        yield put({
+          type: 'updateState',
+          payload: {userinfo: {...userinfo, userid: userinfo._id}},
+        });
+      }
+    }
+
     // },
     // *getMessages({
     //   payload,
@@ -42,10 +45,16 @@ export default {
     //     });
     //   }
     // },
-  },
+  }
+  ,
   subscriptions: {
-    setup({dispatch}) {
-      //dispatch({type: 'getUserInfo'});
+    setup({dispatch}){
+      if (getCookie("logged")) {
+        dispatch({
+          type: 'getUserInfo',
+          payload: {userid: getCookie("userid")}
+        });
+      }
       //dispatch({type: 'getMessages'});
     },
   },
