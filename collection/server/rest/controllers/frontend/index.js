@@ -61,7 +61,7 @@ class IndexController {
                     periodDate: lottery.no + 1 + '',
                     awardTime: moment(lottery.opentime).add(5, "m").format('YYYY-MM-DD hh:mm:ss'),
                     //awardTimeInterval: moment(lottery.opentime).add(4, "m").valueOf() + 10 * 1000 - moment().valueOf(),
-                    awardTimeInterval: Math.floor((moment(lottery.opentime).add(4, "m").valueOf() + 30 * 1000 - moment().valueOf())/1000) * 1000,
+                    awardTimeInterval: Math.floor((moment(lottery.opentime).add(4, "m").valueOf() + 30 * 1000 - moment().valueOf()) / 1000) * 1000,
                     delayTimeInterval: 1000,
                 }
 
@@ -73,13 +73,25 @@ class IndexController {
         }
     }
 
-    static async getUserInfo(ctx) {
+    static async getUserInfo(ctx) { //微信用过
         const openid = ctx.cookies.get("bjsc", {sign: true})
         if (openid == undefined || openid === '') {
             const data = await SettingsModel.findOne({type: "platfrom"});
             return ctx.body = {appid: data.config.wxAppID, code: 300}
         } else {
             const userinfo = await UserModel.findOne({openid}, {'_id': 0, '__v': 0, 'createdAt': 0});
+            if (!userinfo) {
+                return ctx.body = {message: '获取消息失败', code: 400}
+            }
+            return ctx.body = {userinfo, code: 200}
+        }
+    }
+
+    static async getUserDetail(ctx) { //最近登录方式使用
+        const userid = ctx.params.userid;
+        if (userid == undefined || userid === '') {
+        } else {
+            const userinfo = await UserModel.findOne({'_id': userid}, {'__v': 0, 'password': 0, 'createdAt': 0});
             if (!userinfo) {
                 return ctx.body = {message: '获取消息失败', code: 400}
             }

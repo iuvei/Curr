@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'dva';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/wx/css/memberCenter.css';
+import {delCookie, getCookie} from '../../utils/cookies';
+import {getUserDetail} from '../../services/wxEnd';
 /**
  * Created by sven on 2018/1/7.
  */
@@ -19,6 +21,18 @@ const PATH_UnRead = "/unread";
 class MemberCenter extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    getUserDetail({userid: getCookie("userid")})
+      .then(data => {
+        if (data.success) {
+          this.props.dispatch({
+            type: 'wx/updateState',
+            payload: {userinfo: data.result.userinfo},
+          })
+        }
+      });
   }
 
   gotoBindingAccout = () => {
@@ -50,11 +64,12 @@ class MemberCenter extends Component {
   }
 
   gotoLogin = () => {
+    delCookie("logged");
     this.props.dispatch({
       type: 'wx/updateState',
       payload: {userinfo: {}, logged: false},
-    })
-    hashHistory.push({pathname: PATH_Login});
+    });
+    hashHistory.push({pathname: "/"});
   }
 
   render() {
@@ -66,8 +81,8 @@ class MemberCenter extends Component {
           <a href="javascript:;" className="link clf" onClick={this.gotoBindingAccout}>
             <img src={require("../../assets/wx/images/icon_user.png")} className="fl"/>
             <div className="fl">
-              <p>ID：VIP{userinfo.openid}</p>
-              <p>昵称：{userinfo.nickname}</p>
+              <p>ID：VIP{userinfo._id}</p>
+              <p>昵称：{userinfo.nickname|| userinfo.username}</p>
               <p>余额：<span className="red">{userinfo.balance || 0.00}</span></p>
               <p>下注待收返水：<span className="green">0</span></p>
               <p>拉人待收返水：<span className="green">0</span></p>

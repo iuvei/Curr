@@ -1,17 +1,26 @@
-#ctb .hidden{display:none;}
-#ctb .bottom{margin-top:.5rem;}
-#ctb .bottom .title{width:100%;height:auto;padding:.8rem 1rem;background:#7a1c1c;}
-#ctb .bottom .title span{display:block;color:#fff;float:left;font-weight:bold;}
-#ctb .bottom .title .sp1{width:30%;}
-#ctb .bottom .title .sp2{width:35%;}
-#ctb .bottom .title .sp3{width:35%;}
-#ctb .bottom .types{width:100%;height:auto;padding:1rem 0 3rem;background:#fff;}
-#ctb .bottom .types ul li{width:100%;height:auto;border-bottom:1px solid #ccc;padding:.5rem 1rem;}
-#ctb .bottom .types ul li div{float:left;}
-#ctb .bottom .types ul li .dv1{width:30%;}
-#ctb .bottom .types ul li .dv2{width:35%;}
-#ctb .bottom .types ul li .dv3{width:35%;}
-#ctb .bottom .types ul li .dv1{font-size:1rem;color:#7a1c1c;}
-#ctb .bottom .types ul li .dv2{font-size:1rem;color:#7a1c1c;font-weight:600;}
-#ctb .bottom .types ul li .dv2 img{width:1.5rem;height:1.5rem;}
-#ctb .bottom .types ul li .dv3{font-size:1rem;color:#2c6c28;}
+#betting2 .top{width:100%;height:auto;}
+#betting2 .top span{display:block;width:calc(100%/3);float:left;background:#fff;border:1px solid #ccc;text-align:center;padding:.6rem 0;cursor:pointer;font-size:1rem;color:#333;}
+#betting2 .top span:first-child{border-top-left-radius:.5rem;border-bottom-left-radius:.5rem;/*color:#fff;*/}
+#betting2 .top span:last-child{border-top-right-radius:.5rem;border-bottom-right-radius:.5rem;}
+
+#betting2 .time{width:100%;height:auto;padding:1rem;}
+#betting2 .time span{font-size:1.2rem;color:#333;}
+#betting2 .time select{width:15%;height:2rem;border:1px solid #ddd;border-radius:5px;}
+
+#ctb2 .hidden{display:none;}
+#ctb2 .bottom{margin-top:.5rem;}
+#ctb2 .bottom .title{width:100%;height:auto;padding:.8rem 1rem;background:#7a1c1c;}
+#ctb2 .bottom .title span{display:block;color:#fff;float:left;font-weight:bold;border: none;line-height: 1;}
+#ctb2 .bottom .title .sp1{width:30%;}
+#ctb2 .bottom .title .sp2{width:35%;}
+#ctb2 .bottom .title .sp3{width:35%;}
+#ctb2 .bottom .types{width:100%;height:auto;padding:1rem 0 3rem;background:#fff;}
+#ctb2 .bottom .types ul li{width:100%;height:auto;border-bottom:1px solid #ccc;padding:.5rem 1rem;}
+#ctb2 .bottom .types ul li div{float:left;}
+#ctb2 .bottom .types ul li .dv1{width:30%;}
+#ctb2 .bottom .types ul li .dv2{width:70%;}
+#ctb2 .bottom .types ul li .dv3{width:35%;}
+#ctb2 .bottom .types ul li .dv1{font-size:1rem;color:#7a1c1c;}
+#ctb2 .bottom .types ul li .dv2{font-size:1rem;color:#7a1c1c;font-weight:600;}
+#ctb2 .bottom .types ul li .dv2 img{width:1.5rem;height:1.5rem;margin: 0 .2rem;}
+#ctb2 .bottom .types ul li .dv3{font-size:1rem;color:#2c6c28;}

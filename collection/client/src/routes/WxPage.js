@@ -20,9 +20,7 @@ const PATH_Sign = "/sign";
 class WxPage extends Component {
   constructor(props) {
     super(props);
-    const logged = props.wx.logged;
     this.state = {
-      logged: logged,
       config: {},
     }
   }
@@ -66,7 +64,7 @@ class WxPage extends Component {
   }
 
   gotoMemberCenter = () => {
-    if (!this.state.logged) {
+    if (!this.props.wx.logged) {
       this.gotoLogin();
       return
     }
@@ -74,7 +72,7 @@ class WxPage extends Component {
   }
 
   gotoOpenRecord = () => {
-    if (!this.state.logged) {
+    if (!this.props.wx.logged) {
       this.gotoLogin();
       return
     }
@@ -82,7 +80,7 @@ class WxPage extends Component {
   }
 
   gotoDrawMoney = () => {
-    if (!this.state.logged) {
+    if (!this.props.wx.logged) {
       this.gotoLogin();
       return
     }
@@ -95,7 +93,7 @@ class WxPage extends Component {
   }
 
   gotoUnRead = () => {
-    if (!this.state.logged) {
+    if (!this.props.wx.logged) {
       this.gotoLogin();
       return
     }
@@ -116,12 +114,12 @@ class WxPage extends Component {
       <div>
         <div className="comTopDiv clf">
           {
-            this.state.logged ?
+            this.props.wx.logged ?
               <div className="w">
                 <div className="fl">
                   <a href="javascript:;" onClick={this.gotoIndex}>首页</a>
                   <a href="javascript:;" className="membercolor" onClick={this.gotoMemberCenter}>会员中心</a>
-                  <a href="javascript:;" onClick={this.gotoDrawMoney}>￥:0.00</a>
+                  <a href="javascript:;" onClick={this.gotoDrawMoney}>{`￥ ${userinfo.balance||0.00}`}</a>
                 </div>
                 <div className="fr">
                   <a href="javascript:;" className="message" onClick={this.gotoGameGuide}>玩法</a>

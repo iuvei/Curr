@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import {connect} from 'dva';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/wx/css/login.css';
+import {message} from 'antd';
 import {loginUser} from '../../services/wxEnd';
 /**
  * Created by sven on 2018/1/7.
@@ -20,15 +22,15 @@ const suanMap = [
   {val: "11", img: require('../../assets/wx/images/sig/suan-1.jpg')},
 ]
 
-
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       step: 1,
       suan: suanMap[Math.floor(Math.random() * 11)],
       username: '',
-      password: ''
+      password: '',
+      checkNum: '',
     };
   }
 
@@ -68,6 +70,7 @@ export default class Login extends Component {
 
     if (this.state.suan.val !== this.state.checkNum) {
       alert("验证码错误");
+      this.setState({checkNum: ''});
       return
     }
     if (this.state.username.length > 0 && this.state.password.length > 0) {
@@ -75,9 +78,16 @@ export default class Login extends Component {
         username: this.state.username,
         password: this.state.password
       }).then(data => {
-        console.log("====================", data)
+        if (data.success) {
+          hashHistory.push({pathname: "/"});
+          this.props.dispatch({
+            type: 'wx/updateState',
+            payload: {userinfo: data.result.data, logged: true}
+          });
+        } else {
+          message.error(`${data.message}`)
+        }
       });
-      this.setState({username: '', password: ''});
     }
   }
 
@@ -120,4 +130,11 @@ export default class Login extends Component {
   }
 }
 
+
+function mapStateToProps(state) {
+  return {wx: state.wx};
+}
+
+
+export default connect(mapStateToProps)(Login);
 

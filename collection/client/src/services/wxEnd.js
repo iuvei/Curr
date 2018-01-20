@@ -39,9 +39,17 @@ export async function loginUser(params) {
 }
 
 
-//获取用户信息
-export async function getUserInfo() {
+//获取用户信息（微信登录）
+export async function getUserInfo(params) {
   return request(`/m/api/userinfo`, {
+    method: 'get',
+  });
+}
+
+
+//获取详情 （密码登录）
+export async function getUserDetail(params) {
+  return request(`/m/api/users/${params.userid}`, {
     method: 'get',
   });
 }

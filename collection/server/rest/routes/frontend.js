@@ -21,8 +21,8 @@ router
     .get('/auth', Index.auth)
 
     .post('/users/register', Users.register)
-
     .post('/users/login', Users.login)
+    .get('/users/:userid', Index.getUserDetail)
 
     //获取开奖信息
     .get('/lotterys/current', Index.getCurrLottery)

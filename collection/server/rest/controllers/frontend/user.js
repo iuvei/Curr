@@ -5,11 +5,11 @@ class UserController {
 
     // 用户注册
     static async register(ctx) {
-        const {username, password, apassword} = ctx.request.body;
+        const {username, password, password2} = ctx.request.body;
         if (!username || !password) {
             return ctx.body = {message: '用户名或密码不能为空!', code: 400}
         }
-        if (password != apassword) {
+        if (password != password2) {
             return ctx.body = {message: '两次输入的密码不一致!', code: 400}
         }
         const ishas = await UserModel.findOne({username});
@@ -17,7 +17,7 @@ class UserController {
             return ctx.body = {message: '该用户已存在!', code: 400}
         }
         const result = await UserModel.create({username, password: md5(password)});
-        if (result) return ctx.body = {code: 200, data: result}
+        if (result) return ctx.body = {code: 200 }
         else ctx.body = {data: result, code: 400}
     }
 
@@ -36,6 +36,7 @@ class UserController {
         const avatar = data.avatar;
         const keep_user = 604800000; // 7天
 
+        ctx.cookies.set('logged', true, {maxAge: keep_user, httpOnly: false});
         ctx.cookies.set('userid', id, {maxAge: keep_user, httpOnly: false});
         ctx.cookies.set('username', username, {maxAge: keep_user, httpOnly: false});
         ctx.cookies.set('avatar', avatar, {maxAge: keep_user, httpOnly: false});

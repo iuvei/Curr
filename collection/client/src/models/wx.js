@@ -1,11 +1,12 @@
 import {parse} from 'qs';
-import {getAllMessages, getUserInfo} from '../services/mobile';
+import {getAllMessages, getUserDetail} from '../services/wxEnd';
+import {getCookie} from '../utils/cookies';
 export default {
   namespace: 'wx',
   state: {
     no: 20170810,
-    logged: false,
-    userinfo: {openid: ''},
+    logged: getCookie("logged")||false,
+    userinfo: {},
     message: {},
   },
   reducers: {
@@ -20,7 +21,7 @@ export default {
     // *getUserInfo({
     //   payload,
     // }, {call, put}) {
-    //   const data = yield call(getUserInfo, parse(payload));
+    //   const data = yield call(getUserDetail, parse(payload));
     //   if (data.success) {
     //     yield put({
     //       type: 'updateState',

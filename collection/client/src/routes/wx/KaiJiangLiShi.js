@@ -40,7 +40,7 @@ export default class KaiJiangLiShi extends Component {
     console.log(this.state.days)
     return (
       <div className="w">
-        <div id="betting">
+        <div id="betting2">
           <div className="clf top" id="btn">
             <span>北京赛车</span>
             <span>重庆时时彩</span>
@@ -58,7 +58,7 @@ export default class KaiJiangLiShi extends Component {
               }
             </select>
           </div>
-          <div id="ctb">
+          <div id="ctb2">
             {/*<!--北京赛车-->*/}
             <div className="bottom">
               <div className="clf title">
@@ -66,7 +66,7 @@ export default class KaiJiangLiShi extends Component {
                 <span className="sp2">开奖号码</span>
               </div>
               <div className="types">
-                <ul>
+                <ul className="clf">
                   <li className="clf">
                     <div className="dv1">661099</div>
                     <div className="dv2">
