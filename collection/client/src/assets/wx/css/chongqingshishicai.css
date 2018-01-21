@@ -28,7 +28,7 @@
 
 #betting{margin-top:1rem;}
 #betting .top span{display:inline-block;padding:.4rem .6rem;margin: 0 .2rem .5rem 0;background:#f94141;font-size:.8rem;color:#fff;cursor:pointer;}
-
+#betting .top .redBG{background:#720808;}
 #betting .bottom{width:100%;height:auto;margin-top:.1rem;border-top:.05rem solid #b0b0b0;border-left:.05rem solid #b0b0b0;}
 #betting .hidden{display:none;}
 #betting .bottom .title span{display:block;float:left;padding-left:.8rem;font-size:.7rem;border-bottom:.05rem solid #b0b0b0;border-right:.05rem solid #b0b0b0;height:3rem;line-height:2.98rem;}

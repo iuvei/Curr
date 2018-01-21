@@ -7,6 +7,24 @@ export async function getAnnouncement() {
   });
 }
 
+// /m/api/live
+
+export async function getLive(params) {
+  return request(`/m/api/live?type=${params.type || ''}`, {
+    method: 'get',
+  });
+}
+
+//下注
+export async function bet(params) {
+  console.log(params)
+  return request(`/m/api/users/bet`, {
+    method: 'post',
+    body: JSON.stringify(params),
+  });
+}
+
+
 //获取开奖信息
 export async function getCurrLottery(params) {
   return request(`/m/api/lotterys/current?type=${params.type}`, {

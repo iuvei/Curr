@@ -1,14 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//竞猜记录
+//游戏下注
 const BetsSchema = new Schema({
     from: {type: Number, required: true}, //类型 1：用户 2：管理员 3：机器人
-    openid: {type: String, required: true}, //用户ID
+    userid: {type: String, required: true}, //用户ID
     no: {type: Number, required: true}, //期号
     nickname: {type: String, default: ''}, // 用户名
     avatar: {type: String, default: ''},    // 头像
-    choice: {type: String, required: true}, // 昵称
+    game: {type: String, required: true},//游戏类型
+    method: {type: String}, //游戏的玩法
+    choice: {type: Object, required: true}, // 下注
     amount: {type: Number, default: 0},  //金额
     dealed: {type: Boolean, default: false},
     createdAt: {type: Date, default: Date.now},

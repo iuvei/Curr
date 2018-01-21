@@ -10,6 +10,7 @@ router
 
     //live
     .get('/live', Index.getLive)
+    .get('/live2', Index.getLive2)
 
     //获取公告
     .get('/announcement', Index.getAnnouncement)
@@ -23,6 +24,7 @@ router
     .post('/users/register', Users.register)
     .post('/users/login', Users.login)
     .get('/users/:userid', Index.getUserDetail)
+    .post('/users/bet', Index.createBet)
 
     //获取开奖信息
     .get('/lotterys/current', Index.getCurrLottery)

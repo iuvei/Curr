@@ -24,7 +24,8 @@ class IndexController {
         return ctx.body = {appid: data.config.wxAppID, code: 200}
     }
 
-    static async getLive(ctx) {
+
+    static async getLive2(ctx) {
         const lottery = await LotteryModel.findOne({}, {'_id': 0}).sort({"_id": -1}).limit(1)
 
         if (lottery) { //判断存在
@@ -73,6 +74,68 @@ class IndexController {
         }
     }
 
+
+    static async getLive(ctx) {
+        const {type} =  ctx.request.query;
+        const lottery = await LotteryModel.findOne({type: type.toUpperCase()}, {'_id': 0}).sort({"no": -1})
+        if (lottery) { //判断存在
+            const live = {
+                time: parseInt(Date.now() / 1000),
+                current: {
+                    no: lottery.no,
+                    opentime: lottery.opentime,
+                    code: lottery.code,
+                },
+                next: {
+                    no: lottery.no + 1,
+                    //moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss')
+                    opentime: moment(lottery.opentime).add(7, "m").format('YYYY-MM-DD HH:mm:ss'),
+                    leftTime: moment(lottery.opentime).add(7, "m").diff(moment(), 'seconds'),
+                    delayTime: 5000,
+                }
+
+            }
+            console.log(live)
+            //console.log(lottery.opentime,moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss'),'==============', Date.now().toString())
+            return ctx.body = {code: 200, lottery: live}
+        } else {
+            return ctx.body = {message: "获取失败", code: 404}
+        }
+    }
+
+    // 下注
+    static async createBet(ctx) {
+        const {userid, no, game, method, nickname, choice, avatar} = ctx.request.body;
+        console.log(ctx.request.body);
+        if (!userid || !no || !choice || !game) return ctx.body = {message: '不能为空', code: 400}
+        const user = await UserModel.findOne({_id: userid});
+        if (user) return ctx.body = {message: '用户不存在', code: 400}
+        const amount = 100000;
+        if (user.balance < amount) {
+            log.error("User: ", userid, "余额不足")
+            return ctx.body = {message: '余额不足', code: 400};
+        }
+
+        const query = {_id: userid};
+        if (user.balance !== 0) {
+            query.balance = user.balance
+        }
+
+        const ret = await UserModel.update(query, {'$inc': {balance: -amount}}, {upsert: false});
+        if (ret.nModified !== 1) {
+            log.error("更新余额失败:", query, {'$inc': {balance: -amount}}, ret);
+            return ctx.body = {message: '更新余额失败', code: 400};
+        }
+
+        const record = {from: 1, no, userid, game, method, nickname, choice, avatar, amount}
+        const result = await BetModel.create(record);
+        if (!result) {
+            log.error("下注保存失败: ", result);
+            return ctx.body = {message: '下注失败', code: 400};
+        }
+        return ctx.body = {result, code: 200}
+    }
+
     static async getUserInfo(ctx) { //微信用过
         const openid = ctx.cookies.get("bjsc", {sign: true})
         if (openid == undefined || openid === '') {
@@ -91,7 +154,7 @@ class IndexController {
         const userid = ctx.params.userid;
         if (userid == undefined || userid === '') {
         } else {
-            const userinfo = await UserModel.findOne({'_id': userid}, {'__v': 0,  'password': 0, 'createdAt': 0});
+            const userinfo = await UserModel.findOne({'_id': userid}, {'__v': 0, 'password': 0, 'createdAt': 0});
             if (!userinfo) {
                 return ctx.body = {message: '获取消息失败', code: 400}
             }
@@ -162,7 +225,7 @@ class IndexController {
     // 获取账户余额等
     static async getAccount(ctx) {
         const {userid} =  ctx.request.query;
-        if (userid===undefined||userid==='') {
+        if (userid === undefined || userid === '') {
             return ctx.body = {message: 'userid 不能为空', code: 400}
         }
         const user = await UserModel.findOne({_id: userid}, {'_id': 0, '__v': 0});
