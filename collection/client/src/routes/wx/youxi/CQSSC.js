@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'dva';
+import {getCookie} from '../../../utils/cookies';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../../assets/wx/css/chongqingshishicai.css';
 import {Icon, Spin, message} from 'antd';
@@ -12,7 +13,11 @@ import CountDown from '../../../components/mobile/CountDown';
 const PATH_HISTORY = "/kaijianglishi";
 
 const METHOD_01 = 1; //龙虎总和
-const METHOD_02 = 2; //第一球~第五球
+const METHOD_021 = 21; //第一球~第五球
+const METHOD_022 = 22; //第一球~第五球
+const METHOD_023 = 23; //第一球~第五球
+const METHOD_024 = 24; //第一球~第五球
+const METHOD_025 = 25; //第一球~第五球
 const METHOD_03 = 3; //斗牛
 const METHOD_04 = 4; //前三
 const METHOD_05 = 5; //中三
@@ -32,11 +37,12 @@ class CQSSC extends Component {
     super(props);
     this.state = {
       ticker: null,
-      openning: false,
+      opening: false,
       lottery: {time: '', current: {}, next: {}},
       method: METHOD_01,
       choice: {},
     }
+    this.getLiveLottery();
   }
 
   componentDidMount() {
@@ -51,18 +57,7 @@ class CQSSC extends Component {
         //console.log('========================', data.result)
         if (data.success) {
           this.setState({
-            lottery: data.result.lottery,
-          });
-        }
-      });
-  }
-
-  getLottery = () => {
-    getCurrLottery({type: "CQSSC"})
-      .then(data => {
-        console.log('==', data.result.lottery)
-        if (data.success) {
-          this.setState({
+            opening: false,//this.state.lottery.next.leftTime >0 ? false:true,
             lottery: data.result.lottery,
           });
         }
@@ -98,17 +93,19 @@ class CQSSC extends Component {
       return
     }
     const req = {userid: _id, no, game: "CQSSC", method, choice, avatar, nickename: nickename || username}
-    bet(req)
-      .then(data => {
-        console.log('==', data.result)
-        if (data.success) {
-          this.setState({choice: {}});
-          this.onRest();
-          message.success("您已下注")
-        } else {
-          message.error("下注失败")
-        }
-      });
+    bet(req).then(data => {
+      if (data.success) {
+        this.setState({choice: {}});
+        this.onRest();
+        this.props.dispatch({ //更新当前显示金额
+          type: 'wx/getUserInfo',
+          payload: {userid: getCookie("userid")}
+        })
+        message.success("下注成功")
+      } else {
+        message.error(data.message)
+      }
+    });
   }
 
   onRest = () => {
@@ -117,17 +114,17 @@ class CQSSC extends Component {
 
   //前三，中三，后三，三法的判断 arr.length=3
   sanFa = (arr) => {
-    //console.log('================================',arr)
+    //console.log('================================', arr)
     function sortNumber(a, b) {
       return a - b
     }
 
     const a = arr.sort(sortNumber);
-    //console.log('================================',arr,a)
+    // console.log('================================', arr, a)
     if (a[0] == a[1] && a[1] == a[2]) return '豹子';
     //019, 089 特殊判断
     if ((a[1] - a[0] == 1 && a[2] - a[1] == 1) || (a[0] == 0 && a[1] == 1 && a[2] == 9) || (a[0] == 0 && a[1] == 8 && a[2] == 9)) return '顺子';
-    if (a[0] == a[1] || a[0] == [2] || a[1] == a[2]) return '对子';
+    if (a[0] == a[1] || a[0] == a[2] || a[1] == a[2]) return '对子';
     //半顺里面包含了全顺，但是前面return全顺，没有问题。
     if (a[1] - a[0] == 1 || a[2] - a[1] == 1)  return '半顺';
     return '杂六';
@@ -149,13 +146,17 @@ class CQSSC extends Component {
     if (e.target.value == 0) {
       delete(choice[e.target.id])
     } else {
-      choice[e.target.id] = e.target.value;
+      choice[e.target.id] = parseInt(e.target.value);
     }
     this.setState({choice});
   }
 
+  onCallBack = () => {
+    this.setState({opening: true})
+  }
+
   render() {
-    console.log('==', this.state.choice)
+    //console.log('==', this.state)
     const antIcon = <Icon type="loading" style={{fontSize: 24}} spin/>;
     const {method} = this.state;
     const {no, type, code, opentime} = this.state.lottery.current;
@@ -185,7 +186,11 @@ class CQSSC extends Component {
           <div className="clf periods">
             <div className="fl name">重庆时时彩</div>
             <div className="fl number">第 <span>{this.state.lottery.next.no || '--'}</span> 期</div>
-            <div className="fr time" id="time">{opentime}<CountDown time={this.state.lottery.next.leftTime}/></div>
+            <div className="fr time" id="time">
+              <CountDown start={10} end={23}
+                         time={this.state.lottery.next.leftTime}
+                         callBack={this.onCallBack.bind(this)}/>
+            </div>
           </div>
 
           <div className="lottery">
@@ -204,8 +209,8 @@ class CQSSC extends Component {
             </div>
             <div className="center">
               <span className="sp1">总和：<i>{sum} {sum >= 23 ? '大' : '小'}</i> <i>{sum % 2 == 0 ? '双' : '单'}</i></span>
-              <span
-                className="sp2">牛牛：<i>{nn == 0 ? '牛牛' : nn == -1 ? '无牛' : `牛${nn}`}</i> <i>{nn >= 0 && nn % 2 == 0 ? '牛双' : '牛单'}</i> <i>{nn >= 1 && nn <= 5 ? '牛小' : '牛大'}</i></span>
+              {/*<span*/}
+              {/*className="sp2">牛牛：<i>{nn == 0 ? '牛牛' : nn == -1 ? '无牛' : `牛${nn}`}</i> <i>{nn >= 0 && nn % 2 == 0 ? '牛双' : '牛单'}</i> <i>{nn >= 1 && nn <= 5 ? '牛小' : '牛大'}</i></span>*/}
             </div>
             <div className="bottom clf">
               <span className="sp1">龙虎：<i>{longHu}</i></span>
@@ -217,29 +222,26 @@ class CQSSC extends Component {
 
           <div className="clf button">
             <form>
-              {/*<!--<input type="submit" value="珠子/总和龙虎">-->*/}
-              {/*<!--<input type="submit" value="斗牛/梭哈/组合">-->*/}
               <input type="submit" value="刷新" onClick={this.getLiveLottery}/>
             </form>
           </div>
         </div>
 
-        <Spin size="large" tip="开奖中" spinning={this.state.openning}>
-
+        <Spin size="large" tip="开奖中" spinning={this.state.opening}>
           <div id="betting">
             <div className="top" id="btn">
               <span onClick={() => this.onMethodChange(METHOD_01)}
                     className={method == METHOD_01 ? 'redBG' : ''}>龙虎总和</span>
-              <span onClick={() => this.onMethodChange(METHOD_02)}
-                    className={method == METHOD_02 ? 'redBG' : ''}>第一球</span>
-              <span onClick={() => this.onMethodChange(METHOD_02)}
-                    className={method == METHOD_02 ? 'redBG' : ''}>第二球</span>
-              <span onClick={() => this.onMethodChange(METHOD_02)}
-                    className={method == METHOD_02 ? 'redBG' : ''}>第三球</span>
-              <span onClick={() => this.onMethodChange(METHOD_02)}
-                    className={method == METHOD_02 ? 'redBG' : ''}>第四球</span>
-              <span onClick={() => this.onMethodChange(METHOD_02)}
-                    className={method == METHOD_02 ? 'redBG' : ''}>第五球</span>
+              <span onClick={() => this.onMethodChange(METHOD_021)}
+                    className={method == METHOD_021 ? 'redBG' : ''}>第一球</span>
+              <span onClick={() => this.onMethodChange(METHOD_022)}
+                    className={method == METHOD_022 ? 'redBG' : ''}>第二球</span>
+              <span onClick={() => this.onMethodChange(METHOD_023)}
+                    className={method == METHOD_023 ? 'redBG' : ''}>第三球</span>
+              <span onClick={() => this.onMethodChange(METHOD_024)}
+                    className={method == METHOD_024 ? 'redBG' : ''}>第四球</span>
+              <span onClick={() => this.onMethodChange(METHOD_025)}
+                    className={method == METHOD_025 ? 'redBG' : ''}>第五球</span>
               <span onClick={() => this.onMethodChange(METHOD_03)}
                     className={method == METHOD_03 ? 'redBG' : ''}>斗牛</span>
               <span onClick={() => this.onMethodChange(METHOD_04)}
@@ -324,7 +326,7 @@ class CQSSC extends Component {
                 </form>
 
                 {/*<!--2-->*/}
-                <div className={this.state.method == METHOD_02 ? "types" : "types hidden"}>
+                <div className={this.state.method > 10 ? "types" : "types hidden"}>
                   <ul className="clf">
                     <li className="li1"><img src={require("../../../assets/wx/images/h-0.png")}/></li>
                     <li className="li2">1.980</li>
@@ -375,7 +377,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-3.png")}/></li>
-                    <li className="li2">9.000</li>
+                    <li className="li2">1.980</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="3">
                         {options}
@@ -573,7 +575,7 @@ class CQSSC extends Component {
                 <div className={this.state.method == METHOD_04 ? "types" : "types hidden"}>
                   <ul className="clf">
                     <li className="li1">豹子</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">75</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="豹子">
                         {options}
@@ -581,7 +583,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">顺子</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">18</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="顺子">
                         {options}
@@ -589,7 +591,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">对子</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">3.5</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="对子">
                         {options}
@@ -597,7 +599,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">半顺</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">2.8</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="半顺">
                         {options}
@@ -605,7 +607,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">杂六</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">3.2</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="杂六">
                         {options}
@@ -707,10 +709,10 @@ class CQSSC extends Component {
             </div>
 
             <div className="clf btns">
-              <form action="">
-                <input type="submit" className="ip1" value="投注" onClick={this.onSend}/>
-                <input type="submit" className="ip2" value="重填" onClick={this.onRest}/>
-              </form>
+              {/*<form>*/}
+              <input type="submit" className="ip1" value="投注" onClick={this.onSend}/>
+              <input type="submit" className="ip2" value="重填" onClick={this.onRest}/>
+              {/*</form>*/}
             </div>
           </div>
         </Spin>

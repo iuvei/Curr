@@ -9,7 +9,7 @@ const BetsSchema = new Schema({
     nickname: {type: String, default: ''}, // 用户名
     avatar: {type: String, default: ''},    // 头像
     game: {type: String, required: true},//游戏类型
-    method: {type: String}, //游戏的玩法
+    method: {type: Number}, //游戏的玩法
     choice: {type: Object, required: true}, // 下注
     amount: {type: Number, default: 0},  //金额
     dealed: {type: Boolean, default: false},

@@ -7,14 +7,17 @@ import moment from 'moment';
 export default class CountDown extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      ticker: null,
-      time: '-',
+    if (props.time < 0) {
+      props.callBack();
+    } else {
+      this.state = {
+        ticker: null,
+        time: props.time,
+      }
     }
   }
 
   componentWillReceiveProps(nextPorps) {
-   // console.log(nextPorps)
     this.setState({
       time: nextPorps.time,
     })
@@ -25,21 +28,22 @@ export default class CountDown extends Component {
     this.setState({ticker});
   }
 
-  // diff = () => {
-  //   const now = moment();
-  //
-  // }
-
   componentWillUnmount() {
     clearInterval(this.state.ticker);
   }
 
   render() {
-    //const ti = moment('2018-01-21 19:31:03');
-    //const da = new Date('2018-01-21 19:31:03');
-   // const ff = moment('2018-01-21 19:31:03', 'YYYY-MM-DD HH:mm');
-    return (<div>本期投注剩余时间：{this.state.time}</div>);
-    //return (<div>距离开奖还剩：{moment("2010-10-20 4:30","YYYY-MM-DD HH:mm")}</div>);
+    if (this.state.time == 0) {
+      this.props.callBack();
+    }
+    //console.log(this.state.time)
+    const h = moment().hour();
+    if (h >= 0 && h < 23) {
+      return (<div>
+        本期投注剩余时间：{this.state.time > 0 ? `${Math.floor(this.state.time / 60)}:${this.state.time % 60}` : '开奖中'}</div>);
+    } else {
+      return (<div>当天开奖已完成</div>);
+    }
   }
 }
 

@@ -7,10 +7,11 @@ import (
 type M map[string]interface{}
 
 type CaiConf struct {
-	Name string `json:"name"`
-	Type string `json:"type"`
-	Cron string `json:"cron"`
-	Urls string `json:"urls"`
+	Name    string `json:"name"`
+	Type    string `json:"type"`
+	Cron    string `json:"cron"`
+	Urls    string `json:"urls"`
+	Disable bool   `json:"disable"`
 }
 
 type Job interface {

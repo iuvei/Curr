@@ -1,6 +1,6 @@
 import {parse, stringify} from 'qs';
 import request from '../utils/request';
-
+import moment from 'moment';
 export async function getAnnouncement() {
   return request(`/m/api/announcement`, {
     method: 'get',
@@ -8,7 +8,6 @@ export async function getAnnouncement() {
 }
 
 // /m/api/live
-
 export async function getLive(params) {
   return request(`/m/api/live?type=${params.type || ''}`, {
     method: 'get',
@@ -17,7 +16,6 @@ export async function getLive(params) {
 
 //下注
 export async function bet(params) {
-  console.log(params)
   return request(`/m/api/users/bet`, {
     method: 'post',
     body: JSON.stringify(params),
@@ -88,14 +86,14 @@ export async function getAllMessages(params) {
 
 //获取账户余额等
 export async function getAccount(params) {
-  return request(`/m/api/account?userid=${params.userid||''}`, {
+  return request(`/m/api/account?userid=${params.userid || ''}`, {
     method: 'get',
   });
 }
 
 //获取支付方式图片
 export async function getPayment(params) {
-  return request(`/m/api/settings/payment?type=${params.type||''}`, {
+  return request(`/m/api/settings/payment?type=${params.type || ''}`, {
     method: 'get',
   });
 }
@@ -125,7 +123,7 @@ export async function getRechargeRecords(params) {
 
 //下注记录，即交易记录
 export async function getQuizRecords(params) {
-  return request(`/m/api/quizs/${params.openid}`, {
+  return request(`/m/api/quizs/${params.userid}?day=${params.day || moment().format("YYYY-MM-DD")}`, {
     method: 'get',
   });
 }

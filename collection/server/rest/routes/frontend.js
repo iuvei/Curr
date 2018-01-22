@@ -43,10 +43,9 @@ router
     .get('/updowns/:openid', Index.getRechargeRecords)
 
     //交易记录，即下注记录
-    .get('/quizs/:openid', Index.getQuizRecords)
+    .get('/quizs/:userid', Index.getQuizRecords)
 
     .get('/lotterys', Index.getLotterys)
-
 
 module.exports = router;
 

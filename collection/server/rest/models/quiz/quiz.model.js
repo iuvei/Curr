@@ -6,6 +6,7 @@ const QuizSchema = new Schema({
     openid: {type: String, required: true,  index: true}, //用户ID
     no: {type: String, required: true,  index: true}, //期号
     nickname: {type: String, default: ''}, // 用户名
+    game: {type: String, required: true},//游戏类型
     choice: {type: String, required: true}, // 昵称
     avatar: {type: String, default: ''},    // 头像
     income: {type: Number, default: 0},  //进项

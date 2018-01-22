@@ -54,6 +54,9 @@ func main() {
 	s := NewScheduler(&colls)
 
 	for _, v := range cfg.CaiPiaos {
+		if v.Disable {
+			continue
+		}
 		switch v.Type {
 		case CAI_BJPK10:
 			log.Infof("添加彩种[%s] ~ %v", v.Name, v)

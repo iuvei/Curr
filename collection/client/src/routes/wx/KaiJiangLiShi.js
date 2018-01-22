@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import moment from 'moment';
-import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 
 import '../../assets/wx/css/kaijianglishi.css';
 
@@ -17,35 +16,44 @@ export default class KaiJiangLiShi extends Component {
     });
     this.state = {
       days,
-      type: "CQSSC",
+      type: props.type || 'CQSSC',
       lotterys: [],
     }
   }
 
   componentDidMount() {
-    getLotterys({type: "CQSSC"})
+    this.getLotterysByType(this.state.type)
+  }
+
+  getLotterysByType = (type) => {
+    getLotterys({type})
       .then(data => {
-        console.log('==', data.result.lotterys)
         if (data.success) {
           this.setState({
+            type,
             lotterys: data.result.lotterys,
           });
         }
       });
   }
 
+  onTypeChange = (type) => {
+    this.getLotterysByType(type)
+  }
+
 
   render() {
-    const {days} = this.state;
-    console.log(this.state.days)
+    const {days, type, lotterys} = this.state;
     return (
       <div className="w">
         <div id="betting2">
           <div className="clf top" id="btn">
-            <span>北京赛车</span>
-            <span>重庆时时彩</span>
-            <span>江苏快三</span>
-
+            <span onClick={() => this.onTypeChange("BJPK10")}
+                  className={type == "BJPK10" ? 'redBG' : ''}>北京赛车</span>
+            <span onClick={() => this.onTypeChange("CQSSC")}
+                  className={type == "CQSSC" ? 'redBG' : ''}>重庆时时彩</span>
+            <span onClick={() => this.onTypeChange("JSK3")}
+                  className={type == "JSK3" ? 'redBG' : ''}>江苏快三</span>
           </div>
 
           <div className="time">
@@ -59,7 +67,6 @@ export default class KaiJiangLiShi extends Component {
             </select>
           </div>
           <div id="ctb2">
-            {/*<!--北京赛车-->*/}
             <div className="bottom">
               <div className="clf title">
                 <span className="sp1">期数</span>
@@ -67,70 +74,24 @@ export default class KaiJiangLiShi extends Component {
               </div>
               <div className="types">
                 <ul className="clf">
-                  <li className="clf">
-                    <div className="dv1">661099</div>
-                    <div className="dv2">
-                      <img src={require("../../assets/wx/images/h-0.png")}/>
-                      <img src={require("../../assets/wx/images/h-1.png")}/>
-                      <img src={require("../../assets/wx/images/h-2.png")}/>
-                      <img src={require("../../assets/wx/images/h-3.png")}/>
-                      <img src={require("../../assets/wx/images/h-4.png")}/>
-                      <img src={require("../../assets/wx/images/h-5.png")}/>
-                      <img src={require("../../assets/wx/images/h-6.png")}/>
-                      <img src={require("../../assets/wx/images/h-7.png")}/>
-                      <img src={require("../../assets/wx/images/h-8.png")}/>
-                      <img src={require("../../assets/wx/images/h-9.png")}/>
-                    </div>
-                    <div className="dv3"></div>
-                  </li>
-                  <li className="clf">
-                    <div className="dv1">661099</div>
-                    <div className="dv2">
-                      <img src={require("../../assets/wx/images/h-0.png")}/>
-                      <img src={require("../../assets/wx/images/h-1.png")}/>
-                      <img src={require("../../assets/wx/images/h-2.png")}/>
-                      <img src={require("../../assets/wx/images/h-3.png")}/>
-                      <img src={require("../../assets/wx/images/h-4.png")}/>
-                      <img src={require("../../assets/wx/images/h-5.png")}/>
-                      <img src={require("../../assets/wx/images/h-6.png")}/>
-                      <img src={require("../../assets/wx/images/h-7.png")}/>
-                      <img src={require("../../assets/wx/images/h-8.png")}/>
-                      <img src={require("../../assets/wx/images/h-9.png")}/>
-                    </div>
-                    <div className="dv3"></div>
-                  </li>
-                  <li className="clf">
-                    <div className="dv1">661099</div>
-                    <div className="dv2">
-                      <img src={require("../../assets/wx/images/h-0.png")}/>
-                      <img src={require("../../assets/wx/images/h-1.png")}/>
-                      <img src={require("../../assets/wx/images/h-2.png")}/>
-                      <img src={require("../../assets/wx/images/h-3.png")}/>
-                      <img src={require("../../assets/wx/images/h-4.png")}/>
-                      <img src={require("../../assets/wx/images/h-5.png")}/>
-                      <img src={require("../../assets/wx/images/h-6.png")}/>
-                      <img src={require("../../assets/wx/images/h-7.png")}/>
-                      <img src={require("../../assets/wx/images/h-8.png")}/>
-                      <img src={require("../../assets/wx/images/h-9.png")}/>
-                    </div>
-                    <div className="dv3"></div>
-                  </li>
-                  <li className="clf">
-                    <div className="dv1">661099</div>
-                    <div className="dv2">
-                      <img src={require("../../assets/wx/images/h-0.png")}/>
-                      <img src={require("../../assets/wx/images/h-1.png")}/>
-                      <img src={require("../../assets/wx/images/h-2.png")}/>
-                      <img src={require("../../assets/wx/images/h-3.png")}/>
-                      <img src={require("../../assets/wx/images/h-4.png")}/>
-                      <img src={require("../../assets/wx/images/h-5.png")}/>
-                      <img src={require("../../assets/wx/images/h-6.png")}/>
-                      <img src={require("../../assets/wx/images/h-7.png")}/>
-                      <img src={require("../../assets/wx/images/h-8.png")}/>
-                      <img src={require("../../assets/wx/images/h-9.png")}/>
-                    </div>
-                    <div className="dv3"></div>
-                  </li>
+                  {
+                    lotterys.map((item, i) => {
+                      console.log(item)
+                      return (
+                        <li className="clf" key={i}>
+                          <div className="dv1">{item.no}</div>
+                          <div className="dv2">
+                            {
+                              item.code.split(",").map(e => {
+                                return <img src={require(`../../assets/wx/images/h-${e}.png`)}/>;
+                              })
+                            }
+                          </div>
+                          <div className="dv3"></div>
+                        </li>
+                      );
+                    })
+                  }
                 </ul>
               </div>
 

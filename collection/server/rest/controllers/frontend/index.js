@@ -108,11 +108,15 @@ class IndexController {
         const {userid, no, game, method, nickname, choice, avatar} = ctx.request.body;
         console.log(ctx.request.body);
         if (!userid || !no || !choice || !game) return ctx.body = {message: '不能为空', code: 400}
-        const user = await UserModel.findOne({_id: userid});
-        if (user) return ctx.body = {message: '用户不存在', code: 400}
-        const amount = 100000;
+        const user = await UserModel.findOne({'_id': userid});
+
+        if (!user) return ctx.body = {message: '用户不存在', code: 400}
+        let amount = 0;
+        for (var key in choice) {
+            amount += choice[key]
+        }
         if (user.balance < amount) {
-            log.error("User: ", userid, "余额不足")
+            console.log("User: ", userid, "余额不足")
             return ctx.body = {message: '余额不足', code: 400};
         }
 
@@ -123,17 +127,18 @@ class IndexController {
 
         const ret = await UserModel.update(query, {'$inc': {balance: -amount}}, {upsert: false});
         if (ret.nModified !== 1) {
-            log.error("更新余额失败:", query, {'$inc': {balance: -amount}}, ret);
+            console.log("更新余额失败:", query, {'$inc': {balance: -amount}}, ret);
             return ctx.body = {message: '更新余额失败', code: 400};
         }
 
         const record = {from: 1, no, userid, game, method, nickname, choice, avatar, amount}
-        const result = await BetModel.create(record);
-        if (!result) {
-            log.error("下注保存失败: ", result);
+        const res = await BetModel.create(record);
+        console.log(res, '=====================')
+        if (!res) {
+            console.log("下注保存失败: ", res);
             return ctx.body = {message: '下注失败', code: 400};
         }
-        return ctx.body = {result, code: 200}
+        return ctx.body = {res, code: 200}
     }
 
     static async getUserInfo(ctx) { //微信用过
@@ -240,7 +245,7 @@ class IndexController {
 
     // 获取下注消息
     static async getMessages(ctx) {
-        //const {no} =  ctx.request.query;
+        //const {no} =  c;
         const messages = await BetModel.find({}, {'_id': 0, '__v': 0, "dealed": 0, "openid": 0, "amount": 0})
             .sort({"createdAt": -1}).limit(50);
         if (!messages) {
@@ -300,9 +305,10 @@ class IndexController {
 
     // 交易记录
     static async getQuizRecords(ctx) {
-        const openid = ctx.params.openid;
-        const quizs = await QuizModel.find({openid},
-            {"_id": 0, "openid": 0, "createdAt": 0, "nickname": 0, "avatar": 0})
+        const userid = ctx.params.userid;
+        const {day} = ctx.request.query;
+        const quizs = await QuizModel.find({userid},
+            {"_id": 0, "userid": 0, "createdAt": 0, "nickname": 0, "avatar": 0})
             .sort({"_id": 1}).limit(20);
         if (!quizs) {
             return ctx.body = {message: '获取交易记录失败', code: 404}
