@@ -13,6 +13,7 @@ import (
 	"time"
 
 	qlog "github.com/qiniu/log"
+	"gopkg.in/mgo.v2/bson"
 )
 
 var log = qlog.New(os.Stderr, "BJPK10", qlog.Ldefault)
@@ -139,14 +140,21 @@ func (m *BJPK10) Store(lt Lottery) error {
 
 func (m *BJPK10) calculate() {
 
+	var settings Settings
+	if err := m.colls.SettingsColl.Find(M{"type": "betting"}).One(&settings); err != nil {
+		log.Errorf("failed to get rules settings, error: %v", err)
+	}
+
+	log.Infof("rules %#v", settings.Rules)
+
 	var bets []Bet
-	err := m.colls.BetColl.Find(M{"from": 1, "game": "BJPK10", "dealed": false}).All(&bets)
+	err := m.colls.BetColl.Find(M{"from": 1, "dealed": false}).All(&bets)
 	if err != nil {
 		log.Errorf("failed to get bets, error: %v", err)
 	}
 	opencode := strings.Split(m.currLottery.Opencode, ",")
 	for _, v := range bets {
-		var win float32
+		var win int64
 		fmt.Printf("%#v\n", v)
 		if v.No != m.currLottery.No {
 			var lt Lottery
@@ -156,14 +164,14 @@ func (m *BJPK10) calculate() {
 				continue
 			}
 			log.Info(lt, v.No)
-			win, err = calculate(v.Choice, v.Method, strings.Split(lt.Opencode, ","))
+			win, err = calculate(v.Choice, settings.Rules, strings.Split(lt.Opencode, ","))
 			if err != nil {
 				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, NowNo, err)
 				continue
 			}
 
 		} else {
-			win, err = calculate(v.Choice, v.Method, opencode)
+			win, err = calculate(v.Choice, settings.Rules, opencode)
 			if err != nil {
 				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, NowNo, err)
 				continue
@@ -171,7 +179,7 @@ func (m *BJPK10) calculate() {
 		}
 
 		if win != 0 {
-			if err = m.colls.UserColl.Update(M{"userid": v.UserId}, M{"$inc": M{"balance": win}}); err != nil {
+			if err = m.colls.UserColl.Update(M{"openid": v.Openid}, M{"$inc": M{"balance": win}}); err != nil {
 				log.Errorf("failed to update user's balance, error: %v", err)
 				continue
 			}
@@ -198,4 +206,32 @@ func (m *BJPK10) calculate() {
 		}
 
 	}
+}
+
+type Bet struct {
+	Id       bson.ObjectId `json:"id" bson:"_id"`
+	No       int64         `json:"no" bson:"no"`
+	Nickname string        `json:"nickname" bson:"nickname"`
+	Openid   string        `json:"openid" bson:"openid"`
+	Choice   string        `json:"choice" bson:"choice"`
+	Amount   int64         `json:"amount" bson:"amount"`
+	Avatar   string        `json:"avatar" bson:"avatar"`
+	Dealed   bool          `json:"dealed" bson:"dealed"`
+}
+
+type RuleConfig struct {
+	Rule01 int `json:"rule01" bson:"rule01"`
+	Rule02 int `json:"rule02" bson:"rule02"`
+	Rule03 int `json:"rule03" bson:"rule03"`
+	Rule04 int `json:"rule04" bson:"rule04"`
+	Rule05 int `json:"rule05" bson:"rule05"`
+	Rule06 int `json:"rule06" bson:"rule06"`
+	Rule07 int `json:"rule07" bson:"rule07"`
+	Rule08 int `json:"rule08" bson:"rule08"`
+	Rule09 int `json:"rule09" bson:"rule09"`
+}
+
+type Settings struct {
+	Type  string     `json:"type" bson:"type"`
+	Rules RuleConfig `json:"config" bson:"config"`
 }

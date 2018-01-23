@@ -54,7 +54,6 @@ class CQSSC extends Component {
   getLiveLottery = () => {
     getLive({type: "CQSSC"})
       .then(data => {
-        //console.log('========================', data.result)
         if (data.success) {
           this.setState({
             opening: false,//this.state.lottery.next.leftTime >0 ? false:true,
@@ -709,10 +708,8 @@ class CQSSC extends Component {
             </div>
 
             <div className="clf btns">
-              {/*<form>*/}
               <input type="submit" className="ip1" value="投注" onClick={this.onSend}/>
               <input type="submit" className="ip2" value="重填" onClick={this.onRest}/>
-              {/*</form>*/}
             </div>
           </div>
         </Spin>
@@ -727,6 +724,3 @@ function mapStateToProps(state) {
 
 
 export default connect(mapStateToProps)(CQSSC);
-
-
-

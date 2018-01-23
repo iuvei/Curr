@@ -79,21 +79,42 @@ class IndexController {
         const {type} =  ctx.request.query;
         const lottery = await LotteryModel.findOne({type: type.toUpperCase()}, {'_id': 0}).sort({"no": -1})
         if (lottery) { //判断存在
-            const live = {
-                time: parseInt(Date.now() / 1000),
-                current: {
-                    no: lottery.no,
-                    opentime: lottery.opentime,
-                    code: lottery.code,
-                },
-                next: {
-                    no: lottery.no + 1,
-                    //moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss')
-                    opentime: moment(lottery.opentime).add(7, "m").format('YYYY-MM-DD HH:mm:ss'),
-                    leftTime: moment(lottery.opentime).add(7, "m").diff(moment(), 'seconds'),
-                    delayTime: 5000,
-                }
+            var live = {}
+            switch (type.toUpperCase()) {
+                case "CQSSC":
+                    live = {
+                        time: parseInt(Date.now() / 1000),
+                        current: {
+                            no: lottery.no,
+                            opentime: lottery.opentime,
+                            code: lottery.code,
+                        },
+                        next: {
+                            no: lottery.no + 1,
+                            //moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss')
+                            opentime: moment(lottery.opentime).add(7, "m").format('YYYY-MM-DD HH:mm:ss'),
+                            leftTime: moment(lottery.opentime).add(7, "m").diff(moment(), 'seconds'),
+                            delayTime: 5000,
+                        }
 
+                    }
+                case "BJPK10":
+                    live = {
+                        time: parseInt(Date.now() / 1000),
+                        current: {
+                            no: lottery.no,
+                            opentime: lottery.opentime,
+                            code: lottery.code,
+                        },
+                        next: {
+                            no: lottery.no + 1,
+                            //moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss')
+                            opentime: moment(lottery.opentime).add(4, "m").format('YYYY-MM-DD HH:mm:ss'),
+                            leftTime: moment(lottery.opentime).add(4, "m").diff(moment(), 'seconds'),
+                            delayTime: 5000,
+                        }
+
+                    }
             }
             console.log(live)
             //console.log(lottery.opentime,moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss'),'==============', Date.now().toString())
@@ -307,7 +328,8 @@ class IndexController {
     static async getQuizRecords(ctx) {
         const userid = ctx.params.userid;
         const {day} = ctx.request.query;
-        const quizs = await QuizModel.find({userid},
+        var reg = new RegExp(day, 'i');
+        const quizs = await QuizModel.find({userid, opentime: {"$regex": reg}},
             {"_id": 0, "userid": 0, "createdAt": 0, "nickname": 0, "avatar": 0})
             .sort({"_id": 1}).limit(20);
         if (!quizs) {
@@ -318,8 +340,12 @@ class IndexController {
 
     // 获取开奖消息
     static async getLotterys(ctx) {
-        const {type} =  ctx.request.query;
-        const lotterys = await LotteryModel.find({type: type.toUpperCase()}, {"_id": 0}).sort({"no": -1}).limit(20);
+        const {type, day} =  ctx.request.query;
+        var reg = new RegExp(day, 'i');
+        const lotterys = await LotteryModel.find({
+            type: type.toUpperCase(),
+            opentime: {"$regex": reg}
+        }, {"_id": 0}).sort({"no": -1}).limit(20);
         if (!lotterys) {
             return ctx.body = {message: '获取开奖记录失败', code: 404}
         }

@@ -16,21 +16,23 @@ export default class KaiJiangLiShi extends Component {
     });
     this.state = {
       days,
+      day: moment().format('YYYY-MM-DD'),
       type: props.type || 'CQSSC',
       lotterys: [],
     }
   }
 
   componentDidMount() {
-    this.getLotterysByType(this.state.type)
+    this.getLotterysByType(this.state.type, this.state.day)
   }
 
-  getLotterysByType = (type) => {
-    getLotterys({type})
+  getLotterysByType = (type, day) => {
+    getLotterys({type, day})
       .then(data => {
         if (data.success) {
           this.setState({
             type,
+            day,
             lotterys: data.result.lotterys,
           });
         }
@@ -38,9 +40,12 @@ export default class KaiJiangLiShi extends Component {
   }
 
   onTypeChange = (type) => {
-    this.getLotterysByType(type)
+    this.getLotterysByType(type, this.state.day)
   }
 
+  onDayChange = (e) => {
+    this.getLotterysByType(this.state.type, e.target.value)
+  }
 
   render() {
     const {days, type, lotterys} = this.state;
@@ -58,7 +63,7 @@ export default class KaiJiangLiShi extends Component {
 
           <div className="time">
             <span>开奖历史：</span>
-            <select>
+            <select onChange={this.onDayChange}>
               {
                 days.map(item => {
                   return <option key={item} value={item}>{item}</option>;

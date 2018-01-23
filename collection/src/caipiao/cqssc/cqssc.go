@@ -13,7 +13,6 @@ import (
 	"time"
 
 	qlog "github.com/qiniu/log"
-	"gopkg.in/mgo.v2/bson"
 )
 
 var log = qlog.New(os.Stderr, "CQSSC", qlog.Ldefault)
@@ -206,19 +205,4 @@ func (m *CQSSC) calculate() {
 			log.Errorf("failed to change bets's state[dealed:true], error: %v", err)
 		}
 	}
-}
-
-type Bet struct {
-	Id        bson.ObjectId  `json:"id" bson:"_id"`
-	From      int            `json"from" bson:"from"`      //类型 1：用户 2：管理员 3：机器人
-	UserId    string         `json:"userid" bson:"userid"` //用户ID
-	No        int64          `json:"no" bson:"no"`         //期号
-	Nickname  string         `json:"nickname" bson:"nickname"`
-	Game      string         `json:"game" bson:"game"`     //游戏类型
-	Method    int            `json:"method" bson:"method"` //游戏的玩法编号
-	Choice    map[string]int `json:"choice" bson:"choice"`
-	Amount    float32        `json:"amount" bson:"amount"`
-	Avatar    string         `json:"avatar" bson:"avatar"`
-	Dealed    bool           `json:"dealed" bson:"dealed"`
-	CreatedAt bool           `json:"createdAt" bson:"createdAt"`
 }

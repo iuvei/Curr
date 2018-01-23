@@ -130,7 +130,7 @@ export async function getQuizRecords(params) {
 
 //开奖记录
 export async function getLotterys(params) {
-  return request(`/m/api/lotterys?type=${params.type}`, {
+  return request(`/m/api/lotterys?type=${params.type}&day=${params.day || moment().format("YYYY-MM-DD")}`, {
     method: 'get',
   });
 }
