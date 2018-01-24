@@ -75,7 +75,7 @@ class BJPK10 extends Component {
   }
 
   gotoKaijiangHISTORY = () => {
-    hashHistory.push({pathname: PATH_HISTORY});
+    hashHistory.push({pathname: PATH_HISTORY, state: {type: "BJPK10"}});
   }
 
   onMethodChange = (method) => {

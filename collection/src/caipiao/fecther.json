@@ -7,15 +7,17 @@
     },
 	"caipiaos": [
 		{	
+			"disable": true,
 			"name": "bjpk10",
 			"type": "bjpk10",
 			"cron": "20 2-59/5 9-23 * * ?",
 			"urls": "http://d.apiplus.net/newly.do?token=t31ca37cd375be4b4k&code=bjpk10&rows=1&format=json"
 		},
 		{	
+			"disable": true,
 			"name": "cqssc",
 			"type": "cqssc",
-			"cron": "30 10-59/10 10-23,0,1 * * ?",
+			"cron": "30,50 10-59/2 10-23,0,1 * * ?",
 			"urls": "http://d.apiplus.net/newly.do?token=t31ca37cd375be4b4k&code=cqssc&rows=1&format=json"
 		},
 		{	

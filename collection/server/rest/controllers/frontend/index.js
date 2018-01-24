@@ -115,6 +115,24 @@ class IndexController {
                         }
 
                     }
+
+                case "JSK3":
+                    live = {
+                        time: parseInt(Date.now() / 1000),
+                        current: {
+                            no: lottery.no,
+                            opentime: lottery.opentime,
+                            code: lottery.code,
+                        },
+                        next: {
+                            no: lottery.no + 1,
+                            //moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss')
+                            opentime: moment(lottery.opentime).add(8, "m").format('YYYY-MM-DD HH:mm:ss'),
+                            leftTime: moment(lottery.opentime).add(8, "m").diff(moment(), 'seconds'),
+                            delayTime: 5000,
+                        }
+
+                    }
             }
             console.log(live)
             //console.log(lottery.opentime,moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss'),'==============', Date.now().toString())

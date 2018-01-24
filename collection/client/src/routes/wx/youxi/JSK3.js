@@ -1,36 +1,59 @@
 import React, {Component} from 'react';
+import {connect} from 'dva';
+import {getCookie} from '../../../utils/cookies';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../../assets/wx/css/chongqingshishicai.css';
-
-import {getCurrLottery} from '../../../services/wxEnd';
+import {Icon, Spin, message} from 'antd';
+import {getCurrLottery, getLive, bet} from '../../../services/wxEnd';
+import CountDown from '../../../components/mobile/CountDown';
 /**
  * Created by sven on 2018/1/7.
  */
 
 const PATH_HISTORY = "/kaijianglishi"
 
-export default class JSK3 extends Component {
+const METHOD_1 = 1; //和值
+const METHOD_2 = 2; //选三
+const METHOD_3 = 3; //选二
+
+const options = [<option key="0" value="0">0</option>,
+  <option key="2" value="2">2</option>,
+  <option key="5" value="5">5</option>,
+  <option key="10" value="10">10</option>,
+  <option key="20" value="20">20</option>,
+  <option key="50" value="50">50</option>,
+  <option key="100" value="100">100</option>
+];
+
+class JSK3 extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ticker: null,
-      lottery: {}
+      opening: false,
+      lottery: {time: '', current: {}, next: {}},
+      method: METHOD_1,
+      choice: {},
     }
+    this.getLiveLottery();
   }
 
   componentDidMount() {
-    const ticker = setInterval(function () {
-      getCurrLottery({type: "JSK3"})
-        .then(data => {
-          if (data.success) {
-            console.log('==', data.result.lottery)
-            this.setState({
-              lottery: data.result.lottery,
-            });
-          }
-        });
-    }.bind(this), 5000);
+    this.getLiveLottery();
+    const ticker = setInterval(this.getLiveLottery, 15000);
     this.setState({ticker});
+  }
+
+  getLiveLottery = () => {
+    getLive({type: "JSK3"})
+      .then(data => {
+        if (data.success) {
+          this.setState({
+            opening: false,//this.state.lottery.next.leftTime >0 ? false:true,
+            lottery: data.result.lottery,
+          });
+        }
+      });
   }
 
   componentWillUnmount() {
@@ -38,18 +61,83 @@ export default class JSK3 extends Component {
   }
 
   gotoKaijiangHISTORY = () => {
-    hashHistory.push({pathname: PATH_HISTORY});
+    hashHistory.push({pathname: PATH_HISTORY, state: {type: "JSK3"}});
   }
 
+  onMethodChange = (method) => {
+    if (this.state.method !== method) {
+      this.onRest();
+      this.setState({
+        method,
+        choice: {},
+      })
+    }
+  }
+
+
+  onSend = () => {
+    console.log(this.props.wx.userinfo)
+    const {_id, username, nickename, avatar} = this.props.wx.userinfo;
+    const {no, type} = this.state.lottery.next;
+    const {method, choice} = this.state;
+    if (Object.keys(choice).length == 0) {
+      message.warn("您没有下注哦");
+      return
+    }
+    const req = {userid: _id, no, game: "JSK3", method, choice, avatar, nickename: nickename || username}
+    bet(req).then(data => {
+      if (data.success) {
+        this.setState({choice: {}});
+        this.onRest();
+        this.props.dispatch({ //更新当前显示金额
+          type: 'wx/getUserInfo',
+          payload: {userid: getCookie("userid")}
+        })
+        message.success("下注成功")
+      } else {
+        message.error(data.message)
+      }
+    });
+  }
+
+  onRest = () => {
+    document.getElementById("form").reset();
+  }
+
+  onValueChange = (e) => {
+    const choice = this.state.choice;
+    if (e.target.value == 0) {
+      delete(choice[e.target.id])
+    } else {
+      choice[e.target.id] = parseInt(e.target.value);
+    }
+    this.setState({choice});
+  }
+
+  onCallBack = () => {
+    this.setState({opening: true})
+  }
+
+
   render() {
-    const {no, type, code, opentime} = this.state.lottery;
+    const {method} = this.state;
+    const {no, type, code, opentime} = this.state.lottery.current;
+    var sum = 0;
+    if (code !== undefined && code.split(",")) {
+      const nums = code.split(",")
+      sum = parseInt(nums[0]) + parseInt(nums[1]) + parseInt(nums[2])
+    }
     return (
       <div className="w">
         <div className="result">
           <div className="clf periods">
             <div className="fl name">重庆时时彩</div>
-            <div className="fl number">第 <span>{no || '--'}</span> 期</div>
-            <div className="fr time" id="time"></div>
+            <div className="fl number">第 <span>{this.state.lottery.next.no || '--'}</span> 期</div>
+            <div className="fr time" id="time">
+              <CountDown start={10} end={22}
+                         time={this.state.lottery.next.leftTime}
+                         callBack={this.onCallBack.bind(this)}/>
+            </div>
           </div>
 
           <div className="lottery">
@@ -65,34 +153,28 @@ export default class JSK3 extends Component {
                 }
               </div>
               <div className="fr btn"><a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
-
             </div>
             <div className="center">
-              <span className="sp1">总和：<i>30总和大</i> <i>总和双</i></span>
-              <span className="sp2">牛牛：<i>牛牛</i> <i>牛双</i> <i>牛大</i></span>
-            </div>
-            <div className="bottom clf">
-              <span className="sp1">龙虎：<i>龙 </i></span>
-              <span className="sp2">前三：<i>对子</i> </span>
-              <span className="sp2">中三：<i>对子</i> </span>
-              <span className="sp2">后三：<i>半顺</i> </span>
+                  <span
+                    className="sp1">和值：<i>{sum > 0 ? sum : ""} {sum >= 11 ? "大" : "小"} {sum % 2 == 0 ? "双" : "单"}</i></span>
             </div>
           </div>
 
           <div className="clf button">
             <form action="">
-              {/*<!--<input type="submit" value="珠子/总和龙虎">-->*/}
-              {/*<!--<input type="submit" value="斗牛/梭哈/组合">-->*/}
-              <input type="submit" value="刷新"/>
+              <input type="submit" value="刷新" onClick={this.getLiveLottery}/>
             </form>
           </div>
         </div>
 
         <div id="betting">
           <div className="top" id="btn">
-            <span>和值</span>
-            <span>选三号</span>
-            <span>选二号</span>
+            <span onClick={() => this.onMethodChange(METHOD_1)}
+                  className={method == METHOD_1 ? 'redBG' : ''}>和值</span>
+            <span onClick={() => this.onMethodChange(METHOD_2)}
+                  className={method == METHOD_2 ? 'redBG' : ''}>选三号</span>
+            <span onClick={() => this.onMethodChange(METHOD_3)}
+                  className={method == METHOD_3 ? 'redBG' : ''}>选二号</span>
           </div>
 
           <div id="ctb">
@@ -106,310 +188,73 @@ export default class JSK3 extends Component {
                 <span className="sp2">赔率</span>
                 <span className="sp3">金额</span>
               </div>
-              <div className="types">
-                <ul className="clf">
-                  <li className="li1">大</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3">
-                    <select>
-                      <option value="volvo">0</option>
-                      <option value="saab">2</option>
-                      <option value="opel">3</option>
-                      <option value="audi">4</option>
-                      <option value="audi">5</option>
-                    </select>
-                  </li>
+              <form id="form">
+                <div className={this.state.method == METHOD_1 ? "types" : "types hidden"}>
+                  <ul className="clf">
+                    {
+                      ['大', '小', '单', '双', 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(i => {
+                        return (
+                          <span key={i}>
+                              <li className="li1">{i}</li>
+                              <li className="li2">1.995</li>
+                              <li className="li3">
+                              <select onChange={this.onValueChange} id={`${i}`}>
+                                {options}
+                              </select>
+                            </li>
+                          </span>
+                        )
+                      })
+                    }
 
-                  <li className="li1">小</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3">
-                    <select>
-                      <option value="volvo">0</option>
-                      <option value="saab">2</option>
-                      <option value="opel">3</option>
-                      <option value="audi">4</option>
-                      <option value="audi">5</option>
-                    </select>
-                  </li>
+                  </ul>
+                </div>
 
-                  <li className="li1">单</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3">
-                    <select>
-                      <option value="volvo">0</option>
-                      <option value="saab">2</option>
-                      <option value="opel">3</option>
-                      <option value="audi">4</option>
-                      <option value="audi">5</option>
-                    </select>
-                  </li>
+                <div className={this.state.method == METHOD_2 ? "types" : "types hidden"}>
+                  <ul className="clf">
+                    {
+                      [111, 222, 333, 444, 555, 666].map(i => {
+                        return (
+                          <span key={i}>
+                              <li className="li1">{i}</li>
+                              <li className="li2">1.995</li>
+                              <li className="li3">
+                              <select onChange={this.onValueChange} id={`${i}`}>
+                                {options}
+                              </select>
+                            </li>
+                          </span>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
 
-                  <li className="li1">双</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3">
-                    <select>
-                      <option value="volvo">0</option>
-                      <option value="saab">2</option>
-                      <option value="opel">3</option>
-                      <option value="audi">4</option>
-                      <option value="audi">5</option>
-                    </select>
-                  </li>
-
-                  <li className="li1">3</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3">
-                    <select>
-                      <option value="volvo">0</option>
-                      <option value="saab">2</option>
-                      <option value="opel">3</option>
-                      <option value="audi">4</option>
-                      <option value="audi">5</option>
-                    </select>
-                  </li>
-
-                  <li className="li1">4</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3">
-                    <select>
-                      <option value="volvo">0</option>
-                      <option value="saab">2</option>
-                      <option value="opel">3</option>
-                      <option value="audi">4</option>
-                      <option value="audi">5</option>
-                    </select>
-                  </li>
-
-                  <li className="li1">5</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3">
-                    <select>
-                      <option value="volvo">0</option>
-                      <option value="saab">2</option>
-                      <option value="opel">3</option>
-                      <option value="audi">4</option>
-                      <option value="audi">5</option>
-                    </select>
-                  </li>
-
-                  <li className="li1">6</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3">
-                    <select>
-                      <option value="volvo">0</option>
-                      <option value="saab">2</option>
-                      <option value="opel">3</option>
-                      <option value="audi">4</option>
-                      <option value="audi">5</option>
-                    </select>
-                  </li>
-
-                  <li className="li1">7</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3">
-                    <select>
-                      <option value="volvo">0</option>
-                      <option value="saab">2</option>
-                      <option value="opel">3</option>
-                      <option value="audi">4</option>
-                      <option value="audi">5</option>
-                    </select>
-                  </li>
-
-                  <li className="li1">8</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">9</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">10</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">11</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">12</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">13</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">14</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">15</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">16</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">17</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">18</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-                </ul>
-              </div>
-
-            </div>
-            {/*<!--选三号-->*/}
-            <div className="bottom hidden">
-              <div className="clf title">
-                <span className="sp1">玩法</span>
-                <span className="sp2">赔率</span>
-                <span className="sp3">金额</span>
-                <span className="sp1">玩法</span>
-                <span className="sp2">赔率</span>
-                <span className="sp3">金额</span>
-              </div>
-              <div className="types">
-                <ul className="clf">
-                  <li className="li1">111</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">222</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">333</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">444</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">555</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">666</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">1</li>
-                  <li className="li2">9.000</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">2</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">3</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">4</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">5</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">6</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">123</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">234</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">345</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">456</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-                </ul>
-              </div>
-
-            </div>
-            {/*<!--选二号-->*/}
-            <div className="bottom hidden">
-              <div className="clf title">
-                <span className="sp1">玩法</span>
-                <span className="sp2">赔率</span>
-                <span className="sp3">金额</span>
-                <span className="sp1">玩法</span>
-                <span className="sp2">赔率</span>
-                <span className="sp3">金额</span>
-              </div>
-              <div className="types">
-                <ul className="clf">
-                  <li className="li1">11</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">22</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">33</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">44</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">55</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">66</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">1</li>
-                  <li className="li2">9.000</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">2</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">3</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">4</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">5</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-
-                  <li className="li1">6</li>
-                  <li className="li2">1.980</li>
-                  <li className="li3"><input type="text"/></li>
-                </ul>
-              </div>
+                <div className={this.state.method == METHOD_3 ? "types" : "types hidden"}>
+                  <ul className="clf">
+                    {
+                      [11, 22, 33, 44, 55, 66].map(i => {
+                        return (
+                          <span key={i}>
+                              <li className="li1">{i}</li>
+                              <li className="li2">1.995</li>
+                              <li className="li3">
+                              <select onChange={this.onValueChange} id={`${i}`}>
+                                {options}
+                              </select>
+                            </li>
+                          </span>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
+              </form>
             </div>
 
             <div className="clf btns">
-              <form action="">
-                <input type="submit" className="ip1" value="投注"/>
-                <input type="submit" className="ip2" value="重填"/>
-              </form>
+              <input type="submit" className="ip1" value="投注" onClick={this.onSend}/>
+              <input type="submit" className="ip2" value="重填" onClick={this.onRest}/>
             </div>
           </div>
         </div>
@@ -417,5 +262,13 @@ export default class JSK3 extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {wx: state.wx};
+}
+
+
+export default connect(mapStateToProps)(JSK3);
+
 
 

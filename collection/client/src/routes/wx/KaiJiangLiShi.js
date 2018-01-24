@@ -14,10 +14,11 @@ export default class KaiJiangLiShi extends Component {
     const days = [...Array(30).keys()].map(i => {
       return moment().add('days', -i).format('YYYY-MM-DD');
     });
+
     this.state = {
       days,
       day: moment().format('YYYY-MM-DD'),
-      type: props.type || 'CQSSC',
+      type: props.location.state.type || 'CQSSC',
       lotterys: [],
     }
   }
@@ -81,7 +82,6 @@ export default class KaiJiangLiShi extends Component {
                 <ul className="clf">
                   {
                     lotterys.map((item, i) => {
-                      console.log(item)
                       return (
                         <li className="clf" key={i}>
                           <div className="dv1">{item.no}</div>

@@ -42,7 +42,7 @@ export default class CountDown extends Component {
       return (<div>
         本期投注剩余时间：{this.state.time > 0 ? `${Math.floor(this.state.time / 60)}:${this.state.time % 60}` : '开奖中'}</div>);
     } else {
-      return (<div>当天开奖已完成</div>);
+      return (<div>当天开奖已结束</div>);
     }
   }
 }

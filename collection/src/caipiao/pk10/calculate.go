@@ -38,7 +38,7 @@ var (
 	}
 
 	//METHOD_21
-	peiLue2 = 1.995 //1V龙虎
+	peiLue2 = float32(1.995) //1V龙虎
 
 	// METHOD_22 = 22 //冠亚和
 	peiLue3 = map[string]float32{
@@ -131,9 +131,10 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 			"5V6龙":  code[4] > code[5],
 			"5V6虎":  code[4] < code[5],
 		}
+
 		for k, v := range input {
 			if m[k] {
-				amount += peiLue1[k] * float32(v)
+				amount += peiLue2 * float32(v)
 			}
 		}
 
@@ -147,7 +148,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		}
 		for k, v := range input {
 			if k == strconv.Itoa(sum) || m[k] {
-				amount += peiLue1[k] * float32(v)
+				amount += peiLue3[k] * float32(v)
 			}
 		}
 

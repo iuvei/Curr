@@ -125,7 +125,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 	if len(opencode) != 5 {
 		return 0, fmt.Errorf("param opencode invalid")
 	}
-	code := make([]int, 6)
+	code := make([]int, 5)
 	for i, v := range opencode {
 		code[i], err = strconv.Atoi(v)
 		if err != nil {

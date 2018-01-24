@@ -68,7 +68,7 @@ class CQSSC extends Component {
   }
 
   gotoKaijiangHISTORY = () => {
-    hashHistory.push({pathname: PATH_HISTORY});
+    hashHistory.push({pathname: PATH_HISTORY, state: {type: "CQSSC"}});
   }
 
   onMethodChange = (method) => {
@@ -266,7 +266,7 @@ class CQSSC extends Component {
                   <div className={this.state.method == METHOD_01 ? "types" : "types hidden"}>
                     <ul className="clf">
                       <li className="li1">大</li>
-                      <li className="li2">1.980</li>
+                      <li className="li2">1.995</li>
                       <li className="li3">
                         <select onChange={this.onValueChange} id="大">
                           {options}
@@ -274,7 +274,7 @@ class CQSSC extends Component {
                       </li>
 
                       <li className="li1">小</li>
-                      <li className="li2">1.980</li>
+                      <li className="li2">1.995</li>
                       <li className="li3">
                         <select onChange={this.onValueChange} id="小">
                           {options}
@@ -282,7 +282,7 @@ class CQSSC extends Component {
                       </li>
 
                       <li className="li1">单</li>
-                      <li className="li2">1.980</li>
+                      <li className="li2">1.995</li>
                       <li className="li3">
                         <select onChange={this.onValueChange} id="单">
                           {options}
@@ -290,7 +290,7 @@ class CQSSC extends Component {
                       </li>
 
                       <li className="li1">双</li>
-                      <li className="li2">1.980</li>
+                      <li className="li2">1.995</li>
                       <li className="li3">
                         <select onChange={this.onValueChange} id="双">
                           {options}
@@ -298,7 +298,7 @@ class CQSSC extends Component {
                       </li>
 
                       <li className="li1">龙</li>
-                      <li className="li2">1.980</li>
+                      <li className="li2">1.995</li>
                       <li className="li3">
                         <select onChange={this.onValueChange} id="龙">
                           {options}
@@ -306,7 +306,7 @@ class CQSSC extends Component {
                       </li>
 
                       <li className="li1">虎</li>
-                      <li className="li2">1.980</li>
+                      <li className="li2">1.995</li>
                       <li className="li3">
                         <select onChange={this.onValueChange} id="虎">
                           {options}
@@ -328,7 +328,7 @@ class CQSSC extends Component {
                 <div className={this.state.method > 10 ? "types" : "types hidden"}>
                   <ul className="clf">
                     <li className="li1"><img src={require("../../../assets/wx/images/h-0.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="0">
                         {options}
@@ -336,7 +336,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-5.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="5">
                         {options}
@@ -344,7 +344,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-1.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="1">
                         {options}
@@ -352,7 +352,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-6.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="6">
                         {options}
@@ -360,7 +360,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-2.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="2">
                         {options}
@@ -368,7 +368,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-7.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="7">
                         {options}
@@ -376,7 +376,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-3.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="3">
                         {options}
@@ -384,7 +384,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-8.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="8">
                         {options}
@@ -392,7 +392,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-4.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="4">
                         {options}
@@ -400,7 +400,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1"><img src={require("../../../assets/wx/images/h-9.png")}/></li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="9">
                         {options}
@@ -408,7 +408,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">大</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="大">
                         {options}
@@ -416,7 +416,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">小</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="小">
                         {options}
@@ -424,7 +424,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">单</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="单">
                         {options}
@@ -432,7 +432,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">双</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="双">
                         {options}
@@ -445,7 +445,7 @@ class CQSSC extends Component {
                 <div className={this.state.method == METHOD_03 ? "types" : "types hidden"}>
                   <ul className="clf">
                     <li className="li1">无牛</li>
-                    <li className="li2">1.960</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="无牛">
                         {options}
@@ -469,7 +469,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛六</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛6">
                         {options}
@@ -477,7 +477,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛二</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛2">
                         {options}
@@ -485,7 +485,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛七</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛7">
                         {options}
@@ -501,7 +501,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛八</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛8">
                         {options}
@@ -509,7 +509,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛四</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛4">
                         {options}
@@ -517,7 +517,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛九</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛9">
                         {options}
@@ -525,7 +525,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛牛</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛0">
                         {options}
@@ -537,7 +537,7 @@ class CQSSC extends Component {
                     <li className="li3"></li>
 
                     <li className="li1">牛大</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛大">
                         {options}
@@ -545,7 +545,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛小</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛小">
                         {options}
@@ -553,7 +553,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛单</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛单">
                         {options}
@@ -561,7 +561,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">牛双</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="牛双">
                         {options}
@@ -619,7 +619,7 @@ class CQSSC extends Component {
                 <div className={this.state.method == METHOD_05 ? "types" : "types hidden"}>
                   <ul className="clf">
                     <li className="li1">豹子</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="豹子">
                         {options}
@@ -627,7 +627,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">顺子</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="顺子">
                         {options}
@@ -635,7 +635,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">对子</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="对子">
                         {options}
@@ -643,7 +643,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">半顺</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="半顺">
                         {options}
@@ -651,7 +651,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">杂六</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="杂六">
                         {options}
@@ -664,7 +664,7 @@ class CQSSC extends Component {
                 <div className={this.state.method == METHOD_06 ? "types" : "types hidden"}>
                   <ul className="clf">
                     <li className="li1">豹子</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="豹子">
                         {options}
@@ -672,7 +672,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">顺子</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="顺子">
                         {options}
@@ -680,7 +680,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">对子</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="对子">
                         {options}
@@ -688,7 +688,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">半顺</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="半顺">
                         {options}
@@ -696,7 +696,7 @@ class CQSSC extends Component {
                     </li>
 
                     <li className="li1">杂六</li>
-                    <li className="li2">1.980</li>
+                    <li className="li2">1.995</li>
                     <li className="li3">
                       <select onChange={this.onValueChange} id="杂六">
                         {options}
