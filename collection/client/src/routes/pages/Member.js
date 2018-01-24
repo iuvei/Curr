@@ -77,7 +77,7 @@ export default class Member extends Component {
   onUpDonwConfirm = () => {
     const type = this.state.type;
     const amount = this.refs.numberInput.value;
-    updateUserBalanceByAdmin({openid: this.state.currItem.openid, type, byWho: "管理员", amount: parseInt(amount)})
+    updateUserBalanceByAdmin({userid: this.state.currItem._id, type, byWho: "管理员", amount: parseInt(amount)})
       .then(data => {
         if (data.success) {
           message.success('操作成功');
@@ -93,7 +93,7 @@ export default class Member extends Component {
   }
 
   onProxySet =(item, proxy)=> {
-    setProxy({openid: item.openid, proxy})
+    setProxy({userid: item._id, proxy})
       .then(data => {
         if (data.success) {
           message.success('设置成功');
@@ -218,7 +218,7 @@ export default class Member extends Component {
                       <div className="title"><span>会员{this.state.type?"上分":"下分"}</span> <a href="javascript:void(0)" onClick={this.onHideUpDownModel}>关闭</a></div>
                       <div className="content">
                           <div className="name">
-                              <span className="sp1">会员名：</span><span className="sp2">{this.state.currItem.nickname||''}</span>
+                              <span className="sp1">会员名：</span><span className="sp2">{this.state.currItem.nickname||this.state.currItem.username||''}</span>
                           </div>
                           <div className="inp">
                               <span className="sp1">{this.state.type?"上分":"下分"}点数：</span><input type="number" ref="numberInput"/>

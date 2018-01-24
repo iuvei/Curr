@@ -96,7 +96,7 @@ class BackendUser {
             return ctx.body = {message: '获取代理推广失败', code: 404}
         }
 
-        for (let i=0 ; i< users.length; i++) {  //获取推广人数
+        for (let i = 0; i < users.length; i++) {  //获取推广人数
             const numUsers = await UserModel.find({agentId: users[i].openid}).count();
             users[i].numUsers = numUsers;
         }
@@ -108,14 +108,14 @@ class BackendUser {
 
     //管理员上下分记录
     static async updateUpDownByAdmin(ctx) {
-        const openid = ctx.params.openid;
+        const userid = ctx.params.userid;
         const {type, byWho, amount} = ctx.request.body;
 
-        if (amount<=0) {
+        if (amount <= 0) {
             return ctx.body = {message: '输入错误，点数需大于0', code: 404}
         }
 
-        const user = await UserModel.findOne({openid})
+        const user = await UserModel.findOne({"_id": userid})
         if (!user) {
             return ctx.body = {message: '该用户不存在', code: 404}
         }
@@ -130,15 +130,15 @@ class BackendUser {
             newBalance = user.balance + amount
         }
 
-        const userRet = await UserModel.update({openid, balance: user.balance }, {'$set': {balance: newBalance}})
+        const userRet = await UserModel.update({_id: userid, balance: user.balance}, {'$set': {balance: newBalance}})
 
         if (userRet.nModified !== 1) {
             return ctx.body = {message: '更新用户余额失败', code: 404}
         }
 
         const ret = await UpDownModel.create({
-            openid,
-            nickname: user.nickname,
+            userid,
+            nickname: user.nickname || user.username,
             avatar: user.avatar,
             type,
             amount: amount,
@@ -154,18 +154,17 @@ class BackendUser {
     }
 
 
-
     //管理员setProxy
     static async setProxy(ctx) {
-        const openid = ctx.params.openid;
+        const userid = ctx.params.userid;
         const {proxy} = ctx.request.body;
 
-        const user = await UserModel.findOne({openid})
+        const user = await UserModel.findOne({_id: userid})
         if (!user) {
             return ctx.body = {message: '该用户不存在', code: 404}
         }
 
-        const userRet = await UserModel.update({openid}, {'$set': {proxy}})
+        const userRet = await UserModel.update({_id: userid}, {'$set': {proxy}})
         if (userRet.nModified !== 1) {
             return ctx.body = {message: '设置用户为代理失败', code: 404}
         }
@@ -177,7 +176,7 @@ class BackendUser {
             status: proxy,
         }
 
-        const result = await AgentModel.update({openid}, {"$set": updateAgent}, {upsert: true});
+        const result = await AgentModel.update({_id: userid}, {"$set": updateAgent}, {upsert: true});
         if (result) return ctx.body = {code: 200}
         else ctx.body = {message: '设置用户为代理失败', code: 400}
     }

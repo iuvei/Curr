@@ -118,18 +118,18 @@ class Index extends Component {
           <div className="notice"><a href="javascript:;">{announcement || ''}</a></div>
           <div className="function clf">
             <ul>
-              <li><a href="javascript:;" onClick={this.getCustomerService}>
-                <img src={require("../../assets/wx/images/icon_function_1.png")}/>客服</a></li>
-              <li><a href="javascript:;" onClick={this.gotoDeposit}><img
-                src={require("../../assets/wx/images/icon_function_2.png")}/>存款</a></li>
-              <li><a href="javascript:;" onClick={this.gotoDrawMoney}><img
-                src={require("../../assets/wx/images/icon_function_2.png")}/>提款</a></li>
               <li><a href="javascript:;" onClick={this.gotoYouXi_CQSSC}><img
                 src={require("../../assets/wx/images/icon_function_3.png")}/>重庆时时彩</a></li>
               <li><a href="javascript:;" onClick={this.gotoYouXi_BJPK10}><img
                 src={require("../../assets/wx/images/icon_function_4.png")}/>北京赛车</a></li>
               <li><a href="javascript:;" onClick={this.gotoYouXi_JSK3}><img
                 src={require("../../assets/wx/images/icon_jsk3.png")}/>江苏快3</a></li>
+              <li><a href="javascript:;" onClick={this.getCustomerService}>
+                <img src={require("../../assets/wx/images/icon_function_1.png")}/>客服</a></li>
+              <li><a href="javascript:;" onClick={this.gotoDeposit}><img
+                src={require("../../assets/wx/images/icon_function_2.png")}/>存款</a></li>
+              <li><a href="javascript:;" onClick={this.gotoDrawMoney}><img
+                src={require("../../assets/wx/images/icon_function_2.png")}/>提款</a></li>
             </ul>
           </div>
 

@@ -9,7 +9,7 @@ export async function addUser(params) {
 
 export async function updateUserBalanceByAdmin(params) {
   console.log(params)
-  return request(`/api/users/${params.openid}/balance`, {
+  return request(`/api/users/${params.userid}/balance`, {
     method: 'put',
     body: JSON.stringify(params),
   });
@@ -17,7 +17,7 @@ export async function updateUserBalanceByAdmin(params) {
 
 export async function setProxy(params) {
   console.log(params)
-  return request(`/api/users/${params.openid}/proxy`, {
+  return request(`/api/users/${params.userid}/proxy`, {
     method: 'put',
     body: JSON.stringify(params),
   });
