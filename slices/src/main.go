@@ -1,0 +1,134 @@
+package main
+
+import (
+	"database/sql"
+	"fmt"
+	"time"
+
+	"github.com/gin-contrib/static"
+	"github.com/gin-gonic/gin"
+	_ "github.com/mattn/go-sqlite3"
+)
+
+func checkErr(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+var db *sql.DB
+
+func init() {
+	var err error
+	db, err = sql.Open("sqlite3", "./database.db")
+	checkErr(err)
+	createTable := `
+	create table if not exists register (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    tjName VARCHAR(64) NULL,
+	classRoom VARCHAR(32) NULL,
+	name VARCHAR(64) NULL,
+    title VARCHAR(64) NULL,
+	phone VARCHAR(20) NULL,
+	co VARCHAR(64) NULL,
+    createAt VARCHAR(20) NULL
+	);
+	`
+	_, err = db.Exec(createTable)
+	checkErr(err)
+}
+func main() {
+	r := gin.Default()
+	r.Use(gin.Recovery())
+	r.Use(static.Serve("/", static.LocalFile("public", true)))
+	rootApi := r.Group("/api")
+	rootApi.GET("ping", func(c *gin.Context) {
+		c.String(200, "pong")
+	})
+	rootApi.POST("registe", PostRegister)
+	rootApi.GET("stat", GetStat)
+
+	r.Run(fmt.Sprintf("0.0.0.0:%d", 8090))
+
+}
+
+type Register struct {
+	TjName    string `json:"tjName"`    //推荐人
+	ClassRoom string `json:"classRoom"` //所属班级
+	Name      string `json:"name"`      //姓名
+	Title     string `json:"title"`     //职位
+	Phone     string `json:"phone"`     //电话
+	Co        string `json:"co"`        //所在公司
+	CreateAt  string `json:"createAt"`  //时间
+}
+
+func PostRegister(c *gin.Context) {
+	var req Register
+	err := c.BindJSON(&req)
+	if err != nil {
+		c.JSON(400, gin.H{"message": fmt.Sprintf("参数有误 %v", err)})
+		return
+	} else {
+		insertSql := fmt.Sprintf("INSERT INTO register(tjName, classRoom, name, title, phone,co, createAt) values('%s','%s','%s','%s','%s','%s','%s')",
+			req.TjName, req.ClassRoom, req.Name, req.Title, req.Phone, req.Co, time.Now().Format("2006-01-02 15:04:05"))
+		fmt.Println(insertSql)
+		res, err := db.Exec(insertSql)
+		if err != nil {
+			c.JSON(400, gin.H{"message": fmt.Sprintf("保存错误 %v", err)})
+			return
+		}
+
+		fmt.Println(res)
+		c.JSON(200, req)
+	}
+}
+
+func GetStat(c *gin.Context) {
+	_type := c.DefaultQuery("type", "1")
+	res := make(map[string]int64)
+	if _type == "1" || _type == "" {
+		selectSQL := fmt.Sprintf(`
+		select classRoom, count(classRoom) from register
+		group by classRoom
+		`)
+		rows, err := db.Query(selectSQL)
+		if err != nil {
+			c.JSON(400, gin.H{"message": fmt.Sprintf("错误 %v", err)})
+			return
+		}
+		defer rows.Close()
+		for rows.Next() {
+			var classRoom string
+			var amount int64
+			err = rows.Scan(&classRoom, &amount)
+			if err != nil {
+				fmt.Println(err)
+			}
+			res[classRoom] = amount
+			fmt.Println(classRoom, amount)
+		}
+	} else {
+		selectSQL := fmt.Sprintf(`
+		select tjName, count(tjName) as amount from register
+		group by tjName
+		`)
+		rows, err := db.Query(selectSQL)
+		if err != nil {
+			c.JSON(400, gin.H{"message": fmt.Sprintf("错误 %v", err)})
+			return
+		}
+		defer rows.Close()
+		for rows.Next() {
+			var tjName string
+			var amount int64
+			err = rows.Scan(&tjName, &amount)
+			if err != nil {
+				fmt.Println(err)
+			}
+			res[tjName] = amount
+			fmt.Println(tjName, amount)
+		}
+	}
+
+	c.JSON(200, res)
+}
