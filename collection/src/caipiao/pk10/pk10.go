@@ -88,11 +88,11 @@ func (m *BJPK10) Run() {
 	//log.Infof("Cost: %v", time.Since(start))
 	log.Infof("Cost: %v >>>>>>>>finish fetching lottery<<<<<<<<<", time.Since(start))
 
-	//	log.Infof(">>>>>>>>start to calculate lottery<<<<<<<<<")
-	//	start2 := time.Now()
-	//	m.calculate()
-	//	log.Infof("Cost: %v", time.Since(start2))
-	//	log.Infof(">>>>>>>>>finish calculate lottery<<<<<<<<<<")
+	log.Infof(">>>>>>>>start to calculate lottery<<<<<<<<<")
+	start2 := time.Now()
+	m.calculate()
+	log.Infof("Cost: %v", time.Since(start2))
+	log.Infof(">>>>>>>>>finish calculate lottery<<<<<<<<<<")
 
 }
 
@@ -171,7 +171,7 @@ func (m *BJPK10) calculate() {
 		}
 
 		if win != 0 {
-			if err = m.colls.UserColl.Update(M{"userid": v.UserId}, M{"$inc": M{"balance": win}}); err != nil {
+			if err = m.colls.UserColl.Update(M{"_id": v.UserId}, M{"$inc": M{"balance": win}}); err != nil {
 				log.Errorf("failed to update user's balance, error: %v", err)
 				continue
 			}

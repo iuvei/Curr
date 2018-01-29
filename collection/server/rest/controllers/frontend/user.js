@@ -28,19 +28,19 @@ class UserController {
             return ctx.body = {message: '用户名或密码不能为空!', code: 400}
         }
 
-        const data = await UserModel.findOne({username, password: md5(password)}, {password: 0});
-        if (!data) return ctx.body = {message: '用户名不存在或密码错误!', code: 400}
+        var ret = await UserModel.findOne({username, password: md5(password)}, {password: 0});
+        if (!ret) return ctx.body = {message: '用户名不存在或密码错误!', code: 400}
 
-        ctx.session.user = data;
-        const id = data._id;
-        const avatar = data.avatar;
+        ctx.session.user = ret;
+        const id = ret._id;
+        const avatar = ret.avatar;
         const keep_user = 604800000; // 7天
 
         ctx.cookies.set('logged', true, {maxAge: keep_user, httpOnly: false});
         ctx.cookies.set('userid', id, {maxAge: keep_user, httpOnly: false});
         ctx.cookies.set('username', username, {maxAge: keep_user, httpOnly: false});
         ctx.cookies.set('avatar', avatar, {maxAge: keep_user, httpOnly: false});
-        return ctx.body = {code: 200, data: data}
+        return ctx.body = {code: 200, data: ret}
     }
 
     // 用户退出

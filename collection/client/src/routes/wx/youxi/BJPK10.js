@@ -7,6 +7,7 @@ import {Icon, Spin, message} from 'antd';
 import {getLive, bet} from '../../../services/wxEnd';
 import CountDown from '../../../components/mobile/CountDown';
 
+import * as p from '../ConstantsPath';
 /**
  * Created by sven on 2018/1/7.
  */
@@ -54,7 +55,7 @@ class BJPK10 extends Component {
 
   componentDidMount() {
     this.getLiveLottery();
-    const ticker = setInterval(this.getLiveLottery, 15000);
+    const ticker = setInterval(this.getLiveLottery, 10000);
     this.setState({ticker});
   }
 
@@ -63,7 +64,7 @@ class BJPK10 extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            opening: false,//this.state.lottery.next.leftTime >0 ? false:true,
+            opening: this.state.lottery.next.leftTime > 0 ? false : true,
             lottery: data.result.lottery,
           });
         }
@@ -90,15 +91,18 @@ class BJPK10 extends Component {
 
 
   onSend = () => {
-    console.log(this.props.wx.userinfo)
-    const {_id, username, nickename, avatar} = this.props.wx.userinfo;
+    const {userid, username, nickname, avatar} = this.props.wx.userinfo;
+    if (userid == undefined || userid == "") {
+      hashHistory.push({pathname: p.PATH_Login});
+      return
+    }
     const {no, type} = this.state.lottery.next;
     const {method, choice} = this.state;
     if (Object.keys(choice).length == 0) {
       message.warn("您没有下注哦");
       return
     }
-    const req = {userid: _id, no, game: "BJPK10", method, choice, avatar, nickename: nickename || username}
+    const req = {userid, no, game: "BJPK10", method, choice, avatar, nickname: nickname || username}
     bet(req).then(data => {
       if (data.success) {
         this.setState({choice: {}});
@@ -157,9 +161,9 @@ class BJPK10 extends Component {
       n8 = parseInt(nums[7])
       n9 = parseInt(nums[8])
       n10 = parseInt(nums[9])
-
-
     }
+
+    console.log(this.state.opening, '=============================================', this.state.lottery.next.leftTime)
 
     return (
       <div className="w">
@@ -168,7 +172,7 @@ class BJPK10 extends Component {
             <div className="fl name">北京赛车</div>
             <div className="fl number">第 <span>{this.state.lottery.next.no || '--'}</span> 期</div>
             <div className="fr time" id="time">
-              <CountDown start={10} end={23}
+              <CountDown start={'9:00'} end={'23:55'}
                          time={this.state.lottery.next.leftTime}
                          callBack={this.onCallBack.bind(this)}/>
             </div>
@@ -196,7 +200,7 @@ class BJPK10 extends Component {
             {
               code !== undefined && code.split(",").length == 10 ?
                 <div className="bottom clf">
-                  <span className="sp2">1V10：<i>{n1 > n10 ? "龙" : "虎"}</i></span>
+                  <span className="sp2">1V10:<i>{n1 > n10 ? " 龙" : " 虎"}</i></span>
                   <span className="sp1">2V9：<i>{n2 > n9 ? "龙" : "虎"}</i></span>
                   <span className="sp1">3V8：<i>{n3 > n8 ? "龙" : "虎"}</i></span>
                   <span className="sp1">4V7：<i>{n4 > n7 ? "龙" : "虎"}</i></span>
@@ -592,9 +596,10 @@ class BJPK10 extends Component {
                       <li className="li1">双</li>
                       <li className="li2">2.4</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="双">
-                          {options}
-                        </select>
+                        <input></input>
+                        {/*<select onChange={this.onValueChange} id="双">*/}
+                        {/*{options}*/}
+                        {/*</select>*/}
                       </li>
                     </ul>
                   </div>

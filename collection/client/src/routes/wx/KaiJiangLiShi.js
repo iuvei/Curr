@@ -88,7 +88,7 @@ export default class KaiJiangLiShi extends Component {
                           <div className="dv2">
                             {
                               item.code.split(",").map(e => {
-                                return <img src={require(`../../assets/wx/images/h-${e}.png`)}/>;
+                                return <img key={e} src={require(`../../assets/wx/images/h-${e}.png`)}/>;
                               })
                             }
                           </div>

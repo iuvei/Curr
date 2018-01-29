@@ -3,21 +3,22 @@ import {connect} from 'dva';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/wx/css/index.css';
 import {getAllMessages, getCustomerImg, getAnnouncement} from '../../services/wxEnd';
+import * as p from './ConstantsPath';
 /**
  * Created by sven on 2018/1/7.
  */
 
-const PATH_Login = "/login";
-const PATH_Sign = "/sign";
-
-const PATH_Deposit = "/deposit";
-const PATH_DrawMoney = "/drawMoney";
-const PATH_XiaZhuJiLu = "/xiazhujilu";
-const PATH_Statistics = "/statistics";
-
-const PATH_YOUXI_CQSSC = "/youxi/cqssc";
-const PATH_YOUXI_BJPK10 = "/youxi/bjpk10";
-const PATH_YOUXI_JSK3 = "/youxi/jsk3";
+// const PATH_Login = "/login";
+// const PATH_Sign = "/sign";
+//
+// const PATH_Deposit = "/deposit";
+// const PATH_DrawMoney = "/drawMoney";
+// const PATH_XiaZhuJiLu = "/xiazhujilu";
+// const PATH_Statistics = "/statistics";
+//
+// const PATH_YOUXI_CQSSC = "/youxi/cqssc";
+// const PATH_YOUXI_BJPK10 = "/youxi/bjpk10";
+// const PATH_YOUXI_JSK3 = "/youxi/jsk3";
 
 class Index extends Component {
   constructor(props) {
@@ -57,11 +58,11 @@ class Index extends Component {
   }
 
   gotoLogin = () => {
-    hashHistory.push({pathname: PATH_Login});
+    hashHistory.push({pathname: p.PATH_Login});
   }
 
   gotoSign = () => {
-    hashHistory.push({pathname: PATH_Sign});
+    hashHistory.push({pathname: p.PATH_Sign});
   }
 
   gotoDeposit = () => {
@@ -69,7 +70,7 @@ class Index extends Component {
       this.gotoLogin();
       return
     }
-    hashHistory.push({pathname: PATH_Deposit});
+    hashHistory.push({pathname: p.PATH_Deposit});
   }
 
   gotoDrawMoney = () => {
@@ -77,7 +78,7 @@ class Index extends Component {
       this.gotoLogin();
       return
     }
-    hashHistory.push({pathname: PATH_DrawMoney});
+    hashHistory.push({pathname: p.PATH_DrawMoney});
   }
 
   gotoXiaZhuJiLu = () => {
@@ -85,7 +86,7 @@ class Index extends Component {
       this.gotoLogin();
       return
     }
-    hashHistory.push({pathname: PATH_XiaZhuJiLu});
+    hashHistory.push({pathname: p.PATH_XiaZhuJiLu});
   }
 
   gotoStatistics = () => {
@@ -93,19 +94,19 @@ class Index extends Component {
       this.gotoLogin();
       return
     }
-    hashHistory.push({pathname: PATH_Statistics});
+    hashHistory.push({pathname: p.PATH_Statistics});
   }
 
   gotoYouXi_CQSSC = () => {
-    hashHistory.push({pathname: PATH_YOUXI_CQSSC});
+    hashHistory.push({pathname: p.PATH_YOUXI_CQSSC});
   }
 
   gotoYouXi_BJPK10 = () => {
-    hashHistory.push({pathname: PATH_YOUXI_BJPK10});
+    hashHistory.push({pathname: p.PATH_YOUXI_BJPK10});
   }
 
   gotoYouXi_JSK3 = () => {
-    hashHistory.push({pathname: PATH_YOUXI_JSK3});
+    hashHistory.push({pathname: p.PATH_YOUXI_JSK3});
   }
 
 

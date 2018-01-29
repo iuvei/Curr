@@ -5,17 +5,7 @@ import {connect} from 'dva';
 import '../assets/backend/css/common.css';
 import {getConfig, getUserInfo} from '../services/wxEnd';
 import '../assets/wx/css/common.css';
-
-const PATH_INDEX = "/index";
-const PATH_MemberCenter = "/memberCenter";
-const PATH_FinanceRecords = "/finance";
-const PATH_OpenRecord = "/openRecord";
-const PATH_DrawMoney = "/drawMoney";
-const PATH_GameGuide = "/gameGuide";
-const PATH_UnRead = "/unread";
-
-const PATH_Login = "/login";
-const PATH_Sign = "/sign";
+import * as p from './wx/ConstantsPath';
 
 class WxPage extends Component {
   constructor(props) {
@@ -60,7 +50,7 @@ class WxPage extends Component {
   }
 
   gotoIndex = () => {
-    hashHistory.push({pathname: PATH_INDEX});
+    hashHistory.push({pathname: p.PATH_INDEX});
   }
 
   gotoMemberCenter = () => {
@@ -68,7 +58,7 @@ class WxPage extends Component {
       this.gotoLogin();
       return
     }
-    hashHistory.push({pathname: PATH_MemberCenter});
+    hashHistory.push({pathname: p.PATH_MemberCenter});
   }
 
   gotoOpenRecord = () => {
@@ -76,7 +66,7 @@ class WxPage extends Component {
       this.gotoLogin();
       return
     }
-    hashHistory.push({pathname: PATH_OpenRecord});
+    hashHistory.push({pathname: p.PATH_OpenRecord});
   }
 
   gotoDrawMoney = () => {
@@ -84,12 +74,12 @@ class WxPage extends Component {
       this.gotoLogin();
       return
     }
-    hashHistory.push({pathname: PATH_DrawMoney});
+    hashHistory.push({pathname: p.PATH_DrawMoney});
   }
 
 
   gotoGameGuide = () => {
-    hashHistory.push({pathname: PATH_GameGuide});
+    hashHistory.push({pathname: p.PATH_GameGuide});
   }
 
   gotoUnRead = () => {
@@ -97,15 +87,15 @@ class WxPage extends Component {
       this.gotoLogin();
       return
     }
-    hashHistory.push({pathname: PATH_UnRead});
+    hashHistory.push({pathname: p.PATH_UnRead});
   }
 
   gotoLogin = () => {
-    hashHistory.push({pathname: PATH_Login});
+    hashHistory.push({pathname: p.PATH_Login});
   }
 
   gotoSign = () => {
-    hashHistory.push({pathname: PATH_Sign});
+    hashHistory.push({pathname: p.PATH_Sign});
   }
 
   render() {
@@ -142,7 +132,7 @@ class WxPage extends Component {
         <div className="content">
           {this.props.children}
         </div>
-        <div className="comBotDiv">&copy;2018捷胜娱乐Casino版权所有</div>
+        <div className="comBotDiv">&copy;2018凤凰娱乐Casino版权所有</div>
       </div>
     );
   }

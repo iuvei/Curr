@@ -179,7 +179,7 @@ func (m *CQSSC) calculate() {
 		}
 
 		if win != 0 {
-			if err = m.colls.UserColl.Update(M{"userid": v.UserId}, M{"$inc": M{"balance": win}}); err != nil {
+			if err = m.colls.UserColl.Update(M{"_id": v.UserId}, M{"$inc": M{"balance": win}}); err != nil {
 				log.Errorf("failed to update user's balance, error: %v", err)
 				continue
 			}

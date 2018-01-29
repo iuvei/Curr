@@ -6,6 +6,7 @@ import '../../../assets/wx/css/chongqingshishicai.css';
 import {Icon, Spin, message} from 'antd';
 import {getCurrLottery, getLive, bet} from '../../../services/wxEnd';
 import CountDown from '../../../components/mobile/CountDown';
+import * as p from '../ConstantsPath';
 /**
  * Created by sven on 2018/1/7.
  */
@@ -76,15 +77,18 @@ class JSK3 extends Component {
 
 
   onSend = () => {
-    console.log(this.props.wx.userinfo)
-    const {_id, username, nickename, avatar} = this.props.wx.userinfo;
+    const {userid, username, nickname, avatar} = this.props.wx.userinfo;
+    if (userid == undefined || userid == "") {
+      hashHistory.push({pathname: p.PATH_Login});
+      return
+    }
     const {no, type} = this.state.lottery.next;
     const {method, choice} = this.state;
     if (Object.keys(choice).length == 0) {
       message.warn("您没有下注哦");
       return
     }
-    const req = {userid: _id, no, game: "JSK3", method, choice, avatar, nickename: nickename || username}
+    const req = {userid, no, game: "JSK3", method, choice, avatar, nickname: nickname || username}
     bet(req).then(data => {
       if (data.success) {
         this.setState({choice: {}});
@@ -134,7 +138,7 @@ class JSK3 extends Component {
             <div className="fl name">重庆时时彩</div>
             <div className="fl number">第 <span>{this.state.lottery.next.no || '--'}</span> 期</div>
             <div className="fr time" id="time">
-              <CountDown start={10} end={22}
+              <CountDown start={'10:30'} end={'22:10'}
                          time={this.state.lottery.next.leftTime}
                          callBack={this.onCallBack.bind(this)}/>
             </div>

@@ -82,7 +82,7 @@ class Login extends Component {
           hashHistory.push({pathname: "/"});
           this.props.dispatch({
             type: 'wx/updateState',
-            payload: {userinfo: data.result.data, logged: true}
+            payload: {userinfo: {...data.result.data, userid: data.result.data._id}, logged: true}
           });
         } else {
           message.error(`${data.message}`)

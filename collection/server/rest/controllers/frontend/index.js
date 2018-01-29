@@ -83,6 +83,7 @@ class IndexController {
             switch (type.toUpperCase()) {
                 case "CQSSC":
                     live = {
+                        type: "CQSSC",
                         time: parseInt(Date.now() / 1000),
                         current: {
                             no: lottery.no,
@@ -98,8 +99,10 @@ class IndexController {
                         }
 
                     }
+                    break;
                 case "BJPK10":
                     live = {
+                        type: "BJPK10",
                         time: parseInt(Date.now() / 1000),
                         current: {
                             no: lottery.no,
@@ -115,9 +118,10 @@ class IndexController {
                         }
 
                     }
-
+                    break;
                 case "JSK3":
                     live = {
+                        type: "JSK3",
                         time: parseInt(Date.now() / 1000),
                         current: {
                             no: lottery.no,
@@ -133,6 +137,7 @@ class IndexController {
                         }
 
                     }
+                    break;
             }
             console.log(live)
             //console.log(lottery.opentime,moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss'),'==============', Date.now().toString())
