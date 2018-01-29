@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/activity.css">
+</head>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("form").submit(function (e) {
+            e.preventDefault();
+            const req = {
+                tjName: e.target.tjName.value,
+                classRoom: e.target.classRoom.value,
+                name: e.target.name.value,
+                title: e.target.title.value,
+                phone: e.target.phone.value,
+                co: e.target.co.value
+            }
+            console.log(req)
+
+            $.ajax({
+                type: 'POST',
+                url: "/api/registe",
+                data: JSON.stringify(req),
+                contentType: "application/json",
+                dataType: 'json'
+            }).done(function (data) {
+//                setTimeout(function () {
+//                    location.href = "canyu.html"
+//                }, 1000)
+                location.href = "canyu.html"
+            }).fail(function (error) {
+                console.error(error);
+            })
+        });
+    });
+</script>
+<div class="box">
+<div class="logo"><img src="images/logo1.png" alt=""><a class="bgmBtn bgmPlay"></a ></div>
+<form action="#" class="formDiv">
+    <a href="canyu.html" class="closeBtn"></a>
+    <div class="optionDiv clf">
+        <div class="fl">
+            <p>推荐人</p>
+            <input type="text" name="tjName" value="欧阳菲菲" placeholder="">
+        </div>
+        <div class="fr">
+            <p>所在班级</p>
+            <select title="" name="classRoom">
+                <option value="EMBA2005-SZ">EMBA2005-SZ</option>
+                <option value="EMBA2006-SZ">EMBA2006-SZ</option>
+                <option value="EMBA2007-SZ">EMBA2007-SZ</option>
+                <option value="EMBA2008-SZ">EMBA2008-SZ</option>
+                <option value="EMBA2009-SZ">EMBA2009-SZ</option>
+                <option value="EMBA2010-SZ">EMBA2010-SZ</option>
+                <option value="EMBA2011-SZ">EMBA2011-SZ</option>
+                <option value="EMBA2012-SZ">EMBA2012-SZ</option>
+                <option value="EMBA2013-SZ">EMBA2013-SZ</option>
+                <option value="EMBA2014-SZ">EMBA2014-SZ</option>
+                <option value="EMBA2015-SZ">EMBA2015-SZ</option>
+                <option value="EMBA2016-SZ">EMBA2016-SZ</option>
+                <option value="EMBA2017-SZ">EMBA2017-SZ</option>
+                <option value="EMBA2018-SZ">EMBA2018-SZ</option>
+            </select>
+        </div>
+    </div>
+    <h2>被推荐人信息</h2>
+    <div class="infoDiv clf">
+        <div class="item">
+            <p>姓名</p>
+            <input type="text" name="name" title="" value="司马顺利">
+        </div>
+        <div class="item">
+            <p>职位</p>
+            <input type="text" name="title" title="" value="总经理CEO">
+        </div>
+        <div class="item">
+            <p>联系电话</p>
+            <input type="text" name="phone" title="" value="13866668888">
+        </div>
+        <div class="item">
+            <p>所在公司</p>
+            <input type="text" name="co" title="" value="中欧国际工商学院（深圳校区）">
+        </div>
+    </div>
+    <button>提交</button>
+</form>
+<h3><span>#</span>你身边重要的Ta，是否在中欧<span>#</span></h3>
+<h3><a href="guize.html">活动规则&gt;&gt;</a></h3>
+</div>
+</body>
+</html>

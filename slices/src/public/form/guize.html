@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <title>中欧</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/css.css">
+<body>
+<div class="box">
+    <div class="logo"><img src="images/logo1.png" alt=""><a class="bgmBtn bgmPlay"></a ></div>
+    <div class="ranking">
+        <div class="text">
+            <h6>活动规则：</h6>
+            <p>华南是中国智造最核心经济圈，她的缔造有你有我也有 <span>“Ta”欢迎各位校友/同学推荐您身边重要的“Ta”加入中欧EMBA大家庭。</span></p>
+            <div class="rule">
+                <p class="clf"><span>1、</span><span>以EMBA班级为单位，开启寻找身边对你我而言重要的人。</span></p>
+                <p class="clf"> <span>2、</span><span>凡在活动期限内，推荐最多的班级可获得中欧华南基石奖，推荐最多的个人可获得中欧华南领航奖。获胜班级及个人	        将获得课程奖励。</span></p>
+                <p class="clf">
+                    <span>3、</span><span>活动时间：2018年2月1日-2018年3月20日。</span>
+                </p>
+            </div>
+        </div>
+        <div class="btn"><a href="activity.html">参与</a></div>
+    </div>
+    <div class="prompt"><span># </span>因为认真，选择中欧；因为创新，选择深圳<span> #</span></div>
+</div>
+
+
+<!--------------------------------------------------------------背景音乐播放-------------------------------------------------------------------------------------->
+<audio id="music" src="sound/music.mp3"  loop="loop">你的浏览器不支持audio标签</audio>
+<style>
+a#playMusic{ display:block; position: absolute; width:30px; height:25px; top:12px; right:12px; z-index:99999;}
+a#playMusic img{ width:100%;}
+</style>
+<a href="javascript:playPause();" id="playMusic"><img src="images/bgm_on.png" id="music_btn"></a>
+<script>
+    function playPause() {
+        var music = document.getElementById('music');
+        var music_btn = document.getElementById('music_btn');
+        if (music.paused){
+            music.play();
+            music_btn.src = 'images/bgm_on.png';
+        }
+        else{
+            music.pause();
+            music_btn.src = 'images/bgm_off.png';
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        function audioAutoPlay() {
+            var music = document.getElementById('music');
+            music.play();
+            document.addEventListener("WeixinJSBridgeReady", function () {
+                music.play();
+            }, false);
+        }
+        audioAutoPlay();
+
+    });
+</script>
+</body>
+</html>

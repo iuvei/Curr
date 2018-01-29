@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="renderer" content="webkit">
+    <title>参与</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/css.css">
+<body>
+<div class="bk">
+    <div class="logo"><img src="images/logo1.png" alt=""><a class="bgmBtn bgmPlay"></a ></div>
+    <div class="xy"><img src="images/logo.png" alt=""></div>
+    <div class="yw">
+        因为认真, 选择中欧<br>
+        因为创新, 选择深圳
+    </div>
+    <div class="btn">
+        <a href="activity.html">我也要参与</a>
+        <div class="bd"><a href="paihang.html">查看<br>魅力榜单</a></div>
+    </div>
+
+    <div class="prompt"><span># </span>每一个你，对中欧都很重要 <span> #</span></div>
+</div>
+
+<!--------------------------------------------------------------背景音乐播放-------------------------------------------------------------------------------------->
+<audio id="music" src="sound/music.mp3"  loop="loop">你的浏览器不支持audio标签</audio>
+<style>
+a#playMusic{ display:block; position: absolute; width:30px; height:25px; top:12px; right:12px; z-index:99999;}
+a#playMusic img{ width:100%;}
+</style>
+<a href="javascript:playPause();" id="playMusic"><img src="images/bgm_on.png" id="music_btn"></a>
+<script>
+    function playPause() {
+        var music = document.getElementById('music');
+        var music_btn = document.getElementById('music_btn');
+        if (music.paused){
+            music.play();
+            music_btn.src = 'images/bgm_on.png';
+        }
+        else{
+            music.pause();
+            music_btn.src = 'images/bgm_off.png';
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        function audioAutoPlay() {
+            var music = document.getElementById('music');
+            music.play();
+            document.addEventListener("WeixinJSBridgeReady", function () {
+                music.play();
+            }, false);
+        }
+        audioAutoPlay();
+
+    });
+</script>
+</body>
+</html>

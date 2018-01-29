@@ -85,11 +85,10 @@ func PostRegister(c *gin.Context) {
 
 func GetStat(c *gin.Context) {
 	_type := c.DefaultQuery("type", "1")
-	res := make(map[string]int64)
+	res := make([]map[string]interface{}, 0)
 	if _type == "1" || _type == "" {
 		selectSQL := fmt.Sprintf(`
-		select classRoom, count(classRoom) from register
-		group by classRoom
+		select classRoom, count(classRoom) as amount from register group by classRoom order by amount DESC limit 3;
 		`)
 		rows, err := db.Query(selectSQL)
 		if err != nil {
@@ -98,19 +97,21 @@ func GetStat(c *gin.Context) {
 		}
 		defer rows.Close()
 		for rows.Next() {
+			tmp := make(map[string]interface{})
 			var classRoom string
 			var amount int64
 			err = rows.Scan(&classRoom, &amount)
 			if err != nil {
 				fmt.Println(err)
 			}
-			res[classRoom] = amount
+			tmp["key"] = classRoom
+			tmp["value"] = amount
+			res = append(res, tmp)
 			fmt.Println(classRoom, amount)
 		}
 	} else {
 		selectSQL := fmt.Sprintf(`
-		select tjName, count(tjName) as amount from register
-		group by tjName
+		select tjName, count(tjName) as amount from register group by tjName order by amount DESC limit 3;
 		`)
 		rows, err := db.Query(selectSQL)
 		if err != nil {
@@ -119,13 +120,16 @@ func GetStat(c *gin.Context) {
 		}
 		defer rows.Close()
 		for rows.Next() {
+			tmp := make(map[string]interface{})
 			var tjName string
 			var amount int64
 			err = rows.Scan(&tjName, &amount)
 			if err != nil {
 				fmt.Println(err)
 			}
-			res[tjName] = amount
+			tmp["key"] = tjName
+			tmp["value"] = amount
+			res = append(res, tmp)
 			fmt.Println(tjName, amount)
 		}
 	}
