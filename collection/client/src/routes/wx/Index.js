@@ -8,18 +8,6 @@ import * as p from './ConstantsPath';
  * Created by sven on 2018/1/7.
  */
 
-// const PATH_Login = "/login";
-// const PATH_Sign = "/sign";
-//
-// const PATH_Deposit = "/deposit";
-// const PATH_DrawMoney = "/drawMoney";
-// const PATH_XiaZhuJiLu = "/xiazhujilu";
-// const PATH_Statistics = "/statistics";
-//
-// const PATH_YOUXI_CQSSC = "/youxi/cqssc";
-// const PATH_YOUXI_BJPK10 = "/youxi/bjpk10";
-// const PATH_YOUXI_JSK3 = "/youxi/jsk3";
-
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -66,34 +54,18 @@ class Index extends Component {
   }
 
   gotoDeposit = () => {
-    if (!this.props.wx.logged) {
-      this.gotoLogin();
-      return
-    }
     hashHistory.push({pathname: p.PATH_Deposit});
   }
 
   gotoDrawMoney = () => {
-    if (!this.props.wx.logged) {
-      this.gotoLogin();
-      return
-    }
     hashHistory.push({pathname: p.PATH_DrawMoney});
   }
 
   gotoXiaZhuJiLu = () => {
-    if (!this.props.wx.logged) {
-      this.gotoLogin();
-      return
-    }
     hashHistory.push({pathname: p.PATH_XiaZhuJiLu});
   }
 
   gotoStatistics = () => {
-    if (!this.props.wx.logged) {
-      this.gotoLogin();
-      return
-    }
     hashHistory.push({pathname: p.PATH_Statistics});
   }
 
@@ -145,10 +117,10 @@ class Index extends Component {
           <div className="other clf">
             <ul>
               <li>
-                <a href="javascript:;">
+                <a href="discounts.html">
                   <img src={require("../../assets/wx/images/icon_other_1.png")} className="fl"/>
-                  <h2>福利说明</h2>
-                  <p>首次充值100以上首次充值100以上</p>
+                    <h2>优惠活动</h2>
+                    <p>首次充值100以上首次充值100以上</p>
                 </a>
               </li>
               <li>
@@ -166,10 +138,10 @@ class Index extends Component {
                 </a>
               </li>
               <li>
-                <a href="javascript:;">
+                <a href="invitation.html">
                   <img src={require("../../assets/wx/images/icon_other_4.png")} className="fl"/>
-                  <h2>邀请/统计</h2>
-                  <p>发送邀请链接给好友</p>
+                    <h2>邀请/统计</h2>
+                    <p>发送邀请链接给好友</p>
                 </a>
               </li>
             </ul>

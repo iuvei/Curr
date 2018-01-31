@@ -1,6 +1,7 @@
 import {parse} from 'qs';
 import {getAllMessages, getUserDetail} from '../services/wxEnd';
 import {getCookie} from '../utils/cookies';
+import { routerRedux } from 'dva/router';
 export default {
   namespace: 'wx',
   state: {
@@ -54,6 +55,8 @@ export default {
           type: 'getUserInfo',
           payload: {userid: getCookie("userid")}
         });
+      } else {
+        dispatch(routerRedux.push('/login'));
       }
       //dispatch({type: 'getMessages'});
     },

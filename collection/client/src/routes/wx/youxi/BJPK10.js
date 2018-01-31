@@ -190,8 +190,9 @@ class BJPK10 extends Component {
                     : ""
                 }
               </div>
-              <div className="fr btn"><a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
-
+              <div className="fr btn">
+                <a href="ranking.html">两面长龙</a>
+                <a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
             </div>
             <div className="center">
               <span
@@ -605,6 +606,20 @@ class BJPK10 extends Component {
                   </div>
                 </div>
               </form>
+            </div>
+
+            <div className="xiazhu">
+              <div className="title">下注结果</div>
+              <ul>
+                <li className="clf">
+                  <div className="fl left">冠军： <span>大</span></div>
+                  <div className="fl right">下注金额： <span>10</span></div>
+                </li>
+                <li className="clf">
+                  <div className="fl left">亚军： <span>大</span></div>
+                  <div className="fl right">下注金额： <span>10</span></div>
+                </li>
+              </ul>
             </div>
 
             <div className="clf btns">

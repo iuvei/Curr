@@ -24,6 +24,9 @@ class WxPage extends Component {
             payload: {userinfo: data.result.userinfo},
           })
         } else {
+
+
+
         //   getConfig()
         //     .then(data => {
         //       if (data.success) {
@@ -54,26 +57,18 @@ class WxPage extends Component {
   }
 
   gotoMemberCenter = () => {
-    if (!this.props.wx.logged) {
-      this.gotoLogin();
-      return
-    }
+    // if (!this.props.wx.logged) {
+    //   this.gotoLogin();
+    //   return
+    // }
     hashHistory.push({pathname: p.PATH_MemberCenter});
   }
 
   gotoOpenRecord = () => {
-    if (!this.props.wx.logged) {
-      this.gotoLogin();
-      return
-    }
     hashHistory.push({pathname: p.PATH_OpenRecord});
   }
 
   gotoDrawMoney = () => {
-    if (!this.props.wx.logged) {
-      this.gotoLogin();
-      return
-    }
     hashHistory.push({pathname: p.PATH_DrawMoney});
   }
 
@@ -83,10 +78,6 @@ class WxPage extends Component {
   }
 
   gotoUnRead = () => {
-    if (!this.props.wx.logged) {
-      this.gotoLogin();
-      return
-    }
     hashHistory.push({pathname: p.PATH_UnRead});
   }
 

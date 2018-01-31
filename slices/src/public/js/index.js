@@ -40,7 +40,7 @@ $(document).ready(function(){
 	function load_handler(){
 		var loader = new PxLoader();
 		loader.addImage('images/common/turn_phone.png');
-		for(var i = 1;i<40;i++){
+		for(var i = 1;i<10;i++){
 			loader.addImage('images/video/'+i+'.png');
 
 		}
@@ -65,7 +65,7 @@ $(document).ready(function(){
 		per+=imath.randomRange(1,3);
 		per=per>100?100:per;
 		loadPer.html(per+'%');
-		if(per==100) setTimeout(init_handler,200);
+		if(per===100) setTimeout(init_handler,200);
 		else setTimeout(load_timer,33,per);
 	}//edn func
 	
@@ -87,8 +87,8 @@ $(document).ready(function(){
 			debug: false,
 			autoPlay: true,
 			type:"png",
-			total: 114,
-			time: 25,
+			total: 120,
+			time: 35,
 			// path: "http://cdn.12345html5.com/cdn/ceibs/",
 			path: "images/video/",
 			mode: 1,
@@ -97,7 +97,7 @@ $(document).ready(function(){
 			scaleMode: "fixedWidth",
 			onEnd: function () {
 				// icom.alert("播放结束跳转页面");
-				window.location.href="form/activity.html";
+				window.location.href="form/canyu.html";
 				gif.gotoAndStop(1);
 				icom.fadeIn($(".p1"),500,function function_name () {
 					$(".p1 .pic2").css({scale:1}).transition({scale:1.8},1000);

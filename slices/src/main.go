@@ -47,6 +47,8 @@ func main() {
 	})
 	rootApi.POST("registe", PostRegister)
 	rootApi.GET("stat", GetStat)
+	rootApi.GET("all", GetAll)
+	rootApi.GET("delete/all/done", DeleteAll)
 
 	r.Run(fmt.Sprintf("0.0.0.0:%d", 8090))
 
@@ -69,18 +71,64 @@ func PostRegister(c *gin.Context) {
 		c.JSON(400, gin.H{"message": fmt.Sprintf("参数有误 %v", err)})
 		return
 	} else {
-		insertSql := fmt.Sprintf("INSERT INTO register(tjName, classRoom, name, title, phone,co, createAt) values('%s','%s','%s','%s','%s','%s','%s')",
-			req.TjName, req.ClassRoom, req.Name, req.Title, req.Phone, req.Co, time.Now().Format("2006-01-02 15:04:05"))
-		fmt.Println(insertSql)
-		res, err := db.Exec(insertSql)
-		if err != nil {
-			c.JSON(400, gin.H{"message": fmt.Sprintf("保存错误 %v", err)})
-			return
+		if req.Name != "" {
+			insertSql := fmt.Sprintf("INSERT INTO register(tjName, classRoom, name, title, phone,co, createAt) values('%s','%s','%s','%s','%s','%s','%s')",
+				req.TjName, req.ClassRoom, req.Name, req.Title, req.Phone, req.Co, time.Now().Format("2006-01-02 15:04:05"))
+			fmt.Println(insertSql)
+			_, err := db.Exec(insertSql)
+			if err != nil {
+				c.JSON(400, gin.H{"message": fmt.Sprintf("保存错误 %v", err)})
+				return
+			}
 		}
-
-		fmt.Println(res)
 		c.JSON(200, req)
 	}
+}
+
+func DeleteAll(c *gin.Context) {
+	sql := fmt.Sprintf("DELETE FROM register")
+	fmt.Println(sql)
+	_, err := db.Exec(sql)
+	if err != nil {
+		c.JSON(400, gin.H{"message": fmt.Sprintf("错误 %v", err)})
+		return
+	}
+	c.JSON(200, gin.H{"message": "全删了，无法恢复了"})
+}
+
+func GetAll(c *gin.Context) {
+	res := make([]map[string]interface{}, 0)
+	selectSQL := fmt.Sprintf(`
+		select tjName,classRoom,name,title,phone,createAt from register order by createAt DESC;
+		`)
+	rows, err := db.Query(selectSQL)
+	if err != nil {
+		c.JSON(400, gin.H{"message": fmt.Sprintf("错误 %v", err)})
+		return
+	}
+	defer rows.Close()
+	for rows.Next() {
+		tmp := make(map[string]interface{})
+		var tjName string
+		var classRoom string
+		var name string
+		var title string
+		var phone string
+		var createAt string
+		err = rows.Scan(&tjName, &classRoom, &name, &title, &phone, &createAt)
+		if err != nil {
+			fmt.Println(err)
+		}
+		tmp["tjName"] = tjName
+		tmp["classRoom"] = classRoom
+		tmp["name"] = name
+		tmp["title"] = title
+		tmp["phone"] = phone
+		tmp["createAt"] = createAt
+
+		res = append(res, tmp)
+	}
+	c.JSON(200, res)
 }
 
 func GetStat(c *gin.Context) {

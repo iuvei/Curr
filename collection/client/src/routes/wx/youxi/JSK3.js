@@ -135,7 +135,7 @@ class JSK3 extends Component {
       <div className="w">
         <div className="result">
           <div className="clf periods">
-            <div className="fl name">重庆时时彩</div>
+            <div className="fl name">江苏快三</div>
             <div className="fl number">第 <span>{this.state.lottery.next.no || '--'}</span> 期</div>
             <div className="fr time" id="time">
               <CountDown start={'10:30'} end={'22:10'}

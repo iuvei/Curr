@@ -177,7 +177,6 @@ class IndexController {
 
         const record = {from: 1, no, userid, game, method, nickname, choice, avatar, amount}
         const res = await BetModel.create(record);
-        console.log(res, '=====================')
         if (!res) {
             console.log("下注保存失败: ", res);
             return ctx.body = {message: '下注失败', code: 400};
