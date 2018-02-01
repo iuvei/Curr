@@ -13,6 +13,12 @@
         a#playMusic{ display:block; position: absolute; width:30px; height:25px; top:12px; right:12px; z-index:99999;}
         a#playMusic img{ width:100%;}
     </style>
+    <script>
+        var flag = window.sessionStorage.getItem("opened");
+        if (flag == undefined || flag!='1') {
+            window.location.href = "/index.html"
+        }
+    </script>
 </head>
 <body>
 <div class="bk">
