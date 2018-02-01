@@ -57,6 +57,14 @@ class Index extends Component {
     hashHistory.push({pathname: p.PATH_Deposit});
   }
 
+  gotoDiscounts = () => {
+    hashHistory.push({pathname: p.PATH_Discounts});
+  }
+
+  gotoAgency = () => {
+    hashHistory.push({pathname: p.PATH_Agency});
+  }
+
   gotoDrawMoney = () => {
     hashHistory.push({pathname: p.PATH_DrawMoney});
   }
@@ -117,10 +125,10 @@ class Index extends Component {
           <div className="other clf">
             <ul>
               <li>
-                <a href="discounts.html">
+                <a onClick={this.gotoDiscounts}>
                   <img src={require("../../assets/wx/images/icon_other_1.png")} className="fl"/>
-                    <h2>优惠活动</h2>
-                    <p>首次充值100以上首次充值100以上</p>
+                  <h2>优惠活动</h2>
+                  <p>首次充值100以上首次充值100以上</p>
                 </a>
               </li>
               <li>
@@ -138,10 +146,10 @@ class Index extends Component {
                 </a>
               </li>
               <li>
-                <a href="invitation.html">
+                <a onClick={this.gotoAgency}>
                   <img src={require("../../assets/wx/images/icon_other_4.png")} className="fl"/>
-                    <h2>邀请/统计</h2>
-                    <p>发送邀请链接给好友</p>
+                  <h2>邀请/统计</h2>
+                  <p>发送邀请链接给好友</p>
                 </a>
               </li>
             </ul>

@@ -1,0 +1,9 @@
+.red{color: #f00;}
+.green{color: #1cbb44;}
+/* 存款 */
+.receipts{border: 1px solid #ccc;border-radius: 5px;box-shadow: 0 .1rem .3rem #d3d3d3;padding:1rem .8rem 1.5rem;font: .9rem/1.2 'Microsoft YaHei';}
+.receipts h2{text-align:center;color:#920000;margin:1rem 0;padding-bottom:.3em;font-weight:400;font-size:1rem;border-bottom:1px solid #920000}
+#qrcode-img{display: block;margin: auto;}
+@media screen and (min-width:1024px){
+  .receipts .mainDiv{padding:20px 0;}
+}

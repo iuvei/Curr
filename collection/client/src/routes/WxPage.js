@@ -16,6 +16,10 @@ class WxPage extends Component {
   }
 
   componentDidMount() {
+    if (!this.props.wx.logged) {
+        this.gotoLogin();
+        return
+    }
     getUserInfo()
       .then(data => {
         if (data.success) {
@@ -24,23 +28,20 @@ class WxPage extends Component {
             payload: {userinfo: data.result.userinfo},
           })
         } else {
-
-
-
-        //   getConfig()
-        //     .then(data => {
-        //       if (data.success) {
-        //         const HOME_PAGE = `http://${document.domain}/wx.html`
-        //         const params = {
-        //           appid: data.result.appid,
-        //           redirect_uri: `http://${document.domain}/m/api/auth${location.search === "" ? "?hash=123" : location.search}&callback=${HOME_PAGE}`,
-        //           response_type: 'code',
-        //           scope: 'snsapi_userinfo',
-        //           state: '1',
-        //         }
-        //         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?${stringify(params)}#wechat_redirect`;
-        //       }
-        //     });
+          //   getConfig()
+          //     .then(data => {
+          //       if (data.success) {
+          //         const HOME_PAGE = `http://${document.domain}/wx.html`
+          //         const params = {
+          //           appid: data.result.appid,
+          //           redirect_uri: `http://${document.domain}/m/api/auth${location.search === "" ? "?hash=123" : location.search}&callback=${HOME_PAGE}`,
+          //           response_type: 'code',
+          //           scope: 'snsapi_userinfo',
+          //           state: '1',
+          //         }
+          //         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?${stringify(params)}#wechat_redirect`;
+          //       }
+          //     });
         }
       });
   }
@@ -91,6 +92,7 @@ class WxPage extends Component {
 
   render() {
     const {userinfo} = this.props.wx;
+    //console.log(userinfo,'===================================')
     return (
       <div>
         <div className="comTopDiv clf">
@@ -100,7 +102,7 @@ class WxPage extends Component {
                 <div className="fl">
                   <a href="javascript:;" onClick={this.gotoIndex}>首页</a>
                   <a href="javascript:;" className="membercolor" onClick={this.gotoMemberCenter}>会员中心</a>
-                  <a href="javascript:;" onClick={this.gotoDrawMoney}>{`￥ ${userinfo.balance||0.00}`}</a>
+                  <a href="javascript:;" onClick={this.gotoDrawMoney}>{`￥ ${userinfo.balance || 0.00}`}</a>
                 </div>
                 <div className="fr">
                   <a href="javascript:;" className="message" onClick={this.gotoGameGuide}>玩法</a>
@@ -110,7 +112,7 @@ class WxPage extends Component {
               :
               <div className="w">
                 <div className="fl">
-                  <a href="javascript:;" className="logo" onClick={this.gotoIndex}>
+                  <a href="javascript:;" className="logo">
                     <img src={require('../assets/wx/images/logo.png')}/></a>
                 </div>
                 <div className="fr">

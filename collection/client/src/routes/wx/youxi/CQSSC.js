@@ -24,6 +24,20 @@ const METHOD_04 = 4; //前三
 const METHOD_05 = 5; //中三
 const METHOD_06 = 6; //后三
 
+const methodM = {
+  1: "龙虎总和",
+  21: '第一球',
+  22: '第二球',
+  23: '第三球',
+  24: '第四球',
+  25: '第五球',
+  3: '斗牛',
+  4: '前三',
+  5: '中三',
+  6: '后三'
+}
+
+
 const options = [<option key="0" value="0">0</option>,
   <option key="2" value="2">2</option>,
   <option key="5" value="5">5</option>,
@@ -42,6 +56,7 @@ class CQSSC extends Component {
       lottery: {time: '', current: {}, next: {}},
       method: METHOD_01,
       choice: {},
+      historyChoices: {},
     }
     this.getLiveLottery();
   }
@@ -72,6 +87,10 @@ class CQSSC extends Component {
     hashHistory.push({pathname: PATH_HISTORY, state: {type: "CQSSC"}});
   }
 
+  gotoRanking = () => {
+    hashHistory.push({pathname: p.PATH_Ranking, state: {type: "CQSSC"}});
+  }
+
   onMethodChange = (method) => {
     if (this.state.method !== method) {
       this.onRest();
@@ -98,7 +117,14 @@ class CQSSC extends Component {
     const req = {userid, no, game: "CQSSC", method, choice, avatar, nickname: nickname || username}
     bet(req).then(data => {
       if (data.success) {
-        this.setState({choice: {}});
+        const historyChoices = this.state.historyChoices;
+        const c = historyChoices[this.state.method];
+        if (c) {
+          historyChoices[this.state.method] = {...c, ...choice}
+        } else {
+          historyChoices[this.state.method] = choice
+        }
+        this.setState({choice: {}, historyChoices});
         this.onRest();
         this.props.dispatch({ //更新当前显示金额
           type: 'wx/getUserInfo',
@@ -146,6 +172,11 @@ class CQSSC extends Component {
 
   onValueChange = (e) => {
     const choice = this.state.choice;
+    if (e.target.value < 0) {
+      this.onRest();
+      message.warn("输入无效")
+      return
+    }
     if (e.target.value == 0) {
       delete(choice[e.target.id])
     } else {
@@ -159,9 +190,7 @@ class CQSSC extends Component {
   }
 
   render() {
-    //console.log('==', this.state)
-    const antIcon = <Icon type="loading" style={{fontSize: 24}} spin/>;
-    const {method} = this.state;
+    const {method, historyChoices} = this.state;
     const {no, type, code, opentime} = this.state.lottery.current;
     //const {no, type, code, opentime} = this.state.lottery.next;
 
@@ -208,7 +237,10 @@ class CQSSC extends Component {
                     : ""
                 }
               </div>
-              <div className="fr btn"><a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
+              <div className="fr btn">
+                <a onClick={this.gotoRanking}>两面长龙</a>
+                <a onClick={this.gotoKaijiangHISTORY}>开奖历史</a>
+              </div>
             </div>
             <div className="center">
               <span className="sp1">总和：<i>{sum} {sum >= 23 ? '大' : '小'}</i> <i>{sum % 2 == 0 ? '双' : '单'}</i></span>
@@ -272,57 +304,43 @@ class CQSSC extends Component {
                       <li className="li1">大</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="大">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='大'/>
                       </li>
 
                       <li className="li1">小</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="小">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='小'/>
                       </li>
 
                       <li className="li1">单</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="单">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='单'/>
                       </li>
 
                       <li className="li1">双</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="双">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='双'/>
                       </li>
 
                       <li className="li1">龙</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="龙">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='龙'/>
                       </li>
 
                       <li className="li1">虎</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="虎">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='虎'/>
                       </li>
 
                       <li className="li1">和</li>
                       <li className="li2">9.000</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="和">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='和'/>
                       </li>
                     </ul>
                   </div>
@@ -709,6 +727,24 @@ class CQSSC extends Component {
                   </ul>
                 </div>
               </div>
+            </div>
+
+            <div className="xiazhu">
+              <div className="title">下注结果</div>
+              <ul>
+                {
+                  Object.keys(historyChoices).map(method => {
+                    return Object.keys(historyChoices[method]).map(e => {
+                      return (
+                        <li className="clf">
+                          <div className="fl left">{methodM[method]}： <span>{e}</span></div>
+                          <div className="fl right">下注金额： <span>{historyChoices[method][e]}</span></div>
+                        </li>
+                      );
+                    });
+                  })
+                }
+              </ul>
             </div>
 
             <div className="clf btns">

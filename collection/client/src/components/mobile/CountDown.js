@@ -57,7 +57,7 @@ export default class CountDown extends Component {
     if (this.state.time == 0) {
       this.props.callBack();
     }
-    console.log(this.state.time)
+    //console.log(this.state.time)
     if (!this.state.finished) {
       return (<div>
         本期投注剩余时间：{this.state.time > 0 ? `${Math.floor(this.state.time / 60)}:${this.state.time % 60}` : '开奖中'}</div>);

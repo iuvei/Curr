@@ -1,0 +1,14 @@
+.red{color: #f00;}
+.green{color: #1cbb44;}
+/* 存款 */
+.receipts{border: 1px solid #ccc;border-radius: 5px;box-shadow: 0 .1rem .3rem #d3d3d3;padding:.3rem .8rem .8rem;font: .9rem/1.2 'Microsoft YaHei';}
+.receipts .inner{margin:20px auto;overflow:hidden;color:#333; background-color: #eee;}
+.receipts h1{text-align:center;color:#920000;margin:.6em auto .5em}
+.receipts h2{text-align:center;color:#920000;margin:30px auto 15px;padding-bottom:.3em;font-weight:400;font-size:1rem;border-bottom:1px solid #920000}
+@media screen and (min-width:1024px){
+  .receipts .mainDiv{padding:20px 0;}
+  .receipts .mainDiv h1{width:50%;margin:0 auto 20px;font-size:20px;color:#333;font-weight:500;}
+  .receipts .mainDiv h1 input{height:30px;width:60%;padding-left:10px;}
+  .receipts>.mainDiv a.payButton{width:50%;margin:20px auto;}
+  .ewm{width:20%;margin:auto;box-shadow:0 0 12px #ccc; }
+}

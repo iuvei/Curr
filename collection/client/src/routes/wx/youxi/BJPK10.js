@@ -6,13 +6,10 @@ import '../../../assets/wx/css/chongqingshishicai.css';
 import {Icon, Spin, message} from 'antd';
 import {getLive, bet} from '../../../services/wxEnd';
 import CountDown from '../../../components/mobile/CountDown';
-
 import * as p from '../ConstantsPath';
 /**
  * Created by sven on 2018/1/7.
  */
-
-const PATH_HISTORY = "/kaijianglishi";
 
 const METHOD_1 = 1; //冠军
 const METHOD_2 = 2; //亚军
@@ -28,6 +25,21 @@ const METHOD_10 = 10; //十名
 
 const METHOD_21 = 21; //1V龙虎
 const METHOD_22 = 22; //冠亚和
+
+const methodM = {
+  1: "冠军",
+  2: '亚军',
+  3: '季军',
+  4: '四名',
+  5: '五名',
+  6: '六名',
+  7: '七名',
+  8: '八名',
+  9: '九名',
+  10: '十名',
+  21: '1V龙虎',
+  22: '冠亚和'
+}
 
 
 const options = [<option key="0" value="0">0</option>,
@@ -49,6 +61,7 @@ class BJPK10 extends Component {
       lottery: {time: '', current: {}, next: {}},
       method: METHOD_1,
       choice: {},
+      historyChoices: {},
     }
     this.getLiveLottery();
   }
@@ -64,7 +77,7 @@ class BJPK10 extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            opening: this.state.lottery.next.leftTime > 0 ? false : true,
+            opening: false,//this.state.lottery.next.leftTime > 0 ? false : true,
             lottery: data.result.lottery,
           });
         }
@@ -76,7 +89,11 @@ class BJPK10 extends Component {
   }
 
   gotoKaijiangHISTORY = () => {
-    hashHistory.push({pathname: PATH_HISTORY, state: {type: "BJPK10"}});
+    hashHistory.push({pathname: p.PATH_HISTORY, state: {type: "BJPK10"}});
+  }
+
+  gotoRanking = () => {
+    hashHistory.push({pathname: p.PATH_Ranking, state: {type: "BJPK10"}});
   }
 
   onMethodChange = (method) => {
@@ -105,7 +122,15 @@ class BJPK10 extends Component {
     const req = {userid, no, game: "BJPK10", method, choice, avatar, nickname: nickname || username}
     bet(req).then(data => {
       if (data.success) {
-        this.setState({choice: {}});
+        const historyChoices = this.state.historyChoices;
+        const c = historyChoices[this.state.method];
+        if (c) {
+          historyChoices[this.state.method] = {...c, ...choice}
+        } else {
+          historyChoices[this.state.method] = choice
+        }
+
+        this.setState({choice: {}, historyChoices});
         this.onRest();
         this.props.dispatch({ //更新当前显示金额
           type: 'wx/getUserInfo',
@@ -124,6 +149,11 @@ class BJPK10 extends Component {
 
   onValueChange = (e) => {
     const choice = this.state.choice;
+    if (e.target.value < 0) {
+      this.onRest();
+      message.warn("输入无效")
+      return
+    }
     if (e.target.value == 0) {
       delete(choice[e.target.id])
     } else {
@@ -137,7 +167,7 @@ class BJPK10 extends Component {
   }
 
   render() {
-    const {method} = this.state;
+    const {method, historyChoices} = this.state;
     const {no, type, code, opentime} = this.state.lottery.current;
     var n1 = 0;
     var n2 = 0;
@@ -163,7 +193,7 @@ class BJPK10 extends Component {
       n10 = parseInt(nums[9])
     }
 
-    console.log(this.state.opening, '=============================================', this.state.lottery.next.leftTime)
+    //console.log(this.state.opening, '=============================================', this.state.lottery.next.leftTime)
 
     return (
       <div className="w">
@@ -191,7 +221,7 @@ class BJPK10 extends Component {
                 }
               </div>
               <div className="fr btn">
-                <a href="ranking.html">两面长龙</a>
+                <a onClick={this.gotoRanking}>两面长龙</a>
                 <a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
             </div>
             <div className="center">
@@ -275,9 +305,7 @@ class BJPK10 extends Component {
                             <li className="li1"><img src={require(`../../../assets/wx/images/h-${i}.png`)}/></li>
                             <li className="li2">1.995</li>
                             <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                           )
@@ -287,33 +315,25 @@ class BJPK10 extends Component {
                       <li className="li1">大</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="大">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='大'/>
                       </li>
 
                       <li className="li1">小</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="小">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='小'/>
                       </li>
 
                       <li className="li1">单</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="单">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='单'/>
                       </li>
 
                       <li className="li1">双</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="双">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='双'/>
                       </li>
                     </ul>
                   </div>
@@ -335,85 +355,65 @@ class BJPK10 extends Component {
                       <li className="li1">龙</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="1V10龙">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="1V10龙"/>
                       </li>
 
                       <li className="li1">虎</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="1V10虎">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="1V10虎"/>
                       </li>
 
                       <li className="li0">2V9</li>
                       <li className="li1">龙</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="2V9龙">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="2V9龙"/>
                       </li>
 
                       <li className="li1">虎</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="2V9虎">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="2V9虎"/>
                       </li>
 
                       <li className="li0">3V8</li>
                       <li className="li1">龙</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="3V8龙">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="3V8龙"/>
                       </li>
 
                       <li className="li1">虎</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="3V8双虎">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="3V8双虎"/>
                       </li>
 
                       <li className="li0">4V7</li>
                       <li className="li1">龙</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="4V7龙">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="4V7龙"/>
                       </li>
 
                       <li className="li1">虎</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="4V7双虎">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="4V7双虎"/>
                       </li>
 
                       <li className="li0">5V6</li>
                       <li className="li1">龙</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="5V6龙">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="5V6龙"/>
                       </li>
 
                       <li className="li1">虎</li>
                       <li className="li2">1.995</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="5V6虎">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id="5V6虎"/>
                       </li>
                     </ul>
                   </div>
@@ -437,9 +437,7 @@ class BJPK10 extends Component {
                             <li className="li1">{i}</li>
                             <li className="li2">45</li>
                             <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                           )
@@ -453,9 +451,7 @@ class BJPK10 extends Component {
                             <li className="li1">{i}</li>
                             <li className="li2">23</li>
                             <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                           )
@@ -469,9 +465,7 @@ class BJPK10 extends Component {
                             <li className="li1">{i}</li>
                             <li className="li2">15</li>
                             <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                           )
@@ -485,9 +479,7 @@ class BJPK10 extends Component {
                             <li className="li1">{i}</li>
                             <li className="li2">10.8</li>
                             <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                             <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                           )
@@ -497,9 +489,7 @@ class BJPK10 extends Component {
                       <li className="li1">11</li>
                       <li className="li2">8.8</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="11">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='11'/>
                       </li>
 
                       {
@@ -509,9 +499,7 @@ class BJPK10 extends Component {
                             <li className="li1">{i}</li>
                             <li className="li2">10.8</li>
                             <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                           )
@@ -525,9 +513,7 @@ class BJPK10 extends Component {
                             <li className="li1">{i}</li>
                             <li className="li2">15</li>
                             <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                           )
@@ -541,9 +527,7 @@ class BJPK10 extends Component {
                             <li className="li1">{i}</li>
                             <li className="li2">23</li>
                             <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                           )
@@ -557,9 +541,7 @@ class BJPK10 extends Component {
                             <li className="li1">{i}</li>
                             <li className="li2">45</li>
                             <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                           )
@@ -573,34 +555,25 @@ class BJPK10 extends Component {
                       <li className="li1">大</li>
                       <li className="li2">2.4</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="大">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='大'/>
                       </li>
 
                       <li className="li1">小</li>
                       <li className="li2">1.88</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="小">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='小'/>
                       </li>
 
                       <li className="li1">单</li>
                       <li className="li2">1.88</li>
                       <li className="li3">
-                        <select onChange={this.onValueChange} id="单">
-                          {options}
-                        </select>
+                        <input type="number" onChange={this.onValueChange} id='单'/>
                       </li>
 
                       <li className="li1">双</li>
                       <li className="li2">2.4</li>
                       <li className="li3">
-                        <input></input>
-                        {/*<select onChange={this.onValueChange} id="双">*/}
-                        {/*{options}*/}
-                        {/*</select>*/}
+                        <input type="number" onChange={this.onValueChange} id='双'/>
                       </li>
                     </ul>
                   </div>
@@ -611,14 +584,18 @@ class BJPK10 extends Component {
             <div className="xiazhu">
               <div className="title">下注结果</div>
               <ul>
-                <li className="clf">
-                  <div className="fl left">冠军： <span>大</span></div>
-                  <div className="fl right">下注金额： <span>10</span></div>
-                </li>
-                <li className="clf">
-                  <div className="fl left">亚军： <span>大</span></div>
-                  <div className="fl right">下注金额： <span>10</span></div>
-                </li>
+                {
+                  Object.keys(historyChoices).map(method => {
+                    return Object.keys(historyChoices[method]).map(e => {
+                      return (
+                        <li className="clf">
+                          <div className="fl left">{methodM[method]}： <span>{e}</span></div>
+                          <div className="fl right">下注金额： <span>{historyChoices[method][e]}</span></div>
+                        </li>
+                      );
+                    });
+                  })
+                }
               </ul>
             </div>
 

@@ -28,6 +28,10 @@ router
 
     //获取开奖信息
     .get('/lotterys/current', Index.getCurrLottery)
+
+    //获取两面长龙
+    .get('/lotterys/stat', Index.getCurrLottery)
+
     //获取账户
     .get('/account', Index.getAccount)
 

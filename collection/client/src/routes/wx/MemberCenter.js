@@ -69,7 +69,7 @@ class MemberCenter extends Component {
       type: 'wx/updateState',
       payload: {userinfo: {}, logged: false},
     });
-    hashHistory.push({pathname: "/"});
+    hashHistory.push({pathname: "/login"});
   }
 
   render() {

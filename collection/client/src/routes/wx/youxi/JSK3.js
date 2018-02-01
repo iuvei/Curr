@@ -17,6 +17,13 @@ const METHOD_1 = 1; //和值
 const METHOD_2 = 2; //选三
 const METHOD_3 = 3; //选二
 
+const methodM = {
+  1: "和值",
+  2: '选三',
+  3: '选二',
+}
+
+
 const options = [<option key="0" value="0">0</option>,
   <option key="2" value="2">2</option>,
   <option key="5" value="5">5</option>,
@@ -35,6 +42,7 @@ class JSK3 extends Component {
       lottery: {time: '', current: {}, next: {}},
       method: METHOD_1,
       choice: {},
+      historyChoices: {},
     }
     this.getLiveLottery();
   }
@@ -65,6 +73,10 @@ class JSK3 extends Component {
     hashHistory.push({pathname: PATH_HISTORY, state: {type: "JSK3"}});
   }
 
+  gotoRanking = () => {
+    hashHistory.push({pathname: p.PATH_Ranking, state: {type: "JSK3"}});
+  }
+
   onMethodChange = (method) => {
     if (this.state.method !== method) {
       this.onRest();
@@ -91,7 +103,14 @@ class JSK3 extends Component {
     const req = {userid, no, game: "JSK3", method, choice, avatar, nickname: nickname || username}
     bet(req).then(data => {
       if (data.success) {
-        this.setState({choice: {}});
+        const historyChoices = this.state.historyChoices;
+        const c = historyChoices[this.state.method];
+        if (c) {
+          historyChoices[this.state.method] = {...c, ...choice}
+        } else {
+          historyChoices[this.state.method] = choice
+        }
+        this.setState({choice: {}, historyChoices});
         this.onRest();
         this.props.dispatch({ //更新当前显示金额
           type: 'wx/getUserInfo',
@@ -110,6 +129,11 @@ class JSK3 extends Component {
 
   onValueChange = (e) => {
     const choice = this.state.choice;
+    if (e.target.value < 0) {
+      this.onRest();
+      message.warn("输入无效")
+      return
+    }
     if (e.target.value == 0) {
       delete(choice[e.target.id])
     } else {
@@ -124,7 +148,7 @@ class JSK3 extends Component {
 
 
   render() {
-    const {method} = this.state;
+    const {method, historyChoices} = this.state;
     const {no, type, code, opentime} = this.state.lottery.current;
     var sum = 0;
     if (code !== undefined && code.split(",")) {
@@ -156,7 +180,10 @@ class JSK3 extends Component {
                     : ""
                 }
               </div>
-              <div className="fr btn"><a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
+              <div className="fr btn">
+                <a onClick={this.gotoRanking}>两面长龙</a>
+                <a onClick={this.gotoKaijiangHISTORY}>开奖历史</a>
+              </div>
             </div>
             <div className="center">
                   <span
@@ -202,9 +229,7 @@ class JSK3 extends Component {
                               <li className="li1">{i}</li>
                               <li className="li2">1.995</li>
                               <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                                <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                         )
@@ -223,9 +248,7 @@ class JSK3 extends Component {
                               <li className="li1">{i}</li>
                               <li className="li2">1.995</li>
                               <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                         )
@@ -243,9 +266,7 @@ class JSK3 extends Component {
                               <li className="li1">{i}</li>
                               <li className="li2">1.995</li>
                               <li className="li3">
-                              <select onChange={this.onValueChange} id={`${i}`}>
-                                {options}
-                              </select>
+                             <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
                         )
@@ -254,6 +275,24 @@ class JSK3 extends Component {
                   </ul>
                 </div>
               </form>
+            </div>
+
+            <div className="xiazhu">
+              <div className="title">下注结果</div>
+              <ul>
+                {
+                  Object.keys(historyChoices).map(method => {
+                    return Object.keys(historyChoices[method]).map(e => {
+                      return (
+                        <li className="clf">
+                          <div className="fl left">{methodM[method]}： <span>{e}</span></div>
+                          <div className="fl right">下注金额： <span>{historyChoices[method][e]}</span></div>
+                        </li>
+                      );
+                    });
+                  })
+                }
+              </ul>
             </div>
 
             <div className="clf btns">
