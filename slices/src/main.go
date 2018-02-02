@@ -57,7 +57,7 @@ func main() {
 	srv := Service{
 		wx: WX{
 			Appid:  "wx34cd993710628c13",
-			Secret: "",
+			Secret: "eede7d32677e4bdc923e71603978983d",
 		},
 		client: http.DefaultClient,
 	}

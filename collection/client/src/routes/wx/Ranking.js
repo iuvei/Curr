@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import '../../assets/wx/css/kaijianglishi.css';
 
-import {getLotterys} from '../../services/wxEnd';
+import {getChanLong} from '../../services/wxEnd';
 /**
  * Created by sven on 2018/1/14.
  */
@@ -19,37 +19,48 @@ export default class Ranking extends Component {
       days,
       day: moment().format('YYYY-MM-DD'),
       type: props.location.state.type || 'CQSSC',
-      lotterys: [],
+      changlong: {},
     }
   }
 
   componentDidMount() {
-    this.getLotterysByType(this.state.type, this.state.day)
+    this.getChanLongByType(this.state.type, this.state.day)
   }
 
-  getLotterysByType = (type, day) => {
-    getLotterys({type, day})
+  getChanLongByType = (type, day) => {
+    getChanLong({type, day})
       .then(data => {
         if (data.success) {
           this.setState({
             type,
             day,
-            lotterys: data.result.lotterys,
+            changlong: data.result.changlong.m,
+          });
+        } else {
+          this.setState({
+            type,
+            day,
+            changlong: {},
           });
         }
       });
   }
 
   onTypeChange = (type) => {
-    this.getLotterysByType(type, this.state.day)
+    this.getChanLongByType(type, this.state.day)
   }
 
   onDayChange = (e) => {
-    this.getLotterysByType(this.state.type, e.target.value)
+    this.getChanLongByType(this.state.type, e.target.value)
   }
 
   render() {
-    const {days, type, lotterys} = this.state;
+    const {days, type, changlong} = this.state;
+    const sortData = [];
+    Object.keys(changlong).forEach(e => {
+      sortData.push({key: e, value: changlong[e]});
+    });
+    console.log('=============', sortData, sortData.sort(up))
     return (
       <div className="w">
         <div id="betting2">
@@ -81,24 +92,28 @@ export default class Ranking extends Component {
               <div className="types">
                 <ul className="clf">
                   {
-                    lotterys.map((item, i) => {
+                    sortData.map((item, i) => {
                       return (
-                      <li className="clf" key={i}>
-                        <div className="dv1">{item.no}</div>
-                        <div className="dv2">{item.no}</div>
-                      </li>
+                        <li className="clf" key={i}>
+                          <div className="dv1">{item.key}</div>
+                          <div className="dv2">{item.value}期</div>
+                        </li>
                       );
                     })
                   }
                 </ul>
               </div>
-
             </div>
           </div>
         </div>
       </div>
     );
   }
+}
+
+
+function up(x, y) {
+  return y.value - x.value
 }
 
 

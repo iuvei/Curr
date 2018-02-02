@@ -1,6 +1,8 @@
 package common
 
 import (
+	"time"
+
 	"github.com/qiniu/db/mgoutil.v3"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -59,4 +61,15 @@ type Collections struct {
 	QuizColl        mgoutil.Collection `coll:"quizs"`
 	TerraceStatColl mgoutil.Collection `coll:"terrace_stats"`
 	UserStatColl    mgoutil.Collection `coll:"users_stats"`
+	ChangLongColl   mgoutil.Collection `coll:"changlongs"`
+}
+
+var timeLayout = "2006-01-02 15:04:05"
+
+func GetCurrTime() string {
+	return time.Now().Format(timeLayout)
+}
+
+func GetCurrDay() string {
+	return time.Now().Format("2006-01-02")
 }

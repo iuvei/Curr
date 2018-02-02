@@ -98,9 +98,13 @@ func (m *JSK3) Run() {
 
 	log.Infof(">>>>>>>>start to calculate lottery<<<<<<<<<")
 	start2 := time.Now()
-	m.calculate()
-	log.Infof("Cost: %v", time.Since(start2))
+	m.Calculate()
+	log.Debugf("Cost: %v", time.Since(start2))
 	log.Infof(">>>>>>>>>finish calculate lottery<<<<<<<<<<")
+
+	log.Infof(">>>>>>>>start to eval changlong <<<<<<<<<")
+	m.StatChangLong()
+	log.Infof(">>>>>>>>>finish eval changlong<<<<<<<<<<")
 
 }
 
@@ -145,7 +149,7 @@ func (m *JSK3) Store(lt Lottery) error {
 	return nil
 }
 
-func (m *JSK3) calculate() {
+func (m *JSK3) Calculate() {
 	var bets []Bet
 	err := m.colls.BetColl.Find(M{"from": 1, "game": "JSK3", "dealed": false}).All(&bets)
 	if err != nil {
@@ -204,5 +208,16 @@ func (m *JSK3) calculate() {
 		if _, err = m.colls.QuizColl.UpsertId(v.Id, M{"$set": update}); err != nil {
 			log.Errorf("failed to change bets's state[dealed:true], error: %v", err)
 		}
+	}
+}
+
+func (m *JSK3) StatChangLong() {
+	long, err := changLong(strings.Split(m.currLottery.Opencode, ","))
+	update := M{}
+	for k, v := range long {
+		update[fmt.Sprintf("m.%s", k)] = v
+	}
+	if _, err = m.colls.ChangLongColl.Upsert(M{"day": GetCurrDay(), "type": "JSK3"}, M{"$inc": update}); err != nil {
+		log.Errorf("failed to update changlong, error: %v", err)
 	}
 }

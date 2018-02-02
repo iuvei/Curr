@@ -78,9 +78,9 @@ export default class Sider extends Component {
           <li className="level1">
             <a href="" className="tit"><em className="ico ico6"></em>数据采集<i></i></a>
             <ul className="level2">
-              <li> <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather_jsk3}>江苏快3</Link></li>
-              <li> <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather_bjpk10}>北京赛车</Link></li>
-              <li> <Link className={this.isCurrent(PATH_DATE_GATHER)} onClick={this.gotoDataGather_cqssc}>重庆时时彩</Link></li>
+              <li><Link onClick={this.gotoDataGather_jsk3}>江苏快3</Link></li>
+              <li><Link onClick={this.gotoDataGather_bjpk10}>北京赛车</Link></li>
+              <li><Link onClick={this.gotoDataGather_cqssc}>重庆时时彩</Link></li>
             </ul>
           </li>
           <li className="level1">

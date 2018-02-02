@@ -30,7 +30,7 @@ router
     .get('/lotterys/current', Index.getCurrLottery)
 
     //获取两面长龙
-    .get('/lotterys/stat', Index.getCurrLottery)
+    .get('/lotterys/changlong', Index.getChanglong)
 
     //获取账户
     .get('/account', Index.getAccount)

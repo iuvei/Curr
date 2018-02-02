@@ -90,10 +90,12 @@ func (m *CQSSC) Run() {
 	log.Infof(">>>>>>>>finish fetching lottery<<<<<<<<<Cost: %v", time.Since(start))
 
 	log.Infof(">>>>>>>>start to calculate lottery<<<<<<<<<")
-	start2 := time.Now()
 	m.calculate()
-	log.Infof("Cost: %v", time.Since(start2))
 	log.Infof(">>>>>>>>>finish calculate lottery<<<<<<<<<<")
+
+	log.Infof(">>>>>>>>start to eval changlong <<<<<<<<<")
+	m.StatChangLong()
+	log.Infof(">>>>>>>>>finish eval changlong<<<<<<<<<<")
 
 }
 
@@ -204,5 +206,17 @@ func (m *CQSSC) calculate() {
 		if _, err = m.colls.QuizColl.UpsertId(v.Id, M{"$set": update}); err != nil {
 			log.Errorf("failed to change bets's state[dealed:true], error: %v", err)
 		}
+	}
+}
+
+func (m *CQSSC) StatChangLong() {
+	long, err := changLong(strings.Split(m.currLottery.Opencode, ","))
+	update := M{}
+	for k, v := range long {
+		update[fmt.Sprintf("m.%s", k)] = v
+	}
+
+	if _, err = m.colls.ChangLongColl.Upsert(M{"day": GetCurrDay(), "type": "CQSSC"}, M{"$inc": update}); err != nil {
+		log.Errorf("failed to update changlong, error: %v", err)
 	}
 }

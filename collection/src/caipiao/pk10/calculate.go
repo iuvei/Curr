@@ -64,6 +64,19 @@ var (
 		"18": 45,
 		"19": 45,
 	}
+
+	mingNum = map[int]string{
+		1:  "冠军",
+		2:  "亚军",
+		3:  "季军",
+		4:  "四名",
+		5:  "五名",
+		6:  "六名",
+		7:  "七名",
+		8:  "八名",
+		9:  "九名",
+		10: "十名",
+	}
 )
 
 // OpenCode = "02,09,10,06,07,03,05,08,01,04"
@@ -156,4 +169,44 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		return 0, fmt.Errorf("choice {%s} unexpected", input)
 	}
 	return
+}
+
+func changLong(opencode []string) (long map[string]int, err error) {
+	long = make(map[string]int)
+	if len(opencode) != 10 {
+		return long, fmt.Errorf("param opencode invalid")
+	}
+	code := make([]int, 10)
+	for i, v := range opencode {
+		code[i], err = strconv.Atoi(v)
+		if err != nil {
+			return long, fmt.Errorf("param opencode invalid")
+		}
+	}
+	sum := code[0] + code[1]
+	if sum%2 == 0 {
+		long["冠亚和-双"] = 1
+	} else {
+		long["冠亚和-单"] = 1
+	}
+	if sum > 11 {
+		long["冠亚和-大"] = 1
+	} else {
+		long["冠亚和-小"] = 1
+	}
+
+	for i, v := range code {
+		if v%2 == 0 {
+			long[fmt.Sprintf("%s-双", mingNum[i+1])] = 1
+		} else {
+			long[fmt.Sprintf("%s-单", mingNum[i+1])] = 1
+		}
+		if sum >= 5 {
+			long[fmt.Sprintf("%s-大", mingNum[i+1])] = 1
+		} else {
+			long[fmt.Sprintf("%s-小", mingNum[i+1])] = 1
+		}
+	}
+
+	return long, nil
 }

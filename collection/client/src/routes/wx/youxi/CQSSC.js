@@ -138,6 +138,7 @@ class CQSSC extends Component {
   }
 
   onRest = () => {
+    console.log( document.getElementById("form"))
     document.getElementById("form").reset();
   }
 
@@ -299,43 +300,21 @@ class CQSSC extends Component {
                 </div>
                 <form id="form">
                   {/*<!--1-龙虎总和->*/}
-                  <div className={this.state.method == METHOD_01 ? "types" : "types hidden"}>
+                  <div className={method == METHOD_01 ? "types" : "types hidden"}>
                     <ul className="clf">
-                      <li className="li1">大</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='大'/>
-                      </li>
-
-                      <li className="li1">小</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='小'/>
-                      </li>
-
-                      <li className="li1">单</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='单'/>
-                      </li>
-
-                      <li className="li1">双</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='双'/>
-                      </li>
-
-                      <li className="li1">龙</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='龙'/>
-                      </li>
-
-                      <li className="li1">虎</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='虎'/>
-                      </li>
+                      {
+                        ['大', '小', '单', '双', '龙', '虎'].map(i => {
+                          return (
+                            <span key={i}>
+                             <li className="li1">{i}</li>
+                              <li className="li2">1.995</li>
+                              <li className="li3">
+                                <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+                            </li>
+                          </span>
+                          )
+                        })
+                      }
 
                       <li className="li1">和</li>
                       <li className="li2">9.000</li>
@@ -347,385 +326,106 @@ class CQSSC extends Component {
                 </form>
 
                 {/*<!--2-->*/}
-                <div className={this.state.method > 10 ? "types" : "types hidden"}>
+                <div className={method > 10 ? "types" : "types hidden"}>
                   <ul className="clf">
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-0.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="0">
-                        {options}
-                      </select>
-                    </li>
+                    {
+                      [0, 5, 1, 6, 2, 7, 3, 8, 4, 9].map(i => {
+                        return (
+                          <span key={i}>
+                             <li className="li1"><img src={require(`../../../assets/wx/images/h-${i}.png`)}/></li>
+                              <li className="li2">1.995</li>
+                              <li className="li3">
+                                <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+                            </li>
+                          </span>
+                        )
+                      })
+                    }
 
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-5.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="5">
-                        {options}
-                      </select>
-                    </li>
+                    {
+                      ['大', '小', '单', '双',].map(i => {
+                        return (
+                          <span key={i}>
+                             <li className="li1">{i}</li>
+                              <li className="li2">1.995</li>
+                              <li className="li3">
+                                <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+                            </li>
+                          </span>
+                        )
+                      })
+                    }
 
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-1.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="1">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-6.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="6">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-2.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="2">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-7.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="7">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-3.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="3">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-8.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="8">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-4.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="4">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1"><img src={require("../../../assets/wx/images/h-9.png")}/></li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="9">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">大</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="大">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">小</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="小">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">单</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="单">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">双</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="双">
-                        {options}
-                      </select>
-                    </li>
                   </ul>
                 </div>
 
                 {/*<!--3-斗牛->*/}
-                <div className={this.state.method == METHOD_03 ? "types" : "types hidden"}>
+                <div className={method == METHOD_03  ? "types" : "types hidden"}>
                   <ul className="clf">
                     <li className="li1">无牛</li>
-                    <li className="li2">1.995</li>
+                    <li className="li2">2.3</li>
                     <li className="li3">
-                      <select onChange={this.onValueChange} id="无牛">
-                        {options}
-                      </select>
+                      <input type="number" onChange={this.onValueChange} id='无牛'/>
                     </li>
 
-                    <li className="li1">牛五</li>
-                    <li className="li2">9.600</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛5">
-                        {options}
-                      </select>
-                    </li>
 
-                    <li className="li1">牛一</li>
-                    <li className="li2">9.600</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛1">
-                        {options}
-                      </select>
-                    </li>
+                    {
+                      ['牛五', '牛一', '牛六', '牛二', '牛七', '牛三', '牛八', '牛四', '牛九', '牛牛'].map(i => {
+                        return (
+                          <span key={i}>
+                              <li className="li1">{i}</li>
+                                  <li className="li2">9.9</li>
+                                  <li className="li3">
+                                  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+                            </li>
+                          </span>
+                        )
+                      })
+                    }
 
-                    <li className="li1">牛六</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛6">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">牛二</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛2">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">牛七</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛7">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">牛三</li>
-                    <li className="li2">9.000</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛3">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">牛八</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛8">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">牛四</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛4">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">牛九</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛9">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">牛牛</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛0">
-                        {options}
-                      </select>
-                    </li>
 
                     <li className="li1"></li>
                     <li className="li2"></li>
                     <li className="li3"></li>
 
-                    <li className="li1">牛大</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛大">
-                        {options}
-                      </select>
-                    </li>
 
-                    <li className="li1">牛小</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛小">
-                        {options}
-                      </select>
-                    </li>
+                    {
+                      ['牛大', '牛小', '牛单', '牛双'].map(i => {
+                        return (
+                          <span key={i}>
+                              <li className="li1">{i}</li>
+                                  <li className="li2">1.995</li>
+                                  <li className="li3">
+                                  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+                            </li>
+                          </span>
+                        )
+                      })
+                    }
 
-                    <li className="li1">牛单</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛单">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">牛双</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="牛双">
-                        {options}
-                      </select>
-                    </li>
                   </ul>
                 </div>
 
-                {/*<!--4-前三->*/}
-                <div className={this.state.method == METHOD_04 ? "types" : "types hidden"}>
+                {/*<!--4-前三 中三 后三->*/}
+                <div className={method == METHOD_04 ||method==METHOD_05||method==METHOD_06  ? "types" : "types hidden"}>
                   <ul className="clf">
-                    <li className="li1">豹子</li>
-                    <li className="li2">75</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="豹子">
-                        {options}
-                      </select>
-                    </li>
 
-                    <li className="li1">顺子</li>
-                    <li className="li2">18</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="顺子">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">对子</li>
-                    <li className="li2">3.5</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="对子">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">半顺</li>
-                    <li className="li2">2.8</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="半顺">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">杂六</li>
-                    <li className="li2">3.2</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="杂六">
-                        {options}
-                      </select>
-                    </li>
+                    {
+                      [{k:'豹子', v: 75},{k:'顺子', v:18} ,{k:'对子', v:3.5 },{k:'半顺', v:2.8},{k:'杂六', v:3.2}].map(e => {
+                        return (
+                          <span key={e.k}>
+                             <li className="li1">{e.k}</li>
+                              <li className="li2">{e.v}</li>
+                              <li className="li3">
+                                <input type="number" onChange={this.onValueChange} id={`${e.k}`}/>
+                            </li>
+                          </span>
+                        )
+                      })
+                    }
                   </ul>
                 </div>
 
-                {/*<!--5-中三->*/}
-                <div className={this.state.method == METHOD_05 ? "types" : "types hidden"}>
-                  <ul className="clf">
-                    <li className="li1">豹子</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="豹子">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">顺子</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="顺子">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">对子</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="对子">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">半顺</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="半顺">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">杂六</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="杂六">
-                        {options}
-                      </select>
-                    </li>
-                  </ul>
-                </div>
-
-                {/*<!--6-后三->*/}
-                <div className={this.state.method == METHOD_06 ? "types" : "types hidden"}>
-                  <ul className="clf">
-                    <li className="li1">豹子</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="豹子">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">顺子</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="顺子">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">对子</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="对子">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">半顺</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="半顺">
-                        {options}
-                      </select>
-                    </li>
-
-                    <li className="li1">杂六</li>
-                    <li className="li2">1.995</li>
-                    <li className="li3">
-                      <select onChange={this.onValueChange} id="杂六">
-                        {options}
-                      </select>
-                    </li>
-                  </ul>
-                </div>
               </div>
             </div>
 

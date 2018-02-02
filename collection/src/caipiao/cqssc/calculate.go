@@ -48,21 +48,21 @@ var (
 	}
 	//METHOD_3 牛牛
 	peiLue3 = map[string]float32{
-		"无牛": 1.995,
-		"牛一": 9.95,
-		"牛二": 9.95,
-		"牛三": 9.95,
-		"牛四": 9.95,
-		"牛五": 9.95,
-		"牛六": 9.95,
-		"牛七": 9.95,
-		"牛八": 9.95,
-		"牛九": 9.95,
-		"牛牛": 9.95,
-		"牛大": 9.95,
-		"牛小": 9.95,
-		"牛双": 9.95,
-		"牛单": 9.95,
+		"无牛": 2.3,
+		"牛一": 9.9,
+		"牛二": 9.9,
+		"牛三": 9.9,
+		"牛四": 9.9,
+		"牛五": 9.9,
+		"牛六": 9.9,
+		"牛七": 9.9,
+		"牛八": 9.9,
+		"牛九": 9.9,
+		"牛牛": 9.9,
+		"牛大": 1.995,
+		"牛小": 1.995,
+		"牛双": 1.995,
+		"牛单": 1.995,
 	}
 	// METHOD_4 METHOD_5 METHOD_6 前三中三后三
 	peiLue456 = map[string]float32{
@@ -85,6 +85,14 @@ var (
 		7:  "牛七",
 		8:  "牛八",
 		9:  "牛九",
+	}
+
+	qiuNum = map[int]string{
+		1: "第一球",
+		2: "第二球",
+		3: "第三球",
+		4: "第四球",
+		5: "第五球",
 	}
 )
 
@@ -210,4 +218,53 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		return 0, fmt.Errorf("method[%s] invalid", method)
 	}
 	return amount, nil
+}
+
+func changLong(opencode []string) (long map[string]int, err error) {
+	long = make(map[string]int)
+	if len(opencode) != 5 {
+		return long, fmt.Errorf("param opencode invalid")
+	}
+	code := make([]int, 5)
+	for i, v := range opencode {
+		code[i], err = strconv.Atoi(v)
+		if err != nil {
+			return long, fmt.Errorf("param opencode invalid")
+		}
+	}
+	sum := code[0] + code[1] + code[2] + code[3] + code[4]
+	if sum%2 == 0 {
+		long["总和-双"] = 1
+	} else {
+		long["总和-单"] = 1
+	}
+	if sum >= 23 {
+		long["总和-大"] = 1
+	} else {
+		long["总和-小"] = 1
+	}
+	//	if code[0] > code[4] {
+	//		long["龙"] = 1
+	//	}
+	//	if code[0] < code[4] {
+	//		long["虎"] = 1
+	//	}
+	//	if code[0] == code[4] {
+	//		long["和"] = 1
+	//	}
+
+	for i, v := range code {
+		if v%2 == 0 {
+			long[fmt.Sprintf("%s-双", qiuNum[i+1])] = 1
+		} else {
+			long[fmt.Sprintf("%s-单", qiuNum[i+1])] = 1
+		}
+		if sum >= 5 {
+			long[fmt.Sprintf("%s-大", qiuNum[i+1])] = 1
+		} else {
+			long[fmt.Sprintf("%s-小", qiuNum[i+1])] = 1
+		}
+	}
+
+	return long, nil
 }

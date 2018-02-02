@@ -89,10 +89,12 @@ func (m *BJPK10) Run() {
 	log.Infof("Cost: %v >>>>>>>>finish fetching lottery<<<<<<<<<", time.Since(start))
 
 	log.Infof(">>>>>>>>start to calculate lottery<<<<<<<<<")
-	start2 := time.Now()
 	m.calculate()
-	log.Infof("Cost: %v", time.Since(start2))
 	log.Infof(">>>>>>>>>finish calculate lottery<<<<<<<<<<")
+
+	log.Infof(">>>>>>>>start to eval changlong <<<<<<<<<")
+	m.StatChangLong()
+	log.Infof(">>>>>>>>>finish eval changlong<<<<<<<<<<")
 
 }
 
@@ -197,5 +199,17 @@ func (m *BJPK10) calculate() {
 			log.Errorf("failed to change bets's state[dealed:true], error: %v", err)
 		}
 
+	}
+}
+
+func (m *BJPK10) StatChangLong() {
+	long, err := changLong(strings.Split(m.currLottery.Opencode, ","))
+	update := M{}
+	for k, v := range long {
+		update[fmt.Sprintf("m.%s", k)] = v
+	}
+	log.Infof("%#v", update)
+	if _, err = m.colls.ChangLongColl.Upsert(M{"day": GetCurrDay(), "type": "BJPK10"}, M{"$inc": update}); err != nil {
+		log.Errorf("failed to update changlong, error: %v", err)
 	}
 }

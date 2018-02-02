@@ -6,7 +6,8 @@ const BetModel = require('../../models/quiz/bet.model');
 const QuizModel = require('../../models/quiz/quiz.model');
 const SettingsModel = require('../../models/comm/settings');
 const UpDownModel = require('../../models/quiz/upDown.model');
-const LotteryModel = require('../../models/quiz/lottery.model.js');
+const LotteryModel = require('../../models/quiz/lottery.model');
+const ChangLongModel = require('../../models/quiz/changlong.model');
 class IndexController {
 
     //获取公告配置
@@ -78,6 +79,7 @@ class IndexController {
     static async getLive(ctx) {
         const {type} =  ctx.request.query;
         const lottery = await LotteryModel.findOne({type: type.toUpperCase()}, {'_id': 0}).sort({"no": -1})
+
         if (lottery) { //判断存在
             var live = {}
             switch (type.toUpperCase()) {
@@ -220,6 +222,14 @@ class IndexController {
         } else {
             return ctx.body = {message: "获取失败", code: 404}
         }
+    }
+
+    //长龙
+    static async getChanglong(ctx) {
+        const {type, day} =  ctx.request.query;
+        const changlong = await ChangLongModel.findOne({type: type.toUpperCase(), 'day': day});
+
+        return ctx.body = {changlong, code: 200}
     }
 
     static async auth(ctx) {

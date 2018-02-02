@@ -112,3 +112,32 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 	}
 	return
 }
+
+func changLong(opencode []string) (long map[string]int, err error) {
+	long = make(map[string]int)
+	if len(opencode) != 3 {
+		return long, fmt.Errorf("param opencode invalid")
+	}
+	code := make([]int, 3)
+	for i, v := range opencode {
+		code[i], err = strconv.Atoi(v)
+		if err != nil {
+			return long, fmt.Errorf("param opencode invalid")
+		}
+	}
+	sum := 0
+	for _, v := range code {
+		sum += v
+	}
+	if sum%2 == 0 {
+		long["和值-双"] = 1
+	} else {
+		long["和值-单"] = 1
+	}
+	if sum >= 11 {
+		long["和值-大"] = 1
+	} else {
+		long["和值-小"] = 1
+	}
+	return long, nil
+}
