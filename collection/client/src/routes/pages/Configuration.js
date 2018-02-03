@@ -11,14 +11,13 @@ class Configuration extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      config: {
-      },
+      config: {},
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     getPlatConfing()
-      .then(data=>{
+      .then(data => {
         if (data.success) {
           this.setState({
             config: data.result.data.config,
@@ -29,7 +28,7 @@ class Configuration extends Component {
 
   onSubmit = (e) => {
     setPlatConfing({...this.state.config})
-      .then(data=> {
+      .then(data => {
         message.success("修改成功")
       });
   }
@@ -80,7 +79,7 @@ class Configuration extends Component {
           <div className="bottom">
             <form>
               <p><span className="sp1">网站是否开放</span>
-                <select ref="isOpen" className="sp2 sp3" value={isOpen||true} onChange={this.onIsOpenChange} >
+                <select ref="isOpen" className="sp2 sp3" value={isOpen || true} onChange={this.onIsOpenChange}>
                   <option value="true">是</option>
                   <option value="false">否</option>
                 </select>
@@ -98,10 +97,10 @@ class Configuration extends Component {
               <p><span className="sp1">授权码</span>
                 <input className="sp2" ref="wxCode" value={wxCode} onChange={this.onWxCodeChange}></input>
               </p>
-			  <p><span className="sp1"></span>
-              <input type="submit" value="保存信息" onClick={this.onSubmit} className="ip1"/>
-              <input type="reset" value="取消" onClick={this.gotoIndex} className="ip2"/>
-			  </p>
+              <p><span className="sp1"></span>
+                <input type="submit" value="保存信息" onClick={this.onSubmit} className="ip1"/>
+                <input type="reset" value="取消" onClick={this.gotoIndex} className="ip2"/>
+              </p>
             </form>
           </div>
         </div>

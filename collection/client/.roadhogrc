@@ -1,6 +1,7 @@
 {
   "entry": "src/*.js",
   "disableCSSModules": true,
+  "publicPath": "",
   "env": {
     "development": {
       "proxy": {
@@ -14,15 +15,15 @@
              "changeOrigin": true,
              "pathRewrite": { "^/ws/admin" : "/ws/admin" }
          },
-         "/mobile/api/*": {
+         "/caipiao/mobile/api/*": {
             "target": "http://localhost:3001/",
             "changeOrigin": true,
-            "pathRewrite": { "^/mobile/api" : "/api" }
+            "pathRewrite": { "^/caipiao/mobile/api" : "/api" }
          },
-         "/admin/api/*": {
+         "/caipiao/admin/api/*": {
             "target": "http://localhost:3000/",
              "changeOrigin": true,
-             "pathRewrite": { "^/admin/api" : "/api" }
+             "pathRewrite": { "^/caipiao/admin/api" : "/api" }
          }
       },
       "extraBabelPlugins": [

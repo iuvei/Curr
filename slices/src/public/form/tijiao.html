@@ -16,7 +16,7 @@
     <script>
         var flag = window.sessionStorage.getItem("opened");
         if (flag == undefined || flag!='1') {
-            window.location.href = "/index.html"
+            window.location.href = "/zhongou/index.html"
         }
     </script>
 </head>
@@ -147,7 +147,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "/api/registe",
+                url: "/zhongou/api/registe",
                 data: JSON.stringify(req),
                 contentType: "application/json",
                 dataType: 'json'

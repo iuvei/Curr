@@ -92,7 +92,6 @@ class WxPage extends Component {
 
   render() {
     const {userinfo} = this.props.wx;
-    //console.log(userinfo,'===================================')
     return (
       <div>
         <div className="comTopDiv clf">

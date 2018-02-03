@@ -2,8 +2,7 @@
   "private": true,
   "scripts": {
     "start": "roadhog server",
-    "build": "roadhog build",
-    "lint": "eslint --ext .js src test"
+    "build": "roadhog build"
   },
   "dependencies": {
     "antd": "^2.12.3",
@@ -31,7 +30,7 @@
     "expect": "^1.20.2",
     "husky": "^0.12.0",
     "redbox-react": "^1.3.2",
-    "roadhog": "^0.5.2",
+    "roadhog": "^1.3.0",
     "sass-loader": "^6.0.6"
   }
 }

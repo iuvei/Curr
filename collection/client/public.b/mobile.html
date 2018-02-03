@@ -21,7 +21,6 @@
 <script>
   $(function () {
 
-
     //封装弹窗函数
     function popupFunc(openBtn, closeBtn, switObj) {
       $(openBtn).on("click", function () { $(switObj).css('display', 'block'); });
@@ -33,7 +32,6 @@
 
     // 明细开关
     $('#menuDetail').on('click', function () {
-        console.log('================')
       $('.detail').toggle()
     });
 

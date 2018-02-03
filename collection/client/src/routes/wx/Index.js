@@ -94,7 +94,7 @@ class Index extends Component {
     const {announcement} = this.state;
     return (
       <div>
-        <div className="banner"><img src={require("../../assets/wx/images/banner_1.jpg")}/></div>
+        <div className="banner"><img src={require("../../assets/wx/images/banner.png")}/></div>
         <div className="w">
           <div className="notice"><a href="javascript:;">{announcement || ''}</a></div>
           <div className="function clf">
@@ -104,7 +104,7 @@ class Index extends Component {
               <li><a href="javascript:;" onClick={this.gotoYouXi_BJPK10}><img
                 src={require("../../assets/wx/images/icon_function_4.png")}/>北京赛车</a></li>
               <li><a href="javascript:;" onClick={this.gotoYouXi_JSK3}><img
-                src={require("../../assets/wx/images/icon_jsk3.png")}/>江苏快3</a></li>
+                src={require("../../assets/wx/images/icon_function_jsk3.png")}/>江苏快3</a></li>
               <li><a href="javascript:;" onClick={this.getCustomerService}>
                 <img src={require("../../assets/wx/images/icon_function_1.png")}/>客服</a></li>
               <li><a href="javascript:;" onClick={this.gotoDeposit}><img

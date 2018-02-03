@@ -4,20 +4,11 @@ import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/wx/css/memberCenter.css';
 import {delCookie, getCookie} from '../../utils/cookies';
 import {getUserDetail} from '../../services/wxEnd';
+import * as p from './ConstantsPath';
 /**
  * Created by sven on 2018/1/7.
  */
 
-const PATH_Login = "/login";
-const PATH_Sign = "/sign";
-
-const PATH_Account = "/account";
-const PATH_Deposit = "/deposit";
-const PATH_DrawMoney = "/drawMoney";
-const PATH_XiaZhuJiLu = "/xiazhujilu";
-const PATH_FinanceRecords = "/finance";
-const PATH_Statistics = "/statistics";
-const PATH_UnRead = "/unread";
 class MemberCenter extends Component {
   constructor(props) {
     super(props);
@@ -36,31 +27,31 @@ class MemberCenter extends Component {
   }
 
   gotoBindingAccout = () => {
-    hashHistory.push({pathname: PATH_Account});
+    hashHistory.push({pathname: p.PATH_Account});
   }
 
   gotoDeposit = () => {
-    hashHistory.push({pathname: PATH_Deposit});
+    hashHistory.push({pathname: p.PATH_Deposit});
   }
 
   gotoDrawMoney = () => {
-    hashHistory.push({pathname: PATH_DrawMoney});
+    hashHistory.push({pathname: p.PATH_DrawMoney});
   }
 
   gotoXiaZhuJiLu = () => {
-    hashHistory.push({pathname: PATH_XiaZhuJiLu});
+    hashHistory.push({pathname: p.PATH_XiaZhuJiLu});
   }
 
   gotoFinanceRecords = () => {
-    hashHistory.push({pathname: PATH_FinanceRecords});
+    hashHistory.push({pathname: p.PATH_FinanceRecords});
   }
 
   gotoStatistics = () => {
-    hashHistory.push({pathname: PATH_Statistics});
+    hashHistory.push({pathname: p.PATH_Statistics});
   }
 
   gotoUnRead = () => {
-    hashHistory.push({pathname: PATH_UnRead});
+    hashHistory.push({pathname: p.PATH_UnRead});
   }
 
   gotoLogin = () => {
@@ -98,8 +89,8 @@ class MemberCenter extends Component {
             src={require("../../assets/wx/images/icon_record.png")}/>财务记录</a>
         </div>
         <div className="memberCenter">
-          <a href="javascript:;" className="link clf" onClick={this.gotoStatistics}><img
-            src={require("../../assets/wx/images/icon_statistics.png")}/>下级统计</a>
+          {/*<a href="javascript:;" className="link clf" onClick={this.gotoStatistics}><img*/}
+            {/*src={require("../../assets/wx/images/icon_statistics.png")}/>下级统计</a>*/}
           <a href="javascript:;" className="link clf" onClick={this.gotoUnRead}><img
             src={require("../../assets/wx/images/icon_unread.png")}/>未读信息</a>
         </div>
