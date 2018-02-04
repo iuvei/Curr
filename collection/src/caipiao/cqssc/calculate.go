@@ -20,7 +20,7 @@ var (
 	METHOD_5  = 5
 	METHOD_6  = 6
 	//METHOD_01
-	peiLue1 = map[string]float32{
+	peiLue1 = map[string]float64{
 		"大": 1.995,
 		"小": 1.995,
 		"单": 1.995,
@@ -30,7 +30,7 @@ var (
 		"和": 9.95,
 	}
 	//METHOD_21 METHOD_22 METHOD_23 METHOD_24 METHOD_25
-	peiLue2 = map[string]float32{
+	peiLue2 = map[string]float64{
 		"大": 1.995,
 		"小": 1.995,
 		"单": 1.995,
@@ -47,7 +47,7 @@ var (
 		"9": 1.995,
 	}
 	//METHOD_3 牛牛
-	peiLue3 = map[string]float32{
+	peiLue3 = map[string]float64{
 		"无牛": 2.3,
 		"牛一": 9.9,
 		"牛二": 9.9,
@@ -65,7 +65,7 @@ var (
 		"牛单": 1.995,
 	}
 	// METHOD_4 METHOD_5 METHOD_6 前三中三后三
-	peiLue456 = map[string]float32{
+	peiLue456 = map[string]float64{
 		"豹子": 75,
 		"顺子": 18,
 		"对子": 3.5,
@@ -129,7 +129,7 @@ func niu(a, b, c, d, e int) int {
 	return -1
 }
 
-func calculate(input map[string]int, method int, opencode []string) (amount float32, err error) {
+func calculate(input map[string]int, method int, opencode []string) (amount float64, err error) {
 	if len(opencode) != 5 {
 		return 0, fmt.Errorf("param opencode invalid")
 	}
@@ -140,7 +140,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 			return 0, fmt.Errorf("param opencode invalid")
 		}
 	}
-	amount = float32(0.0)
+	amount = 0.0
 	switch method {
 	case METHOD_1:
 		sum := code[0] + code[1] + code[2] + code[3] + code[4]
@@ -155,7 +155,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		}
 		for k, v := range input {
 			if m[k] {
-				amount += peiLue1[k] * float32(v)
+				amount += peiLue1[k] * float64(v)
 			}
 		}
 	case METHOD_21, METHOD_22, METHOD_23, METHOD_24, METHOD_25:
@@ -174,13 +174,13 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		}
 		for k, v := range input {
 			if k == strconv.Itoa(first) {
-				amount += peiLue2[k] * float32(v)
+				amount += peiLue2[k] * float64(v)
 			}
 			if first >= 5 && k == "大" || first <= 4 && k == "小" {
-				amount += peiLue2[k] * float32(v)
+				amount += peiLue2[k] * float64(v)
 			}
 			if first%2 == 0 && k == "双" || first%2 != 0 && k == "单" {
-				amount += peiLue2[k] * float32(v)
+				amount += peiLue2[k] * float64(v)
 			}
 		}
 	case METHOD_3:
@@ -194,7 +194,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		}
 		for k, v := range input {
 			if k == str || m[k] {
-				amount += peiLue3[k] * float32(v)
+				amount += peiLue3[k] * float64(v)
 			}
 		}
 
@@ -211,7 +211,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 
 		for k, v := range input {
 			if san == k {
-				amount += peiLue456[k] * float32(v)
+				amount += peiLue456[k] * float64(v)
 			}
 		}
 	default:
@@ -235,12 +235,16 @@ func changLong(opencode []string) (long map[string]int, err error) {
 	sum := code[0] + code[1] + code[2] + code[3] + code[4]
 	if sum%2 == 0 {
 		long["总和-双"] = 1
+		long["总和-单"] = 0
 	} else {
+		long["总和-双"] = 0
 		long["总和-单"] = 1
 	}
 	if sum >= 23 {
 		long["总和-大"] = 1
+		long["总和-小"] = 0
 	} else {
+		long["总和-大"] = 0
 		long["总和-小"] = 1
 	}
 	//	if code[0] > code[4] {
@@ -256,12 +260,16 @@ func changLong(opencode []string) (long map[string]int, err error) {
 	for i, v := range code {
 		if v%2 == 0 {
 			long[fmt.Sprintf("%s-双", qiuNum[i+1])] = 1
+			long[fmt.Sprintf("%s-单", qiuNum[i+1])] = 0
 		} else {
+			long[fmt.Sprintf("%s-双", qiuNum[i+1])] = 0
 			long[fmt.Sprintf("%s-单", qiuNum[i+1])] = 1
 		}
-		if sum >= 5 {
+		if v >= 5 {
 			long[fmt.Sprintf("%s-大", qiuNum[i+1])] = 1
+			long[fmt.Sprintf("%s-小", qiuNum[i+1])] = 0
 		} else {
+			long[fmt.Sprintf("%s-大", qiuNum[i+1])] = 0
 			long[fmt.Sprintf("%s-小", qiuNum[i+1])] = 1
 		}
 	}

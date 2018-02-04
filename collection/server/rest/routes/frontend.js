@@ -44,7 +44,7 @@ router
     .post('/up', Index.createUp)
     .post('/down', Index.createDown)
     //充值记录，即上下分记录
-    .get('/updowns/:openid', Index.getRechargeRecords)
+    .get('/updowns/:userid', Index.getRechargeRecords)
 
     //交易记录，即下注记录
     .get('/quizs/:userid', Index.getQuizRecords)

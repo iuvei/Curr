@@ -13,6 +13,7 @@ import (
 	"time"
 
 	qlog "github.com/qiniu/log"
+	"gopkg.in/mgo.v2/bson"
 )
 
 var log = qlog.New(os.Stderr, "BJPK10", qlog.Ldefault)
@@ -140,7 +141,6 @@ func (m *BJPK10) Store(lt Lottery) error {
 }
 
 func (m *BJPK10) calculate() {
-
 	var bets []Bet
 	err := m.colls.BetColl.Find(M{"from": 1, "game": "BJPK10", "dealed": false}).All(&bets)
 	if err != nil {
@@ -148,7 +148,7 @@ func (m *BJPK10) calculate() {
 	}
 	opencode := strings.Split(m.currLottery.Opencode, ",")
 	for _, v := range bets {
-		var win float32
+		var win float64
 		fmt.Printf("%#v\n", v)
 		if v.No != m.currLottery.No {
 			var lt Lottery
@@ -160,26 +160,26 @@ func (m *BJPK10) calculate() {
 			log.Info(lt, v.No)
 			win, err = calculate(v.Choice, v.Method, strings.Split(lt.Opencode, ","))
 			if err != nil {
-				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, NowNo, err)
+				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, v.No, err)
 				continue
 			}
 
 		} else {
 			win, err = calculate(v.Choice, v.Method, opencode)
 			if err != nil {
-				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, NowNo, err)
+				log.Errorf("failed to calculate %v at no[%v], error: %v", v.Choice, v.No, err)
 				continue
 			}
 		}
 
 		if win != 0 {
-			if err = m.colls.UserColl.Update(M{"_id": v.UserId}, M{"$inc": M{"balance": win}}); err != nil {
+			if err = m.colls.UserColl.UpdateId(bson.ObjectIdHex(v.UserId), M{"$inc": M{"balance": Round(win, 2)}}); err != nil {
 				log.Errorf("failed to update user's balance, error: %v", err)
 				continue
 			}
 		}
 
-		if err = m.colls.BetColl.Update(M{"_id": v.Id}, M{"$set": M{"dealed": true}}); err != nil {
+		if err = m.colls.BetColl.UpdateId(v.Id, M{"$set": M{"dealed": true}}); err != nil {
 			log.Errorf("failed to change bets's state[dealed:true], error: %v", err)
 		}
 		update := M{
@@ -204,12 +204,17 @@ func (m *BJPK10) calculate() {
 
 func (m *BJPK10) StatChangLong() {
 	long, err := changLong(strings.Split(m.currLottery.Opencode, ","))
-	update := M{}
+	updateInc := M{}
+	updateSet := M{}
 	for k, v := range long {
-		update[fmt.Sprintf("m.%s", k)] = v
+		if v == 1 {
+			updateInc[fmt.Sprintf("m.%s", k)] = v
+		} else {
+			updateSet[fmt.Sprintf("m.%s", k)] = v
+		}
 	}
-	log.Infof("%#v", update)
-	if _, err = m.colls.ChangLongColl.Upsert(M{"day": GetCurrDay(), "type": "BJPK10"}, M{"$inc": update}); err != nil {
+
+	if _, err = m.colls.ChangLongColl.Upsert(M{"day": GetCurrDay(), "type": "BJPK10"}, M{"$inc": updateInc, "$set": updateSet}); err != nil {
 		log.Errorf("failed to update changlong, error: %v", err)
 	}
 }

@@ -94,7 +94,7 @@ class Index extends Component {
     const {announcement} = this.state;
     return (
       <div>
-        <div className="banner"><img src={require("../../assets/wx/images/banner.png")}/></div>
+        <div className="banner"><img src={require("../../assets/wx/images/banner.jpg")}/></div>
         <div className="w">
           <div className="notice"><a href="javascript:;">{announcement || ''}</a></div>
           <div className="function clf">

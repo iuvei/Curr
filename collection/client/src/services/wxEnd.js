@@ -109,7 +109,7 @@ export async function addUpReq(params) {
 }
 //下分
 export async function addDownReq(params) {
-  return request(`${MOBILE_ROOT}/m/api/down`, {
+  return request(`${MOBILE_ROOT}/api/down`, {
     method: 'post',
     body: JSON.stringify(params),
   });
@@ -117,7 +117,7 @@ export async function addDownReq(params) {
 
 //上下分记录，即充值记录
 export async function getRechargeRecords(params) {
-  return request(`${MOBILE_ROOT}/api/updowns/${params.openid}`, {
+  return request(`${MOBILE_ROOT}/api/updowns/${params.userid}`, {
     method: 'get',
   });
 }

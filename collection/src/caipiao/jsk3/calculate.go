@@ -13,7 +13,7 @@ var (
 	METHOD_3 = 3
 
 	//METHOD_1 和值 大小单双
-	peiLue1 = map[string]float32{
+	peiLue1 = map[string]float64{
 		"大":  1.995,
 		"小":  1.995,
 		"单":  1.995,
@@ -37,16 +37,16 @@ var (
 	}
 
 	//METHOD_2 三号
-	peiLue2 = float32(1.995)
+	peiLue2 = 1.995
 
 	// METHOD_3 //冠亚和
-	peiLue3 = float32(1.995)
+	peiLue3 = 1.995
 )
 
 // OpenCode = "2,5,5"
 //  数组下标为名词
 
-func calculate(input map[string]int, method int, opencode []string) (amount float32, err error) {
+func calculate(input map[string]int, method int, opencode []string) (amount float64, err error) {
 	if len(opencode) != 3 {
 		return 0, fmt.Errorf("param opencode invalid")
 	}
@@ -59,7 +59,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		}
 	}
 	sort.Ints(code)
-	amount = float32(0.0)
+	amount = 0.0
 	switch method {
 	case METHOD_1:
 		sum := code[0] + code[1] + code[2]
@@ -71,7 +71,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		}
 		for k, v := range input {
 			if m[k] || strconv.Itoa(sum) == k {
-				amount += peiLue1[k] * float32(v)
+				amount += peiLue1[k] * float64(v)
 			}
 		}
 	case METHOD_2:
@@ -85,9 +85,8 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 			"666": s == "666",
 		}
 		for k, v := range input {
-			log.Info(k, m[k])
 			if m[k] {
-				amount += peiLue2 * float32(v)
+				amount += peiLue2 * float64(v)
 			}
 		}
 
@@ -103,7 +102,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		}
 		for k, v := range input {
 			if m[k] {
-				amount += peiLue3 * float32(v)
+				amount += peiLue3 * float64(v)
 			}
 		}
 
@@ -131,12 +130,16 @@ func changLong(opencode []string) (long map[string]int, err error) {
 	}
 	if sum%2 == 0 {
 		long["和值-双"] = 1
+		long["和值-单"] = 0
 	} else {
+		long["和值-双"] = 0
 		long["和值-单"] = 1
 	}
 	if sum >= 11 {
 		long["和值-大"] = 1
+		long["和值-小"] = 0
 	} else {
+		long["和值-大"] = 0
 		long["和值-小"] = 1
 	}
 	return long, nil

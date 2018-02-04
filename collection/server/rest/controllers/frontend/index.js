@@ -228,7 +228,9 @@ class IndexController {
     static async getChanglong(ctx) {
         const {type, day} =  ctx.request.query;
         const changlong = await ChangLongModel.findOne({type: type.toUpperCase(), 'day': day});
-
+        if (!changlong) {
+            return ctx.body = {m:{}, code: 200}
+        }
         return ctx.body = {changlong, code: 200}
     }
 
@@ -343,10 +345,10 @@ class IndexController {
 
     // 充值记录，即上下分记录
     static async getRechargeRecords(ctx) {
-        const openid = ctx.params.openid;
-        const upDowns = await UpDownModel.find({openid},
+        const userid = ctx.params.userid;
+        const upDowns = await UpDownModel.find({userid},
             {
-                "_id": 0, "openid": 0, "nickname": 0, "payMethod": 0, "profile": 0, "updateAt": 0, "byWho": 0,
+                "_id": 0, "userid": 0, "nickname": 0, "payMethod": 0, "profile": 0, "updateAt": 0, "byWho": 0,
                 "payNo": 0, "__v": 0, "balance": 0, "avatar": 0
             })
             .sort({"_id": 1}).limit(20);

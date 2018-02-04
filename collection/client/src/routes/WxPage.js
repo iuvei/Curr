@@ -20,30 +20,30 @@ class WxPage extends Component {
         this.gotoLogin();
         return
     }
-    getUserInfo()
-      .then(data => {
-        if (data.success) {
-          this.props.dispatch({
-            type: 'wx/updateState',
-            payload: {userinfo: data.result.userinfo},
-          })
-        } else {
-          //   getConfig()
-          //     .then(data => {
-          //       if (data.success) {
-          //         const HOME_PAGE = `http://${document.domain}/wx.html`
-          //         const params = {
-          //           appid: data.result.appid,
-          //           redirect_uri: `http://${document.domain}/m/api/auth${location.search === "" ? "?hash=123" : location.search}&callback=${HOME_PAGE}`,
-          //           response_type: 'code',
-          //           scope: 'snsapi_userinfo',
-          //           state: '1',
-          //         }
-          //         window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?${stringify(params)}#wechat_redirect`;
-          //       }
-          //     });
-        }
-      });
+    // getUserInfo()
+    //   .then(data => {
+    //     if (data.success) {
+    //       this.props.dispatch({
+    //         type: 'wx/updateState',
+    //         payload: {userinfo: data.result.userinfo},
+    //       })
+    //     } else {
+    //         getConfig()
+    //           .then(data => {
+    //             if (data.success) {
+    //               const HOME_PAGE = `http://${document.domain}/wx.html`
+    //               const params = {
+    //                 appid: data.result.appid,
+    //                 redirect_uri: `http://${document.domain}/m/api/auth${location.search === "" ? "?hash=123" : location.search}&callback=${HOME_PAGE}`,
+    //                 response_type: 'code',
+    //                 scope: 'snsapi_userinfo',
+    //                 state: '1',
+    //               }
+    //               window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?${stringify(params)}#wechat_redirect`;
+    //             }
+    //           });
+    //     }
+    //   });
   }
 
   alterMessage = (message) => {
@@ -124,7 +124,7 @@ class WxPage extends Component {
         <div className="content">
           {this.props.children}
         </div>
-        <div className="comBotDiv">&copy;2018凤凰娱乐Casino版权所有</div>
+        <div className="comBotDiv">&copy;2018至尊宝娱乐城Casino版权所有</div>
       </div>
     );
   }

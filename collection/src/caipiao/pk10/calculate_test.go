@@ -1,6 +1,7 @@
 package pk10
 
 import (
+	"caipiao/common"
 	"strings"
 	"testing"
 )
@@ -27,4 +28,16 @@ func Test_Calculate(t *testing.T) {
 		t.Fatal(err)
 	}
 	t.Log(res)
+}
+
+func TestChanglong(t *testing.T) {
+	openCode := strings.Split("1,2,3,4,5,6,7,8,9,10", ",")
+	res, err := changLong(openCode)
+	if err != nil {
+		t.Fail()
+	}
+	log.Infof("%#v", res)
+
+	v := 100.326344
+	log.Info(common.Round(v, 2))
 }

@@ -58,9 +58,13 @@ export default class Ranking extends Component {
     const {days, type, changlong} = this.state;
     const sortData = [];
     Object.keys(changlong).forEach(e => {
-      sortData.push({key: e, value: changlong[e]});
+      console.log(changlong[e])
+      if (changlong[e] > 0) {
+        sortData.push({key: e, value: changlong[e]});
+      }
     });
-    console.log('=============', sortData, sortData.sort(up))
+    sortData.sort(up)
+
     return (
       <div className="w">
         <div id="betting2">
@@ -74,14 +78,14 @@ export default class Ranking extends Component {
           </div>
 
           <div className="time">
-            <span>两面长龙：</span>
-            <select onChange={this.onDayChange}>
-              {
-                days.map(item => {
-                  return <option key={item} value={item}>{item}</option>;
-                })
-              }
-            </select>
+            <span>两面长龙</span>
+            {/*<select onChange={this.onDayChange}>*/}
+              {/*{*/}
+                {/*days.map(item => {*/}
+                  {/*return <option key={item} value={item}>{item}</option>;*/}
+                {/*})*/}
+              {/*}*/}
+            {/*</select>*/}
           </div>
           <div id="ctb2">
             <div className="bottom">

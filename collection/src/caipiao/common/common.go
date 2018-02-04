@@ -1,6 +1,7 @@
 package common
 
 import (
+	"math"
 	"time"
 
 	"github.com/qiniu/db/mgoutil.v3"
@@ -35,7 +36,7 @@ type Bet struct {
 	Game      string         `json:"game" bson:"game"`     //游戏类型
 	Method    int            `json:"method" bson:"method"` //游戏的玩法编号
 	Choice    map[string]int `json:"choice" bson:"choice"`
-	Amount    float32        `json:"amount" bson:"amount"`
+	Amount    float64        `json:"amount" bson:"amount"`
 	Avatar    string         `json:"avatar" bson:"avatar"`
 	Dealed    bool           `json:"dealed" bson:"dealed"`
 	CreatedAt bool           `json:"createdAt" bson:"createdAt"`
@@ -72,4 +73,9 @@ func GetCurrTime() string {
 
 func GetCurrDay() string {
 	return time.Now().Format("2006-01-02")
+}
+
+func Round(f float64, n int) float64 {
+	pow10_n := math.Pow10(n)
+	return math.Trunc((f+0.5/pow10_n)*pow10_n) / pow10_n
 }

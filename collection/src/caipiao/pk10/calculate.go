@@ -20,7 +20,7 @@ var (
 	METHOD_21 = 21 //1V龙虎
 	METHOD_22 = 22 //冠亚和
 	//METHOD_1 ~ METHOD_10
-	peiLue1 = map[string]float32{
+	peiLue1 = map[string]float64{
 		"大":  1.995,
 		"小":  1.995,
 		"单":  1.995,
@@ -38,10 +38,10 @@ var (
 	}
 
 	//METHOD_21
-	peiLue2 = float32(1.995) //1V龙虎
+	peiLue2 = 1.995 //1V龙虎
 
 	// METHOD_22 = 22 //冠亚和
-	peiLue3 = map[string]float32{
+	peiLue3 = map[string]float64{
 		"大":  2.4,
 		"小":  1.88,
 		"单":  2.4,
@@ -82,7 +82,7 @@ var (
 // OpenCode = "02,09,10,06,07,03,05,08,01,04"
 //  数组下标为名词
 
-func calculate(input map[string]int, method int, opencode []string) (amount float32, err error) {
+func calculate(input map[string]int, method int, opencode []string) (amount float64, err error) {
 	if len(opencode) != 10 {
 		return 0, fmt.Errorf("param opencode invalid")
 	}
@@ -94,7 +94,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 			return 0, fmt.Errorf("param opencode invalid")
 		}
 	}
-	amount = float32(0.0)
+	amount = 0.0
 	switch method {
 	case METHOD_1, METHOD_2, METHOD_3, METHOD_4, METHOD_5, METHOD_6, METHOD_7, METHOD_8, METHOD_9, METHOD_10:
 		num := code[0]
@@ -128,7 +128,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		}
 		for k, v := range input {
 			if m[k] || strconv.Itoa(num) == k {
-				amount += peiLue1[k] * float32(v)
+				amount += peiLue1[k] * float64(v)
 			}
 		}
 	case METHOD_21:
@@ -147,7 +147,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 
 		for k, v := range input {
 			if m[k] {
-				amount += peiLue2 * float32(v)
+				amount += peiLue2 * float64(v)
 			}
 		}
 
@@ -161,7 +161,7 @@ func calculate(input map[string]int, method int, opencode []string) (amount floa
 		}
 		for k, v := range input {
 			if k == strconv.Itoa(sum) || m[k] {
-				amount += peiLue3[k] * float32(v)
+				amount += peiLue3[k] * float64(v)
 			}
 		}
 
@@ -186,24 +186,32 @@ func changLong(opencode []string) (long map[string]int, err error) {
 	sum := code[0] + code[1]
 	if sum%2 == 0 {
 		long["冠亚和-双"] = 1
+		long["冠亚和-单"] = 0
 	} else {
+		long["冠亚和-双"] = 0
 		long["冠亚和-单"] = 1
 	}
 	if sum > 11 {
 		long["冠亚和-大"] = 1
+		long["冠亚和-小"] = 0
 	} else {
+		long["冠亚和-大"] = 0
 		long["冠亚和-小"] = 1
 	}
 
 	for i, v := range code {
 		if v%2 == 0 {
 			long[fmt.Sprintf("%s-双", mingNum[i+1])] = 1
+			long[fmt.Sprintf("%s-单", mingNum[i+1])] = 0
 		} else {
+			long[fmt.Sprintf("%s-双", mingNum[i+1])] = 0
 			long[fmt.Sprintf("%s-单", mingNum[i+1])] = 1
 		}
-		if sum >= 5 {
+		if v >= 5 {
 			long[fmt.Sprintf("%s-大", mingNum[i+1])] = 1
+			long[fmt.Sprintf("%s-小", mingNum[i+1])] = 0
 		} else {
+			long[fmt.Sprintf("%s-大", mingNum[i+1])] = 0
 			long[fmt.Sprintf("%s-小", mingNum[i+1])] = 1
 		}
 	}
