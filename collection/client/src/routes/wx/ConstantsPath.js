@@ -9,6 +9,7 @@ export const PATH_UnRead = "/unread";
 export const PATH_Login = "/login";
 export const PATH_Sign = "/sign";
 export const PATH_Account = "/account";
+export const PATH_HISTORY = "/kaijianglishi";
 
 export const PATH_Agency = "/agency";
 export const PATH_Deposit = "/deposit";

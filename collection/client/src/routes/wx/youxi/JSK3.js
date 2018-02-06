@@ -58,7 +58,7 @@ class JSK3 extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            opening: false,//this.state.lottery.next.leftTime >0 ? false:true,
+            opening: this.state.lottery.next.leftTime > 0 ? false : true,
             lottery: data.result.lottery,
           });
         }
@@ -163,6 +163,7 @@ class JSK3 extends Component {
             <div className="fl number">第 <span>{this.state.lottery.next.no || '--'}</span> 期</div>
             <div className="fr time" id="time">
               <CountDown start={'10:30'} end={'22:10'}
+                         interval={80}
                          time={this.state.lottery.next.leftTime}
                          callBack={this.onCallBack.bind(this)}/>
             </div>
@@ -197,110 +198,111 @@ class JSK3 extends Component {
             </form>
           </div>
         </div>
-
-        <div id="betting">
-          <div className="top" id="btn">
+        <Spin size="large" spinning={this.state.opening}>
+          <div id="betting">
+            <div className="top" id="btn">
             <span onClick={() => this.onMethodChange(METHOD_1)}
                   className={method == METHOD_1 ? 'redBG' : ''}>和值</span>
-            <span onClick={() => this.onMethodChange(METHOD_2)}
-                  className={method == METHOD_2 ? 'redBG' : ''}>选三号</span>
-            <span onClick={() => this.onMethodChange(METHOD_3)}
-                  className={method == METHOD_3 ? 'redBG' : ''}>选二号</span>
-          </div>
+              <span onClick={() => this.onMethodChange(METHOD_2)}
+                    className={method == METHOD_2 ? 'redBG' : ''}>选三号</span>
+              <span onClick={() => this.onMethodChange(METHOD_3)}
+                    className={method == METHOD_3 ? 'redBG' : ''}>选二号</span>
+            </div>
 
-          <div id="ctb">
-            {/*<!--和值-->*/}
-            <div className="bottom">
-              <div className="clf title">
-                <span className="sp1">玩法</span>
-                <span className="sp2">赔率</span>
-                <span className="sp3">金额</span>
-                <span className="sp1">玩法</span>
-                <span className="sp2">赔率</span>
-                <span className="sp3">金额</span>
-              </div>
-              <form id="form">
-                <div className={this.state.method == METHOD_1 ? "types" : "types hidden"}>
-                  <ul className="clf">
-                    {
-                      ['大', '小', '单', '双', 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(i => {
-                        return (
-                          <span key={i}>
+            <div id="ctb">
+              {/*<!--和值-->*/}
+              <div className="bottom">
+                <div className="clf title">
+                  <span className="sp1">玩法</span>
+                  <span className="sp2">赔率</span>
+                  <span className="sp3">金额</span>
+                  <span className="sp1">玩法</span>
+                  <span className="sp2">赔率</span>
+                  <span className="sp3">金额</span>
+                </div>
+                <form id="form">
+                  <div className={this.state.method == METHOD_1 ? "types" : "types hidden"}>
+                    <ul className="clf">
+                      {
+                        ['大', '小', '单', '双', 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18].map(i => {
+                          return (
+                            <span key={i}>
                               <li className="li1">{i}</li>
                               <li className="li2">1.995</li>
                               <li className="li3">
                                 <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
-                        )
-                      })
-                    }
+                          )
+                        })
+                      }
 
-                  </ul>
-                </div>
+                    </ul>
+                  </div>
 
-                <div className={this.state.method == METHOD_2 ? "types" : "types hidden"}>
-                  <ul className="clf">
-                    {
-                      [111, 222, 333, 444, 555, 666].map(i => {
-                        return (
-                          <span key={i}>
+                  <div className={this.state.method == METHOD_2 ? "types" : "types hidden"}>
+                    <ul className="clf">
+                      {
+                        [111, 222, 333, 444, 555, 666].map(i => {
+                          return (
+                            <span key={i}>
                               <li className="li1">{i}</li>
                               <li className="li2">1.995</li>
                               <li className="li3">
                               <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
-                        )
-                      })
-                    }
-                  </ul>
-                </div>
+                          )
+                        })
+                      }
+                    </ul>
+                  </div>
 
-                <div className={this.state.method == METHOD_3 ? "types" : "types hidden"}>
-                  <ul className="clf">
-                    {
-                      [11, 22, 33, 44, 55, 66].map(i => {
-                        return (
-                          <span key={i}>
+                  <div className={this.state.method == METHOD_3 ? "types" : "types hidden"}>
+                    <ul className="clf">
+                      {
+                        [11, 22, 33, 44, 55, 66].map(i => {
+                          return (
+                            <span key={i}>
                               <li className="li1">{i}</li>
                               <li className="li2">1.995</li>
                               <li className="li3">
                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
                             </li>
                           </span>
-                        )
-                      })
-                    }
-                  </ul>
-                </div>
-              </form>
-            </div>
+                          )
+                        })
+                      }
+                    </ul>
+                  </div>
+                </form>
+              </div>
 
-            <div className="xiazhu">
-              <div className="title">下注结果</div>
-              <ul>
-                {
-                  Object.keys(historyChoices).map(method => {
-                    return Object.keys(historyChoices[method]).map(e => {
-                      return (
-                        <li className="clf">
-                          <div className="fl left">{methodM[method]}： <span>{e}</span></div>
-                          <div className="fl right">下注金额： <span>{historyChoices[method][e]}</span></div>
-                        </li>
-                      );
-                    });
-                  })
-                }
-              </ul>
-            </div>
+              <div className="xiazhu">
+                <div className="title">下注结果</div>
+                <ul>
+                  {
+                    Object.keys(historyChoices).map(method => {
+                      return Object.keys(historyChoices[method]).map(e => {
+                        return (
+                          <li className="clf">
+                            <div className="fl left">{methodM[method]}： <span>{e}</span></div>
+                            <div className="fl right">下注金额： <span>{historyChoices[method][e]}</span></div>
+                          </li>
+                        );
+                      });
+                    })
+                  }
+                </ul>
+              </div>
 
-            <div className="clf btns">
-              <input type="submit" className="ip1" value="投注" onClick={this.onSend}/>
-              <input type="submit" className="ip2" value="重填" onClick={this.onRest}/>
+              <div className="clf btns">
+                <input type="submit" className="ip1" value="投注" onClick={this.onSend}/>
+                <input type="submit" className="ip2" value="重填" onClick={this.onRest}/>
+              </div>
             </div>
           </div>
-        </div>
+        </Spin>
       </div>
     );
   }

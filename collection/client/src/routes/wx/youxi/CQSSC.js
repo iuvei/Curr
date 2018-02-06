@@ -72,7 +72,7 @@ class CQSSC extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            opening: false,//this.state.lottery.next.leftTime >0 ? false:true,
+            opening: this.state.lottery.next.leftTime > 0 ? false : true,
             lottery: data.result.lottery,
           });
         }
@@ -138,7 +138,7 @@ class CQSSC extends Component {
   }
 
   onRest = () => {
-    console.log( document.getElementById("form"))
+    console.log(document.getElementById("form"))
     document.getElementById("form").reset();
   }
 
@@ -222,6 +222,7 @@ class CQSSC extends Component {
             <div className="fr time" id="time">
               <CountDown start={"10:00"} end={"22:00"}
                          time={this.state.lottery.next.leftTime}
+                         interval={80}
                          callBack={this.onCallBack.bind(this)}/>
             </div>
           </div>
@@ -263,7 +264,7 @@ class CQSSC extends Component {
           </div>
         </div>
 
-        <Spin size="large" tip="开奖中" spinning={this.state.opening}>
+        <Spin size="large" spinning={this.state.opening}>
           <div id="betting">
             <div className="top" id="btn">
               <span onClick={() => this.onMethodChange(METHOD_01)}
@@ -360,7 +361,7 @@ class CQSSC extends Component {
                 </div>
 
                 {/*<!--3-斗牛->*/}
-                <div className={method == METHOD_03  ? "types" : "types hidden"}>
+                <div className={method == METHOD_03 ? "types" : "types hidden"}>
                   <ul className="clf">
                     <li className="li1">无牛</li>
                     <li className="li2">2.3</li>
@@ -407,11 +408,15 @@ class CQSSC extends Component {
                 </div>
 
                 {/*<!--4-前三 中三 后三->*/}
-                <div className={method == METHOD_04 ||method==METHOD_05||method==METHOD_06  ? "types" : "types hidden"}>
+                <div
+                  className={method == METHOD_04 || method == METHOD_05 || method == METHOD_06 ? "types" : "types hidden"}>
                   <ul className="clf">
 
                     {
-                      [{k:'豹子', v: 75},{k:'顺子', v:18} ,{k:'对子', v:3.5 },{k:'半顺', v:2.8},{k:'杂六', v:3.2}].map(e => {
+                      [{k: '豹子', v: 75}, {k: '顺子', v: 18}, {k: '对子', v: 3.5}, {k: '半顺', v: 2.8}, {
+                        k: '杂六',
+                        v: 3.2
+                      }].map(e => {
                         return (
                           <span key={e.k}>
                              <li className="li1">{e.k}</li>

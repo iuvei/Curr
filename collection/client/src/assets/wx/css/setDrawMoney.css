@@ -14,3 +14,15 @@
 .setDrawMoney>.mainDiv table .intensity{float: left;border: 1px solid #ddd;border-right: none;}
 .setDrawMoney>.mainDiv table .intensity span{float: left;width: 1.5rem;height: 1.5rem;border-right: 1px solid #ddd;text-align: center;line-height: calc(1.5rem - 2px);}
 .setDrawMoney>.mainDiv button[type='submit']{width: 80%;height: 2.2rem;font: .9rem/1 'Microsoft YaHei';background-color: #5cb85c;color: #fff;border-radius: 5px;margin: auto;display: block;}
+
+.receipts{padding-top: 0 !important;}
+.receipts>h1{font: 1.5rem/2 'Microsoft YaHei';margin-top: 0;}
+
+
+
+
+
+
+
+
+

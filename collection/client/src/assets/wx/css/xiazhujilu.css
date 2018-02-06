@@ -4,7 +4,7 @@
 .time .choose a{display:block;width:auto;height:auto;font-size:.8rem;color:#333;background:url(../images/icon-1.png)no-repeat 5.5rem center;padding:.5rem 2.8rem .5rem .5rem;}
 .dbox{width:100%;height:auto;border:.08rem solid #b0b0b0;box-shadow: 0 0 .5rem #d3d3d3;}
 .dbox .title{width:100%;height:auto;padding:0;background:#dff0d8;}
-.dbox .title span{float:left;display:block;height:auto;padding:1.2rem 0 1.2rem 2%;border-right:.05rem solid #b0b0b0;font-size:.8rem;color:#333;}
+.dbox .title span{float:left;display:block;height:auto;padding:.5rem 0 .5rem 2%;border-right:.05rem solid #b0b0b0;font-size:.8rem;color:#333;}
 .dbox .title span:nth-child(1){width:20%;}
 .dbox .title span:nth-child(2),.dbox .title span:nth-child(3){width:25%;}
 .dbox .title span:nth-child(4){width:20%;border:none;}
@@ -23,6 +23,7 @@
 .dbox .types ul li:last-child span{text-align:center;}
 .dbox .types ul li:last-child span:nth-child(1){background:none;color:#333;font-weight:600;}
 
+#time span{background-color: #d9544f;color: #fff;padding: .2rem;border-radius: 5px;}
 
 @media screen and (min-width: 1024px) {
     .dbox .types ul li span:nth-child(1){background-size: 3%;}

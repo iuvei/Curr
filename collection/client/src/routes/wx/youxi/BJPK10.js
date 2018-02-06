@@ -39,7 +39,7 @@ const methodM = {
   10: '十名',
   21: '1V龙虎',
   22: '冠亚和'
-}
+};
 
 
 const options = [<option key="0" value="0">0</option>,
@@ -62,7 +62,7 @@ class BJPK10 extends Component {
       method: METHOD_1,
       choice: {},
       historyChoices: {},
-    }
+    };
     this.getLiveLottery();
   }
 
@@ -77,7 +77,7 @@ class BJPK10 extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            opening: false,//this.state.lottery.next.leftTime > 0 ? false : true,
+            opening: this.state.lottery.next.leftTime > 0 ? false : true,
             lottery: data.result.lottery,
           });
         }
@@ -193,7 +193,7 @@ class BJPK10 extends Component {
       n10 = parseInt(nums[9])
     }
 
-    //console.log(this.state.opening, '=============================================', this.state.lottery.next.leftTime)
+    console.log(this.state.opening, '=============================================', this.state.lottery.next.leftTime)
 
     return (
       <div className="w">
@@ -203,6 +203,7 @@ class BJPK10 extends Component {
             <div className="fl number">第 <span>{this.state.lottery.next.no || '--'}</span> 期</div>
             <div className="fr time" id="time">
               <CountDown start={'9:00'} end={'23:55'}
+                         interval={40}
                          time={this.state.lottery.next.leftTime}
                          callBack={this.onCallBack.bind(this)}/>
             </div>
@@ -221,6 +222,7 @@ class BJPK10 extends Component {
                 }
               </div>
               <div className="fr btn">
+                <a href="https://www.66icp.com/pk10/shipin" target="_blank">赛车直播</a>
                 <a onClick={this.gotoRanking}>两面长龙</a>
                 <a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
             </div>
@@ -255,7 +257,7 @@ class BJPK10 extends Component {
             </form>
           </div>
         </div>
-        <Spin size="large" tip="开奖中" spinning={this.state.opening}>
+        <Spin size="large" spinning={this.state.opening}>
           <div id="betting">
             <div className="top" id="btn">
             <span onClick={() => this.onMethodChange(METHOD_1)}

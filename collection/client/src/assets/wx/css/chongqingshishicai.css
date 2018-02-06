@@ -13,7 +13,7 @@
 .result .lottery .top .haoma img{float:left;width:1.5rem;height:1.5rem;margin-left:.1rem;}
 .result .lottery .top .btn{padding-top:0.4rem;}
 .result .lottery .top .btn a{font-size:.8rem;color:#4887bc;}
-.result .lottery .top .btn a:first-child{margin-right:1rem;}
+.result .lottery .top .btn a:not(:last-of-type){margin-right:1rem;}
 
 .result .lottery .center{padding:.3rem 0 0;}
 .result .lottery .center span{font-size:.8rem;color:#f75956;display: block;padding:.2rem 0;}

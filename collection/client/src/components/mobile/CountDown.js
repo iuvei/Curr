@@ -44,25 +44,43 @@ export default class CountDown extends Component {
   }
 
   componentDidMount() {
-    const ticker = setInterval(() => this.setState({time: this.state.time - 1}), 1000);
+    //const ticker = setInterval(() => this.setState({time: this.state.time - 1}), 1000);
+    const ticker = setInterval(this.tickerTicker, 1000);
     this.setState({ticker});
+  }
+
+  xiaZhu = () => {
+    return this.state.time - this.props.interval;
+  }
+
+  tickerTicker = () => {
+    if (this.state.finished || this.xiaZhu() <= 0) {
+      this.props.callBack();
+    }
+    this.setState({time: this.state.time - 1})
   }
 
   componentWillUnmount() {
     clearInterval(this.state.ticker);
   }
 
-  render() {
-
-    if (this.state.time == 0) {
-      this.props.callBack();
+  paddingZero = (n) => {
+    if (n < 10) {
+      return '0' + n;
     }
-    //console.log(this.state.time)
+    return n;
+  }
+
+  render() {
+    const xiaZhu = this.xiaZhu();
+
     if (!this.state.finished) {
       return (<div>
-        本期投注剩余时间：{this.state.time > 0 ? `${Math.floor(this.state.time / 60)}:${this.state.time % 60}` : '开奖中'}</div>);
+        距离封盘：<span>{xiaZhu - 50 > 0 ? `${this.paddingZero(Math.floor(xiaZhu / 60))}:${this.paddingZero(xiaZhu % 60)}` : '停止下注'}</span>
+        距离开奖：<span>{this.state.time > 0 ? `${this.paddingZero(Math.floor(this.state.time / 60))}:${this.paddingZero(this.state.time % 60)}` : '开奖中'}</span>
+      </div>);
     } else {
-      return (<div>当天开奖已结束</div>);
+      return (<div><span>当天开奖已结束</span></div>);
     }
   }
 }

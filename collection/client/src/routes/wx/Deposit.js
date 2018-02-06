@@ -77,15 +77,15 @@ class Deposit extends Component {
           });
         }
       })
-  }
+  };
 
   onMoneyChange = (event) => {
     this.setState({money: event.target.value});
-  }
+  };
 
   onBackUpChange = (event) => {
     this.setState({backup: event.target.value});
-  }
+  };
 
   render() {
     const {userinfo} = this.props.wx;
@@ -94,23 +94,18 @@ class Deposit extends Component {
         <div className="receipts">
           <h1>充值</h1>
           <div className="mainDiv">
-            <h1>充值渠道：<select onChange={this.onPayMentChange}>
+            <div>充值渠道：<select onChange={this.onPayMentChange}>
               <option value="WXPAY">微信</option>
               <option value="ALIPAY">支付宝</option>
-            </select></h1>
-            <h1>充值金额：
-              <input type="number" ref="moneyInput" value={this.state.money || ''}
-                     onChange={this.onMoneyChange}
-                     placeholder="1元=1分（请扫码输入对应金额）"/>
-            </h1>
-            <h1>账号备注： <input type="text" ref="backUpInput"
-                             placeholder="填写你的支付账号或姓名" value={this.state.backup || userinfo.username}
-                             onChange={this.onBackUpChange}/>
-            </h1>
+            </select></div>
+            <div>充值金额： <input type="number" ref="moneyInput" value={this.state.money || ''} onChange={this.onMoneyChange} placeholder="1元=1分（请扫码输入对应金额）"/>
+            </div>
+            <div>账号备注： <input type="text" ref="backUpInput" placeholder="填写你的支付账号或姓名" value={this.state.backup || userinfo.username} onChange={this.onBackUpChange}/>
+            </div>
             <div className="ewm">
               <img src={this.state.config.img}/>
             </div>
-            <div style={{width: '65%', margin: 'auto'}}>
+            <div style={{margin: 'auto', textAlign: 'center'}}>
               <p className="tip">请使用另外一台手机微信/支付宝扫码</p>
               <p className="tip">支付或截屏保存后用微信扫一扫识别支付</p>
             </div>

@@ -13,8 +13,8 @@
 .receipts>.mainDiv div.tip{background-color: #f2dedf;padding: 1rem 2.5%;font: .7rem/1.2 'Microsoft YaHei';}
 
 .receipts .mainDiv{padding-top:1.5rem;}
-.receipts .mainDiv h1{width:100%;margin:0 auto 20px;font-size:20px;color:#333;font-weight:500;}
-.receipts .mainDiv h1 input{height:30px;width:60%;padding-left:10px;}
+.receipts .mainDiv div{width:100%;margin:0 auto 20px;font-size:1rem;color:#333;font-weight:500;}
+.receipts .mainDiv div input{height:30px;width:60%;padding-left:10px;border: 1px solid #ccc;font-size: .9rem;}
 .ewm{width:60%;margin:auto;box-shadow:0 0 12px #ccc; }
 .ewm img{width:100%;height:100%;}
 
