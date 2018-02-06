@@ -20,7 +20,7 @@ const suanMap = [
   {val: "16", img: require('../../assets/wx/images/sig/cod9.jpg')},
   {val: "5", img: require('../../assets/wx/images/sig/cod10.jpg')},
   {val: "11", img: require('../../assets/wx/images/sig/suan-1.jpg')},
-]
+];
 
 class Login extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class Login extends Component {
     this.setState({
       suan: suanMap[Math.floor(Math.random() * 11)],
     })
-  }
+  };
 
   handleChange = (event) => {
     if (event.target.name === 'username') {
@@ -58,7 +58,7 @@ class Login extends Component {
     if (event.target.name === 'checkNum') {
       this.setState({checkNum: event.target.value});
     }
-  }
+  };
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.username.length < 1) {
@@ -89,43 +89,45 @@ class Login extends Component {
         }
       });
     }
-  }
+  };
 
   render() {
     return (
-      <div className="w">
-        <form onSubmit={this.handleSubmit} className="login">
-          <h1>会员登录</h1>
-          <div className="item">
-            <p>用户名</p>
-            <div>
-              <img src={require("../../assets/wx/images/icon_userName.png")} className="icon"/>
-              <input ref="usernameInput" type="text" name='username'
-                     value={this.state.username} placeholder="请输入登录用户名" onChange={this.handleChange}/>
+        <div className="login_bg">
+          <div className="w">
+            <form onSubmit={this.handleSubmit} className="login">
+              <h1>会员登录</h1>
+              <div className="item">
+                <p>用户名</p>
+                <div>
+                  <img src={require("../../assets/wx/images/icon_userName.png")} className="icon"/>
+                  <input ref="usernameInput" type="text" name='username'
+                         value={this.state.username} placeholder="请输入登录用户名" onChange={this.handleChange}/>
 
-            </div>
+                </div>
+              </div>
+              <div className="item">
+                <p>密码</p>
+                <div>
+                  <img src={require("../../assets/wx/images/icon_passwork.png")} className="icon"/>
+                  <input type="password" placeholder="请输入密码" value={this.state.password}
+                         ref="passwordInput" name='password' onChange={this.handleChange}/>
+                </div>
+              </div>
+              <div className="item clf">
+                <p>验证码</p>
+                <div className="w75 fl">
+                  <img src={require("../../assets/wx/images/icon_authCode.png")} className="icon"/>
+                  <input type="text" ref="checkNumInput" name="checkNum" onChange={this.handleChange} placeholder="请输入验证码"/>
+                </div>
+                <a href="javascript:;" className="authCode" onClick={this.handleChangeCode}><img src={this.state.suan.img}
+                                                                                                 alt="计算码"/></a>
+                {/*<a href="javascript:;" className="authCode"><img src={require("../../assets/wx/images/yzm.png")}/></a>*/}
+              </div>
+              <button htmlFor="submit">登录</button>
+            </form>
           </div>
-          <div className="item">
-            <p>密码</p>
-            <div>
-              <img src={require("../../assets/wx/images/icon_passwork.png")} className="icon"/>
-              <input type="password" placeholder="请输入密码" value={this.state.password}
-                     ref="passwordInput" name='password' onChange={this.handleChange}/>
-            </div>
-          </div>
-          <div className="item clf">
-            <p>验证码</p>
-            <div className="w75 fl">
-              <img src={require("../../assets/wx/images/icon_authCode.png")} className="icon"/>
-              <input type="text" ref="checkNumInput" name="checkNum" onChange={this.handleChange} placeholder="请输入验证码"/>
-            </div>
-            <a href="javascript:;" className="authCode" onClick={this.handleChangeCode}><img src={this.state.suan.img}
-                                                                                             alt="计算码"/></a>
-            {/*<a href="javascript:;" className="authCode"><img src={require("../../assets/wx/images/yzm.png")}/></a>*/}
-          </div>
-          <button htmlFor="submit">登录</button>
-        </form>
-      </div>
+        </div>
     );
   }
 }

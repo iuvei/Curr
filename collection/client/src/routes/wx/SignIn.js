@@ -79,7 +79,8 @@ export default class SignIn extends Component {
 
   render() {
     return (
-      <div className="w">
+        <div className="login_bg">
+          <div className="w">
         <form action="" className="signIn" onSubmit={this.handleSubmit}>
           <h1>会员注册</h1>
           <div className="item">
@@ -118,6 +119,7 @@ export default class SignIn extends Component {
           </div>
         </form>
       </div>
+        </div>
     );
   }
 }

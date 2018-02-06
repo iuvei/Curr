@@ -1,8 +1,12 @@
-form h1{line-height: 1.1;font-weight: normal;color: #920000;margin: 1rem 0;text-align: center;}
+.login_bg{height: 100%;background: url("../images/timg.jpg") no-repeat center/cover;padding-top: .5rem;}
+.login_bg>.w{padding: .5rem;background-color: rgba(255,255,255,.7);border-radius: 5px;}
+
+
+form h1{line-height: 1.1;font-weight: normal;color: #920000;margin: .8rem 0;text-align: center;}
 
 form.login .item{margin-bottom: .5rem;}
 form.login .item>p{font: 12px/1rem 'Microsoft YaHei';cursor: default;margin-bottom: 5px;}
-form.login .item>div{width: 100%;height: 34px;border: 1px solid #ccc;border-radius: 4px;overflow: hidden;}
+form.login .item>div{width: 100%;height: 34px;border: 1px solid #ccc;border-radius: 4px;overflow: hidden;background-color: #fff;}
 form.login .item>div .icon{float: left;width: 34px;height: 34px;padding: 8px;}
 form.login .item>div input{float: left;width: calc(100% - 34px);height: 100%;border: none;border-left: 1px solid #ccc;padding: 0 12px;}
 form.login .item>div.w75{width: 75%;}
