@@ -35,7 +35,7 @@ export default class Sider extends Component {
   render() {
     return (
       <div className="l_aside fl">
-        <div className="title">捷胜娱乐城后台管理</div>
+        <div className="title">至尊宝娱乐城后台管理</div>
         <ul className="menu">
           <li className="level1">
             <Link className={this.isCurrent(PATH_INDEX)} onClick={this.gotoIndex}>
@@ -76,7 +76,7 @@ export default class Sider extends Component {
               <em className="ico ico7"></em>代理推广</Link>
           </li>
           <li className="level1">
-            <a href="" className="tit"><em className="ico ico6"></em>数据采集<i></i></a>
+            <a href="javascript:void()" className="tit"><em className="ico ico6"></em>数据采集<i></i></a>
             <ul className="level2">
               <li><Link onClick={this.gotoDataGather_jsk3}>江苏快3</Link></li>
               <li><Link onClick={this.gotoDataGather_bjpk10}>北京赛车</Link></li>

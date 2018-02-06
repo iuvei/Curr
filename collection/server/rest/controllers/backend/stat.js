@@ -142,11 +142,13 @@ class BackendStat {
                 }
             }
         ]);
+         console.log(stats[0])
 
         if (!stats) {
             return ctx.body = {message: '获取最近一个月平台输赢失败', code: 404}
         }
-        return ctx.body = {code: 200, worth: stats[0].worth}
+
+        return ctx.body = {code: 200, worth:  stats[0]==undefined?0:stats[0].worth}
     }
 
     //获取平台当天新增用户数
