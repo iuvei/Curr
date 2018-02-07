@@ -47,25 +47,18 @@ func (m *CQSSC) Run() {
 	log.Infof(">>>>>>>>start to fetch lottery<<<<<<<<<")
 	for {
 		lt, err := m.Fetch()
-		nowMin := time.Now().Minute()
-		openTime, err1 := ParseTimeString(lt.Opentime)
-		if err != nil || err != nil || (openTime.Minute() != nowMin && nowMin-openTime.Minute() >= 10) {
+		if err != nil || lt.No == m.currLottery.No {
 			trys += 1
 			if err != nil {
 				log.Warnf("try to get lottery failed, error: %v try again %d", err, trys)
 			} else {
-				if err1 != nil {
-					log.Warnf("try to parse lottery failed, error: %v try again %d", err, trys)
-				} else {
-					//重试 逻辑：开奖时间和当前时间不一样，开奖时间距离当前时间10分钟以上。
-					//10分钟内说明是当前期，不必再取。
-					if openTime.Minute() != nowMin && nowMin-openTime.Minute() >= 10 {
-						log.Debugf("get old lottery record [no:%d], try again %d ...", lt.No+1, trys)
-					}
+				if lt.No != m.currLottery.No {
+					log.Debugf("get old lottery record [no:%d], try again %d ...", lt.No, trys)
 				}
 			}
+
 			if trys < 100 {
-				time.Sleep(time.Second * 5)
+				time.Sleep(time.Second * 6)
 				continue
 			} else {
 				log.Errorf("第[%d]重试次数超过100次，放弃！请手动补齐", lt.No+1)
@@ -89,12 +82,10 @@ func (m *CQSSC) Run() {
 		break
 	}
 
-	log.Infof(">>>>>>>>finish fetching lottery<<<<<<<<<Cost: %v", time.Since(start))
+	log.Infof(">>>>>>>>finish fetching lottery<<<<<<<<<", time.Since(start))
 
 	log.Infof(">>>>>>>>start to calculate lottery<<<<<<<<<")
-	m.calculate()
-	log.Infof(">>>>>>>>>finish calculate lottery<<<<<<<<<<")
-
+	m.Calculate()
 	log.Infof(">>>>>>>>start to eval changlong <<<<<<<<<")
 	m.StatChangLong()
 	log.Infof(">>>>>>>>>finish eval changlong<<<<<<<<<<")
@@ -146,7 +137,7 @@ func (m *CQSSC) Store(lt Lottery) error {
 	return nil
 }
 
-func (m *CQSSC) calculate() {
+func (m *CQSSC) Calculate() {
 	//	var settings Settings
 	//	if err := m.colls.SettingsColl.Find(M{"type": "betting"}).One(&settings); err != nil {
 	//		log.Errorf("failed to get rules settings, error: %v", err)

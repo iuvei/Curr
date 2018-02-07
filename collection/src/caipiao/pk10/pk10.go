@@ -47,23 +47,16 @@ func (m *BJPK10) Run() {
 	log.Infof(">>>>>>>>start to fetch lottery<<<<<<<<<")
 	for {
 		lt, err := m.Fetch()
-		nowMin := time.Now().Minute()
-		openTime, err1 := ParseTimeString(lt.Opentime)
-		if err != nil || err != nil || (openTime.Minute() != nowMin && nowMin-openTime.Minute() >= 5) {
+		if err != nil || lt.No == m.currLottery.No {
 			trys += 1
 			if err != nil {
 				log.Warnf("try to get lottery failed, error: %v try again %d", err, trys)
 			} else {
-				if err1 != nil {
-					log.Warnf("try to parse lottery failed, error: %v try again %d", err, trys)
-				} else {
-					//重试 逻辑：开奖时间和当前时间不一样，开奖时间距离当前时间5分钟以上。
-					//5分钟内说明是当前期，不必再取。
-					if openTime.Minute() != nowMin && nowMin-openTime.Minute() >= 5 {
-						log.Debugf("get old lottery record [no:%d], try again %d ...", lt.No, trys)
-					}
+				if lt.No != m.currLottery.No {
+					log.Debugf("get old lottery record [no:%d], try again %d ...", lt.No, trys)
 				}
 			}
+
 			if trys < 100 {
 				time.Sleep(time.Second * 3)
 				continue
@@ -89,12 +82,10 @@ func (m *BJPK10) Run() {
 		break
 	}
 
-	log.Infof("Cost: %v >>>>>>>>finish fetching lottery<<<<<<<<<", time.Since(start))
+	log.Infof(">>>>>>>>finish fetching lottery<<<<<<<<<", time.Since(start))
 
 	log.Infof(">>>>>>>>start to calculate lottery<<<<<<<<<")
-	m.calculate()
-	log.Infof(">>>>>>>>>finish calculate lottery<<<<<<<<<<")
-
+	m.Calculate()
 	log.Infof(">>>>>>>>start to eval changlong <<<<<<<<<")
 	m.StatChangLong()
 	log.Infof(">>>>>>>>>finish eval changlong<<<<<<<<<<")
@@ -146,7 +137,7 @@ func (m *BJPK10) Store(lt Lottery) error {
 	return nil
 }
 
-func (m *BJPK10) calculate() {
+func (m *BJPK10) Calculate() {
 	var bets []Bet
 	err := m.colls.BetColl.Find(M{"from": 1, "game": "BJPK10", "dealed": false}).All(&bets)
 	if err != nil {

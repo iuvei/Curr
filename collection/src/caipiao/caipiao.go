@@ -61,14 +61,19 @@ func main() {
 		case CAI_BJPK10:
 			log.Infof("添加彩种[%s] ~ %v", v.Name, v)
 			r := pk10.NewBJPK10(v, &colls)
+			r.Run()
 			s.AddJob(r)
+
 		case CAI_CQSSC:
 			log.Infof("添加彩种[%s] ~ %v", v.Name, v)
 			r := cqssc.NewCQSSC(v, &colls)
+			r.Run()
 			s.AddJob(r)
+
 		case CAI_JSK3:
 			log.Infof("添加彩种[%s] ~ %v", v.Name, v)
 			r := jsk3.NewJSK3(v, &colls)
+			r.Run()
 			s.AddJob(r)
 		default:
 			log.Fatalf("unexcepted caipiao : %v", v)

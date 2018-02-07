@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func Test_Calculate(t *testing.T) {
+func _Test_Calculate(t *testing.T) {
 	openCode := strings.Split("1,2,3,4,5,6,7,8,9,10", ",")
 	choice := map[string]int{"9": 10}
 	res, err := calculate(choice, 10, openCode)
@@ -48,4 +48,9 @@ func TestChanglong(t *testing.T) {
 	}
 
 	t.Log(tt.String())
+
+	//openTime.Minute() != nowMin && nowMin-openTime.Minute() >= 5
+	if 57 != 52 && 57-52 >= 5 {
+		t.Log("====")
+	}
 }

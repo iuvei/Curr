@@ -212,12 +212,11 @@ class BJPK10 extends Component {
                 }
               </div>
               <div className="fr btn">
-                <div>{opening}</div>
-                <Spin/>
                 <a href="https://www.66icp.com/pk10/shipin" target="_blank">赛车直播</a>
                 <a onClick={this.gotoRanking}>两面长龙</a>
                 <a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
             </div>
+
             <div className="center">
               <span
                 className="sp1">冠亚和：<i>{n1 + n2 || '-'} {n1 + n2 > 11 ? "大" : "小"} {(n1 + n2) % 2 == 0 ? "双" : "单"}</i></span>
@@ -249,8 +248,6 @@ class BJPK10 extends Component {
             </form>
           </div>
         </div>
-        <div>{opening}</div>
-        <Spin/>
         <Spin size="large" spinning={opening}>
           <div id="betting">
             <div className="top" id="btn">
