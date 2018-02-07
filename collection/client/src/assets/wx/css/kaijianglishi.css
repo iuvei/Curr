@@ -12,14 +12,14 @@
 #ctb2 .bottom{margin-top:.5rem;}
 #ctb2 .bottom .title{width:100%;height:auto;padding:.8rem 1rem;background:#7a1c1c;}
 #ctb2 .bottom .title span{display:block;color:#fff;float:left;font-weight:bold;border: none;line-height: 1;}
-#ctb2 .bottom .title .sp1{width:30%;}
-#ctb2 .bottom .title .sp2{width:70%;}
+#ctb2 .bottom .title .sp1{width:40%;}
+#ctb2 .bottom .title .sp2{width:60%;}
 #ctb2 .bottom .title .sp3{width:35%;}
 #ctb2 .bottom .types{width:100%;height:auto;padding:1rem 0 3rem;background:#fff;}
 #ctb2 .bottom .types ul li{width:100%;height:auto;border-bottom:1px solid #ccc;padding:.5rem 1rem;}
 #ctb2 .bottom .types ul li div{float:left;}
-#ctb2 .bottom .types ul li .dv1{width:30%;}
-#ctb2 .bottom .types ul li .dv2{width:70%;}
+#ctb2 .bottom .types ul li .dv1{width:40%;}
+#ctb2 .bottom .types ul li .dv2{width:60%;}
 #ctb2 .bottom .types ul li .dv3{width:35%;}
 #ctb2 .bottom .types ul li .dv1{font-size:1rem;color:#7a1c1c;}
 #ctb2 .bottom .types ul li .dv2{font-size:1rem;color:#7a1c1c;font-weight:600;}
