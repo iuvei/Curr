@@ -52,7 +52,7 @@ class CQSSC extends Component {
     super(props);
     this.state = {
       ticker: null,
-      opening: false,
+      opening: true,
       lottery: {time: '', current: {}, next: {}},
       method: METHOD_01,
       choice: {},

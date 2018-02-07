@@ -49,6 +49,13 @@ type Lottery struct {
 	Opentime      string `json:"opentime" bson:"opentime"`
 	Opentimestamp int64  `json:"opentimestamp"`
 }
+
+type LotteryItem struct {
+	No       int64  `json:"no" bson:"no"`
+	Number   string `json:"number" bson:"number"`
+	Dateline string `json:"dateline" bson:"dateline"`
+}
+
 type Lotterys struct {
 	Rows int       `json:"rows"`
 	Code string    `json:"code"`
@@ -69,6 +76,10 @@ var timeLayout = "2006-01-02 15:04:05"
 
 func GetCurrTime() string {
 	return time.Now().Format(timeLayout)
+}
+
+func ParseTimeString(timeStr string) (time.Time, error) {
+	return time.Parse("2006-01-02 15:04:05", timeStr)
 }
 
 func GetCurrDay() string {

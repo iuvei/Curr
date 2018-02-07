@@ -4,6 +4,7 @@ import (
 	"caipiao/common"
 	"strings"
 	"testing"
+	"time"
 )
 
 func Test_Calculate(t *testing.T) {
@@ -40,4 +41,11 @@ func TestChanglong(t *testing.T) {
 
 	v := 100.326344
 	log.Info(common.Round(v, 2))
+
+	tt, err := time.Parse("2006-01-02 15:04:05", "2018-02-07 11:22:36")
+	if err != nil {
+		t.Error(err)
+	}
+
+	t.Log(tt.String())
 }

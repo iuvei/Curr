@@ -24,21 +24,12 @@ const methodM = {
 }
 
 
-const options = [<option key="0" value="0">0</option>,
-  <option key="2" value="2">2</option>,
-  <option key="5" value="5">5</option>,
-  <option key="10" value="10">10</option>,
-  <option key="20" value="20">20</option>,
-  <option key="50" value="50">50</option>,
-  <option key="100" value="100">100</option>
-];
-
 class JSK3 extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ticker: null,
-      opening: false,
+      opening: true,
       lottery: {time: '', current: {}, next: {}},
       method: METHOD_1,
       choice: {},

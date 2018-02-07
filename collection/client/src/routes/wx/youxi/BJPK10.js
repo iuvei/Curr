@@ -42,22 +42,12 @@ const methodM = {
 };
 
 
-const options = [<option key="0" value="0">0</option>,
-  <option key="2" value="2">2</option>,
-  <option key="5" value="5">5</option>,
-  <option key="10" value="10">10</option>,
-  <option key="20" value="20">20</option>,
-  <option key="50" value="50">50</option>,
-  <option key="100" value="100">100</option>
-];
-
-
 class BJPK10 extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ticker: null,
-      opening: false,
+      opening: true,
       lottery: {time: '', current: {}, next: {}},
       method: METHOD_1,
       choice: {},
@@ -167,7 +157,7 @@ class BJPK10 extends Component {
   }
 
   render() {
-    const {method, historyChoices} = this.state;
+    const {method, historyChoices, opening} = this.state;
     const {no, type, code, opentime} = this.state.lottery.current;
     var n1 = 0;
     var n2 = 0;
@@ -222,6 +212,8 @@ class BJPK10 extends Component {
                 }
               </div>
               <div className="fr btn">
+                <div>{opening}</div>
+                <Spin/>
                 <a href="https://www.66icp.com/pk10/shipin" target="_blank">赛车直播</a>
                 <a onClick={this.gotoRanking}>两面长龙</a>
                 <a onClick={this.gotoKaijiangHISTORY}>开奖历史</a></div>
@@ -257,7 +249,9 @@ class BJPK10 extends Component {
             </form>
           </div>
         </div>
-        <Spin size="large" spinning={this.state.opening}>
+        <div>{opening}</div>
+        <Spin/>
+        <Spin size="large" spinning={opening}>
           <div id="betting">
             <div className="top" id="btn">
             <span onClick={() => this.onMethodChange(METHOD_1)}

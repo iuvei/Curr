@@ -19,16 +19,28 @@ class Discounts extends Component {
     return (
       <div className="w">
         <div className="receipts">
-          <h1>优惠活动</h1><span></span>
-          <span>欢迎光临捷胜娱乐城，本公司优惠活动。</span><br/>
-          <h2>一、新用户首充福利</h2>
-          <span>新用户首次充值100元以上送18元彩金，500元以上送58元彩金，1000元以上送88元彩金，5000元以上送188元彩金，仅限于新用户首次充值，第二次充值则不送。（新用户彩金可联系客服申请，2倍打码量即可出款,未达到2倍打码量要出款将扣除赠送的彩金）</span>
-          <h2>二、会员充值与投注福利</h2>
-          <span>投注返水<strong style={{color: "#F00"}}>0.5%</strong>（次日12点返水到账）
-</span>
-          <h2>三、拉人福利</h2>
-          <span>1、下级会员，您可获得下级会员投注额的<strong style={{color: "#F00"}}>0.5%</strong>返利。（应得福利于次日12点到账）。<br/>
-          2、有实力者，可联系客服申请成为线上代理商。7*24小时招收实力代理！</span>
+          <h1>2018春节特惠</h1>
+          <span>至尊宝娱乐城在回馈老会员的同时，也欢迎更多的新会员加入我们；每日首充赠送活动彩金2018年01月28日08:00起（结束时间另行通知）</span><br/>
+          <h2>活动内容</h2>
+          <span>&emsp;&emsp;会员在2018年01月28日08:00起每日首充入款彩金，请在未投注前24小时内进行申请。审核期间请勿下注，审核通过后财务会将相应彩金添加到您的游戏账号上。<br/>
+          <b>1、每日首充入款彩金</b><br/>
+          申请格式：<br/>
+          账号：xxxx 姓名：xxxx 手机：xxxx QQ或微信：xxxx 充值金额： xxxx</span>
+          <h2>活动规则 <small>（早上07:00-次日06:59为一天）</small></h2>
+          <span>
+              每日首充<strong style={{color: "#F00"}}>1000元赠送</strong>彩金<strong style={{color: "#F00"}}>38元</strong><br/>
+              每日首充<strong style={{color: "#F00"}}>5000元赠送</strong>彩金<strong style={{color: "#F00"}}>88元</strong><br/>
+              每日首充<strong style={{color: "#F00"}}>10000元赠送</strong>彩金<strong style={{color: "#F00"}}>188元</strong><br/>
+              每日首充<strong style={{color: "#F00"}}>50000元赠送</strong>彩金<strong style={{color: "#F00"}}>888元</strong><br/>
+              每日首充<strong style={{color: "#F00"}}>50000元赠送</strong>彩金<strong style={{color: "#F00"}}>888元</strong><br/>
+              每日首充<strong style={{color: "#F00"}}>200000元赠送</strong>彩金<strong style={{color: "#F00"}}>2888元</strong><br/>
+              每日首充<strong style={{color: "#F00"}}>500000元赠送</strong>彩金<strong style={{color: "#F00"}}>5888元</strong><br/>
+              （首充申请，请在充值未投注之前申请，投注后申请无效 当作放弃）<br/>
+              <strong style={{color: "#F00"}}>附言：充值本金+赠送彩金只需1倍流水即可提现，不限次数提款。</strong><br/>
+              {/*<small styl={{color:'#f00'}}>注：新会员首次下载中乐彩平台手机APP，可获赠18元彩金，需要提供下载安装后的截面，老会员可申请每日首充优惠活动！</small>*/}
+          </span>
+          <h2>活动要求</h2>
+          <span>2、申请每日首充彩金请添加QQ专员：40063119&emsp;微信专员：xinhua39280</span>
         </div>
       </div>
     );

@@ -5,8 +5,8 @@ import moment from 'moment';
 import Paging from '../../components/paging/Paging'
 import {updateUpDown, getAllUpDowns, getUserAccount} from '../../services/updowns';
 import {message, Popconfirm, notification} from 'antd';
-import io from 'socket.io-client';
-const socket = io('', {path: '/ws/admin'});
+//import io from 'socket.io-client';
+//const socket = io('', {path: '/ws/admin'});
 /**
  * Created by sven on 2017/8/4.
  */
@@ -28,7 +28,7 @@ export default class UpDownApplication extends Component {
 
   componentDidMount() {
     this.queryUpdowns(1, 10, this.props.location.state.type);
-    socket.emit('chat mounted', "from admin");
+    //socket.emit('chat mounted', "from admin");
   }
 
   queryUpdowns(currPage, pageSize, type) {
@@ -79,7 +79,7 @@ export default class UpDownApplication extends Component {
           status: ignore === 1,
           choice: `@${nickname} ${type ? "上分" : "下分"}${ignore===1 ? "成功!" : "未通过！"}`,
         }
-        socket.emit('admin', action); //转向后端，然后后端广播到微信端
+        //socket.emit('admin', action); //转向后端，然后后端广播到微信端
       })
   }
 

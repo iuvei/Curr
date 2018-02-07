@@ -45,46 +45,49 @@ func (m *CQSSC) Run() {
 	trys := 0
 	start := time.Now()
 	log.Infof(">>>>>>>>start to fetch lottery<<<<<<<<<")
-	lt, err := m.Fetch()
-	if err != nil {
-		log.Warnf("try to get lottery failed, error: %v", err)
-	}
+	for {
+		lt, err := m.Fetch()
+		nowMin := time.Now().Minute()
+		openTime, err1 := ParseTimeString(lt.Opentime)
+		if err != nil || err != nil || (openTime.Minute() != nowMin && nowMin-openTime.Minute() >= 10) {
+			trys += 1
+			if err != nil {
+				log.Warnf("try to get lottery failed, error: %v try again %d", err, trys)
+			} else {
+				if err1 != nil {
+					log.Warnf("try to parse lottery failed, error: %v try again %d", err, trys)
+				} else {
+					//重试 逻辑：开奖时间和当前时间不一样，开奖时间距离当前时间10分钟以上。
+					//10分钟内说明是当前期，不必再取。
+					if openTime.Minute() != nowMin && nowMin-openTime.Minute() >= 10 {
+						log.Debugf("get old lottery record [no:%d], try again %d ...", lt.No+1, trys)
+					}
+				}
+			}
+			if trys < 100 {
+				time.Sleep(time.Second * 5)
+				continue
+			} else {
+				log.Errorf("第[%d]重试次数超过100次，放弃！请手动补齐", lt.No+1)
+				return
+			}
+		}
 
-	nowMin := time.Now().Minute()
-	openMin := time.Unix(lt.Opentimestamp, 0).Minute()
-	//重试 逻辑：开奖时间和当前时间不一样，开奖时间距离当前时间10分钟以上。
-	//10分钟内说明是当前期，不必再取。
-	for openMin != nowMin && nowMin-openMin >= 10 {
-		trys += 1
-		log.Debugf("get old lottery record [no:%d], try again %d ...", lt.No+1, trys)
-		if trys < 100 {
-			time.Sleep(time.Second * 3)
-		} else {
-			log.Errorf("第[%d]重试次数超过100次，放弃！请手动补齐", lt.No+1)
+		if lt.No == m.currLottery.No {
+			log.Warnf("当前期[%d]已处理，忽略", lt.No)
 			return
 		}
-		lt, err = m.Fetch()
-		if err != nil {
-			log.Warnf("try to get lottery failed, error: %v", err)
-			continue
+
+		log.Infof("获取结果：%#v", lt)
+
+		if err = m.Store(lt); err != nil {
+			log.Error("存储彩票记录[%v]失败：%v", lt, err)
+			return
 		}
-		nowMin = time.Now().Minute()
-		openMin = time.Unix(lt.Opentimestamp, 0).Minute()
+
+		m.currLottery = lt
+		break
 	}
-
-	if lt.No == m.currLottery.No {
-		log.Warnf("当前期[%d]已处理，忽略", lt.No)
-		return
-	}
-
-	log.Infof("获取结果：%#v", lt)
-
-	if err = m.Store(lt); err != nil {
-		log.Error("存储彩票记录[%v]失败：%v", lt, err)
-		return
-	}
-
-	m.currLottery = lt
 
 	log.Infof(">>>>>>>>finish fetching lottery<<<<<<<<<Cost: %v", time.Since(start))
 
@@ -114,18 +117,22 @@ func (m *CQSSC) Fetch() (lt Lottery, err error) {
 		err = fmt.Errorf("read resp body error: %v", err)
 		return
 	}
-	var lts Lotterys
+	var lts map[string]LotteryItem
 	if err = json.Unmarshal(b, &lts); err != nil {
 		err = fmt.Errorf("parse resp body error: %v", err)
 		return
 	}
-	lt = lts.Data[0]
-	no, err := strconv.ParseInt(lt.Expect, 10, 64)
-	if err != nil {
-		err = fmt.Errorf("failed to convent string to int, except=%s, error: %v", lt.Expect, err)
-		return
+	for k, v := range lts {
+		lt.No, err = strconv.ParseInt(k, 10, 64)
+		if err != nil {
+			err = fmt.Errorf("failed to convent string to int, except=%s, error: %v", lt.Expect, err)
+			return
+		}
+
+		lt.Opencode = v.Number
+		lt.Opentime = v.Dateline
 	}
-	lt.No = no
+
 	return
 }
 
