@@ -5,6 +5,7 @@
 .receipts .inner{margin:20px auto;overflow:hidden;color:#333; background-color: #eee;}
 .receipts h1{text-align:center;color:#920000;margin:.6em auto .5em}
 .receipts h2{text-align:center;color:#920000;margin:30px auto 15px;padding-bottom:.3em;font-weight:400;font-size:1rem;border-bottom:1px solid #920000}
+.receipts img.qrcode{display: block;margin: .5rem auto;width: 50%;}
 @media screen and (min-width:1024px){
   .receipts .mainDiv{padding:20px 0;}
   .receipts .mainDiv h1{width:50%;margin:0 auto 20px;font-size:20px;color:#333;font-weight:500;}

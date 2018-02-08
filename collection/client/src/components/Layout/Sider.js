@@ -46,7 +46,7 @@ export default class Sider extends Component {
               <em className="ico ico2"></em>系统配置</Link>
           </li>
           <li className="level1">
-            <Link className="tit"><em className="ico ico3"></em>捷胜娱乐城设置<i></i></Link>
+            <Link className="tit"><em className="ico ico3"></em>至尊宝娱乐城设置<i></i></Link>
             <ul className="level2">
               <li><Link className={this.isCurrent(PATH_SETTINGS)} onClick={this.gotoSettings}>全局设置</Link></li>
               <li><Link className={this.isCurrent(PATH_SET_BETTING)} onClick={this.gotoSetbetting}>下注设置</Link></li>

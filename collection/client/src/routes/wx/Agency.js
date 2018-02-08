@@ -31,7 +31,7 @@ class Agency extends Component {
     };
     const that = this
     const {userinfo} = this.props.wx;
-    const targetUrl = `http://${document.domain}/wx.html?parent_userid=${userinfo.userid}`
+    const targetUrl = `http://${document.domain}/caipiao/wx.html?parent_userid=${userinfo.userid}`
     console.log('============', targetUrl)
     QRCode.toDataURL(targetUrl, opts, function (err, url) {
       if (err) throw err

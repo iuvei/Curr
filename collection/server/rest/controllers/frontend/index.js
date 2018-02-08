@@ -95,8 +95,8 @@ class IndexController {
                         next: {
                             no: lottery.no + 1,
                             //moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss')
-                            opentime: moment(lottery.opentime).add(9.5, "m").format('YYYY-MM-DD HH:mm:ss'),
-                            leftTime: moment(lottery.opentime).add(9.5, "m").diff(moment(), 'seconds'),
+                            opentime: moment(lottery.opentime).add(10, "m").seconds(0).format('YYYY-MM-DD HH:mm:ss'),
+                            leftTime: moment(lottery.opentime).add(10, "m").seconds(0).diff(moment(), 'seconds'),
                             delayTime: 5000,
                         }
 
@@ -114,8 +114,8 @@ class IndexController {
                         next: {
                             no: lottery.no + 1,
                             //moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss')
-                            opentime: moment(lottery.opentime).add(4.5, "m").format('YYYY-MM-DD HH:mm:ss'),
-                            leftTime: moment(lottery.opentime).add(4.5, "m").diff(moment(), 'seconds'),
+                            opentime: moment(lottery.opentime).add(5, "m").seconds(0).format('YYYY-MM-DD HH:mm:ss'),
+                            leftTime: moment(lottery.opentime).add(5, "m").seconds(0).diff(moment(), 'seconds'),
                             delayTime: 5000,
                         }
 
@@ -133,8 +133,8 @@ class IndexController {
                         next: {
                             no: lottery.no + 1,
                             //moment(lottery.opentime, "YYYY-MM-DD HH:mm", "zh-cn").format('YYYY-MM-DD HH:mm:ss')
-                            opentime: moment(lottery.opentime).add(9.5, "m").format('YYYY-MM-DD HH:mm:ss'),
-                            leftTime: moment(lottery.opentime).add(9.5, "m").diff(moment(), 'seconds'),
+                            opentime: moment(lottery.opentime).add(10, "m").seconds(0).format('YYYY-MM-DD HH:mm:ss'),
+                            leftTime: moment(lottery.opentime).add(10, "m").seconds(0).diff(moment(), 'seconds'),
                             delayTime: 5000,
                         }
 

@@ -19,6 +19,7 @@ export default class CountDown extends Component {
   }
 
   componentWillReceiveProps(nextPorps) {
+    console.log('=============', nextPorps.time)
     const {start, end} =this.props;
 
     const start_hm = start.split(":");
@@ -35,6 +36,7 @@ export default class CountDown extends Component {
     var finished = false;
     if ((h < start_h || (h == start_h && m < start_m)) || ( h > end_h || (h == end_h && m > end_m))) {
       finished = true;
+      //this.props.finish();
     }
     this.setState({
       time: nextPorps.time,
@@ -44,6 +46,7 @@ export default class CountDown extends Component {
   }
 
   componentDidMount() {
+    console.log('=====================')
     //const ticker = setInterval(() => this.setState({time: this.state.time - 1}), 1000);
     const ticker = setInterval(this.tickerTicker, 1000);
     this.setState({ticker});
@@ -54,10 +57,16 @@ export default class CountDown extends Component {
   }
 
   tickerTicker = () => {
-    if (this.state.finished || this.xiaZhu() <= 0) {
-      this.props.callBack();
-    }
+    console.log(this.state.time)
     this.setState({time: this.state.time - 1})
+
+    if (this.state.finished) {
+      this.props.callBack({finish: true});
+    } else {
+      if (this.xiaZhu() <= 0) {
+        this.props.callBack({opening: true});
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -76,7 +85,7 @@ export default class CountDown extends Component {
 
     if (!this.state.finished) {
       return (<div>
-        距离封盘：<span>{xiaZhu - 50 > 0 ? `${this.paddingZero(Math.floor(xiaZhu / 60))}:${this.paddingZero(xiaZhu % 60)}` : '停止下注'}</span>
+        距离封盘：<span>{xiaZhu > 0 ? `${this.paddingZero(Math.floor(xiaZhu / 60))}:${this.paddingZero(xiaZhu % 60)}` : '停止下注'}</span>
         距离开奖：<span>{this.state.time > 0 ? `${this.paddingZero(Math.floor(this.state.time / 60))}:${this.paddingZero(this.state.time % 60)}` : '开奖中'}</span>
       </div>);
     } else {

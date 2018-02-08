@@ -47,6 +47,7 @@ class BJPK10 extends Component {
     super(props);
     this.state = {
       ticker: null,
+      finish: false,
       opening: true,
       lottery: {time: '', current: {}, next: {}},
       method: METHOD_1,
@@ -58,7 +59,7 @@ class BJPK10 extends Component {
 
   componentDidMount() {
     this.getLiveLottery();
-    const ticker = setInterval(this.getLiveLottery, 10000);
+    const ticker = setInterval(this.getLiveLottery, 5000);
     this.setState({ticker});
   }
 
@@ -67,7 +68,7 @@ class BJPK10 extends Component {
       .then(data => {
         if (data.success) {
           this.setState({
-            opening: this.state.lottery.next.leftTime > 0 ? false : true,
+            opening: this.state.lottery.next.leftTime - 40 > 0 ? false : true,
             lottery: data.result.lottery,
           });
         }
@@ -152,12 +153,12 @@ class BJPK10 extends Component {
     this.setState({choice});
   }
 
-  onCallBack = () => {
-    this.setState({opening: true})
+  onCallBack = (data) => {
+    this.setState({...data})
   }
 
   render() {
-    const {method, historyChoices, opening} = this.state;
+    const {method, historyChoices, finish, opening} = this.state;
     const {no, type, code, opentime} = this.state.lottery.current;
     var n1 = 0;
     var n2 = 0;
@@ -248,356 +249,355 @@ class BJPK10 extends Component {
             </form>
           </div>
         </div>
-        <Spin size="large" spinning={opening}>
-          <div id="betting">
-            <div className="top" id="btn">
-            <span onClick={() => this.onMethodChange(METHOD_1)}
+        <div id="betting">
+          <div className={opening ? "cover_div open" : "cover_div"}><p>{finish?"已结束":"开奖中，请耐心等待..."}</p></div>
+          <div className="top" id="btn">
+		        <span onClick={() => this.onMethodChange(METHOD_1)}
                   className={method == METHOD_1 ? 'redBG' : ''}>冠军</span>
-              <span onClick={() => this.onMethodChange(METHOD_2)}
-                    className={method == METHOD_2 ? 'redBG' : ''}>亚军</span>
-              <span onClick={() => this.onMethodChange(METHOD_3)}
-                    className={method == METHOD_3 ? 'redBG' : ''}>季军</span>
-              <span onClick={() => this.onMethodChange(METHOD_4)}
-                    className={method == METHOD_4 ? 'redBG' : ''}>四名</span>
-              <span onClick={() => this.onMethodChange(METHOD_5)}
-                    className={method == METHOD_5 ? 'redBG' : ''}>五名</span>
-              <span onClick={() => this.onMethodChange(METHOD_6)}
-                    className={method == METHOD_6 ? 'redBG' : ''}>六名</span>
-              <span onClick={() => this.onMethodChange(METHOD_7)}
-                    className={method == METHOD_7 ? 'redBG' : ''}>七名</span>
-              <span onClick={() => this.onMethodChange(METHOD_8)}
-                    className={method == METHOD_8 ? 'redBG' : ''}>八名</span>
-              <span onClick={() => this.onMethodChange(METHOD_9)}
-                    className={method == METHOD_9 ? 'redBG' : ''}>九名</span>
-              <span onClick={() => this.onMethodChange(METHOD_10)}
-                    className={method == METHOD_10 ? 'redBG' : ''}>十名</span>
-              <span onClick={() => this.onMethodChange(METHOD_21)}
-                    className={method == METHOD_21 ? 'redBG' : ''}>1V龙虎</span>
-              <span onClick={() => this.onMethodChange(METHOD_22)}
-                    className={method == METHOD_22 ? 'redBG' : ''}>冠亚和</span>
-            </div>
-
-            <div id="ctb">
-              <form id="form">
-                <div className={method >= METHOD_1 && method <= METHOD_10 ? "bottom" : "bottom hidden"}>
-                  <div className="clf title">
-                    <span className="sp1">玩法</span>
-                    <span className="sp2">赔率</span>
-                    <span className="sp3">金额</span>
-                    <span className="sp1">玩法</span>
-                    <span className="sp2">赔率</span>
-                    <span className="sp3">金额</span>
-                  </div>
-                  {/*<!--1--10->*/}
-                  <div className="types">
-                    <ul className="clf">
-                      {
-                        [1, 6, 2, 7, 3, 8, 4, 9, 5, 10].map(i => {
-                          return (
-                            <span key={i}>
-                            <li className="li1"><img src={require(`../../../assets/wx/images/h-${i}.png`)}/></li>
-                            <li className="li2">1.995</li>
-                            <li className="li3">
-                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
-                            </li>
-                          </span>
-                          )
-                        })
-                      }
-
-                      <li className="li1">大</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='大'/>
-                      </li>
-
-                      <li className="li1">小</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='小'/>
-                      </li>
-
-                      <li className="li1">单</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='单'/>
-                      </li>
-
-                      <li className="li1">双</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='双'/>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className={method == METHOD_21 ? "bottom beijing" : "bottom beijing hidden"}>
-                  <div className="clf title">
-                    <span className="sp0">类型</span>
-                    <span className="sp1">玩法</span>
-                    <span className="sp2">赔率</span>
-                    <span className="sp3">金额</span>
-                    <span className="sp1">玩法</span>
-                    <span className="sp2">赔率</span>
-                    <span className="sp3">金额</span>
-                  </div>
-                  {/*<!--1V龙虎->*/}
-                  <div className="types">
-                    <ul className="clf">
-                      <li className="li0">1V10</li>
-                      <li className="li1">龙</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="1V10龙"/>
-                      </li>
-
-                      <li className="li1">虎</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="1V10虎"/>
-                      </li>
-
-                      <li className="li0">2V9</li>
-                      <li className="li1">龙</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="2V9龙"/>
-                      </li>
-
-                      <li className="li1">虎</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="2V9虎"/>
-                      </li>
-
-                      <li className="li0">3V8</li>
-                      <li className="li1">龙</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="3V8龙"/>
-                      </li>
-
-                      <li className="li1">虎</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="3V8双虎"/>
-                      </li>
-
-                      <li className="li0">4V7</li>
-                      <li className="li1">龙</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="4V7龙"/>
-                      </li>
-
-                      <li className="li1">虎</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="4V7双虎"/>
-                      </li>
-
-                      <li className="li0">5V6</li>
-                      <li className="li1">龙</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="5V6龙"/>
-                      </li>
-
-                      <li className="li1">虎</li>
-                      <li className="li2">1.995</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id="5V6虎"/>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div className={method == METHOD_22 ? "bottom" : "bottom hidden"}>
-                  <div className="clf title">
-                    <span className="sp1">玩法</span>
-                    <span className="sp2">赔率</span>
-                    <span className="sp3">金额</span>
-                    <span className="sp1">玩法</span>
-                    <span className="sp2">赔率</span>
-                    <span className="sp3">金额</span>
-                  </div>
-                  {/*<!--1--10->*/}
-                  <div className="types">
-                    <ul className="clf">
-                      {
-                        [3, 4].map(i => {
-                          return (
-                            <span key={i}>
-                            <li className="li1">{i}</li>
-                            <li className="li2">45</li>
-                            <li className="li3">
-                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
-                            </li>
-                          </span>
-                          )
-                        })
-                      }
-
-                      {
-                        [5, 6].map(i => {
-                          return (
-                            <span key={i}>
-                            <li className="li1">{i}</li>
-                            <li className="li2">23</li>
-                            <li className="li3">
-                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
-                            </li>
-                          </span>
-                          )
-                        })
-                      }
-
-                      {
-                        [7, 8].map(i => {
-                          return (
-                            <span key={i}>
-                            <li className="li1">{i}</li>
-                            <li className="li2">15</li>
-                            <li className="li3">
-                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
-                            </li>
-                          </span>
-                          )
-                        })
-                      }
-
-                      {
-                        [9, 10].map(i => {
-                          return (
-                            <span key={i}>
-                            <li className="li1">{i}</li>
-                            <li className="li2">10.8</li>
-                            <li className="li3">
-                             <input type="number" onChange={this.onValueChange} id={`${i}`}/>
-                            </li>
-                          </span>
-                          )
-                        })
-                      }
-
-                      <li className="li1">11</li>
-                      <li className="li2">8.8</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='11'/>
-                      </li>
-
-                      {
-                        [12, 13].map(i => {
-                          return (
-                            <span key={i}>
-                            <li className="li1">{i}</li>
-                            <li className="li2">10.8</li>
-                            <li className="li3">
-                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
-                            </li>
-                          </span>
-                          )
-                        })
-                      }
-
-                      {
-                        [14, 15].map(i => {
-                          return (
-                            <span key={i}>
-                            <li className="li1">{i}</li>
-                            <li className="li2">15</li>
-                            <li className="li3">
-                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
-                            </li>
-                          </span>
-                          )
-                        })
-                      }
-
-                      {
-                        [16, 17].map(i => {
-                          return (
-                            <span key={i}>
-                            <li className="li1">{i}</li>
-                            <li className="li2">23</li>
-                            <li className="li3">
-                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
-                            </li>
-                          </span>
-                          )
-                        })
-                      }
-
-                      {
-                        [18, 19].map(i => {
-                          return (
-                            <span key={i}>
-                            <li className="li1">{i}</li>
-                            <li className="li2">45</li>
-                            <li className="li3">
-                              <input type="number" onChange={this.onValueChange} id={`${i}`}/>
-                            </li>
-                          </span>
-                          )
-                        })
-                      }
-
-                      <li className="li1"></li>
-                      <li className="li2"></li>
-                      <li className="li3"></li>
-
-                      <li className="li1">大</li>
-                      <li className="li2">2.4</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='大'/>
-                      </li>
-
-                      <li className="li1">小</li>
-                      <li className="li2">1.88</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='小'/>
-                      </li>
-
-                      <li className="li1">单</li>
-                      <li className="li2">1.88</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='单'/>
-                      </li>
-
-                      <li className="li1">双</li>
-                      <li className="li2">2.4</li>
-                      <li className="li3">
-                        <input type="number" onChange={this.onValueChange} id='双'/>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            <div className="xiazhu">
-              <div className="title">下注结果</div>
-              <ul>
-                {
-                  Object.keys(historyChoices).map(method => {
-                    return Object.keys(historyChoices[method]).map(e => {
-                      return (
-                        <li className="clf">
-                          <div className="fl left">{methodM[method]}： <span>{e}</span></div>
-                          <div className="fl right">下注金额： <span>{historyChoices[method][e]}</span></div>
-                        </li>
-                      );
-                    });
-                  })
-                }
-              </ul>
-            </div>
-
-            <div className="clf btns">
-              <input type="submit" className="ip1" value="投注" onClick={this.onSend}/>
-              <input type="submit" className="ip2" value="重填" onClick={this.onRest}/>
-            </div>
+            <span onClick={() => this.onMethodChange(METHOD_2)}
+                  className={method == METHOD_2 ? 'redBG' : ''}>亚军</span>
+            <span onClick={() => this.onMethodChange(METHOD_3)}
+                  className={method == METHOD_3 ? 'redBG' : ''}>季军</span>
+            <span onClick={() => this.onMethodChange(METHOD_4)}
+                  className={method == METHOD_4 ? 'redBG' : ''}>四名</span>
+            <span onClick={() => this.onMethodChange(METHOD_5)}
+                  className={method == METHOD_5 ? 'redBG' : ''}>五名</span>
+            <span onClick={() => this.onMethodChange(METHOD_6)}
+                  className={method == METHOD_6 ? 'redBG' : ''}>六名</span>
+            <span onClick={() => this.onMethodChange(METHOD_7)}
+                  className={method == METHOD_7 ? 'redBG' : ''}>七名</span>
+            <span onClick={() => this.onMethodChange(METHOD_8)}
+                  className={method == METHOD_8 ? 'redBG' : ''}>八名</span>
+            <span onClick={() => this.onMethodChange(METHOD_9)}
+                  className={method == METHOD_9 ? 'redBG' : ''}>九名</span>
+            <span onClick={() => this.onMethodChange(METHOD_10)}
+                  className={method == METHOD_10 ? 'redBG' : ''}>十名</span>
+            <span onClick={() => this.onMethodChange(METHOD_21)}
+                  className={method == METHOD_21 ? 'redBG' : ''}>1V龙虎</span>
+            <span onClick={() => this.onMethodChange(METHOD_22)}
+                  className={method == METHOD_22 ? 'redBG' : ''}>冠亚和</span>
           </div>
-        </Spin>
+
+          <div id="ctb">
+            <form id="form">
+              <div className={method >= METHOD_1 && method <= METHOD_10 ? "bottom" : "bottom hidden"}>
+                <div className="clf title">
+                  <span className="sp1">玩法</span>
+                  <span className="sp2">赔率</span>
+                  <span className="sp3">金额</span>
+                  <span className="sp1">玩法</span>
+                  <span className="sp2">赔率</span>
+                  <span className="sp3">金额</span>
+                </div>
+                {/*<!--1--10->*/}
+                <div className="types">
+                  <ul className="clf">
+                    {
+                      [1, 6, 2, 7, 3, 8, 4, 9, 5, 10].map(i => {
+                        return (
+                          <span key={i}>
+						<li className="li1"><img src={require(`../../../assets/wx/images/h-${i}.png`)}/></li>
+						<li className="li2">1.995</li>
+						<li className="li3">
+						  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+						</li>
+					  </span>
+                        )
+                      })
+                    }
+
+                    <li className="li1">大</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id='大'/>
+                    </li>
+
+                    <li className="li1">小</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id='小'/>
+                    </li>
+
+                    <li className="li1">单</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id='单'/>
+                    </li>
+
+                    <li className="li1">双</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id='双'/>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className={method == METHOD_21 ? "bottom beijing" : "bottom beijing hidden"}>
+                <div className="clf title">
+                  <span className="sp0">类型</span>
+                  <span className="sp1">玩法</span>
+                  <span className="sp2">赔率</span>
+                  <span className="sp3">金额</span>
+                  <span className="sp1">玩法</span>
+                  <span className="sp2">赔率</span>
+                  <span className="sp3">金额</span>
+                </div>
+                {/*<!--1V龙虎->*/}
+                <div className="types">
+                  <ul className="clf">
+                    <li className="li0">1V10</li>
+                    <li className="li1">龙</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="1V10龙"/>
+                    </li>
+
+                    <li className="li1">虎</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="1V10虎"/>
+                    </li>
+
+                    <li className="li0">2V9</li>
+                    <li className="li1">龙</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="2V9龙"/>
+                    </li>
+
+                    <li className="li1">虎</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="2V9虎"/>
+                    </li>
+
+                    <li className="li0">3V8</li>
+                    <li className="li1">龙</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="3V8龙"/>
+                    </li>
+
+                    <li className="li1">虎</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="3V8双虎"/>
+                    </li>
+
+                    <li className="li0">4V7</li>
+                    <li className="li1">龙</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="4V7龙"/>
+                    </li>
+
+                    <li className="li1">虎</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="4V7双虎"/>
+                    </li>
+
+                    <li className="li0">5V6</li>
+                    <li className="li1">龙</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="5V6龙"/>
+                    </li>
+
+                    <li className="li1">虎</li>
+                    <li className="li2">1.995</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id="5V6虎"/>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div className={method == METHOD_22 ? "bottom" : "bottom hidden"}>
+                <div className="clf title">
+                  <span className="sp1">玩法</span>
+                  <span className="sp2">赔率</span>
+                  <span className="sp3">金额</span>
+                  <span className="sp1">玩法</span>
+                  <span className="sp2">赔率</span>
+                  <span className="sp3">金额</span>
+                </div>
+                {/*<!--1--10->*/}
+                <div className="types">
+                  <ul className="clf">
+                    {
+                      [3, 4].map(i => {
+                        return (
+                          <span key={i}>
+						<li className="li1">{i}</li>
+						<li className="li2">45</li>
+						<li className="li3">
+						  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+						</li>
+					  </span>
+                        )
+                      })
+                    }
+
+                    {
+                      [5, 6].map(i => {
+                        return (
+                          <span key={i}>
+						<li className="li1">{i}</li>
+						<li className="li2">23</li>
+						<li className="li3">
+						  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+						</li>
+					  </span>
+                        )
+                      })
+                    }
+
+                    {
+                      [7, 8].map(i => {
+                        return (
+                          <span key={i}>
+						<li className="li1">{i}</li>
+						<li className="li2">15</li>
+						<li className="li3">
+						  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+						</li>
+					  </span>
+                        )
+                      })
+                    }
+
+                    {
+                      [9, 10].map(i => {
+                        return (
+                          <span key={i}>
+						<li className="li1">{i}</li>
+						<li className="li2">10.8</li>
+						<li className="li3">
+						 <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+						</li>
+					  </span>
+                        )
+                      })
+                    }
+
+                    <li className="li1">11</li>
+                    <li className="li2">8.8</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id='11'/>
+                    </li>
+
+                    {
+                      [12, 13].map(i => {
+                        return (
+                          <span key={i}>
+						<li className="li1">{i}</li>
+						<li className="li2">10.8</li>
+						<li className="li3">
+						  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+						</li>
+					  </span>
+                        )
+                      })
+                    }
+
+                    {
+                      [14, 15].map(i => {
+                        return (
+                          <span key={i}>
+						<li className="li1">{i}</li>
+						<li className="li2">15</li>
+						<li className="li3">
+						  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+						</li>
+					  </span>
+                        )
+                      })
+                    }
+
+                    {
+                      [16, 17].map(i => {
+                        return (
+                          <span key={i}>
+						<li className="li1">{i}</li>
+						<li className="li2">23</li>
+						<li className="li3">
+						  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+						</li>
+					  </span>
+                        )
+                      })
+                    }
+
+                    {
+                      [18, 19].map(i => {
+                        return (
+                          <span key={i}>
+						<li className="li1">{i}</li>
+						<li className="li2">45</li>
+						<li className="li3">
+						  <input type="number" onChange={this.onValueChange} id={`${i}`}/>
+						</li>
+					  </span>
+                        )
+                      })
+                    }
+
+                    <li className="li1"></li>
+                    <li className="li2"></li>
+                    <li className="li3"></li>
+
+                    <li className="li1">大</li>
+                    <li className="li2">2.4</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id='大'/>
+                    </li>
+
+                    <li className="li1">小</li>
+                    <li className="li2">1.88</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id='小'/>
+                    </li>
+
+                    <li className="li1">单</li>
+                    <li className="li2">1.88</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id='单'/>
+                    </li>
+
+                    <li className="li1">双</li>
+                    <li className="li2">2.4</li>
+                    <li className="li3">
+                      <input type="number" onChange={this.onValueChange} id='双'/>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div className="xiazhu">
+            <div className="title">下注结果</div>
+            <ul>
+              {
+                Object.keys(historyChoices).map(method => {
+                  return Object.keys(historyChoices[method]).map(e => {
+                    return (
+                      <li className="clf">
+                        <div className="fl left">{methodM[method]}： <span>{e}</span></div>
+                        <div className="fl right">下注金额： <span>{historyChoices[method][e]}</span></div>
+                      </li>
+                    );
+                  });
+                })
+              }
+            </ul>
+          </div>
+
+          <div className="clf btns">
+            <input type="submit" className="ip1" value="投注" onClick={this.onSend}/>
+            <input type="submit" className="ip2" value="重填" onClick={this.onRest}/>
+          </div>
+        </div>
       </div>
     );
   }

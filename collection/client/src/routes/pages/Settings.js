@@ -134,8 +134,8 @@ export default class Settings extends Component {
                 <p className="p2 fl">
                   <input type="file" className="ip1" onChange={this.sendImage}/>
                   <span>未选择任何文件</span>
-                  <input type="submit" value="上传" className="ip2"/>
-                  <input type="submit" value="取消" className="ip2"/>
+                  {/*<input type="submit" value="上传" className="ip2"/>*/}
+                  {/*<input type="submit" value="取消" className="ip2"/>*/}
                   <img src={service||''} alt=""/>
                 </p>
               </div>

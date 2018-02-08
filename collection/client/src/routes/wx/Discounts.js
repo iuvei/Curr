@@ -37,10 +37,10 @@ class Discounts extends Component {
               每日首充<strong style={{color: "#F00"}}>500000元赠送</strong>彩金<strong style={{color: "#F00"}}>5888元</strong><br/>
               （首充申请，请在充值未投注之前申请，投注后申请无效 当作放弃）<br/>
               <strong style={{color: "#F00"}}>附言：充值本金+赠送彩金只需1倍流水即可提现，不限次数提款。</strong><br/>
-              {/*<small styl={{color:'#f00'}}>注：新会员首次下载中乐彩平台手机APP，可获赠18元彩金，需要提供下载安装后的截面，老会员可申请每日首充优惠活动！</small>*/}
           </span>
           <h2>活动要求</h2>
-          <span>2、申请每日首充彩金请添加QQ专员：40063119&emsp;微信专员：xinhua39280</span>
+          <span style={{display:'block',width:'100%',textAlign:'center'}}>申请每日首充彩金请添加微信专员：fengkaixiaofang</span>
+            <img src={require("../../assets/wx/images/qrcode2.jpg")} className="qrcode"/>
         </div>
       </div>
     );
