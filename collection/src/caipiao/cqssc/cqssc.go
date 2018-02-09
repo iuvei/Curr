@@ -47,10 +47,11 @@ func (m *CQSSC) Run() {
 	log.Infof(">>>>>>>>start to fetch lottery<<<<<<<<<")
 	for {
 		lt, err := m.Fetch()
-		if err != nil || lt.No == m.currLottery.No {
+		pt, err1 := ParseTimeString(lt.Opentime)
+		if err != nil || err1 != nil || lt.No == m.currLottery.No || time.Now().Minute()-pt.Minute() >= 2 {
 			trys += 1
-			if err != nil {
-				log.Warnf("try to get lottery failed, error: %v try again %d", err, trys)
+			if err != nil || err1 != nil {
+				log.Warnf("try to get lottery failed, error: %v, %v try again %d", err, err1, trys)
 			} else {
 				if lt.No != m.currLottery.No {
 					log.Debugf("get old lottery record [no:%d], try again %d ...", lt.No, trys)

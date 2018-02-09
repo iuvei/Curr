@@ -4,6 +4,7 @@ import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/wx/css/index.css';
 import {getAllMessages, getCustomerImg, getAnnouncement} from '../../services/wxEnd';
 import * as p from './ConstantsPath';
+import Marquee from "react-smooth-marquee"
 /**
  * Created by sven on 2018/1/7.
  */
@@ -96,7 +97,7 @@ class Index extends Component {
       <div>
         <div className="banner"><img src={require("../../assets/wx/images/banner.jpg")}/></div>
         <div className="w">
-          <div className="notice"><a href="javascript:;">{announcement || ''}</a></div>
+          <div className="notice"><Marquee><span style={{color:'#1ec7ff'}}>{announcement || ''}</span></Marquee></div>
           <div className="function clf">
             <ul>
               <li><a href="javascript:;" onClick={this.gotoYouXi_CQSSC}><img

@@ -26,6 +26,7 @@
     "moment": "^2.18.1",
     "mongoose": "^4.11.5",
     "node-cache": "^4.1.1",
+    "node-uuid": "^1.4.8",
     "pug": "^2.0.0-rc.1",
     "request": "^2.81.0",
     "request-promise": "^4.2.1",
