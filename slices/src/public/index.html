@@ -1,69 +1,173 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>中欧华南最佳推荐人活动</title>
-	<meta name="keywords" content=""/>
-	<meta name="description" content="中欧华南最佳推荐人活动—寻找一个对你我而言十分重要的人"/>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width,target-densitydpi=device-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="format-detection" content="telephone=no" />
-	<meta name="format-detection" content="email=no" />
-	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-	<meta http-equiv="Pragma" content="no-cache" />
-	<meta http-equiv="Expires" content="0" />
-	<link type="text/css" href="css/common.css" rel="stylesheet">
-	<link type="text/css" href="css/index.css" rel="stylesheet">
-	<script src="js/base.js"></script>
-	<style>
-		a#playMusic{ display:block; position: absolute; width:30px; height:25px; top:12px; right:12px; z-index:99999;}
-		a#playMusic img{ width:100%;}
-	</style>
+<title>中欧华南最佳推荐人活动</title>
+<meta name="keywords" content=""/>
+<meta name="description" content="中欧华南最佳推荐人活动—寻找一个对你我而言十分重要的人"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,target-densitydpi=device-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="format-detection" content="telephone=no" />
+<meta name="format-detection" content="email=no" />
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<link type="text/css" href="css/common.css" rel="stylesheet">
+<link type="text/css" href="css/index.css" rel="stylesheet">
+<script src="js/base.js"></script>
+<style>
+a#playMusic {
+display: block;
+position: absolute;
+width: 30px;
+height: 25px;
+top: 12px;
+right: 12px;
+z-index: 99999;
+}
+a#playMusic img {
+width: 100%;
+}
+</style>
 </head>
 <body>
 <!--------------------------------------------------------------html区域-------------------------------------------------------------------------------------------->
 <article class="index">
-	<div class="gifbox"></div>
+<div class="gifbox"></div>
 </article>
-<!--------------------------------------------------------------javascript区域-------------------------------------------------------------------------------------->
-<script src="https://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script>
-<script src="js/jquery.js"></script>
-<script src="js/framwork.js"></script>
-<script src="js/annieCore.min.js"></script>
-<script src="js/jquery.VP.js"></script>
-<script src="js/index.js"></script>
+<!--------------------------------------------------------------javascript区域--------------------------------------------------------------------------------------> 
+<script src="https://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script> 
+<script src="js/jquery.js"></script> 
+<script src="js/framwork.js"></script> 
+<script src="js/annieCore.min.js"></script> 
+<script src="js/jquery.VP.js"></script> 
+<script src="js/index.js"></script> 
 
+<!--------------------------------------------------------------微信分享--------------------------------------------------------------------------------------> 
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script> 
+<script> 
+$.ajax({
+    url: "/zhongou/api/wx?url=" + window.location.href,
+    type: "get",
+    dataType: "json",
+	async:false,
+    success:function(data) {
+    	console.log(data);
+		var appIdVal=data.appId;
+		var timestampVal=data.timestamp;
+		var nonceStrVal=data.nonceStr;
+		var signatureVal=encodeURIComponent(data.signature);
+		wx.config({
+			debug: false,
+			// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			appId: appIdVal,
+			// 必填，公众号的唯一标识
+			timestamp: timestampVal,
+			// 必填，生成签名的时间戳
+			nonceStr: nonceStrVal,
+			// 必填，生成签名的随机串
+			signature: signatureVal,
+			// 必填，签名
+			jsApiList: [
+				'onMenuShareAppMessage',//分享给好友
+				'onMenuShareTimeline',//分享到朋友圈
+				'onMenuShareQQ',//分享到QQ好友
+				'onMenuShareWeibo',//分享到微博
+				'onMenuShareQZone'//分享QQ空间
+			] // 必填，需要使用的JS接口列表
+		});
+    },
+	error:function(){
+        alert("您好，服务器繁忙中，请稍后重试  ");
+    }
+})
 
+wx.ready(function() {
+	var shareTitle="中欧华南最佳推荐人活动";
+	var shareDesc="寻找一个对你我而言，十分重要的人";
+	// var linkUrl="http://ceibs.54jj.cn/zhongou/index.html";
+	var linkUrl=window.location.href;
+	var imgUrl="http://ceibs.54jj.cn/zhongou/images/sharewx.jpg";
+
+	// 分享给微信好友
+	wx.onMenuShareAppMessage({
+		title:shareTitle,
+		// 分享标题
+		desc:shareDesc,
+		// 分享描述
+		link:linkUrl,
+		// 分享链接
+		imgUrl:imgUrl,
+		// 分享图标
+		type: 'link',
+		// 分享类型,music、video或link，不填默认为link
+		dataUrl: '',
+		// 如果type是music或video，则要提供数据链接，默认为空
+		success: function() {
+			},
+		cancel: function() {
+			// 用户取消分享后执行的回调函数
+		}
+	});
+	
+	// 分享到朋友圈
+	wx.onMenuShareTimeline({
+		title:shareTitle,
+		// 分享标题
+		desc:shareDesc,
+		// 分享描述
+		link:linkUrl,
+		// 分享链接
+		imgUrl:imgUrl,
+		// 分享图标
+		type: 'link',
+		// 分享类型,music、video或link，不填默认为link
+		dataUrl: '',
+		// 如果type是music或video，则要提供数据链接，默认为空
+		success: function(res) {
+			},
+		cancel: function(res) {
+			// 用户取消分享后执行的回调函数
+		},
+		fail: function(res) {
+			// 用户取消分享后执行的回调函数
+		}
+	});
+	wx.error(function(res) {
+		// config信息验证失败会执行error函数，如签名过期导致验证失败
+	});
+});
+</script> 
 
 <!--------------------------------------------------------------背景音乐播放-------------------------------------------------------------------------------------->
 <audio id="music" src="sound/music.mp3"  loop="loop">你的浏览器不支持audio标签</audio>
-<a href="javascript:playPause();" id="playMusic"><img src="images/bgm_on.png" id="music_btn"></a>
+<a href="javascript:playPause();" id="playMusic"><img src="images/bgm_on.png" id="music_btn"></a> 
 <script>
-    function playPause() {
-        var music = document.getElementById('music');
-        var music_btn = document.getElementById('music_btn');
-        if (music.paused){
-            music.play();
-            music_btn.src = 'images/bgm_on.png';
-        }
-        else{
-            music.pause();
-            music_btn.src = 'images/bgm_off.png';
-        }
-    }
-    document.addEventListener('DOMContentLoaded', function () {
-        function audioAutoPlay() {
-            var music = document.getElementById('music');
-            music.play();
-            document.addEventListener("WeixinJSBridgeReady", function () {
-                music.play();
-            }, false);
-        }
-        audioAutoPlay();
+function playPause() {
+var music = document.getElementById('music');
+var music_btn = document.getElementById('music_btn');
+if (music.paused){
+music.play();
+music_btn.src = 'images/bgm_on.png';
+}
+else{
+music.pause();
+music_btn.src = 'images/bgm_off.png';
+}
+}
+document.addEventListener('DOMContentLoaded', function () {
+function audioAutoPlay() {
+var music = document.getElementById('music');
+music.play();
+document.addEventListener("WeixinJSBridgeReady", function () {
+music.play();
+}, false);
+}
+audioAutoPlay();
 
-    });
-</script>
+});
+</script> 
 <script>
-    window.sessionStorage.setItem("opened", '1');
+window.sessionStorage.setItem("opened", '1');
 </script>
 </body>
 </html>

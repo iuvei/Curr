@@ -1,0 +1,161 @@
+
+body{background-color:#ff5d37;height: 100%;}
+
+.issue_1_img {
+    background:
+            url("../images/issue_1_img.png") no-repeat center/contain,
+            url("../images/bodyBg.jpg") no-repeat center top/cover;
+}
+.issue_2_img {
+    background:
+            url("../images/issue_2_img.png") no-repeat center/contain,
+            url("../images/bodyBg_2.jpg") no-repeat center top/cover;
+}
+.issue_3_img {
+    background:
+            url("../images/issue_3_img.png") no-repeat center/contain,
+            url("../images/bodyBg_2.jpg") no-repeat center top/cover;
+}
+.issue_4_img {
+    background:
+            url("../images/issue_4_img.png") no-repeat center/contain,
+            url("../images/bodyBg.jpg") no-repeat center top/cover;
+}
+.issue_5_img {
+    background:
+            url("../images/issue_5_img.png") no-repeat center/contain,
+            url("../images/bodyBg.jpg") no-repeat center top/cover;
+}
+
+
+
+.issue_1 .issue_a {
+    background-image:
+            url("../images/issue_1_a.png"),
+            url("../images/radioBg.png");
+}
+.issue_1 .issue_b {
+    background-image:
+            url("../images/issue_1_b.png"),
+            url("../images/radioBg.png");
+}
+.issue_c{
+    background-image:
+            url("../images/issue_1_c.png"),
+            url("../images/radioBg.png");
+}
+.issue_d{
+    background-image:
+            url("../images/issue_1_d.png"),
+            url("../images/radioBg.png");
+}
+
+.issue_1 .issue_a:checked {
+    background-image:
+            url("../images/issue_1_a_check.png"),
+            url("../images/radioBg_check.png");
+}
+.issue_1 .issue_b:checked {
+    background-image:
+            url("../images/issue_1_b_check.png"),
+            url("../images/radioBg_check.png");
+}
+.issue_c:checked{
+    background-image:
+            url("../images/issue_1_c_check.png"),
+            url("../images/radioBg_check.png");
+}
+.issue_d:checked{
+    background-image:
+            url("../images/issue_1_d_check.png"),
+            url("../images/radioBg_check.png");
+}
+
+
+.issue_2 .issue_a {
+    background-image:
+            url("../images/issue_2_a.png"),
+            url("../images/radioBg.png");
+}
+.issue_2 .issue_b {
+    background-image:
+            url("../images/issue_2_b.png"),
+            url("../images/radioBg.png");
+}
+
+.issue_2 .issue_a:checked {
+    background-image:
+            url("../images/issue_2_a_check.png"),
+            url("../images/radioBg_check.png");
+}
+.issue_2 .issue_b:checked {
+    background-image:
+            url("../images/issue_2_b_check.png"),
+            url("../images/radioBg_check.png");
+}
+
+.issue_3 .issue_a {
+    background-image:
+            url("../images/issue_3_a.png"),
+            url("../images/radioBg.png");
+}
+.issue_3 .issue_b {
+    background-image:
+            url("../images/issue_3_b.png"),
+            url("../images/radioBg.png");
+}
+
+.issue_3 .issue_a:checked {
+    background-image:
+            url("../images/issue_3_a_check.png"),
+            url("../images/radioBg_check.png");
+}
+.issue_3 .issue_b:checked {
+    background-image:
+            url("../images/issue_3_b_check.png"),
+            url("../images/radioBg_check.png");
+}
+
+.issue_4 .issue_a {
+    background-image:
+            url("../images/issue_4_a.png"),
+            url("../images/radioBg.png");
+}
+.issue_4 .issue_b {
+    background-image:
+            url("../images/issue_4_b.png"),
+            url("../images/radioBg.png");
+}
+
+.issue_4 .issue_a:checked {
+    background-image:
+            url("../images/issue_4_a_check.png"),
+            url("../images/radioBg_check.png");
+}
+.issue_4 .issue_b:checked {
+    background-image:
+            url("../images/issue_4_b_check.png"),
+            url("../images/radioBg_check.png");
+}
+
+.issue_5 .issue_a {
+    background-image:
+            url("../images/issue_5_a.png"),
+            url("../images/radioBg.png");
+}
+.issue_5 .issue_b {
+    background-image:
+            url("../images/issue_5_b.png"),
+            url("../images/radioBg.png");
+}
+
+.issue_5 .issue_a:checked {
+    background-image:
+            url("../images/issue_5_a_check.png"),
+            url("../images/radioBg_check.png");
+}
+.issue_5 .issue_b:checked {
+    background-image:
+            url("../images/issue_5_b_check.png"),
+            url("../images/radioBg_check.png");
+}

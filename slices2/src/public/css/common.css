@@ -1,0 +1,85 @@
+@charset "utf-8";
+/* 深圳市静江网络科技有限公司 */
+*,*:before,*:after {-webkit-box-sizing:border-box; box-sizing:border-box;margin:0; padding:0;}
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust: 100%;font:16px/1 "Microsoft YaHei", Helvetica, sans-serif;}
+body{position:relative;color:#333;}
+input{outline: none;}
+input[type="button"],button,select{cursor: pointer;border: none;outline: none;}
+textarea{outline: none;}
+li{list-style-type:none;}
+img{border:none;}
+a{text-decoration:none; color:#666;}
+a:hover{text-decoration:none;}
+.clf{zoom:1}
+.clf:before,.clf:after,.w:before,.w:after,ul:before,ul:after{content:"";display:block;height:0;clear:both;visibility:hidden;}
+.fl{float: left;}
+.fr{float: right;}
+.w{width: 100%;max-width: 720px;margin: auto;}
+/* 初始化样式结束 */
+
+#playMusic{position: fixed;top: .5rem;right: .5rem;width: 2rem;height: 2rem;z-index: 3;}
+#playMusic img{display: block;width: 100%;height: 100%;}
+
+
+#start{position: fixed;top: 0;right: 0;bottom: 0;left: 0;background: url("../images/startBg.jpg") no-repeat center/cover;z-index: 3;}
+#startBtn{position: fixed;bottom: 8%;left: 15%;width: 70%;height: 3.5rem;background: url("../images/startBtn.png") no-repeat center/100% 100%;animation: cycle 1s infinite linear;}
+
+@-webkit-keyframes cycle {
+    0%{transform: scale(1);}
+    50%{transform: scale(.9);}
+    100%{transform: scale(1);}
+}
+
+
+
+#wrap{position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: 2;background-color: #ff5d37;}
+.issue_img{width: 100%;height: 14rem;}
+
+.main{position: fixed;top: 14rem;right: 0;bottom: 0;left: 0;background: url("../images/mainBg.png") no-repeat center/cover;padding-top: 2rem;}
+/*.main>div{display: none;}*/
+/*.main>div.issue_1{display: block;}*/
+
+#form1 {display: block;}
+#form2 {display: none;}
+#form3 {display: none;}
+#form4 {display: none;}
+#form5 {display: none;}
+
+
+.item{display: block;width: 80%;margin: 0 auto 1.5rem;}
+.item .option{width: 3rem;height: 3rem;}
+.item .option_a{background: url("../images/icon_a.png") no-repeat center/cover;}
+.item .option_b{background: url("../images/icon_b.png") no-repeat center/cover;}
+.item .option_c{background: url("../images/icon_c.png") no-repeat center/cover;}
+.item .option_d{background: url("../images/icon_d.png") no-repeat center/cover;}
+.item input[type=radio]{float: right;width: calc(100% - 4rem);height: 3rem;-webkit-appearance: none;-moz-appearance: none;appearance: none;background-repeat: no-repeat;background-position: center 40%, center;background-size: auto 1.5rem,100% 100%;margin-bottom: .1rem;}
+.item input[type=radio]:checked{height: 3.1rem;margin-bottom: 0;}
+
+#nextQuestion{display: block;width: 70%;height: 3.5rem;background: url("../images/nextQuestion.png") no-repeat center/100% 100%;margin: auto;}
+
+
+
+#result{position: fixed;top: 0;right: 0;bottom: 0;left: 0;z-index: 1; display: none}
+#resultDetail{width: 90%;height: 70%; background-color: #fff;margin: 3rem auto 0;padding: 10px;}
+#resultDetail>div{width: 100%;height: 100%;position: relative;}
+#resultDetail>div .qrcode{position: absolute;left: 1px;bottom: 1px;width: 4rem;}
+#resultDetail .result_a{background: url("../images/result_1.jpg") no-repeat center/100% 100%;}
+#resultDetail .result_b{background: url("../images/result_2.jpg") no-repeat center/100% 100%;}
+#resultDetail .result_c{background: url("../images/result_3.jpg") no-repeat center/100% 100%;}
+#resultDetail .result_d{background: url("../images/result_4.jpg") no-repeat center/100% 100%;}
+#resultDetail + p{width: 90%;margin: auto;font: .9rem/1.5 'Microsoft YaHei';}
+
+#shareBtn{position: absolute;bottom: 8%;left: 15%;width: 70%;height: 3.5rem;background: url("../images/shareBtn.png") no-repeat center/100% 100%;}
+
+
+#layer{position: fixed;top: 0;right: 0;bottom: 0;left: 0;background: rgba(0,0,0,.5) url("../images/topRight.png") no-repeat 95% 5%/8rem;display: none;z-index: 4;}
+
+
+/* 移动端样式 */
+@media only screen and (max-width: 320px) {
+
+    html{font-size: 14px;}
+
+
+
+}
