@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<!--<audio id="music" src="bgMusic.mp3"  loop="loop">你的浏览器不支持audio标签</audio>-->
+<audio id="music" src="bgMusic.mp3"  loop="loop">你的浏览器不支持audio标签</audio>
 <a href="javascript:playPause();" id="playMusic"><img src="images/audioOn.png" id="music_btn"></a>
 <div id="start">
     <a href="javascript:;" id="startBtn"></a>
@@ -124,7 +124,7 @@
     <form id="form5" onsubmit="return false">
         <div class="issue_img issue_5_img"></div>
         <div class="main">
-            <div class="issue_3">
+            <div class="issue_5">
                 <label class="item clf">
                     <i class="option option_a fl"></i>
                     <input type="radio" name="issue_5" class="issue_a" value="a">
@@ -280,15 +280,12 @@
         }
     });
 
-    console.log('======================================', stat)
 
     wx.ready(function() {
-        console.log('====================33==================', stat)
         var shareTitle="中欧华南最佳推荐人活动";
         var shareDesc="寻找一个对你我而言，十分重要的人";
-        // var linkUrl="http://ceibs.54jj.cn/zhongou/index.html";
         var linkUrl=window.location.href;
-        var imgUrl="http://ceibs.54jj.cn/chunjie/images/result_1.jpg";
+        var imgUrl="http://ceibs.54jj.cn/chunjie/images/startBg.png";
 
         // 分享给微信好友
         wx.onMenuShareAppMessage({
