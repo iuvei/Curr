@@ -96,3 +96,29 @@ input,select,option,textarea{outline: none;}
 .page .a1{width:40px;background:url(../images/icon-17.png)no-repeat center;}
 .page a:last-child{margin-right:0;width:40px;background:url(../images/icon-18.png)no-repeat center;}
 .page .a2:hover{background:#19B293;color:#fff;border-radius:5px;border:0;}
+
+@media only screen and (max-width: 750px) {
+
+    .l_aside{width: 100%;top: 5.5rem;bottom: auto;z-index: 1;}
+    .l_aside .title{display: none;}
+    .menu .level1{width: 50%;float: left;display: none;}
+    .menu .level1:nth-of-type(1),
+    .menu .level1:nth-of-type(4),
+    .menu .level1:nth-of-type(9){display: block;}
+    .menu li.level1>a{height: 2rem;line-height: 2rem;}
+    .menu li.level1>a .ico{width: 1rem;height:1rem;background-size: cover;}
+    .menu li.level1 i{top: 8px;}
+
+    .nav{left: 0;height: 5.5rem;line-height: 2.5rem;border-bottom: none;z-index: 1;}
+    .nav .name{margin-right: .5rem;}
+    .nav .name img{margin-left: .5rem;margin-right: .5rem;}
+    .nav .name span{margin-right: .5rem;}
+    .nav .submit form>div{margin-top: 0;margin-bottom: .5rem;}
+
+
+
+
+
+
+
+}

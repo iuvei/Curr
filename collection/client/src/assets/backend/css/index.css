@@ -34,6 +34,16 @@
 .bottom .log .time .sp2{font-size:14px;color:#666;}
 .description .b_content h6{color:#FF0000;font-size:14px;font-weight:500;}
 
+@media only screen and (max-width: 750px) {
+
+
+  .r_aside{top: 9.5rem;left: 0;}
+  .r_aside .home_page .top{margin: .5rem 0;}
+  .r_aside .home_page .top>div{margin: .1rem .3rem;width: calc(50% - .6rem);}
+  .r_aside .home_page .top>div .title{line-height: 2rem;height: auto;}
+  .r_aside .home_page .top>div .title .sp1{font-size: .9rem;}
+  .r_aside .home_page .top>div .title .sp2{margin-top: .4rem;}
+  .r_aside .home_page .bottom>div{width: 97%;margin: 0 auto .5rem;float: none;}
 
 
 
@@ -45,10 +55,4 @@
 
 
 
-
-
-
-
-
-
-
+}

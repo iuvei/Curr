@@ -17,3 +17,10 @@
 .r_aside .review .bottom .tab table tr .up{color:#1AB394;}
 .r_aside .review .bottom .tab table tr .down{color:#FF0000;}
 
+@media only screen and (max-width: 750px) {
+    .r_aside .review .bottom .search .ip1{width: 47%;margin-bottom: .3rem;}
+    .r_aside .review .bottom .search .ip3{display: none;}
+    .r_aside .review .bottom .search .ip3[value='搜索']{display: block;}
+    .r_aside .review .bottom .tab table tr th{padding: .3rem .1rem;text-align: center;font-size: .7rem;}
+
+}

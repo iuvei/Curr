@@ -17,3 +17,15 @@
 .r_aside .receipts .bottom .btn input{width:100px;height:35px;border-radius:5px;margin-right:40px;text-align:center;line-height:35px;font-size:16px;color:#fff;}
 .r_aside .receipts .bottom .btn .ip1{background:#1AB394;}
 .r_aside .receipts .bottom .btn .ip2{background:#ED5565;}
+
+@media only screen and (max-width: 750px) {
+
+    .r_aside .receipts .bottom .b_content .left{width: 20%;margin-right: .5rem;}
+    .r_aside .receipts .bottom .b_content .right{width: 70%;}
+    .r_aside .receipts .bottom .b_content .right .ip3{width: 100%;}
+
+
+    .r_aside .receipts .bottom .btn{margin:1rem 0;text-align: center;width: 100%;}
+    .r_aside .receipts .bottom .btn input{display: inline-block;float: none;margin: 0 .5rem;}
+
+}

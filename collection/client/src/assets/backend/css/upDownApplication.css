@@ -16,3 +16,9 @@
 .r_aside .application .bottom .tab table tr td .ip1{background-color:#1AB394;margin-right:10px;}
 .r_aside .application .bottom .tab table tr td .ip2{background-color:#F8AC59;}
 .r_aside .application .bottom .tab table tr td:nth-child(8){padding-right:40px;}
+
+@media only screen and (max-width: 750px) {
+    .r_aside .application .bottom .search .ip1{width: 250px;}
+    .r_aside .application .bottom .tab table tr th{padding: .3rem .1rem;text-align: center;font-size: .7rem;}
+
+}

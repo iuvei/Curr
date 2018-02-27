@@ -56,19 +56,16 @@
 .gb .content .btn .ip1{background:#1AB394;}
 .gb .content .btn .ip2{background:#8E333D;}
 
+@media only screen and (max-width: 750px) {
 
+    .mainBox{padding: 0 2%;}
+    .mainBox .search{padding: 1rem 0;}
+    .mainBox .search .date{width: 48%;margin: 0 1% .5rem;}
+    .mainBox .search input{margin: 0;width: 100%;}
+    .mainBox .search button:not(:first-of-type){display: none;}
 
+    .mainBox>table th{padding: 0;text-align: center;}
 
+    .mainBox .paging{width: 100%;margin: 1rem 0;}
 
-
-
-
-
-
-
-
-
-
-
-
-
+}
