@@ -54,11 +54,11 @@ func (m *JSK3) Run() {
 	log.Infof(">>>>>>>>start to fetch lottery<<<<<<<<<")
 	for {
 		lt, err := m.Fetch()
-		pt, err1 := ParseTimeString(lt.Opentime)
-		if err != nil || err1 != nil || lt.No == m.currLottery.No || time.Now().Minute()-pt.Minute() >= 2 {
+		//pt, err1 := ParseTimeString(lt.Opentime)
+		if err != nil || lt.No == m.currLottery.No { //|| err1 != nil  || time.Now().Minute()-pt.Minute() >= 2
 			trys += 1
-			if err != nil || err1 != nil {
-				log.Warnf("try to get lottery failed, error: %v, %v try again %d", err, err1, trys)
+			if err != nil { //|| err1 != nil
+				log.Warnf("try to get lottery failed, error: %v, try again %d", err, trys)
 			} else {
 				if lt.No != m.currLottery.No {
 					log.Debugf("get old lottery record [no:%d], try again %d ...", lt.No, trys)
@@ -116,20 +116,36 @@ func (m *JSK3) Fetch() (lt Lottery, err error) {
 		err = fmt.Errorf("read resp body error: %v", err)
 		return
 	}
-	var lts map[string]LotteryItem
+	//	var lts map[string]LotteryItem
+	//	if err = json.Unmarshal(b, &lts); err != nil {
+	//		err = fmt.Errorf("parse resp body error: %v", err)
+	//		return
+	//	}
+	//	for k, v := range lts {
+	//		lt.No, err = strconv.ParseInt(k, 10, 64)
+	//		if err != nil {
+	//			err = fmt.Errorf("failed to convent string to int, except=%s, error: %v", lt.Expect, err)
+	//			return
+	//		}
+
+	//		lt.Opencode = v.Number
+	//		lt.Opentime = v.Dateline
+	//	}
+
+	var lts Lotterys
 	if err = json.Unmarshal(b, &lts); err != nil {
 		err = fmt.Errorf("parse resp body error: %v", err)
 		return
 	}
-	for k, v := range lts {
-		lt.No, err = strconv.ParseInt(k, 10, 64)
+	for _, v := range lts.Data {
+		lt.No, err = strconv.ParseInt(v.Expect, 10, 64)
 		if err != nil {
 			err = fmt.Errorf("failed to convent string to int, except=%s, error: %v", lt.Expect, err)
 			return
 		}
-
-		lt.Opencode = v.Number
-		lt.Opentime = v.Dateline
+		lt.Expect = v.Expect
+		lt.Opencode = v.Opencode
+		lt.Opentime = v.Opentime
 	}
 
 	return
