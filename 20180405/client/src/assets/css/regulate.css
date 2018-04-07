@@ -1,0 +1,10 @@
+
+html{background: url("../images/img_regulate_bg.png") no-repeat center bottom/contain;height: 100%;}
+
+.topbar{background-color: #5dc132;color: #fff;}
+.topbar a.fl img{vertical-align: middle;height: 1.5rem;}
+
+.main{width: 93%;margin: auto;padding: .5rem 0;}
+.main img{display: block;width: 100%;margin: .5rem 0;}
+.main p{font: 1rem/1.6 "Microsoft YaHei";}
+

@@ -1,0 +1,14 @@
+
+/*分页样式*/
+.paging{margin: 20px 0px 30px 40px;}
+.qzPagination{display: inline-block;height: 35px;}
+.qzPagination>*{list-style: none;float: left;}
+.qzPagination .total{padding-right: 8px;}
+.qzPagination span{display: block;float: left;width: 35px;height: 35px;margin-right: -1px;font-family: Arial;font-size: 16px;line-height: 34px;text-align: center;background: #f6f6f6;}
+.qzPagination a,.qzPagination li{display: block;float: left;width: 35px;height: 35px;margin-right: -1px;border: #dfdfdf 1px solid;color: #555;font-family: Arial;font-size: 16px;line-height: 34px;text-align: center;text-decoration: none;background: #f6f6f6;}
+.qzPagination a:hover,.qzPagination li:hover{background: #eee;}
+.qzPagination a.current{position: relative;border: #2fd0b5 1px solid;color: White;font-family: Arial;background: #2fd0b5;}
+.qzPagination a.disabled{border: #dfdfdf 1px solid;color: #aaa;cursor: not-allowed;}
+.qzPagination .prev{-moz-border-radius: 5px 0px 0px 5px;-webkit-border-radius: 5px 0px 0px 5px;border-radius: 5px 0px 0px 5px;}
+.qzPagination .next{-moz-border-radius: 0px 5px 5px 0px;-webkit-border-radius: 0px 5px 5px 0px;border-radius: 0px 5px 5px 0px;}
+.qzPagination>a:first-child,.qzPagination>li:first-child,.qzPagination>li:nth-last-child(3),.qzPagination>li:nth-last-child(2){padding: 0 10px;}

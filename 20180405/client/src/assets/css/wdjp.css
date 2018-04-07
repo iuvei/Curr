@@ -1,0 +1,12 @@
+body{background:#f2f2f2;}
+.title{border-bottom:1px solid #ccc;}
+.content ul li{background:#fff;border-bottom:1px solid #ccc;padding:1rem 0;}
+.content ul li .img{width:4rem;height:4rem;margin:0 1rem;}
+.content ul li .img img{width:100%;height:100%;}
+.content ul li .text p:first-child{font-size:1.2rem;color:#000;}
+.content ul li .text p:last-child{font-size:1.2rem;color:#9a9a9a;margin-top:1rem;}
+
+
+
+.bk{width:100%;height:11rem;position:fixed;bottom:0;max-width:640px;}
+.bk img{width:100%;height:100%;}

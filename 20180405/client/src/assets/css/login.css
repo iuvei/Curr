@@ -1,0 +1,65 @@
+
+.logo{width:50%;height:auto;margin:1.5rem auto 0;text-align:center;}
+.logo img{width:100%;}
+.logo>div{font-size:1.2rem;color:#5dc132;margin-top:1rem;}
+
+.login{width:80%;margin:1.5rem auto 0;}
+.login .text{width:100%;height:auto;border-bottom:1px solid #ccc;padding-bottom:.5rem;}
+.login .text span{display:inline-block;width:22px;height:40px;background:url(../images/icon_phone.png)no-repeat left bottom/contain;vertical-align: middle;}
+.login .text input{display:inline-block;margin-left:.5rem;font-size:1rem;}
+.login input[type=submit]{width:100%;height:auto;font-size:1.2rem;background:#5dc132;border-radius:3px;margin-top:2rem;color:#fff;padding:.5rem 0;}
+
+/*活动介绍*/
+.subtitle{text-align:center;margin-top:2rem;}
+.subtitle span , .subtitle h5{display:inline-block;}
+.subtitle span{width:20%;height:1px;vertical-align: middle;}
+.subtitle .s_left{background: -webkit-linear-gradient(right, #5dc132 , transparent); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(left, #5dc132, transparent); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(left, #5dc132, transparent); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to left, #5dc132 , transparent); /* 标准的语法 */}
+
+.subtitle .s_right{background: -webkit-linear-gradient(left, #5dc132 , transparent); /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(right, #5dc132, transparent); /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(right, #5dc132, transparent); /* Firefox 3.6 - 15 */
+    background: linear-gradient(to right, #5dc132 , transparent); /* 标准的语法 */}
+
+.subtitle h5{font-size:1.2rem;color:#5dc132;font-weight:500;margin:0 .2rem;}
+.subtitle h5:before{content:'';width:1.5rem;height:1.5rem;display:inline-block;background:url(../images/icon_ca.png)no-repeat center/cover;vertical-align: middle;margin-right:.3rem;}
+
+.content{margin-top:1.5rem;text-align:center;}
+.content .time{font-size:1.2rem;font-weight:500;}
+.content .time:before{content:'';width:1rem;height:1rem;display:inline-block;background:url(../images/time.png)no-repeat center/cover;margin-right:.5rem;}
+.content p{width:80%;height:auto;margin:1rem auto 0;font-size:1rem;color:#000;line-height:1.3rem;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

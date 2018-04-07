@@ -1,0 +1,32 @@
+{
+  "entry": "src/*.js",
+  "disableCSSModules": true,
+  "publicPath": "",
+  "env": {
+    "development": {
+      "proxy": {
+         "/v1/*": {
+            "target": "http://localhost:8005/",
+            "changeOrigin": true,
+            "pathRewrite": { "^/v1/" : "/v1/" }
+         },
+         "/images/*": {
+            "target": "http://localhost:8005/",
+            "changeOrigin": true,
+            "pathRewrite": { "^/images/" : "/images/" }
+         }
+      },
+      "extraBabelPlugins": [
+        "dva-hmr",
+        "transform-runtime",
+         ["import", { "libraryName": "antd-mobile", "style": "css" }]
+      ]
+    },
+    "production": {
+      "extraBabelPlugins": [
+        "transform-runtime",
+        ["import", { "libraryName": "antd-mobile", "style": "css" }]
+      ]
+    }
+  }
+}

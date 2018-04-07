@@ -1,0 +1,20 @@
+body{background-color: #f2f2f2;}
+
+.topbar{box-shadow: 0 0 3px 2px #d9d9d9;}
+
+.worksList{width: 93%;margin: auto;}
+.worksList .item{width: 100%;margin-bottom: .8rem;}
+.worksList .item .img,
+.worksList .item .img img{display: block;width: 100%;}
+.worksList .item .grid{background-color: #fff;height: 3rem;}
+.worksList .item .grid .itemTitle{font-size: 1.1rem;line-height: 3rem;}
+.worksList .item .grid>.fr{height: 1.5rem;margin: .75rem 0;line-height: .6rem;}
+.worksList .item .grid>.fr a{height: 1.5rem;font: .9rem/1.5rem "Microsoft YaHei";padding: 0 1rem;}
+.worksList .item .grid>.fr a.fl{padding-left: 1.3rem;background: url("../images/icon_endorse.png") no-repeat left/auto 1rem;color: #f00;}
+.worksList .item .grid>.fr a.share{border-left: 1px solid #e6e6e6;}
+.worksList .item .grid>.fr a.share img{height: .9rem;vertical-align: middle;}
+
+
+
+
+
