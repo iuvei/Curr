@@ -34,6 +34,12 @@ export async function putZuoPinTouPiao(params) {
   });
 }
 
+export async function putPv(params) {
+  return request(`/v1/zps/${params.id}/pv`, {
+    method: 'PUT',
+  });
+}
+
 export async function putLotteryResult(params) {
   return request(`/v1/lottery`, {
     method: 'PUT',

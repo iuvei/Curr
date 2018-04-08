@@ -33,6 +33,11 @@ export default class Tpym extends Component {
     this.setState({curr: 'newest'})
   };
 
+  getByPv = () => {
+    this.getZPs('pv');
+    this.setState({curr: 'pv'})
+  };
+
   getStars = () => {
     this.getZPs('stars');
     this.setState({curr: 'stars'})
@@ -52,7 +57,7 @@ export default class Tpym extends Component {
       <div className="search"><input type="text" onChange={this.onNumChange} placeholder="请输入作品编号"/></div>
       <div className="clf sort">
         <a href="javascript:void(0)" className={curr == "newest" ? "current" : ""} onClick={this.getNewest}>最新</a>
-        <a href="javascript:void(0)">关注量</a>
+        <a href="javascript:void(0)" className={curr == "pv" ? "current" : ""} onClick={this.getByPv}>关注量</a>
         <a href="javascript:void(0)" className={curr == "stars" ? "current" : ""} onClick={this.getStars}>点赞数</a>
       </div>
 

@@ -19,7 +19,7 @@ export default class Index extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => hashHistory.push({pathname: PATH_Typm}), 3000)
+    setTimeout(() => hashHistory.push({pathname: PATH_Typm}), 5000)
   }
 
 

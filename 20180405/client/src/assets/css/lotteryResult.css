@@ -2,7 +2,7 @@
 .topbar{background-color: #5dc132;color: #fff;}
 .topbar a.fl img{vertical-align: middle;height: 1.5rem;}
 
-.proImg{display: block;height: 15rem;margin: 2rem auto 1rem;transform: translateX(-10%);}
+.proImg{display: block; height:10rem;}
 
 .smileImg{display: block;height: 3rem;margin: 1rem auto;}
 
@@ -18,3 +18,7 @@ form button{display: block;width: 100%;font: 1rem/3 "Microsoft YaHei";background
 
 #lotteryResult{background-color: #fff;width: 100%;min-height: 100%;position: absolute;}
 
+/*抽奖结果新增*/
+.cj_code{ width:100%; padding:2rem 1rem; text-align:center;}
+.cj_code img{ width:60%;}
+.proImg1{display: block; width:80%; margin:2rem auto;}

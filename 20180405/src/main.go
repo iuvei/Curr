@@ -110,6 +110,8 @@ func main() {
 		zpsGroup.GET("", srv.GetZuoPins)
 		zpsGroup.GET("/:id", srv.GetUsersZuoPinById)
 		zpsGroup.PUT("/:id/toupiao", srv.PutZuoPinTouPiao)
+		zpsGroup.PUT("/:id/pv", srv.PutPvCount)
+
 		//zpsGroup.DELETE("/:userId", srv.DeleteUser)
 	}
 

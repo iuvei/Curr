@@ -39,7 +39,7 @@ func (m *Service) GetUsersZuoPins(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "用户ID不能为空"})
 		return
 	}
-	var zps []ZuoPin
+	zps := make([]ZuoPin, 0)
 	if err := m.colls.ZuoPinColl.Find(M{"userId": userId}).All(&zps); err != nil {
 		log.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{"message": "内部错误"})
@@ -79,6 +79,21 @@ func (m *Service) PutZuoPinTouPiao(c *gin.Context) {
 	}
 
 	if err := m.colls.ZuoPinColl.UpdateId(zpId, M{"$inc": M{"stars": 1}}); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, gin.H{"message": "内部错误"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{})
+}
+
+func (m *Service) PutPvCount(c *gin.Context) {
+	zpId := c.Param("id")
+	if zpId == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "作品ID不能为空"})
+		return
+	}
+
+	if err := m.colls.ZuoPinColl.UpdateId(zpId, M{"$inc": M{"pv": 1}}); err != nil {
 		log.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{"message": "内部错误"})
 		return
@@ -146,6 +161,10 @@ func (m *Service) GetZuoPins(c *gin.Context) {
 	}
 	if sorted == "stars" {
 		err = query.Sort("-stars").All(&zps)
+	}
+
+	if sorted == "pv" {
+		err = query.Sort("-pv").All(&zps)
 	}
 	if err != nil {
 		log.Error(err)

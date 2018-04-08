@@ -23,8 +23,8 @@
 .list ul li .hot .a1:before{display:inline-block;content:'';width:1.2rem;height:1.2rem;background:url(../images/icon_zan_x.png)no-repeat left center/contain;vertical-align: middle;margin-right:.2rem;}
 .list ul li .hot .a2{display:block;float:right;width:1.2rem;height:1.2rem;background:url(../images/icon_share.png)no-repeat center/contain;}
 
-.banner{width:90%;height:5rem;bottom:4rem;left:50%;transform:translateX(-50%);max-width:640px; }
-.banner img{width:100%;height:100%;}
+.banner{width:90%;margin: 1rem auto; }
+.banner img{display: block;width:100%;}
 
 
 .btns{width:100%;height:3.5rem;position:fixed;bottom:0;box-shadow:0 -2px 10px #ccc;background:#fff;max-width:640px;}
@@ -33,4 +33,4 @@
 .btns .a2:before{display:block;content:'';width:1.5rem;height:1.5rem;background:url(../images/icon_2.png)no-repeat center/contain;margin:.2rem auto .5rem;}
 .btns .a3:before{display:block;content:'';width:1.5rem;height:1.5rem;background:url(../images/icon_3.png)no-repeat center/contain;margin:.2rem auto .5rem;}
 
-#tpym{background-color: #f2f2f2;height: 100%;}
+#tpym{background-color: #f2f2f2;height: 100%;padding-bottom: 5rem;}

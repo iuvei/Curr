@@ -13,12 +13,31 @@ export default class Lottery extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      phone: '',
+      total: 0,
+      count: 0,
+      curr: 0,
+      num: {
+        dz: 1000,
+        d30: 11000,
+        d50: 4000,
+      }
     }
   }
 
   gotoLotteryResult = () => {
-    hashHistory.push({pathname: PATH_LotteryResult, state: {from: "index"}});
+    var result = '0';
+    const {curr} = this.state;
+    if ([1].indexOf(curr) >= 0) {
+      result = "1"
+    }
+    if ([0, 2, 4, 5, 7].indexOf(curr) >= 0) {
+      result = "2"
+    }
+    if ([3, 6].indexOf(curr) >= 0) {
+      result = "3"
+    }
+    console.log('===', curr, result)
+    hashHistory.push({pathname: PATH_LotteryResult, state: result});
   }
 
   gotoRegulate = () => {
@@ -26,7 +45,21 @@ export default class Lottery extends Component {
   }
 
 
+  onStart = () => {
+    this.setState({total: 1 * 8 + Math.floor(Math.random() * 10), curr: 0, count: 0})
+    const handler = setInterval(() => {
+      const {total, curr, count} = this.state;
+      console.log(total, count)
+      if (total < count) {
+        clearInterval(handler);
+      }
+      this.setState({curr: (curr + 1) % 8, count: count + 1})
+    }, 150)
+  }
+
+
   render() {
+    const {curr} = this.state;
     return (
       <div>
         <div className="topbar">
@@ -41,15 +74,15 @@ export default class Lottery extends Component {
             <p className="tips">姚某某用户抽中地图（滚动）</p>
             <div className="machine">
               <ul>
-                <li className="icon_1 active"><span>地图</span></li>
-                <li className="icon_2"><span>水杯</span></li>
-                <li className="icon_3"><span>雨伞</span></li>
-                <li className="icon_4"><span>加湿器</span></li>
-                <li className="icon_go"><a href="javascript:"></a></li>
-                <li className="icon_5"><span>自拍杆</span></li>
-                <li className="icon_none"><span>谢谢<br/>参与</span></li>
-                <li className="icon_6"><span>手机</span></li>
-                <li className="icon_7"><span>购物卡</span></li>
+                <li className={curr == 0 ? "icon_0 active" : "icon_0"}><span>现金券30</span></li>
+                <li className={curr == 1 ? "icon_1 active" : "icon_1"}><span>袋子</span></li>
+                <li className={curr == 2 ? "icon_2 active" : "icon_2"}><span>现金券30</span></li>
+                <li className={curr == 7 ? "icon_7 active" : "icon_7"}><span>现金券30</span></li>
+                <li className="icon_go" onClick={() => this.onStart()}><a href="javascript:"></a></li>
+                <li className={curr == 3 ? "icon_3 active" : "icon_3"}><span>现金券50</span></li>
+                <li className={curr == 6 ? "icon_6 active" : "icon_6"}><span>现金券50</span></li>
+                <li className={curr == 5 ? "icon_5 active" : "icon_5"}><span>现金券30</span></li>
+                <li className={curr == 4 ? "icon_4 active" : "icon_4"}><span>现金券30</span></li>
               </ul>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 .topbar{box-shadow: 0 0 3px 2px #d9d9d9;}
 
-.worksList{width: 93%;margin: auto;}
+.worksList{width: 93%;margin: auto;padding-bottom: 4rem;}
 .worksList .item{width: 100%;margin-bottom: .8rem;box-shadow: 0 0 20px #dcdcdc;border-top-left-radius: 8px;border-top-right-radius: 8px;overflow: hidden;}
 .worksList .item .img,
 .worksList .item .img img{display: block;width: 100%;}

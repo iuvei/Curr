@@ -23,6 +23,7 @@ type ZuoPin struct {
 	Num      string   `json:"num" bson:"num"`
 	ZPName   string   `json:"zpName" bson:"zpName"`
 	Stars    int      `json:"stars" bson:"stars"`
+	Pv       int      `json:"pv" bson:"pv"`
 	Images   []string `json:"images" bson:"images"`
 	CreateAt string   `json:"createAt" bson:"createAt"`
 }
