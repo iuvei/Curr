@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/gin-contrib/cors"
-	"github.com/gin-contrib/pprof"
 	"github.com/gin-contrib/static"
 	"github.com/gin-gonic/gin"
 	"github.com/qiniu/log"
@@ -115,8 +114,6 @@ func main() {
 	}
 
 	rootApi.PUT("lottery", srv.PutLotteryResult)
-
-	pprof.Register(r, nil)
 
 	// Listen and Server in 0.0.0.0:8008
 	if cfg.E.Dev {

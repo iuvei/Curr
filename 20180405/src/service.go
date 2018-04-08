@@ -30,7 +30,7 @@ func (m *Service) genUrl(path string) string {
 		return ""
 	}
 
-	return fmt.Sprintf("//%s:%s/%s", m.cfg.S.Domain, m.cfg.S.Port, path)
+	return fmt.Sprintf("//%s/%s", m.cfg.S.Domain, path)
 }
 
 func (m *Service) GetUsersZuoPins(c *gin.Context) {
