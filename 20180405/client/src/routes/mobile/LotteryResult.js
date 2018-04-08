@@ -28,7 +28,7 @@ export default class LotteryResult extends Component {
 
   render() {
     return (
-      <div>
+      <div id='lotteryResult'>
         <div className="topbar">
           <h3>中奖结果</h3>
           <a href="javascript:" className="fl"><img src={require("../../assets/images/icon_arrows_left.png")}/></a>

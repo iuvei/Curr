@@ -16,5 +16,5 @@ form .line input{width: 80%;margin-left: 3%;font-size: 1rem;background: transpar
 form .tips{font: .8rem/1 "Microsoft YaHei";color: #808080;}
 form button{display: block;width: 100%;font: 1rem/3 "Microsoft YaHei";background-color: #5dc132;color: #fff;border-radius: 3px;margin-top: 3rem;}
 
-
+#lotteryResult{background-color: #fff;width: 100%;min-height: 100%;position: absolute;}
 

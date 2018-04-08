@@ -17,7 +17,7 @@ class MobilePage extends Component {
 
   componentDidMount() {
     const userid = getCookie("userid")
-    if (userid=='') {
+    if (userid == '') {
       hashHistory.push({pathname: PATH_Login});
     }
   }

@@ -26,21 +26,21 @@ export default class Tpym extends Component {
         this.setState({zuopins: data.zps});
       }
     })
-  }
+  };
 
   getNewest = () => {
-    this.getZPs('')
+    this.getZPs('');
     this.setState({curr: 'newest'})
-  }
+  };
 
   getStars = () => {
-    this.getZPs('stars')
+    this.getZPs('stars');
     this.setState({curr: 'stars'})
-  }
+  };
 
   onNumChange = (e) => {
     this.setState({num: e.target.value})
-  }
+  };
 
   render() {
     const {zuopins, curr, num} = this.state;
@@ -48,7 +48,7 @@ export default class Tpym extends Component {
     if (num !== '') {
       zps = zps.filter(x => x.num.startsWith(num));
     }
-    return (<div>
+    return (<div id='tpym'>
       <div className="search"><input type="text" onChange={this.onNumChange} placeholder="请输入作品编号"/></div>
       <div className="clf sort">
         <a href="javascript:void(0)" className={curr == "newest" ? "current" : ""} onClick={this.getNewest}>最新</a>

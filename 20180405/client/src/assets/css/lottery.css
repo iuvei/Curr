@@ -1,5 +1,5 @@
 
-body{background-color: #5dc132;}
+/*body{background-color: #5dc132;}*/
 
 .topbar{background-color: #5dc132;color: #fff;}
 .topbar a.fr{color: #fff;}
@@ -8,8 +8,8 @@ body{background-color: #5dc132;}
 .main>img:first-of-type{display: block;width: 100%;}
 .main>img.absImg{position: absolute;top: 1rem;width: 100%;}
 
-.absChance{position: absolute;top: 5.7rem;right: 23%;font-size: 1rem;}
-.absDiv{position: absolute;top: 9rem;width: 70%;margin: auto;right: 0;left: 0;}
+.absChance{position: absolute;top: 6.2rem;right: 23%;font-size: 1rem;}
+.absDiv{position: absolute;top: 9.5rem;width: 70%;margin: auto;right: 0;left: 0;}
 .absDiv .tips{text-align: center;font-size: 1rem;line-height: 1.5;color: #fff;}
 .absDiv .machine{margin-top: 1rem;}
 .absDiv .machine li{float: left;width: 32.33%;height: 4.75rem;margin: .5%;border-radius: 7px;text-align: center;padding-top: .5rem;font-size: .9rem;}

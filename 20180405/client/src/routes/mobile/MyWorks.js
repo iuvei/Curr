@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import {getUsersZuoPin} from '../../services/mobile';
+import '../../assets/css/common.css'
 import '../../assets/css/myWorks.css';
 /**
  * Created by sven on 2017/8/12.
@@ -25,13 +26,13 @@ export default class MyWorks extends Component {
 
   gotoSczp = () => {
     hashHistory.push({pathname: '/sczp', state: {from: "index"}});
-  }
+  };
 
 
   render() {
     const {zuopins} = this.state;
     return (<div>
-      <div className="topbar1">
+      <div className="topbar">
         <h3>我的作品</h3>
         <a href="javascript:" className="fr" onClick={this.gotoSczp}>继续上传</a>
       </div>

@@ -26,13 +26,12 @@ export default class Tpym_xq extends Component {
         })
       }
     })
-  }
+  };
 
   render() {
     const {zp} = this.state;
-    return (<div>
-      <div className="title"><a href="javascript:void(0)" onClick={() => this.props.history.goBack()}></a>《{zp.zpName}》
-      </div>
+    return (<div id='tpym_xq'>
+      <div className="title"><a href="javascript:void(0)" onClick={() => this.props.history.goBack()}></a>《{zp.zpName}》</div>
       <div className="article">
         <div className="a_title">《{zp.zpName}》</div>
         <div className="number">编号：{zp.num}</div>
@@ -45,8 +44,8 @@ export default class Tpym_xq extends Component {
       </div>
 
       <div className="clf btns">
-        <a href="javascript:void(0)" className="zan"><span>{zp.stars}</span></a>
-        <a href="javascript:void(0)" className="share"></a>
+          <a href="javascript:void(0)" className="share"></a>
+          <a href="javascript:void(0)" className="zan"><span>{zp.stars}</span></a>
         <a href="javascript:void(0)" className="vote" onClick={this.touPiao}>投一票</a>
       </div>
 

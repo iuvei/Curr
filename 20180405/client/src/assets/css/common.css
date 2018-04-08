@@ -17,12 +17,13 @@ a:hover{text-decoration:none;}
 .fr{float: right;}
 /* 初始化样式结束 */
 
-.title{font-size:1.5rem;color:#000;text-align:center;padding:1rem 0;position:relative;background:#fff;}
+.title{font-size:1.5rem;color:#000;text-align:center;padding:1rem 0;position:relative;background:#fff;text-overflow:ellipsis;white-space:nowrap;overflow:hidden;}
 .title a{display:block;width:1.5rem;height:1.5rem;background:url(../images/icon_arrow_l.png)no-repeat center/cover;position:absolute;left:5%;}
 
-.topbar{height: 3rem;font: .9rem/3rem 'Microsoft YaHei';background-color: #fff;position: relative;padding: 0 3.5%;margin-bottom: .3rem;}
-.topbar h3{position: absolute;top: 0;right: 0;bottom: 0;left: 0;margin: auto;text-align: center;font-weight: normal;font-size: 1.2rem;}
-/*.topbar a.fr{color: #5dc132;}*/
+.topbar{height: 3rem;font: .9rem/3rem 'Microsoft YaHei';background-color: #fff;position: relative;padding: 0 3.5%;margin-bottom: .5rem;}
+.topbar h3{position: absolute;top: 0;right: 0;bottom: 0;left: 0;margin: auto;text-align: center;font-weight: normal;font-size: 1.2rem;z-index: 0;}
+.topbar a.fl,
+.topbar a.fr{color: #5dc132;position: relative;}
 
 
 .fixedNav{position: fixed;right: 0;bottom: 0;left: 0;background-color: #fff;box-shadow: 0 0 3px 2px #d9d9d9; }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
+import '../../assets/css/common.css'
 import '../../assets/css/wdjp.css';
 /**
  * Created by sven on 2017/8/23.

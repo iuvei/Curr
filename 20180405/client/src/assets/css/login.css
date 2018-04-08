@@ -1,12 +1,12 @@
-
+body{background: none;}
 .logo{width:50%;height:auto;margin:1.5rem auto 0;text-align:center;}
 .logo img{width:100%;}
 .logo>div{font-size:1.2rem;color:#5dc132;margin-top:1rem;}
 
 .login{width:80%;margin:1.5rem auto 0;}
-.login .text{width:100%;height:auto;border-bottom:1px solid #ccc;padding-bottom:.5rem;}
-.login .text span{display:inline-block;width:22px;height:40px;background:url(../images/icon_phone.png)no-repeat left bottom/contain;vertical-align: middle;}
-.login .text input{display:inline-block;margin-left:.5rem;font-size:1rem;}
+.login .text{width:100%;height:auto;border-bottom:1px solid #e6e6e6;padding-bottom:.5rem;}
+.login .text span{float: left;width:22px;height:1.5rem;background:url(../images/icon_phone.png)no-repeat left bottom/contain;vertical-align: middle;}
+.login .text input{display:inline-block;margin-left:.5rem;font-size:1rem;background: transparent;height: 1.5rem;}
 .login input[type=submit]{width:100%;height:auto;font-size:1.2rem;background:#5dc132;border-radius:3px;margin-top:2rem;color:#fff;padding:.5rem 0;}
 
 /*活动介绍*/
@@ -26,12 +26,12 @@
 .subtitle h5{font-size:1.2rem;color:#5dc132;font-weight:500;margin:0 .2rem;}
 .subtitle h5:before{content:'';width:1.5rem;height:1.5rem;display:inline-block;background:url(../images/icon_ca.png)no-repeat center/cover;vertical-align: middle;margin-right:.3rem;}
 
-.content{margin-top:1.5rem;text-align:center;}
+.content{width: 85%;margin: 1.2rem auto;padding: .3rem 2.5%;border: 1px dashed #cdcdcd;border-radius: 5px;}
 .content .time{font-size:1.2rem;font-weight:500;}
 .content .time:before{content:'';width:1rem;height:1rem;display:inline-block;background:url(../images/time.png)no-repeat center/cover;margin-right:.5rem;}
-.content p{width:80%;height:auto;margin:1rem auto 0;font-size:1rem;color:#000;line-height:1.3rem;}
+.content p{font: .9rem/1.5 'Microsoft YaHei';}
 
-
+#login{background-color: #fff;}
 
 
 

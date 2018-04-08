@@ -15,7 +15,7 @@ export default class Regulate extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div id='regulate'>
       <div className="topbar">
         <h3>游戏规则</h3>
         <a href="javascript:" className="fl"><img src={require("../../assets/images/icon_arrows_left.png")}/></a>
