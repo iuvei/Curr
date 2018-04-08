@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/css/lottery.css';
+import {Toast} from 'antd-mobile';
 /**
  * Created by sven on 2017/8/12.
  */
@@ -25,6 +26,10 @@ export default class Lottery extends Component {
   }
 
   gotoLotteryResult = () => {
+    if (this.state.total == 0) {
+      Toast.fail("您还没有抽奖哦")
+      return
+    }
     var result = '0';
     const {curr} = this.state;
     if ([1].indexOf(curr) >= 0) {
