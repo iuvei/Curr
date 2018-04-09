@@ -30,7 +30,6 @@ export default class Lottery extends Component {
 
   componentDidMount() {
     getUserByUserId({userId: getCookie("userId")}).then(data => {
-      console.log('================', data)
       if (data.code == undefined) {
         this.setState({
           user: data,
@@ -95,6 +94,8 @@ export default class Lottery extends Component {
       <div id='lottery'>
         <div className="topbar">
           <h3>抽奖</h3>
+          <a href="javascript:" className="fl" onClick={() => this.props.history.goBack()}><img
+            src={require("../../assets/images/icon_arrows_left.png")}/></a>
           <a href="javascript:" className="fr" onClick={this.gotoRegulate}>游戏规则</a>
         </div>
         <div className="main">

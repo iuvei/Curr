@@ -22,7 +22,6 @@ export default class Index extends Component {
     setTimeout(() => hashHistory.push({pathname: PATH_Typm}), 5000)
   }
 
-
   render() {
     return (
       <div id="index">

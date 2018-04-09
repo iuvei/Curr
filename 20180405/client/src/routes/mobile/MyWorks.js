@@ -23,11 +23,9 @@ export default class MyWorks extends Component {
     })
   }
 
-
   gotoSczp = () => {
     hashHistory.push({pathname: '/sczp', state: {from: "index"}});
   };
-
 
   render() {
     const {zuopins} = this.state;

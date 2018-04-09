@@ -9,7 +9,7 @@ import {Toast} from 'antd-mobile';
 
 const PATH_MyWorks = "/myworks";
 const PATH_Fair = "/fair";
-
+const phoneReg = /^[1][3,4,5,7,8][0-9]{9}$/;
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -24,8 +24,8 @@ export default class Login extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    if (this.state.phone === '') {
-      Toast.show("请输入手机号码");
+    if (!phoneReg.test(this.state.phone)) {
+      Toast.show("请输入11位手机号码");
       return;
     }
     setCookie('userId', this.state.phone);
@@ -58,6 +58,7 @@ export default class Login extends Component {
           <p>上传时间：4.9-4.23</p>
           <p>参与要求：没有要求，仅需您的宝宝挥洒想象力</p>
           <p>上传方式：将作品上传至h5中，并填写作品名称及小画手名字，上传作品即可得到一次抽奖机会</p>
+          <p>比赛奖项： 最终10幅获奖作品将得到NAUTICAKIDS颁发的证书，并得到自己所绘制的品牌T恤 </p>
           <p>抽奖奖品：1等奖 定制环保袋<br/>
             &emsp;&emsp;&emsp;&emsp;&emsp;2等奖 50元现金券<br/>
             &emsp;&emsp;&emsp;&emsp;&emsp;3等奖 30元现金券</p>

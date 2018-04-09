@@ -23,8 +23,6 @@ function RouterConfig({history}) {
       <Route path="/fair" component={FairDetail}/>
       <Route path="/login" component={Login}/>
       <Route path="/tpym_xq" component={Tpym_xq}/>
-      <Route path="/lottery" component={Lottery}/>
-      <Route path="/lotteryResult" component={LotteryResult}/>
 
       <Route path="/" onEnter={routerChange} component={MobilePage}>
         <IndexRedirect to='index'/>
@@ -34,6 +32,8 @@ function RouterConfig({history}) {
         <Route path="sczp" component={Sczp}/>
         <Route path="tpym" component={Tpym}/>
         <Route path="wdjp" component={Wdjp}/>
+        <Route path="lottery" component={Lottery}/>
+        <Route path="lotteryResult" component={LotteryResult}/>
       </Route>
     </Router>
   );

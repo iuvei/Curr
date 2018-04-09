@@ -47,6 +47,11 @@ export default class Tpym extends Component {
     this.setState({num: e.target.value})
   };
 
+  gotoFair = () => {
+    hashHistory.push({pathname: '/fair', state: {from: "index"}});
+  };
+
+
   render() {
     const {zuopins, curr, num} = this.state;
     var zps = zuopins;
@@ -60,7 +65,7 @@ export default class Tpym extends Component {
         <a href="javascript:void(0)" className={curr == "pv" ? "current" : ""} onClick={this.getByPv}>关注量</a>
         <a href="javascript:void(0)" className={curr == "stars" ? "current" : ""} onClick={this.getStars}>点赞数</a>
       </div>
-
+        <div className="banner" onClick={this.gotoFair}><img src={require("../../assets/images/photo_2.png")}/></div>
       <div className="list">
         <ul className="clf">
           {
@@ -82,7 +87,6 @@ export default class Tpym extends Component {
           }
         </ul>
       </div>
-      <div className="banner"><img src={require("../../assets/images/photo_2.png")}/></div>
     </div>);
   }
 }

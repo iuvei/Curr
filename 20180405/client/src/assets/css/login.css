@@ -31,7 +31,7 @@ body{background: none;}
 .content .time:before{content:'';width:1rem;height:1rem;display:inline-block;background:url(../images/time.png)no-repeat center/cover;margin-right:.5rem;}
 .content p{font: .9rem/1.5 'Microsoft YaHei';}
 
-#login{background-color: #fff;}
+#login{background-color: #fff;padding-bottom: 1px;}
 
 
 

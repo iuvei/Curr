@@ -30,12 +30,9 @@ a:hover{text-decoration:none;}
 
 .fixedNav a{float: left;width: 33.33%;text-align: center;padding: 2.3rem 0 .3rem;font-size: .9rem;}
 .fixedNav a.icon_1{background: url("../images/icon_voting.png") no-repeat center 15%/auto 1.5rem;}
-.fixedNav a.icon_1:hover,
 .fixedNav a.icon_1.active{background: url("../images/icon_voting_active.png") no-repeat center 15%/auto 1.5rem;}
 .fixedNav a.icon_2{background: url("../images/icon_lottery.png") no-repeat center 15%/auto 1.5rem;}
-.fixedNav a.icon_2:hover,
 .fixedNav a.icon_2.active{background: url("../images/icon_lottery_active.png") no-repeat center 15%/auto 1.5rem;}
 .fixedNav a.icon_3{background: url("../images/icon_myWorks.png") no-repeat center 15%/auto 1.5rem;}
-.fixedNav a.icon_3:hover,
 .fixedNav a.icon_3.active{background: url("../images/icon_myWorks_active.png") no-repeat center 15%/auto 1.5rem;}
 
