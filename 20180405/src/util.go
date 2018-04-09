@@ -16,6 +16,10 @@ func GetCurrTime() string {
 	return time.Now().Format(timeLayout)
 }
 
+func GetCurrDay() string {
+	return time.Now().Format("2006-01-02")
+}
+
 func GetCurrTimeByCustomFormat(timeLayout string) string {
 	return time.Now().Format(timeLayout)
 }

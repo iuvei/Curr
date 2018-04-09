@@ -78,6 +78,29 @@ func (m *Service) PutZuoPinTouPiao(c *gin.Context) {
 		return
 	}
 
+	var req TouPiao
+	if err := c.BindJSON(&req); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
+		return
+	}
+	nowDay := GetCurrDay()
+	if n, err := m.colls.TouPiaoColl.Find(M{"zpId": zpId, "userId": req.UserId, "updateAt": nowDay}).Count(); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
+		return
+	} else {
+		if n != 0 {
+			c.JSON(http.StatusBadRequest, ErrBadRequest(fmt.Errorf("一天只能投票一次")))
+			return
+		}
+		if _, err = m.colls.TouPiaoColl.Upsert(M{"zpId": zpId, "userId": req.UserId}, M{"$set": M{"updateAt": nowDay}}); err != nil {
+			log.Error(err)
+			c.JSON(http.StatusBadRequest, ErrBadRequest(err))
+			return
+		}
+	}
+
 	if err := m.colls.ZuoPinColl.UpdateId(zpId, M{"$inc": M{"stars": 1}}); err != nil {
 		log.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{"message": "内部错误"})
@@ -147,7 +170,26 @@ func (m *Service) UploadImage(c *gin.Context) {
 		return
 	}
 
+	if _, err := m.colls.UserColl.UpsertId(userId, M{"$set": M{"name": zp.Name, "phone": userId}, "$inc": M{"lcount": 1}}); err != nil {
+		log.Error(err)
+	}
+
 	c.JSON(http.StatusOK, zp)
+}
+
+func (m *Service) PutChoujiang(c *gin.Context) {
+	userId := c.Param("userId")
+	if userId == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "用户ID不能为空"})
+		return
+	}
+	if _, err := m.colls.UserColl.UpsertId(userId, M{"$inc": M{"lcount": -1}}); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{})
 }
 
 func (m *Service) GetZuoPins(c *gin.Context) {

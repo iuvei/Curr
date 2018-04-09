@@ -62,7 +62,7 @@ export default class Login extends Component {
             &emsp;&emsp;&emsp;&emsp;&emsp;2等奖 50元现金券<br/>
             &emsp;&emsp;&emsp;&emsp;&emsp;3等奖 30元现金券</p>
           <p>比赛结果：我们将在5.4结束所有作品的评审，选取10幅获奖作品，著名设计师进行设计后，投入批量生产，在NAUTICAKIDS官方TMALL店铺中销售，</p>
-          <p>详情点击>><a href="javascript:">nauticatz.tmall.com</a></p>
+          <p>详情点击>><a href="https://nauticatz.m.tmall.com">nauticatz.tmall.com</a></p>
         </div>
       </div>
     );

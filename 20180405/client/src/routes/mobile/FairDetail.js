@@ -19,7 +19,7 @@ export default class FairDetail extends Component {
 
   render() {
     return (
-      <div>
+      <div id='fairDetail'>
         <div className="topbar">
           <h3>活动介绍</h3>
           <a href="javascript:" className="fl" onClick={() => this.props.history.goBack()}><img

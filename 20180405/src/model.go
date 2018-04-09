@@ -2,18 +2,18 @@ package main
 
 import (
 	"github.com/qiniu/db/mgoutil.v3"
-	"gopkg.in/mgo.v2/bson"
+	//	"gopkg.in/mgo.v2/bson"
 )
 
 type M map[string]interface{}
 
 type User struct {
-	UserId    bson.ObjectId `json:"userId" bson:"_id"`
-	Phone     string        `json:"phone" bson:"phone"` //用户ID
-	Name      string        `json:"name" bson:"name"`   //用户名
-	Avatar    string        `json:"avatar" bson:"avatar"`
-	Dealed    bool          `json:"dealed" bson:"dealed"`
-	CreatedAt string        `json:"createdAt" bson:"createdAt"`
+	UserId    string `json:"userId" bson:"_id"`
+	Phone     string `json:"phone" bson:"phone"`   //用户ID
+	Name      string `json:"name" bson:"name"`     //用户名
+	LCount    int    `json:"lcount" bson:"lcount"` //有多少次抽奖次数
+	Dealed    bool   `json:"dealed" bson:"dealed"`
+	CreatedAt string `json:"createdAt" bson:"createdAt"`
 }
 
 type ZuoPin struct {
@@ -28,8 +28,15 @@ type ZuoPin struct {
 	CreateAt string   `json:"createAt" bson:"createAt"`
 }
 
+type TouPiao struct {
+	ZpId     string `json:"zpId" bson:"zpId"`
+	UserId   string `json:"userId" bson:"userId"`
+	UpdateAt string `json:"updateAt" bson:"updateAt"`
+}
+
 type Lottery struct {
 	Id       string `json:"id" bson:"_id"`
+	UserId   string `json:"userId" bson:"userId"`
 	Name     string `json:"name" bson:"name"`
 	Phone    string `json:"phone" bson:"phone"`
 	CreateAt string `json:"createAt" bson:"createAt"`
@@ -44,6 +51,7 @@ type Collections struct {
 	CurrNumColl  mgoutil.Collection `coll:"currNum"`
 	UserColl     mgoutil.Collection `coll:"users"`
 	ZuoPinColl   mgoutil.Collection `coll:"zuopins"`
+	TouPiaoColl  mgoutil.Collection `coll:"toupiaos"`
 	LotterysColl mgoutil.Collection `coll:"lotterys"`
 }
 

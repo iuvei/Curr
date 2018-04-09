@@ -19,6 +19,24 @@ export async function getUsersZuoPin() {
   )
 }
 
+
+//获取用户信息
+export async function getUserByUserId(params) {
+  return request(`/v1/users/${params.userId}`, {
+    method: 'get',
+  });
+}
+
+//抽奖
+export async function putChoujiang(params) {
+  return request(`/v1/users/${params.id}/choujiang`, {
+    method: 'PUT',
+    //body: JSON.stringify(params),
+  });
+}
+
+
+
 //通过排序条件获取作品
 export async function getZuoPins(params) {
   return request(`/v1/zps?sorted=${params.sorted || ''}`, {
@@ -31,6 +49,7 @@ export async function getZuoPins(params) {
 export async function putZuoPinTouPiao(params) {
   return request(`/v1/zps/${params.id}/toupiao`, {
     method: 'PUT',
+    body: JSON.stringify(params),
   });
 }
 
@@ -47,13 +66,6 @@ export async function putLotteryResult(params) {
   });
 }
 
-
-//获取用户信息
-export async function getUserInfo() {
-  return request(`/m/api/userinfo`, {
-    method: 'get',
-  });
-}
 
 
 export async function getAllMessages(params) {

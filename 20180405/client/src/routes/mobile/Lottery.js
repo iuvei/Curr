@@ -1,19 +1,22 @@
 import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/css/lottery.css';
+import {getCookie} from '../../utils/cookies';
+import {getUserByUserId, putChoujiang} from '../../services/mobile';
 import {Toast} from 'antd-mobile';
 /**
  * Created by sven on 2017/8/12.
  */
 
 
-const PATH_LotteryResult = "/lotteryResult"
-const PATH_Regulate = "/regulate"
+const PATH_LotteryResult = "/lotteryResult";
+const PATH_Regulate = "/regulate";
 
 export default class Lottery extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: {lcount: 0},
       total: 0,
       count: 0,
       curr: 0,
@@ -25,9 +28,20 @@ export default class Lottery extends Component {
     }
   }
 
+  componentDidMount() {
+    getUserByUserId({userId: getCookie("userId")}).then(data => {
+      console.log('================', data)
+      if (data.code == undefined) {
+        this.setState({
+          user: data,
+        })
+      }
+    })
+  }
+
   gotoLotteryResult = () => {
-    if (this.state.total == 0) {
-      Toast.fail("您还没有抽奖哦")
+    if (this.state.total === 0) {
+      Toast.fail("您还没有抽奖哦");
       return
     }
     var result = '0';
@@ -41,32 +55,44 @@ export default class Lottery extends Component {
     if ([3, 6].indexOf(curr) >= 0) {
       result = "3"
     }
-    console.log('===', curr, result)
+    console.log('===', curr, result);
     hashHistory.push({pathname: PATH_LotteryResult, state: result});
-  }
+  };
 
   gotoRegulate = () => {
     hashHistory.push({pathname: PATH_Regulate, state: {from: "index"}});
-  }
+  };
 
 
   onStart = () => {
-    this.setState({total: 1 * 8 + Math.floor(Math.random() * 10), curr: 0, count: 0})
-    const handler = setInterval(() => {
-      const {total, curr, count} = this.state;
-      console.log(total, count)
-      if (total < count) {
-        clearInterval(handler);
+    const {user} = this.state;
+    if (user.lcount <= 0) {
+      Toast.fail("您没有抽奖机会，请上传作品");
+      return
+    }
+
+    putChoujiang({userId: user.userId}).then(data => {
+      if (data.code == undefined) {
+        this.setState({user: {...user, lcount: user.lcount - 1}})
+      } else {
+        this.setState({total: 2 * 8 + Math.floor(Math.random() * 10), curr: 0, count: 0});
+        const handler = setInterval(() => {
+          const {total, curr, count} = this.state;
+          console.log(total, count);
+          if (total < count) {
+            clearInterval(handler);
+          }
+          this.setState({curr: (curr + 1) % 8, count: count + 1})
+        }, 150)
       }
-      this.setState({curr: (curr + 1) % 8, count: count + 1})
-    }, 150)
-  }
+    })
+  };
 
 
   render() {
-    const {curr} = this.state;
+    const {curr, user:{lcount, name}} = this.state;
     return (
-      <div>
+      <div id='lottery'>
         <div className="topbar">
           <h3>抽奖</h3>
           <a href="javascript:" className="fr" onClick={this.gotoRegulate}>游戏规则</a>
@@ -74,20 +100,20 @@ export default class Lottery extends Component {
         <div className="main">
           <img src={require("../../assets/images/img_lottery.png")}/>
           <img src={require("../../assets/images/img_lottery_absImg.png")} className="absImg"/>
-          <div className="absChance">您有1次抽奖机会</div>
+          <div className="absChance">您有{lcount || 0}次抽奖机会</div>
           <div className="absDiv">
-            <p className="tips">姚某某用户抽中地图（滚动）</p>
+            {/*<p className="tips">姚某某用户抽中地图（滚动）</p>*/}
             <div className="machine">
               <ul>
-                <li className={curr == 0 ? "icon_0 active" : "icon_0"}><span>现金券30</span></li>
-                <li className={curr == 1 ? "icon_1 active" : "icon_1"}><span>袋子</span></li>
-                <li className={curr == 2 ? "icon_2 active" : "icon_2"}><span>现金券30</span></li>
-                <li className={curr == 7 ? "icon_7 active" : "icon_7"}><span>现金券30</span></li>
+                <li className={curr === 0 ? "icon_0 active" : "icon_0"}><span>现金券30</span></li>
+                <li className={curr === 1 ? "icon_1 active" : "icon_1"}><span>袋子</span></li>
+                <li className={curr === 2 ? "icon_2 active" : "icon_2"}><span>现金券30</span></li>
+                <li className={curr === 7 ? "icon_7 active" : "icon_7"}><span>现金券30</span></li>
                 <li className="icon_go" onClick={() => this.onStart()}><a href="javascript:"></a></li>
-                <li className={curr == 3 ? "icon_3 active" : "icon_3"}><span>现金券50</span></li>
-                <li className={curr == 6 ? "icon_6 active" : "icon_6"}><span>现金券50</span></li>
-                <li className={curr == 5 ? "icon_5 active" : "icon_5"}><span>现金券30</span></li>
-                <li className={curr == 4 ? "icon_4 active" : "icon_4"}><span>现金券30</span></li>
+                <li className={curr === 3 ? "icon_3 active" : "icon_3"}><span>现金券50</span></li>
+                <li className={curr === 6 ? "icon_6 active" : "icon_6"}><span>现金券50</span></li>
+                <li className={curr === 5 ? "icon_5 active" : "icon_5"}><span>现金券30</span></li>
+                <li className={curr === 4 ? "icon_4 active" : "icon_4"}><span>现金券30</span></li>
               </ul>
             </div>
           </div>

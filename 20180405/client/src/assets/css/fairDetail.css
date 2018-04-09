@@ -3,8 +3,8 @@
 .topbar a.fl img{vertical-align: middle;height: 1.5rem;}
 
 .main1{width: 93%;margin: auto;padding: .5rem 0 2rem;}
-.main1 img{display: block;width: 100%;margin: .8rem 0;}
-.main1 p{font: 1rem/1.5 "Microsoft YaHei";text-indent: 2rem;}
+#fairDetail .main1 img{display: block;width: 100%;margin: .8rem 0;}
+#fairDetail .main1 p{font: 1rem/1.5 "Microsoft YaHei";text-indent: 2rem;}
 
 .live{background-color: #f2f2f2;padding: 0 3.5%;}
 .live .countDown{text-align: center;padding-top: 5.5rem;margin-bottom: 1rem;position: relative;}

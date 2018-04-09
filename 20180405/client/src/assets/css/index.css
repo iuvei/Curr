@@ -3,6 +3,6 @@
 
 .logo{display: block;width: 50%;margin: 2rem auto 4rem;}
 
-h2{text-align: center;font: 1.5rem/1.5 'Microsoft YaHei';color: #5aa232;margin-bottom: 2rem;}
+#index h2{text-align: center;font: 1.5rem/1.5 'Microsoft YaHei';color: #5aa232;margin-bottom: 2rem;}
 
-p{font: 1rem/1.5 'Microsoft YaHei';text-indent: 2rem;width: 93%;margin: auto;color: #004d0d;}
+#index p{font: 1rem/1.5 'Microsoft YaHei';text-indent: 2rem;width: 93%;margin: auto;color: #004d0d;}

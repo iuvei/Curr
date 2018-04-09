@@ -98,8 +98,9 @@ func main() {
 
 	usersGroup := rootApi.Group("users")
 	{
-		usersGroup.PUT("/:userId", srv.PutUser)
+		usersGroup.POST("/:userId", srv.PostUser)
 		usersGroup.PUT("/:userId/zp", srv.UploadImage)
+		usersGroup.PUT("/:userId/choujiang", srv.PutChoujiang)
 		usersGroup.GET("/:userId", srv.GetUser)
 		usersGroup.GET("/:userId/zps", srv.GetUsersZuoPins)
 		usersGroup.DELETE("/:userId", srv.DeleteUser)

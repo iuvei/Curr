@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/css/tpym_xq.css';
 import {putZuoPinTouPiao, putPv} from '../../services/mobile';
+import {getCookie} from '../../utils/cookies';
+import {Toast} from 'antd-mobile';
 /**
  * Created by sven on 2017/8/23.
  */
@@ -27,11 +29,13 @@ export default class Tpym_xq extends Component {
 
   touPiao = () => {
     const {zp} = this.state;
-    putZuoPinTouPiao({id: zp.id}).then(data => {
-      if (data !== undefined) {
+    putZuoPinTouPiao({id: zp.id, userId: getCookie("userId")}).then(data => {
+      if (data.code == undefined) {
         this.setState({
           zp: {...zp, stars: zp.stars + 1}
         })
+      } else {
+        Toast.fail("每天只能投票一次哦")
       }
     })
   };
