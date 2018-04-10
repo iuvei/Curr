@@ -8,15 +8,113 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp">
-  <title>作品展</title>
+  <title>爱随行，panda go!</title>
+  <!--<link rel="stylesheet" href="422diqiu/mobile.css" />-->
+  <!--<script src="422diqiu/mobile.js"></script>-->
   <link rel="stylesheet" href="mobile.css" />
+  <script src="mobile.js"></script>
 </head>
 <body>
 
 <div id="root"></div>
 
-<script src="mobile.js"></script>
-<!--<script src="js/jquery.min.js"></script>-->
+
+<!--<script src="mobile.js"></script>-->
+
+
+<script src="https://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script>
+<script>
+  $.ajax({
+    url: "/422diqiu/v1/wx?url=" + window.location.href,
+    type: "get",
+    dataType: "json",
+    async:false,
+    success:function(data) {
+      console.log(data);
+      var appIdVal=data.appId;
+      var timestampVal=data.timestamp;
+      var nonceStrVal=data.nonceStr;
+      var signatureVal=encodeURIComponent(data.signature);
+      wx.config({
+        debug: false,
+        // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        appId: appIdVal,
+        // 必填，公众号的唯一标识
+        timestamp: timestampVal,
+        // 必填，生成签名的时间戳
+        nonceStr: nonceStrVal,
+        // 必填，生成签名的随机串
+        signature: signatureVal,
+        // 必填，签名
+        jsApiList: [
+          'onMenuShareAppMessage',//分享给好友
+          'onMenuShareTimeline',//分享到朋友圈
+          'onMenuShareQQ',//分享到QQ好友
+          'onMenuShareWeibo',//分享到微博
+          'onMenuShareQZone'//分享QQ空间
+        ] // 必填，需要使用的JS接口列表
+      });
+    },
+    error:function(){
+      alert("您好，服务器繁忙中，请稍后重试  ");
+    }
+  })
+
+  wx.ready(function() {
+    var shareTitle="爱随行，panda go!";
+    var shareDesc="寻找一个对你我而言，十分重要的人";
+    var linkUrl=window.location.href;
+    var imgUrl="http://ceibs.54jj.cn/422diqiu/images/sharewx.jpg";
+
+    // 分享给微信好友
+    wx.onMenuShareAppMessage({
+      title:shareTitle,
+      // 分享标题
+      desc:shareDesc,
+      // 分享描述
+      link:linkUrl,
+      // 分享链接
+      imgUrl:imgUrl,
+      // 分享图标
+      type: 'link',
+      // 分享类型,music、video或link，不填默认为link
+      dataUrl: '',
+      // 如果type是music或video，则要提供数据链接，默认为空
+      success: function() {
+      },
+      cancel: function() {
+        // 用户取消分享后执行的回调函数
+      }
+    });
+
+    // 分享到朋友圈
+    wx.onMenuShareTimeline({
+      title:shareTitle,
+      // 分享标题
+      desc:shareDesc,
+      // 分享描述
+      link:linkUrl,
+      // 分享链接
+      imgUrl:imgUrl,
+      // 分享图标
+      type: 'link',
+      // 分享类型,music、video或link，不填默认为link
+      dataUrl: '',
+      // 如果type是music或video，则要提供数据链接，默认为空
+      success: function(res) {
+      },
+      cancel: function(res) {
+        // 用户取消分享后执行的回调函数
+      },
+      fail: function(res) {
+        // 用户取消分享后执行的回调函数
+      }
+    });
+    wx.error(function(res) {
+      // config信息验证失败会执行error函数，如签名过期导致验证失败
+    });
+  });
+</script>
 
 </body>
 </html>

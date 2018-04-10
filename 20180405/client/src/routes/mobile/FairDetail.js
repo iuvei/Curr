@@ -74,7 +74,7 @@ export default class FairDetail extends Component {
         <div className="live">
           <div className="countDown">
             <span>{this.paddingZero(Math.floor(time / 60 / 60 / 24))}</span>天
-            <span>{this.paddingZero(Math.floor((time / 60 / 60) % 60))}</span>时
+            <span>{this.paddingZero(Math.floor((time / 60 / 60) % 24))}</span>时
             <span>{this.paddingZero(Math.floor((time / 60) % 60))}</span>分
             <span>{this.paddingZero(Math.floor(time % 60))}</span>秒
             <img src={require("../../assets/images/img_live.png")} className="absImg"/>

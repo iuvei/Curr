@@ -96,6 +96,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	rootApi.GET("wx", srv.GetWxSign)
+
 	usersGroup := rootApi.Group("users")
 	{
 		usersGroup.POST("/:userId", srv.PostUser)
@@ -136,6 +138,11 @@ type EndPoint struct {
 
 type Env struct {
 	Dev bool `json:"dev"`
+}
+
+type WX struct {
+	Appid  string `json:"appid"`
+	Secret string `json:"secret"`
 }
 
 type Config struct {

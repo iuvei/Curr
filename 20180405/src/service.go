@@ -15,14 +15,19 @@ type ApiConfig struct {
 
 type Service struct {
 	*ApiConfig
+	wx     WX
 	colls  Collections
 	client *http.Client
 }
 
 //初始化
 func NewService(cfg *ApiConfig, colls Collections) (*Service, error) {
+	wx := WX{
+		Appid:  "wx34cd993710628c13",
+		Secret: "eede7d32677e4bdc923e71603978983d",
+	}
 	client := http.DefaultClient
-	return &Service{cfg, colls, client}, nil
+	return &Service{cfg, wx, colls, client}, nil
 }
 
 func (m *Service) genUrl(path string) string {
@@ -85,7 +90,7 @@ func (m *Service) PutZuoPinTouPiao(c *gin.Context) {
 		return
 	}
 	nowDay := GetCurrDay()
-	if n, err := m.colls.TouPiaoColl.Find(M{"zpId": zpId, "userId": req.UserId, "updateAt": nowDay}).Count(); err != nil {
+	if n, err := m.colls.TouPiaoColl.Find(M{"userId": req.UserId, "updateAt": nowDay}).Count(); err != nil {
 		log.Error(err)
 		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
 		return
@@ -94,7 +99,7 @@ func (m *Service) PutZuoPinTouPiao(c *gin.Context) {
 			c.JSON(http.StatusBadRequest, ErrBadRequest(fmt.Errorf("一天只能投票一次")))
 			return
 		}
-		if _, err = m.colls.TouPiaoColl.Upsert(M{"zpId": zpId, "userId": req.UserId}, M{"$set": M{"updateAt": nowDay}}); err != nil {
+		if _, err = m.colls.TouPiaoColl.Upsert(M{"userId": req.UserId}, M{"$set": M{"zpId": zpId, "updateAt": nowDay}}); err != nil {
 			log.Error(err)
 			c.JSON(http.StatusBadRequest, ErrBadRequest(err))
 			return
