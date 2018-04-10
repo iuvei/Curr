@@ -12,6 +12,7 @@ export default class Tpym_xq extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      share: false,
       zp: this.props.location.state,
     }
   }
@@ -56,8 +57,9 @@ export default class Tpym_xq extends Component {
         }
       </div>
 
+      <div id="sharediv" style={this.state.share?{"display":"block"}:{"display":"none"}} onClick={()=>this.setState({share:false})}></div>
       <div className="clf btns">
-        <a href="javascript:void(0)" className="share"></a>
+        <a href="javascript:void(0)" className="share" onClick={()=>this.setState({share: true})}></a>
         <a href="javascript:void(0)" className="zan" onClick={this.touPiao}><span>{zp.stars}</span></a>
         <a href="javascript:void(0)" className="vote" onClick={this.touPiao}>投一票</a>
       </div>

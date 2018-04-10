@@ -36,3 +36,4 @@ a:hover{text-decoration:none;}
 .fixedNav a.icon_3{background: url("../images/icon_myWorks.png") no-repeat center 15%/auto 1.5rem;}
 .fixedNav a.icon_3.active{background: url("../images/icon_myWorks_active.png") no-repeat center 15%/auto 1.5rem;}
 
+#sharediv {position: fixed;top: 0;right: 0;bottom: 0;left: 0;background: rgba(0,0,0,.5) url(../images/sharebg.png) no-repeat 95% 1%/15rem;display: none; z-index: 9999;}

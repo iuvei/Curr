@@ -83,7 +83,7 @@ export default class FairDetail extends Component {
             <a href="javascript:" className="item">
               <img src={require("../../assets/images/img_live_1.png")}/>
             </a>
-            <a href="javascript:" className="item">
+            <a href="https://liveplatform.taobao.com/live/live_detail.htm?id=200600896354&openHlvPush=true" className="item">
               <img src={require("../../assets/images/img_live_2.png")}/>
             </a>
           </div>

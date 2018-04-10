@@ -9,20 +9,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="Cache-Control" content="no-siteapp">
   <title>爱随行，panda go!</title>
-  <!--<link rel="stylesheet" href="422diqiu/mobile.css" />-->
-  <!--<script src="422diqiu/mobile.js"></script>-->
-  <link rel="stylesheet" href="mobile.css" />
-  <script src="mobile.js"></script>
+  <link rel="stylesheet" href="422diqiu/mobile.css" />
+  <!--<link rel="stylesheet" href="mobile.css" />-->
+  <!--<script src="mobile.js"></script>-->
 </head>
 <body>
 
 <div id="root"></div>
-
-
+<script src="422diqiu/mobile.js"></script>
 <!--<script src="mobile.js"></script>-->
 
-
-<script src="https://res.wx.qq.com/open/js/jweixin-1.3.0.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script>
   $.ajax({
     url: "/422diqiu/v1/wx?url=" + window.location.href,
@@ -60,11 +58,30 @@
     }
   })
 
+
+  function getQueryString(name) {//根据字段看网址是否拼接&字符串
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null)
+      return unescape(r[2]);
+    return null;
+  }
+
   wx.ready(function() {
+
+    var from = getQueryString('from');
+    var appinstall = getQueryString('appinstall');
+    var sec = getQueryString('sec');
+    var timekey = getQueryString('timekey');
+
+    if(from || appinstall || sec || timekey){//假如拼接上了
+      window.location.href = "http://ceibs.54jj.cn/422diqiu";
+    }
+
     var shareTitle="爱随行，panda go!";
-    var shareDesc="寻找一个对你我而言，十分重要的人";
-    var linkUrl=window.location.href;
-    var imgUrl="http://ceibs.54jj.cn/422diqiu/images/sharewx.jpg";
+    var shareDesc="参与熊猫绘画征集活动，环保袋T恤衫等礼品等着你";
+    var linkUrl= window.location.href;
+    var imgUrl="http://ceibs.54jj.cn/422diqiu/share.jpg";
 
     // 分享给微信好友
     wx.onMenuShareAppMessage({
