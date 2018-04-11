@@ -60,6 +60,27 @@ func (m *Service) GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
+type UploadToken struct {
+	Region          string `json:"region"`
+	Domain          string `json:"domain"`
+	Endpoint        string `json:"endpoint"`
+	AccessKeyId     string `json:"accessKeyId"`
+	AccessKeySecret string `json:"accessKeySecret"`
+	Bucket          string `json:"bucket"`
+}
+
+func (m *Service) GetUploadToken(c *gin.Context) {
+	ret := UploadToken{
+		Region:          m.cfg.Storage.Region,
+		Domain:          m.cfg.Storage.Domain,
+		Endpoint:        m.cfg.Storage.Endpoint,
+		AccessKeyId:     m.cfg.Storage.AccessKey,
+		AccessKeySecret: m.cfg.Storage.SecretKey,
+		Bucket:          m.cfg.Storage.Bucket,
+	}
+	c.JSON(http.StatusOK, ret)
+}
+
 func (m *Service) PutLotteryResult(c *gin.Context) {
 	var req Lottery
 	if err := c.BindJSON(&req); err != nil {

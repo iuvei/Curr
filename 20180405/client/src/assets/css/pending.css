@@ -1,0 +1,44 @@
+body{background-color: #f2f2f2;}
+
+.sort{width:100%;height:auto;background:#fff;border-top:1px solid #e5e5e5;padding:.5rem 0;margin-bottom: .5rem;}
+.sort span{float:left;width:calc(100% / 3);text-align:center;font-size:1rem;line-height:2;}
+.sort span:nth-child(2){border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;}
+.sort .current{color:#e62138;}
+
+.tabItem:not(:first-of-type){display: none;}
+
+.pendingList{background-color: #fff;}
+.pendingList .item{padding: .6rem 3.5%;}
+.pendingList .item:not(:last-of-type){border-bottom: 1px solid #e6e6e6;}
+.pendingList .item .img{width: 37%;}
+.pendingList .item .img img{display: block;width: 100%;}
+.pendingList .item>div.fr{width: 60%;}
+.pendingList .item>div.fr p{font: .8rem/1.6rem 'Microsoft YaHei';color: #a7a7a7;}
+.pendingList .item>div.fr .itemTitle{font-size: 1rem;color: #414141;}
+.pendingList .item>div.fr .time{float: right;}
+.pendingList .item>div.fr .audit,
+.pendingList .item>div.fr .delBtn{font: 1rem/1.8 "Microsoft YaHei";padding: 0 .6rem;background-color: #e4112a;color: #fff;border-radius: 15px;margin-top: 1rem;margin-left: .5rem;}
+
+.pollList .item{background-color: #fff;width: 93%;margin: 0 auto .5rem;}
+.pollList .item .img{display: block;width: 100%;position: relative;overflow: hidden;}
+.pollList .item .img img{display: block;width: 100%;}
+.pollList .item .img .absDiv{position: absolute;font: .9rem/2.5 "Microsoft YaHei";background-color: #fff;box-shadow: 0 3px 4px rgba(0,0,0,.1);width: 10rem;text-align: center;top: 1rem;left: -3rem;transform: rotate(-45deg);color: #e4112a;}
+
+.pollList .item>div{font: 1rem/3rem 'Microsoft YaHei';padding: 0 2.5%;}
+.pollList .item>div a.fl{padding-left: 1.2rem;background: url("../images/trophy_2.png") no-repeat left/auto 1.2rem;}
+.pollList .item:first-of-type>div a.fl{padding-left: 1.2rem;background: url("../images/trophy_1.png") no-repeat left/auto 1.2rem;}
+.pollList .item>div a.fr{padding-left: 1.2rem;background: url("../images/icon_endorse.png") no-repeat left/auto 1rem;}
+
+.lotteryRes .item{background-color: #fff;margin-bottom: .5rem;}
+.lotteryRes .item .prize{display: block;margin: auto;width: 20%;padding: 1.5rem 0 1rem;}
+.lotteryRes .item .prizeName{text-align: center;color: #e4112a;}
+.lotteryRes .item>div{border-top: 1px solid #f2f2f2;margin-top: 1.2rem;padding: 0 3.5%;font: 1rem/3 "Microsoft YaHei";color: #414141;}
+.lotteryRes .item>div .name{margin-right: 5rem;}
+.lotteryRes .item>div .addr{border-top: 1px solid #f2f2f2;padding-left: 1.5rem;background: url("../images/icon_addr.png") no-repeat left/auto 1.2rem;}
+
+
+
+
+
+
+

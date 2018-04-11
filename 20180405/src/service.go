@@ -35,7 +35,7 @@ func (m *Service) genUrl(path string) string {
 		return ""
 	}
 
-	return fmt.Sprintf("//%s/%s", m.cfg.S.Domain, path)
+	return fmt.Sprintf("//%s/%s", m.cfg.Storage.Domain, path)
 }
 
 func (m *Service) GetUsersZuoPins(c *gin.Context) {
@@ -182,13 +182,54 @@ func (m *Service) UploadImage(c *gin.Context) {
 	c.JSON(http.StatusOK, zp)
 }
 
+func (m *Service) PutZuopinImage(c *gin.Context) {
+	userId := c.Param("userId")
+	if userId == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "用户ID不能为空"})
+		return
+	}
+
+	var zp ZuoPin
+	if err := c.BindJSON(&zp); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
+		return
+	}
+
+	zp.Id = GenId()
+	zp.UserId = userId
+	zp.CreateAt = GetCurrTime()
+
+	var num CurrNum
+	if _, err := m.colls.CurrNumColl.Upsert(M{"type": "CURRNUM"}, M{"$inc": M{"num": 1}}); err != nil {
+		log.Error(err)
+	}
+	if err := m.colls.CurrNumColl.Find(M{"type": "CURRNUM"}).One(&num); err != nil {
+		log.Error(err)
+	}
+
+	zp.Num = fmt.Sprintf("%d", num.Num)
+
+	if err := m.colls.ZuoPinColl.Insert(zp); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
+		return
+	}
+
+	if _, err := m.colls.UserColl.UpsertId(userId, M{"$set": M{"name": zp.Name, "phone": userId, "lcount": 1}}); err != nil {
+		log.Error(err)
+	}
+
+	c.JSON(http.StatusOK, zp)
+}
+
 func (m *Service) PutChoujiang(c *gin.Context) {
 	userId := c.Param("userId")
 	if userId == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"message": "用户ID不能为空"})
 		return
 	}
-	if _, err := m.colls.UserColl.UpsertId(userId, M{"$inc": M{"lcount": -1}}); err != nil {
+	if _, err := m.colls.UserColl.UpsertId(userId, M{"$inc": M{"lcount": -1}, "$set": M{"dealed": true}}); err != nil {
 		log.Error(err)
 		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
 		return

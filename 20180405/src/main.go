@@ -24,6 +24,7 @@ func main() {
 			Env{Dev: true},
 			mgoutil.Config{Host: "127.0.0.1", DB: "zuopin_dev"},
 			EndPoint{"localhost", "8005", runtime.NumCPU()/2 + 1, 1, "./"},
+			StorageConfig{},
 		}
 		log.Infof("%+v", cfg)
 	}
@@ -101,7 +102,7 @@ func main() {
 	usersGroup := rootApi.Group("users")
 	{
 		usersGroup.POST("/:userId", srv.PostUser)
-		usersGroup.PUT("/:userId/zp", srv.UploadImage)
+		usersGroup.PUT("/:userId/zp", srv.PutZuopinImage)
 		usersGroup.PUT("/:userId/choujiang", srv.PutChoujiang)
 		usersGroup.GET("/:userId", srv.GetUser)
 		usersGroup.GET("/:userId/zps", srv.GetUsersZuoPins)
@@ -117,7 +118,7 @@ func main() {
 
 		//zpsGroup.DELETE("/:userId", srv.DeleteUser)
 	}
-
+	rootApi.GET("token", srv.GetUploadToken)
 	rootApi.PUT("lottery", srv.PutLotteryResult)
 
 	// Listen and Server in 0.0.0.0:8008
@@ -146,7 +147,17 @@ type WX struct {
 }
 
 type Config struct {
-	E Env            `json:"env"`
-	M mgoutil.Config `json:"mgo"`
-	S EndPoint       `json:"service"`
+	E       Env            `json:"env"`
+	M       mgoutil.Config `json:"mgo"`
+	S       EndPoint       `json:"service"`
+	Storage StorageConfig  `json:"storage"`
+}
+
+type StorageConfig struct {
+	Endpoint  string `json:"endpoint"`
+	Domain    string `json:"domain"`
+	AccessKey string `json:"accessKey"`
+	SecretKey string `json:"secretKey"`
+	Bucket    string `json:"bucket"`
+	Region    string `json:"region"`
 }

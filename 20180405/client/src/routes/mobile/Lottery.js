@@ -65,15 +65,22 @@ export default class Lottery extends Component {
 
   onStart = () => {
     const {user} = this.state;
+
+    if (user.dealed) {
+      Toast.show("您已经抽过奖啦！");
+      return
+    }
+
     if (user.lcount <= 0) {
       Toast.fail("您没有抽奖机会，请上传作品");
       return
     }
 
     putChoujiang({userId: user.userId}).then(data => {
-      if (data.code == undefined) {
-        this.setState({user: {...user, lcount: user.lcount - 1}})
+      if (data.code != undefined) {
+        Toast.show("内部错误")
       } else {
+        this.setState({user: {...user, lcount: user.lcount - 1}})
         this.setState({total: 2 * 8 + Math.floor(Math.random() * 10), curr: 0, count: 0});
         const handler = setInterval(() => {
           const {total, curr, count} = this.state;

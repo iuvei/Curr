@@ -2,12 +2,18 @@ import {parse, stringify} from 'qs';
 import request from '../utils/request';
 import {getCookie} from '../utils/cookies';
 
+export async function getUploadToken() {
+  return request(`/v1/token`, {
+    method: 'GET',
+  });
+}
+
 //上传
-export async function sendZuoPin(params) {
+export async function sendZuoPin(params){
   return request(`/v1/users/${getCookie('userId')}/zp`, {
     method: 'PUT',
-    headers: {},
-    body: params,
+    //headers: {"Content-Length": params.size},
+    body:  JSON.stringify(params),
   });
 }
 
@@ -29,12 +35,11 @@ export async function getUserByUserId(params) {
 
 //抽奖
 export async function putChoujiang(params) {
-  return request(`/v1/users/${params.id}/choujiang`, {
+  return request(`/v1/users/${params.userId || ''}/choujiang`, {
     method: 'PUT',
     //body: JSON.stringify(params),
   });
 }
-
 
 
 //通过排序条件获取作品
@@ -65,7 +70,6 @@ export async function putLotteryResult(params) {
     body: JSON.stringify(params),
   });
 }
-
 
 
 export async function getAllMessages(params) {

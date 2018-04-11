@@ -12,6 +12,7 @@ import Tpym_xq from './routes/mobile/Tpym_xq';
 import Wdjp from './routes/mobile/Wdjp';
 import Lottery from './routes/mobile/Lottery';
 import LotteryResult from './routes/mobile/LotteryResult';
+import Admin from './routes/mobile/Admin';
 
 function routerChange() {
   //document.getElementById("createOrderUserList").style.display = "none";
@@ -23,6 +24,7 @@ function RouterConfig({history}) {
       <Route path="/fair" component={FairDetail}/>
       <Route path="/login" component={Login}/>
       <Route path="/tpym_xq" component={Tpym_xq}/>
+      <Route path="/admin" component={Admin}/>
 
       <Route path="/" onEnter={routerChange} component={MobilePage}>
         <IndexRedirect to='index'/>
