@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/css/lotteryResult.css';
 import {putLotteryResult} from '../../services/mobile';
+import {getCookie} from '../../utils/cookies';
 import {Toast} from 'antd-mobile';
 /**
  * Created by sven on 2017/8/12.
@@ -19,7 +20,11 @@ export default class LotteryResult extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    putLotteryResult({name: e.target.name.value, phone: e.target.phone.value}).then(data => {
+    putLotteryResult({
+      userId: getCookie('userId'),
+      name: e.target.name.value,
+      phone: e.target.phone.value
+    }).then(data => {
       if (data !== undefined) {
         Toast.success("提交成功");
         setTimeout(() => hashHistory.push({pathname: "tpym", state: {from: "index"}}), 3000)

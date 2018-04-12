@@ -76,6 +76,20 @@ func (m *Service) GetUsersZuoPinById(c *gin.Context) {
 	c.JSON(http.StatusOK, zp)
 }
 
+func (m *Service) DeleteZuoPinById(c *gin.Context) {
+	zpId := c.Param("id")
+	if zpId == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "作品ID不能为空"})
+		return
+	}
+	if err := m.colls.ZuoPinColl.RemoveId(zpId); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, gin.H{"message": "内部错误"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{})
+}
+
 func (m *Service) PutZuoPinTouPiao(c *gin.Context) {
 	zpId := c.Param("id")
 	if zpId == "" {
@@ -122,6 +136,21 @@ func (m *Service) PutPvCount(c *gin.Context) {
 	}
 
 	if err := m.colls.ZuoPinColl.UpdateId(zpId, M{"$inc": M{"pv": 1}}); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, gin.H{"message": "内部错误"})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{})
+}
+
+func (m *Service) PuTongGuo(c *gin.Context) {
+	zpId := c.Param("id")
+	if zpId == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "作品ID不能为空"})
+		return
+	}
+
+	if err := m.colls.ZuoPinColl.UpdateId(zpId, M{"$set": M{"status": true}}); err != nil {
 		log.Error(err)
 		c.JSON(http.StatusBadRequest, gin.H{"message": "内部错误"})
 		return
@@ -198,6 +227,7 @@ func (m *Service) PutZuopinImage(c *gin.Context) {
 
 	zp.Id = GenId()
 	zp.UserId = userId
+	zp.Status = false
 	zp.CreateAt = GetCurrTime()
 
 	var num CurrNum
@@ -239,11 +269,20 @@ func (m *Service) PutChoujiang(c *gin.Context) {
 }
 
 func (m *Service) GetZuoPins(c *gin.Context) {
+	status := c.DefaultQuery("status", "")
 	sorted := c.DefaultQuery("sorted", "")
 
-	var zps []ZuoPin
+	sql := M{}
+	if status == "false" {
+		sql["status"] = false
+	}
+	if status == "true" {
+		sql["status"] = true
+	}
+
+	zps := make([]ZuoPin, 0)
 	var err error
-	query := m.colls.ZuoPinColl.Find(M{})
+	query := m.colls.ZuoPinColl.Find(sql)
 	if sorted == "" {
 		err = query.Sort("-createAt").All(&zps)
 	}

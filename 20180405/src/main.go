@@ -113,13 +113,21 @@ func main() {
 	{
 		zpsGroup.GET("", srv.GetZuoPins)
 		zpsGroup.GET("/:id", srv.GetUsersZuoPinById)
+		zpsGroup.DELETE("/:id", srv.DeleteZuoPinById)
 		zpsGroup.PUT("/:id/toupiao", srv.PutZuoPinTouPiao)
 		zpsGroup.PUT("/:id/pv", srv.PutPvCount)
+		zpsGroup.PUT("/:id/tongguo", srv.PuTongGuo)
 
 		//zpsGroup.DELETE("/:userId", srv.DeleteUser)
 	}
 	rootApi.GET("token", srv.GetUploadToken)
-	rootApi.PUT("lottery", srv.PutLotteryResult)
+	lotteryGroup := rootApi.Group("lottery")
+	{
+		lotteryGroup.GET("", srv.GetLotteryResult)
+		lotteryGroup.POST("", srv.PostLotteryResult)
+		lotteryGroup.PUT("/:userId", srv.PutLotteryResult)
+
+	}
 
 	// Listen and Server in 0.0.0.0:8008
 	if cfg.E.Dev {

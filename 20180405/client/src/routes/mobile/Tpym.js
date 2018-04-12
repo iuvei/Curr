@@ -21,7 +21,7 @@ export default class Tpym extends Component {
   }
 
   getZPs = (type) => {
-    getZuoPins({sorted: type}).then(data => {
+    getZuoPins({sorted: type, status: true}).then(data => {
       if (data !== undefined) {
         this.setState({zuopins: data.zps});
       }

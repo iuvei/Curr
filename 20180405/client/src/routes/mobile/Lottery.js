@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Router, Route, IndexRoute, hashHistory, Link} from 'react-router';
 import '../../assets/css/lottery.css';
 import {getCookie} from '../../utils/cookies';
-import {getUserByUserId, putChoujiang} from '../../services/mobile';
+import {getUserByUserId, putChoujiang, postLotteryResult} from '../../services/mobile';
 import {Toast} from 'antd-mobile';
 /**
  * Created by sven on 2017/8/12.
@@ -11,6 +11,7 @@ import {Toast} from 'antd-mobile';
 
 const PATH_LotteryResult = "/lotteryResult";
 const PATH_Regulate = "/regulate";
+const PATH_Wdjp = "/wdjp";
 
 export default class Lottery extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class Lottery extends Component {
 
   componentDidMount() {
     getUserByUserId({userId: getCookie("userId")}).then(data => {
-      if (data.code == undefined) {
+      if (data.code === undefined) {
         this.setState({
           user: data,
         })
@@ -55,21 +56,31 @@ export default class Lottery extends Component {
       result = "3"
     }
     console.log('===', curr, result);
-    hashHistory.push({pathname: PATH_LotteryResult, state: result});
+
+    postLotteryResult({userId: getCookie("userId"), result: result}).then(data => {
+      if (data !== undefined) {
+        hashHistory.push({pathname: PATH_LotteryResult, state: result});
+        //setTimeout(() => hashHistory.push({pathname: "tpym", state: {from: "index"}}), 3000)
+      }
+    })
   };
 
   gotoRegulate = () => {
     hashHistory.push({pathname: PATH_Regulate, state: {from: "index"}});
   };
 
+  gotoWdjp = () => {
+    hashHistory.push({pathname: PATH_Wdjp, state: {from: "index"}});
+  };
+
 
   onStart = () => {
     const {user} = this.state;
 
-    if (user.dealed) {
-      Toast.show("您已经抽过奖啦！");
-      return
-    }
+    // if (user.dealed) {
+    //   Toast.show("您已经抽过奖啦！");
+    //   return
+    // }
 
     if (user.lcount <= 0) {
       Toast.fail("您没有抽奖机会，请上传作品");
@@ -77,7 +88,7 @@ export default class Lottery extends Component {
     }
 
     putChoujiang({userId: user.userId}).then(data => {
-      if (data.code != undefined) {
+      if (data.code !== undefined) {
         Toast.show("内部错误")
       } else {
         this.setState({user: {...user, lcount: user.lcount - 1}})
@@ -87,6 +98,7 @@ export default class Lottery extends Component {
           console.log(total, count);
           if (total < count) {
             clearInterval(handler);
+            setTimeout(() => this.gotoLotteryResult(), 2000);
           }
           this.setState({curr: (curr + 1) % 8, count: count + 1})
         }, 150)
@@ -107,7 +119,7 @@ export default class Lottery extends Component {
         </div>
         <div className="main">
           <img src={require("../../assets/images/img_lottery.png")}/>
-          <img src={require("../../assets/images/img_lottery_absImg.png")} className="absImg"/>
+          {/*<img src={require("../../assets/images/img_lottery_absImg.png")} className="absImg"/>*/}
           <div className="absChance">您有{lcount || 0}次抽奖机会</div>
           <div className="absDiv">
             {/*<p className="tips">姚某某用户抽中地图（滚动）</p>*/}
@@ -126,7 +138,7 @@ export default class Lottery extends Component {
             </div>
           </div>
         </div>
-        <a href="javascript:void(0)" className="viewResults" onClick={this.gotoLotteryResult}>查看中奖</a>
+        <a href="javascript:void(0)" className="viewResults" onClick={this.gotoWdjp}>查看中奖</a>
       </div>
     );
   }

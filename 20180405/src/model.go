@@ -19,6 +19,7 @@ type User struct {
 type ZuoPin struct {
 	Id       string   `json:"id" bson:"_id"`
 	UserId   string   `json:"userId" bson:"userId"` //用户ID
+	Status   bool     `json:"status" bson:"status"` //审核状态
 	Name     string   `json:"name" bson:"name"`
 	Num      string   `json:"num" bson:"num"`
 	ZPName   string   `json:"zpName" bson:"zpName"`
@@ -37,6 +38,7 @@ type TouPiao struct {
 type Lottery struct {
 	Id       string `json:"id" bson:"_id"`
 	UserId   string `json:"userId" bson:"userId"`
+	Result   string `json:"result" bson:"result"`
 	Name     string `json:"name" bson:"name"`
 	Phone    string `json:"phone" bson:"phone"`
 	CreateAt string `json:"createAt" bson:"createAt"`

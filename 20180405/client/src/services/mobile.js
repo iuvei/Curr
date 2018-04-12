@@ -44,10 +44,25 @@ export async function putChoujiang(params) {
 
 //通过排序条件获取作品
 export async function getZuoPins(params) {
-  return request(`/v1/zps?sorted=${params.sorted || ''}`, {
+  return request(`/v1/zps?sorted=${params.sorted || ''}&status=${params.status}`, {
       method: 'GET',
     }
   )
+}
+
+//删除
+export async function deleteZuoPins(params) {
+  return request(`/v1/zps/${params.id}`, {
+      method: 'DELETE',
+    }
+  )
+}
+
+//作品审核通过
+export async function putZuoPinongguo(params) {
+  return request(`/v1/zps/${params.id}/tongguo`, {
+    method: 'PUT'
+  });
 }
 
 //作品投票
@@ -64,8 +79,21 @@ export async function putPv(params) {
   });
 }
 
-export async function putLotteryResult(params) {
+export async function getLotteryResult(params) {
+  return request(`/v1/lottery?userId=${params.userId}`, {
+    method: 'GET'
+  });
+}
+
+export async function postLotteryResult(params) {
   return request(`/v1/lottery`, {
+    method: 'POST',
+    body: JSON.stringify(params),
+  });
+}
+
+export async function putLotteryResult(params) {
+  return request(`/v1/lottery/${params.userId}`, {
     method: 'PUT',
     body: JSON.stringify(params),
   });

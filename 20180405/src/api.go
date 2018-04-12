@@ -81,7 +81,22 @@ func (m *Service) GetUploadToken(c *gin.Context) {
 	c.JSON(http.StatusOK, ret)
 }
 
-func (m *Service) PutLotteryResult(c *gin.Context) {
+func (m *Service) GetLotteryResult(c *gin.Context) {
+	userId := c.DefaultQuery("userId", "")
+	if userId == "" {
+		c.JSON(http.StatusBadRequest, ErrBadRequest(fmt.Errorf("ID不能为空")))
+		return
+	}
+	lotterys := make([]Lottery, 0)
+	if err := m.colls.LotterysColl.Find(M{"userId": userId}).All(&lotterys); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
+		return
+	}
+	c.JSON(http.StatusOK, lotterys)
+}
+
+func (m *Service) PostLotteryResult(c *gin.Context) {
 	var req Lottery
 	if err := c.BindJSON(&req); err != nil {
 		log.Error(err)
@@ -90,8 +105,25 @@ func (m *Service) PutLotteryResult(c *gin.Context) {
 	}
 	id := GenId()
 	req.Id = id
-	req.CreateAt = GetCurrTime()
+	req.CreateAt = GetCurrDay()
 	if _, err := m.colls.LotterysColl.UpsertId(id, req); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
+		return
+	}
+	c.JSON(http.StatusOK, req)
+}
+
+func (m *Service) PutLotteryResult(c *gin.Context) {
+	userId := c.Param("userId")
+	var req Lottery
+	if err := c.BindJSON(&req); err != nil {
+		log.Error(err)
+		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
+		return
+	}
+
+	if _, err := m.colls.LotterysColl.Upsert(M{"userId": userId}, M{"$set": M{"name": req.Name, "phone": req.Phone}}); err != nil {
 		log.Error(err)
 		c.JSON(http.StatusBadRequest, ErrBadRequest(err))
 		return

@@ -5,7 +5,6 @@ body{background-color: #f2f2f2;}
 .sort span:nth-child(2){border-left:1px solid #e6e6e6;border-right:1px solid #e6e6e6;}
 .sort .current{color:#e62138;}
 
-.tabItem:not(:first-of-type){display: none;}
 
 .pendingList{background-color: #fff;}
 .pendingList .item{padding: .6rem 3.5%;}
