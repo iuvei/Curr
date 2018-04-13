@@ -41,6 +41,7 @@ type Lottery struct {
 	Result   string `json:"result" bson:"result"`
 	Name     string `json:"name" bson:"name"`
 	Phone    string `json:"phone" bson:"phone"`
+	Addr     string `json:"addr" bson:"addr"`
 	CreateAt string `json:"createAt" bson:"createAt"`
 }
 

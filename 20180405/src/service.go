@@ -227,7 +227,7 @@ func (m *Service) PutZuopinImage(c *gin.Context) {
 
 	zp.Id = GenId()
 	zp.UserId = userId
-	zp.Status = false
+	zp.Status = true
 	zp.CreateAt = GetCurrTime()
 
 	var num CurrNum
@@ -278,6 +278,10 @@ func (m *Service) GetZuoPins(c *gin.Context) {
 	}
 	if status == "true" {
 		sql["status"] = true
+	}
+
+	if status == "neTrue" { //不等于true
+		sql["status"] = M{"$ne": true}
 	}
 
 	zps := make([]ZuoPin, 0)

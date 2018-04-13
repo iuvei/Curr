@@ -9,11 +9,11 @@ export async function getUploadToken() {
 }
 
 //上传
-export async function sendZuoPin(params){
+export async function sendZuoPin(params) {
   return request(`/v1/users/${getCookie('userId')}/zp`, {
     method: 'PUT',
     //headers: {"Content-Length": params.size},
-    body:  JSON.stringify(params),
+    body: JSON.stringify(params),
   });
 }
 
@@ -81,6 +81,12 @@ export async function putPv(params) {
 
 export async function getLotteryResult(params) {
   return request(`/v1/lottery?userId=${params.userId}`, {
+    method: 'GET'
+  });
+}
+
+export async function getAllLotteryResult(params) {
+  return request(`/v1/lottery?result=1`, {
     method: 'GET'
   });
 }

@@ -1,4 +1,5 @@
 import fetch from 'dva/fetch';
+import {Toast} from 'antd-mobile';
 
 function parseJSON(response) {
   return response.json();
@@ -27,8 +28,10 @@ export default function request(url, options) {
   }
 
   options.credentials = 'include';
+  //return fetch("422diqiu"+url, options)
   return fetch(url, options)
   //.then(checkStatus)
     .then(parseJSON)
-    .catch(err => ({err}));
+    //.catch(err => ({err}));
+    .catch(err => Toast.show(err));
 }

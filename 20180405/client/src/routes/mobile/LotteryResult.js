@@ -19,11 +19,19 @@ export default class LotteryResult extends Component {
   }
 
   onSubmit = (e) => {
+    const name = e.target.name.value;
+    const phone = e.target.phone.value;
+    const addr = e.target.addr.value;
+    if (name == "" || phone == "" || addr || "") {
+      Toast.show("请认真填写，方便给你寄送礼品");
+      return
+    }
     e.preventDefault();
     putLotteryResult({
       userId: getCookie('userId'),
       name: e.target.name.value,
-      phone: e.target.phone.value
+      phone: e.target.phone.value,
+      addr: e.target.addr.value,
     }).then(data => {
       if (data !== undefined) {
         Toast.success("提交成功");
@@ -57,6 +65,10 @@ export default class LotteryResult extends Component {
             <div className="line">
               <span>电话</span>
               <input type="text" placeholder="请输入您的联系方式" name="phone"/>
+            </div>
+            <div className="line">
+              <span>地址</span>
+              <input type="text" placeholder="请输入您的联系地址" name="addr"/>
             </div>
             <p className="tips">温馨提示：联系方式不要填错了</p>
             <button type="submit">马上领取</button>

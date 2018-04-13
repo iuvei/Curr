@@ -4,7 +4,7 @@ import '../../assets/css/pending.css';
 import {setCookie} from '../../utils/cookies';
 import {Modal, Toast} from 'antd-mobile';
 const prompt = Modal.prompt;
-import {getZuoPins, deleteZuoPins, putZuoPinongguo} from '../../services/mobile';
+import {getZuoPins, deleteZuoPins, putZuoPinongguo, getAllLotteryResult} from '../../services/mobile';
 
 /**
  * Created by sven on 2017/8/12.
@@ -19,6 +19,7 @@ export default class Admin extends Component {
     this.state = {
       curr: '1',
       zuopins: [],
+      lotterys: [],
     }
   }
 
@@ -33,7 +34,7 @@ export default class Admin extends Component {
   }
 
   getZPs = () => {
-    getZuoPins({sorted: '', status: false}).then(data => {
+    getZuoPins({sorted: '', status: 'neTrue'}).then(data => {
       if (data !== undefined) {
         this.setState({zuopins: data.zps});
       }
@@ -74,11 +75,16 @@ export default class Admin extends Component {
 
   choujiangResult = () => {
     this.setState({curr: '3'})
+    getAllLotteryResult().then(data => {
+      if (data !== undefined) {
+        this.setState({lotterys: data});
+      }
+    })
   }
 
   render() {
-    const {zuopins, curr} = this.state;
-    console.log(zuopins)
+    const {zuopins, curr, lotterys} = this.state;
+    console.log(lotterys)
     return (
       <div id="admin">
         <div className="title">待审核作品</div>
@@ -102,7 +108,7 @@ export default class Admin extends Component {
                           <a href="javascript:" className="itemTitle">《{e.zpName}》</a>
                           <span className="time">{e.createAt}</span>
                         </p>
-                        <a href="javascript:" className="audit fr" onClick={() => this.tongGuo(e.id)}>立即审核</a>
+                        {/*<a href="javascript:" className="audit fr" onClick={() => this.tongGuo(e.id)}>立即审核</a>*/}
                         <a href="javascript:" className="delBtn fr" onClick={() => this.deleteZp(e.id)}>删除</a>
                       </div>
                     </div>
@@ -134,22 +140,20 @@ export default class Admin extends Component {
           </div>
           <div className="tabItem" style={curr == "3" ? {display: 'block'} : {display: 'none'}}>
             <div className="lotteryRes">
-              <div className="item">
-                <img src={require("../../assets/images/img_3.png")} className="prize"/>
-                <p className="prizeName">500代金券</p>
-                <div>
-                  <p><span className="name">张三</span>17388298829</p>
-                  <p className="addr">深圳福田区车公庙XX大厦28-1</p>
-                </div>
-              </div>
-              <div className="item">
-                <img src={require("../../assets/images/img_3.png")} className="prize"/>
-                <p className="prizeName">小米平衡车</p>
-                <div>
-                  <p><span className="name">张三</span>17388298829</p>
-                  <p className="addr">深圳福田区车公庙XX大厦28-1</p>
-                </div>
-              </div>
+              {
+                lotterys.map((e, i) => {
+                  return (
+                    <div className="item" key={i}>
+                      <img src={require("../../assets/images/img_lotteryResult_1.png")} className="prize"/>
+                      <p className="prizeName">袋子</p>
+                      <div>
+                        <p><span className="name">{e.name}</span>{e.phone}</p>
+                        <p className="addr">地址：{e.addr}</p>
+                      </div>
+                    </div>
+                  );
+                })
+              }
             </div>
           </div>
         </div>
